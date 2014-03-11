@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.6.0_65" class="java.beans.XMLDecoder"> 
+ <array class="com.xk72.charles.tools.rewrite.RewriteSet" length="1"> 
+  <void index="0"> 
+   <object class="com.xk72.charles.tools.rewrite.RewriteSet"> 
+    <void property="active"> 
+     <boolean>true</boolean> 
+    </void> 
+    <void property="hosts"> 
+     <void property="locationPatterns"> 
+      <void method="add"> 
+       <object class="com.xk72.charles.lib.DefaultLocationMatch"> 
+        <void property="location"> 
+         <object class="com.xk72.net.Location"> 
+          <void property="host"> 
+           <string>localhost</string> 
+          </void> 
+          <void property="path"> 
+           <string>*</string> 
+          </void> 
+          <void property="port"> 
+           <string>*</string> 
+          </void> 
+          <void property="protocol"> 
+           <string>http</string> 
+          </void> 
+          <void property="query"> 
+           <string>*</string> 
+          </void> 
+         </object> 
+        </void> 
+       </object> 
+      </void> 
+      <void method="add"> 
+       <object class="com.xk72.charles.lib.DefaultLocationMatch"> 
+        <void property="location"> 
+         <object class="com.xk72.net.Location"> 
+          <void property="host"> 
+           <string>127.0.0.1</string> 
+          </void> 
+          <void property="path"> 
+           <string>*</string> 
+          </void> 
+          <void property="port"> 
+           <string>*</string> 
+          </void> 
+          <void property="protocol"> 
+           <string>http</string> 
+          </void> 
+          <void property="query"> 
+           <string>*</string> 
+          </void> 
+         </object> 
+        </void> 
+       </object> 
+      </void> 
+     </void> 
+    </void> 
+    <void property="name"> 
+     <string>IGB Headers</string> 
+    </void> 
+    <void property="rules"> 
+     <void method="add"> 
+      <object class="com.xk72.charles.tools.rewrite.RewriteRule"> 
+       <void property="active"> 
+        <boolean>true</boolean> 
+       </void> 
+       <void property="matchHeader"> 
+        <string></string> 
+       </void> 
+       <void property="matchRequest"> 
+        <boolean>true</boolean> 
+       </void> 
+       <void property="matchValue"> 
+        <string></string> 
+       </void> 
+       <void property="matchValueRegex"> 
+        <boolean>true</boolean> 
+       </void> 
+       <void property="newHeader"> 
+        <string>EVE_TRUSTED</string> 
+       </void> 
+       <void property="newValue"> 
+        <string>Yes</string> 
+       </void> 
+       <void property="replaceType"> 
+        <int>2</int> 
+       </void> 
+       <void property="ruleType"> 
+        <int>1</int> 
+       </void> 
+      </object> 
+     </void> 
+     <void method="add"> 
+      <object class="com.xk72.charles.tools.rewrite.RewriteRule"> 
+       <void property="active"> 
+        <boolean>true</boolean> 
+       </void> 
+       <void property="matchHeader"> 
+        <string></string> 
+       </void> 
+       <void property="matchRequest"> 
+        <boolean>true</boolean> 
+       </void> 
+       <void property="matchValue"> 
+        <string></string> 
+       </void> 
+       <void property="matchValueRegex"> 
+        <boolean>true</boolean> 
+       </void> 
+       <void property="newHeader"> 
+        <string>EVE_CHARID</string> 
+       </void> 
+       <void property="newValue"> 
+        <string>123456</string> 
+       </void> 
+       <void property="replaceType"> 
+        <int>2</int> 
+       </void> 
+       <void property="ruleType"> 
+        <int>1</int> 
+       </void> 
+      </object> 
+     </void> 
+     <void method="add"> 
+      <object class="com.xk72.charles.tools.rewrite.RewriteRule"> 
+       <void property="active"> 
+        <boolean>true</boolean> 
+       </void> 
+       <void property="matchHeader"> 
+        <string></string> 
+       </void> 
+       <void property="matchRequest"> 
+        <boolean>true</boolean> 
+       </void> 
+       <void property="matchValue"> 
+        <string></string> 
+       </void> 
+       <void property="matchValueRegex"> 
+        <boolean>true</boolean> 
+       </void> 
+       <void property="newHeader"> 
+        <string>EVE_SHIPTYPENAME</string> 
+       </void> 
+       <void property="newValue"> 
+        <string>ShipTypeName</string> 
+       </void> 
+       <void property="replaceType"> 
+        <int>2</int> 
+       </void> 
+       <void property="ruleType"> 
+        <int>1</int> 
+       </void> 
+      </object> 
+     </void> 
+     <void method="add"> 
+      <object class="com.xk72.charles.tools.rewrite.RewriteRule"> 
+       <void property="active"> 
+        <boolean>true</boolean> 
+       </void> 
+       <void property="matchHeader"> 
+        <string></string> 
+       </void> 
+       <void property="matchRequest"> 
+        <boolean>true</boolean> 
+       </void> 
+       <void property="matchValue"> 
+        <string></string> 
+       </void> 
+       <void property="matchValueRegex"> 
+        <boolean>true</boolean> 
+       </void> 
+       <void property="newHeader"> 
+        <string>EVE_SHIPTYPEID</string> 
+       </void> 
+       <void property="newValue"> 
+        <string>123456</string> 
+       </void> 
+       <void property="replaceType"> 
+        <int>2</int> 
+       </void> 
+       <void property="ruleType"> 
+        <int>1</int> 
+       </void> 
+      </object> 
+     </void> 
+     <void method="add"> 
+      <object class="com.xk72.charles.tools.rewrite.RewriteRule"> 
+       <void property="active"> 
+        <boolean>true</boolean> 
+       </void> 
+       <void property="matchHeader"> 
+        <string></string> 
+       </void> 
+       <void property="matchRequest"> 
+        <boolean>true</boolean> 
+       </void> 
+       <void property="matchValue"> 
+        <string></string> 
+       </void> 
+       <void property="matchValueRegex"> 
+        <boolean>true</boolean> 
+       </void> 
+       <void property="newHeader"> 
+        <string>EVE_CHARNAME</string> 
+       </void> 
+       <void property="newValue"> 
+        <string>CharacterName</string> 
+       </void> 
+       <void property="replaceType"> 
+        <int>2</int> 
+       </void> 
+       <void property="ruleType"> 
+        <int>1</int> 
+       </void> 
+      </object> 
+     </void> 
+     <void method="add"> 
+      <object class="com.xk72.charles.tools.rewrite.RewriteRule"> 
+       <void property="active"> 
+        <boolean>true</boolean> 
+       </void> 
+       <void property="matchHeader"> 
+        <string></string> 
+       </void> 
+       <void property="matchRequest"> 
+        <boolean>true</boolean> 
+       </void> 
+       <void property="matchValue"> 
+        <string></string> 
+       </void> 
+       <void property="matchValueRegex"> 
+        <boolean>true</boolean> 
+       </void> 
+       <void property="newHeader"> 
+        <string>EVE_SOLARSYSTEMNAME</string> 
+       </void> 
+       <void property="newValue"> 
+        <string>SystemName</string> 
+       </void> 
+       <void property="replaceType"> 
+        <int>2</int> 
+       </void> 
+       <void property="ruleType"> 
+        <int>1</int> 
+       </void> 
+      </object> 
+     </void> 
+     <void method="add"> 
+      <object class="com.xk72.charles.tools.rewrite.RewriteRule"> 
+       <void property="active"> 
+        <boolean>true</boolean> 
+       </void> 
+       <void property="matchHeader"> 
+        <string></string> 
+       </void> 
+       <void property="matchRequest"> 
+        <boolean>true</boolean> 
+       </void> 
+       <void property="matchValue"> 
+        <string></string> 
+       </void> 
+       <void property="matchValueRegex"> 
+        <boolean>true</boolean> 
+       </void> 
+       <void property="newHeader"> 
+        <string>EVE_SOLARSYSTEMID</string> 
+       </void> 
+       <void property="newValue"> 
+        <string>123456</string> 
+       </void> 
+       <void property="replaceType"> 
+        <int>2</int> 
+       </void> 
+       <void property="ruleType"> 
+        <int>1</int> 
+       </void> 
+      </object> 
+     </void> 
+     <void method="add"> 
+      <object class="com.xk72.charles.tools.rewrite.RewriteRule"> 
+       <void property="active"> 
+        <boolean>true</boolean> 
+       </void> 
+       <void property="matchHeader"> 
+        <string></string> 
+       </void> 
+       <void property="matchRequest"> 
+        <boolean>true</boolean> 
+       </void> 
+       <void property="matchValue"> 
+        <string></string> 
+       </void> 
+       <void property="matchValueRegex"> 
+        <boolean>true</boolean> 
+       </void> 
+       <void property="newHeader"> 
+        <string>EVE_STATIONNAME</string> 
+       </void> 
+       <void property="newValue"> 
+        <string>StationName</string> 
+       </void> 
+       <void property="replaceType"> 
+        <int>2</int> 
+       </void> 
+       <void property="ruleType"> 
+        <int>1</int> 
+       </void> 
+      </object> 
+     </void> 
+     <void method="add"> 
+      <object class="com.xk72.charles.tools.rewrite.RewriteRule"> 
+       <void property="matchHeader"> 
+        <string></string> 
+       </void> 
+       <void property="matchRequest"> 
+        <boolean>true</boolean> 
+       </void> 
+       <void property="matchValue"> 
+        <string></string> 
+       </void> 
+       <void property="matchValueRegex"> 
+        <boolean>true</boolean> 
+       </void> 
+       <void property="newHeader"> 
+        <string>EVE_STATIONID</string> 
+       </void> 
+       <void property="newValue"> 
+        <string>123456</string> 
+       </void> 
+       <void property="replaceType"> 
+        <int>2</int> 
+       </void> 
+       <void property="ruleType"> 
+        <int>1</int> 
+       </void> 
+      </object> 
+     </void> 
+     <void method="add"> 
+      <object class="com.xk72.charles.tools.rewrite.RewriteRule"> 
+       <void property="active"> 
+        <boolean>true</boolean> 
+       </void> 
+       <void property="matchHeader"> 
+        <string></string> 
+       </void> 
+       <void property="matchRequest"> 
+        <boolean>true</boolean> 
+       </void> 
+       <void property="matchValue"> 
+        <string></string> 
+       </void> 
+       <void property="matchValueRegex"> 
+        <boolean>true</boolean> 
+       </void> 
+       <void property="newHeader"> 
+        <string>EVE_SHIPNAME</string> 
+       </void> 
+       <void property="newValue"> 
+        <string>ShipName</string> 
+       </void> 
+       <void property="replaceType"> 
+        <int>2</int> 
+       </void> 
+       <void property="ruleType"> 
+        <int>1</int> 
+       </void> 
+      </object> 
+     </void> 
+    </void> 
+   </object> 
+  </void> 
+ </array> 
+</java> 

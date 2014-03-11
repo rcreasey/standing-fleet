@@ -1,0 +1,399 @@
+  /*/
+ / /  RESET
+ */
+
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,
+samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,
+article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{border:0;
+font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0}article,aside,details,figcaption,figure,footer,header,hgroup,menu,
+nav,section{display:block}body{line-height:1.5}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,
+q:after{content:none}table{border-collapse:collapse;border-spacing:0}
+
+  /*/
+ / /  BASE
+ */
+
+html {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-size: 11px;
+	color: #bbb;
+	background-color: #111;
+}
+
+a, a:visited { color: #e96; text-decoration: none }
+a:hover { color: #fda }
+
+  /*/
+ / /  LAYOUT
+ */
+
+#bottom-bar, #top-bar { width: 100%; }
+
+#top-menu, #top-bar { top: 0 }
+#bottom-bar, #bottom-menu { bottom: 0 }
+.sub-bar.left { left: 0 }
+.sub-bar.right { right: 0 }
+
+#top-bar, #top-menu, #bottom-bar, #bottom-menu, .sub-bar.left, .sub-bar.right, .member td {
+	background-color:#222;
+	border-bottom: 0.2rem solid #181818;
+	height: 2.2rem
+}
+#top-bar, #top-bar .sub-bar.right { background-color: #111; }
+#bottom-bar .sub-bar.left { background-color: transparent; }
+
+#top-bar, #top-menu, #bottom-bar, #bottom-menu, .sub-bar.left, .sub-bar.right{
+	z-index: 6;
+	position: fixed
+}
+
+#content-wrapper {
+	padding: 2.4rem 0rem;
+	height: 100%;
+	overflow: hidden
+}
+
+.main-content {
+	display: none;
+	height: 100%;
+	margin: 0 auto
+}
+.main-content.active { display: block }
+
+#dim {
+	background-color: #111;
+	position: fixed;
+	top:0;
+	left:0;
+	width: 100%;
+	height: 100%;
+	z-index: 7;
+	text-align: center;
+	padding-top: 2.5rem
+}
+
+#alert-container {
+	z-index: 1;
+	position: fixed;
+	bottom: 2.4rem;
+	left: 30%;
+	width: 70%
+}
+
+  /*/
+ / /  MISC ELEMENTS
+ */
+
+
+#top-logo { padding: 0.6rem; height: 1rem }
+
+.menu-button {
+	opacity: 0.5;
+	color: #fff;
+	display: inline-block;
+	height: 2rem;
+	padding: 0.3rem 1rem 0rem 1rem;
+	cursor: pointer;
+	background-color: #222;
+	border-top: 0.16rem solid #666;
+	border-left: 0.16rem solid #171717;
+	border-right: 0.16rem solid #171717;
+}
+
+.menu-button img {
+	margin: 0.25rem 0rem -0.15rem;
+	height: 1.0rem
+}
+
+.menu-button:hover, .menu-button.active {
+	opacity: 1.0;
+	border-top: 1px solid #aaa;
+}
+.menu-button.active { height: 2.2rem }
+.menu-button.blink { background-color: #842; }
+
+
+#bottom-menu-spinner {
+	width: 1.2rem;
+	background: none;
+	display: inline-block;
+	cursor:	default;
+	padding: 0rem 1rem 0rem 1rem;
+	border: none;
+}
+
+#info-strings span {
+	display: inline-block;
+	padding: 0rem;
+	color: #e96;
+}
+#info-strings {
+	padding: 0.4rem 0.6rem;
+}
+
+  /*/
+ / /  MEMBER
+ */
+
+.member {
+	width: 100%;
+	table-layout: fixed
+}
+
+.member td {
+	vertical-align: middle;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	height: 2.4rem;
+	border-top: 0.16rem solid #666;
+}
+
+.member td.system, .member td.ship-type, .member td.actions,
+.member td.name { padding-left: 0.6rem }
+
+.member td.system.docked a,
+.member td.ship-name { color: #888 }
+
+.member td.system { width: 6rem }
+.member td.ship-type { min-width: 10rem }
+
+.member td.ship-icon { vertical-align: top }
+
+.member td.ship-icon { width: 2.4rem; padding: 0rem }
+.member td.actions { width: 3rem; text-align: center }
+
+.member td.ship-icon div { position: relative; }
+.member td.ship-icon img { position: absolute; top: 0.3rem ; left: 0.3rem }
+
+.member td.actions img { width: 1rem; height: 1rem; opacity: 0.6; cursor: pointer }
+.member td.actions:hover img { opacity: 1 }
+
+  /*/
+ / /  EVENT
+ */
+
+.event {
+	color: #bbb;
+	clear: both;
+	border-top: 0.16rem solid #555;
+	background-color: #222;
+	border-bottom: 0.2rem solid #181818;
+	width: 100%;
+	position: relative;
+	height: 2.0rem;
+	padding: 0.2rem 0.5rem;
+}
+
+.event img.icon {
+	position: absolute;
+	top: 0.7rem;
+	left: 1rem;
+	width: 1.2rem;
+	height: 1.2rem
+}
+
+.event .text {
+	margin: 0.3rem 2.4rem;
+	display: block;
+	font-size: 1rem;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	height: 1.9rem;
+}
+
+.event .right {
+	height: 1.2rem;
+	padding: 0.5rem 1.8rem 0.5rem 1rem;
+	position: absolute;
+	top: 0rem;
+	right: 0rem;
+	display: block;
+	background-color: inherit;
+}
+
+.event.clickable { cursor: pointer }
+.event.memberJoined { 	background-color:#226; border-bottom: 0.2rem solid #113; border-top: 0.16rem solid #558; }
+.event.youJoined { 		background-color:#330; border-bottom: 0.2rem solid #110; border-top: 0.16rem solid #886; }
+.event.memberLeft {		background-color:#123; border-bottom: 0.2rem solid #012; border-top: 0.16rem solid #246; }
+.event.scanShared {		background-color:#332; border-bottom: 0.2rem solid #110; border-top: 0.16rem solid #553; }
+.event.error {			background-color:#411; border-bottom: 0.2rem solid #200; border-top: 0.16rem solid #633; }
+
+  /*/
+ / /  PANEL
+ */
+
+.panel {
+	position: relative;
+	background-color:#222; 
+	border-bottom: 0.2rem solid #111;
+	border-top: 1px solid #444;
+	text-align: center;
+	width: 100%;
+	max-width: 30rem;
+	margin: 0em auto;
+	padding-top: 2.4rem
+}
+
+.panel .content {
+	color: #aaa;
+	display: block;
+	padding: 0rem 2.4rem 0.4rem
+}
+
+.panel img {
+	display: block;
+	margin: 0px auto;
+	max-height: 2rem;
+	padding-bottom: 2.4rem
+}
+
+.panel .text {
+	padding-bottom: 2.4rem;
+}
+
+.panel .close {
+	width: 1rem;
+	height: 1rem;
+	padding: 0;
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	cursor: pointer
+}
+
+.panel .button {
+	font-size: 1rem;
+	text-align: center;
+	border: solid 0.16rem #111;
+	border-top: solid 0.16rem #666;
+	display: block;
+	width: 14rem;
+	text-decoration: none;
+	color: #ccc;
+	background-color:#333;
+	padding: 0.5rem;
+	margin: 0 auto 2.4rem;
+	cursor: pointer;
+	font-weight: normal
+}
+
+.panel .button:hover {
+	background-color:#444;
+	color: #fff
+}
+
+.panel .button.no-margin { margin-bottom: 0rem }
+
+.panel .textinput {
+	font-size: 1.2rem;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	background-color: #111;
+	width: 14.1rem;
+	color: #444;
+	padding: 0.8rem 0.4rem;
+	font-weight: normal;
+	text-align: center;
+	border: 0.16rem solid #111
+}
+
+.panel .legend {
+	display: block;
+	color: #666;
+	padding: 0.2rem;
+	width: 14rem;
+	margin: 0 auto;
+}
+
+.panel .error {
+	display: block;
+	padding: 1rem;
+	margin: 0rem auto 2.4rem;
+	background-color: #422;
+	border: 1px solid #d66;
+	width: 12rem;
+	color: #faa;
+}
+
+  /*/
+ / /  SCANS
+ */
+
+.scan .description-container {
+	position: relative;
+	height: 1.4rem;
+	padding: 0.5rem 1rem;
+	border-top: 0.16rem solid #666;
+	border-bottom: 0.16rem solid #111;
+	background-color: #181818;
+	color: #ddd;
+	cursor: pointer;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.scan .key { color: #888; }
+
+.scan .results-container {
+	background-color: #171717;
+	display: none;
+	padding-bottom: 1rem;
+}
+
+.scan .result {
+	background-color: #171717;
+}
+
+.scan .result .ship-type {
+	background-color: #222;
+	padding: 0.2rem 3rem 0.3rem;
+	display: block;
+	width: 100%;
+	border-top: 1px solid #111;
+	cursor: pointer;
+	color: #888;
+}
+.scan .result:first-child .ship-type { border: none;}
+
+.scan .result .details-container {
+	position: relative;
+	padding: 0.2rem 2.4rem 0.3rem 4.8rem;
+	display: none;
+	border-bottom: 1px solid #222;
+	color: #888;
+}
+
+.scan .result .details-container .ship-name {
+	padding: 0.5rem 0rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.scan .result .details-container .distance {
+	display: block;
+	position: absolute;
+	top: 0.2rem;
+	right: 1rem;
+}
+
+  /*/
+ / /  MEDIA QUERY
+ */
+
+@media only screen and (max-width: 350px) {
+	html { font-size: 9px }
+
+	#alert-container, .panel {
+		left: 0;
+		width: 100%;
+	}
+	#dim { padding-top: 0; }
+	.panel { max-width: none }
+
+	#info-strings-member, .menu-button span { display: none }
+	.menu-button img { margin-top: 0.3rem; }
+	.member td.ship-name { width: 0rem }
+	.member td.ship-icon img { width: 2rem; height:2rem }
+}

@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="language" content="en" />
+        <link rel="stylesheet" type="text/css" href="/css/main.css" />
+        <title>Armada</title>
+    </head>
+    <body>
+        <div id="page">
+            <div id="dim"></div>
+            <div id="top-bar">
+                <img class="active" id="top-logo" src="/images/top-logo.png" alt="Armada" />
+                <div class="sub-bar right" id="top-menu">
+                    <div class="menu-button members active" id="top-menu-members">
+                        <img src="/images/icon-armada.png" alt="Member list" />
+                        <span>MEMBERS</span>
+                    </div>
+                    <div class="menu-button events" id="top-menu-events">
+                        <img src="/images/icon-alert.png" alt="Events and alerts" />
+                        <span>EVENTS</span>
+                    </div>
+                    <div class="menu-button scans" id="top-menu-scans">
+                        <img src="/images/icon-scan.png" alt="Posted directional scans" />
+                        <span>SCANS</span>
+                    </div>
+                </div>
+            </div>
+            <div id="content-wrapper">
+                <div id="members" class="main-content active">
+                </div>
+                <div id="events" class="main-content">
+                </div>
+                <div id="scans" class="main-content">
+                </div>
+            </div>
+            <div id="bottom-bar">
+                <div class="sub-bar left" id="info-strings">
+                    <span id="info-string-armada-key"></span>
+                    <span id="info-string-armada-password"></span>
+                </div>
+                <div class="sub-bar right" id="bottom-menu">
+                    <div class="menu-button" id="bottom-menu-spinner">
+                        <img src="/images/spinner.gif" alt="Processing..." />
+                    </div>
+                    <div class="menu-button" id="bottom-menu-scan">
+                        <img src="/images/icon-scan.png" alt="Post d-scan result" />
+                        <span>SCAN</span>
+                    </div>
+                    <div class="menu-button" id="bottom-menu-menu">
+                        <img src="/images/icon-settings.png" alt="Open settings" />
+                        <span>MENU</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="alert-container"></div>
+
+        <script type="text/x-handlebars-template" id="panelTemplate">
+            <div class="panel {{type}}">
+                {{#if closeable}}
+                <img class="close" src="/images/icon-close.png" alt="Close panel" onClick="UIPanels.hidePanel()" />
+                {{/if}}
+                {{#if image}}
+                <img src="/images/{{image}}" alt="Panel image" />
+                {{/if}}
+                <div class="content">
+                {{#if text}}
+                    <div class="text">{{{text}}}</div>
+                {{/if}}
+                {{#if textinputs}}
+                    {{#each textinputs}}
+                    {{#if legend}}<span class="legend">{{{legend}}}</span>{{/if}}
+                    <textarea rows="1" class="textinput {{{class}}}"></textarea>
+                    {{/each}}
+                {{/if}}
+                {{#if buttons}}
+                    {{#each buttons}}
+                    <a {{#if link}}href="{{{link}}}"{{/if}} target="_blank" class="button {{{class}}}" onClick="{{{onClick}}}">{{{text}}}</a>
+                    {{/each}}
+                {{/if}}
+                {{#if error}}
+                    <span class="error">ERROR:<br />{{{error.message}}}</span>
+                {{/if}}
+                </div>
+            </div>
+        </script>
+
+        <script type="text/x-handlebars-template" id="alertTemplate">
+            <div class="event alert {{type}}" onClick="EventList.alertClick('{{type}}', '{{id}}')">
+                <img class="icon" src="/images/icon-{{type}}.png" />
+                <span class="text">{{{text}}}</span>
+            </div>
+        </script>
+
+        <script type="text/x-handlebars-template" id="eventTemplate">
+            <div class="event {{type}}" data-key="{{key}}">
+                <img class="icon" src="/images/icon-{{type}}.png" />
+                <span class="text">{{{text}}}</span>
+                <div class="right">
+                    {{#if respondable}}
+                    <span class="response">
+                        <a href="javascript:EventList.eventResponseClick('{{key}}', 'y')">Approve</a>
+                        &nbsp;|&nbsp;
+                        <a href="javascript:EventList.eventResponseClick('{{key}}', 'n')">Deny</a>
+                    </span>
+                    {{/if}}
+                    <span class="time">{{time}}</span>
+                </div>
+            </div>
+        </script>
+
+        <script type="text/x-handlebars-template" id="scanTemplate">
+            <div class="scan">
+                <div class="description-container" onclick="ScanList.toggleCollapse(this)">
+                    <span class="text">
+                        {{time}} - <a href="javascript:CCPEVE.showInfo(5,{{systemId}});">{{systemName}}</a>,
+                        reported by <a href="javascript:CCPEVE.showInfo(1377, {{reporterId}});">{{reporter}}</a> <span class="key">[ {{key}} ]</span>
+                    </span>
+                </div>
+                <div class="results-container collapsible">
+                {{#each shipTypes}}
+                    <div class="result">
+                        <span class="ship-type" onclick="ScanList.toggleCollapse(this)">{{count}}x <b>{{shipType}}</b></span>
+
+                        {{#each details}}
+                        <div class="details-container collapsible">
+                            <span class="ship-name">{{shipName}}</span>
+                            <span class="distance">{{distance}}</span>
+                        </div>
+                        {{/each}}
+                    </div>
+                {{/each}}
+                </div>
+            </div>
+        </script>
+
+        <script type="text/x-handlebars-template" id="memberTemplate">
+            <table class="member" id="member-{{id}}">
+                <tr>
+                    <td class="ship-icon">{{{shipIcon}}}</td>
+                    <td class="name"><a href="javascript:CCPEVE.showInfo(1377, {{id}});">{{name}}</a></td>
+                    <td class="ship-type"><a href="javascript:CCPEVE.showInfo({{shipTypeId}});">{{shipType}}</a></td>
+                    <td class="ship-name">{{shipName}}</td>
+                    <td class="system {{#if isDocked}}docked{{/if}}"><a href="javascript:CCPEVE.showInfo(5,{{systemId}});">{{systemName}}</a></td>
+                    <td class="actions" onClick="UIPanels.showMemberOptionsPanel('{{id}}');"><img src="/images/icon-options.png" alt="Options"/></td>
+                </tr>
+            </table>
+        </script>
+
+        <script type="text/javascript" src="/js/3rd/hbs130.js"></script>
+        <script type="text/javascript" src="/js/3rd/jquery1110.js"></script>
+
+        <script type="text/javascript" src="/js/Util.js"></script>
+        <script type="text/javascript" src="/js/UI.js"></script>
+        <script type="text/javascript" src="/js/UIPanels.js"></script>
+        <script type="text/javascript" src="/js/Data.js"></script>
+        <script type="text/javascript" src="/js/Server.js"></script>
+        <script type="text/javascript" src="/js/MemberList.js"></script>
+        <script type="text/javascript" src="/js/EventList.js"></script>
+        <script type="text/javascript" src="/js/ScanList.js"></script>
+        <script type="text/javascript" src="/js/EventHandler.js"></script>
+        <script type="text/javascript" src="/js/Main.js"></script>
+
+    </body>
+</html>
