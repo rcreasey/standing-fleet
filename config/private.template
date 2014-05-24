@@ -11,7 +11,7 @@ module.exports = function() {
 		SESSION_SECRET: '',
 
 		// Storage mode (memory or mongoDb)
-		STORAGE_MODE: 'mongo',
+		STORAGE_MODE: 'mongoDb',
 
 		// Port to listen to
 		PORT: 8080
