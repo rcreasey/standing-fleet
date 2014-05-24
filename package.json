@@ -2,15 +2,16 @@
   "name": "armada-server",
   "version": "0.1.0",
   "description": "Server for Armada",
-  "main": "index.js",
+  "main": "armadaApp.js",
+  "author": "Charlie Norin",
+  "license": "MIT",
+  "repository": "git@bitbucket.org:Feenposhleen/armada.git",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
     "node": "0.10.x"
   },
-  "author": "Charlie Norin",
-  "license": "MIT",
   "dependencies": {
     "express": "^3.4.8",
     "simple-ioc": "^2.4.3",
