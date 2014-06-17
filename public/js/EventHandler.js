@@ -1,6 +1,7 @@
 var EventHandler = {
 
 	internalEvents: [
+		'systemMapUpdate',
 		'statusScans',
 		'statusMembers',
 		'statusEvents',
@@ -113,11 +114,10 @@ var EventHandler = {
 		Data.state.armada.key = armada.key;
 		UI.setString('armadaKey', armada.key);
 		if (armada.password) UI.setString('armadaPassword', '/ ' + armada.password);
+		SystemMap.init();
 	},
 
 	statusEvents: function (events) {
-		Data.ui.map.append( Data.templates.map() );
-
 		EventHandler.dispatchEvents(events, true);
 	},
 

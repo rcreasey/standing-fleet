@@ -201,6 +201,13 @@ a:hover { color: #fff0be }
   font-weight: bold;
 }
 
+svg line {
+	stroke: #7BA69A;
+	stroke-width: 3px;
+}
+
+
+svg circle,
 .node rect {
   cursor: pointer;
   stroke: #666;

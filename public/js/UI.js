@@ -93,8 +93,11 @@ var UI = {
 			"Lemming'ing",
 			"Clicking jump instead of bridge",
 			"Burning guns",
+			"Bumping the titan",
 			"Fitting a windicator",
 			"Burning point",
+			"Posting gudfites",
+			"Z0r",
 			"Getting the pod"
 		];
 		return msgs[Math.floor(Math.random()*msgs.length)] + "...";
