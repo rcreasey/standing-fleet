@@ -20,8 +20,8 @@ html {
 	background-color: #111;
 }
 
-a, a:visited { color: #e96; text-decoration: none }
-a:hover { color: #fda }
+a, a:visited { color: #ffcc2a; text-decoration: none }
+a:hover { color: #fff0be }
 
   /*/
  / /  LAYOUT
@@ -51,6 +51,17 @@ a:hover { color: #fda }
 	padding: 2.4rem 0rem;
 	height: 100%;
 	overflow: hidden
+}
+
+#brand {
+  color: #ffcc2a;
+  font-family: 'Lato', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 700;
+  height: 20px;
+  padding: 0.4rem 0.4rem;
+  text-transform: uppercase;
+  text-shadow: 0 0 0.2em #ffcc2a;
 }
 
 .main-content {
@@ -107,7 +118,7 @@ a:hover { color: #fda }
 
 .menu-button:hover, .menu-button.active {
 	opacity: 1.0;
-	border-top: 1px solid #aaa;
+	border-top: 1px solid #ffcc2a;
 }
 .menu-button.active { height: 2.2rem }
 .menu-button.blink { background-color: #842; }
@@ -125,10 +136,153 @@ a:hover { color: #fda }
 #info-strings span {
 	display: inline-block;
 	padding: 0rem;
-	color: #e96;
+	color: #ffcc2a;
 }
 #info-strings {
 	padding: 0.4rem 0.6rem;
+}
+
+  /*/
+ / /  MAP
+ */
+#system-map svg {
+  overflow: hidden;
+  padding: 0 !important;
+	width: 99%;
+	height: 93%;
+	margin: 0 auto;
+}
+
+#system-map .overlay {
+  fill: transparent !important;
+  opacity: 0;
+}
+
+.label-site-a, .badge-site-a { background-color: #09c; }
+.label-site-m, .badge-site-m { background-color: #b94a48; }
+.label-site-r, .badge-site-r { background-color: #468847; }
+.label-site-l, .badge-site-l { background-color: #f80; }
+.label-site-g, .badge-site-g { background-color: #f80; }
+.label-site-w, .badge-site-w { background-color: #666666; }
+.label-site-n, .badge-site-n { background-color: #333333; }
+
+.wormhole-class-0 { fill: #00ff99 !important; }
+.wormhole-class-1 { fill: #00ff99 !important; }
+.wormhole-class-2 { fill: #33ccff !important; }
+.wormhole-class-3 { fill: #ffff00 !important; }
+.wormhole-class-4 { fill: #ff9933 !important; }
+.wormhole-class-5 { fill: #aa0000 !important; }
+.wormhole-class-6 { fill: #FF00FF !important; }
+
+.security-class-10 { fill: #B5DAFA !important; }
+.security-class-9 { fill: #B2E66F !important; }
+.security-class-8 { fill: #C6EDBB !important; }
+.security-class-7 { fill: #E9F5DB !important; }
+.security-class-6 { fill: #FFFFBB !important; }
+.security-class-5 { fill: #FFEE66 !important; }
+.security-class-4 { fill: #FFC62F !important; }
+.security-class-3 { fill: #FFB55F !important; }
+.security-class-2 { fill: #FF975F !important; }
+.security-class-1 { fill: #FF795F !important; }
+.security-class-0 { fill: #EAEAEA !important; }
+
+.label-system-class-1 { color: #000; background-color: #00ff99; }
+.label-system-class-2 { color: #000; background-color: #33ccff; }
+.label-system-class-3 { color: #000; background-color: #ffff00; }
+.label-system-class-4 { color: #000; background-color: #ff9933; }
+.label-system-class-5 { color: #000; background-color: #aa0000; }
+.label-system-class-6 { color: #000; background-color: #FF00FF; }
+.label-system-class-7 { color: #000; background-color: #aaaaaa; }
+.label-system-class-8 { color: #000; background-color: #aaaaaa; }
+.label-system-class-9 { color: #fff; background-color: #aa0000; }
+
+.node {
+  font-family: 'Droid Sans', sans-serif !important;
+  font-weight: bold;
+}
+
+.node rect {
+  cursor: pointer;
+  stroke: #666;
+  stroke-width: 2px;
+  fill-opacity: 1;
+  fill: #ccc;
+}
+
+.node text {
+  font-family: 'Droid Sans', sans-serif !important;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.current_system {
+  stroke: #00AAFF !important;
+  stroke-width: 3px !important;
+}
+
+.node .system_name {
+  font-weight: bold;
+}
+
+.node .details {
+  font-size: .9em;
+}
+
+.node .security-class {
+  font-size: .9em;
+}
+
+/* Link line styles */
+.link_wh {
+  cursor: pointer;
+}
+
+/* inner line */
+.link_gate .inner {
+  stroke: #7BA69A;
+  stroke-width: 3px;
+}
+
+.link_wh .inner {
+  cursor: pointer;
+  stroke: #d87c10;
+  stroke-width: 8px;
+}
+
+.link_wh .inner:hover {
+  opacity: 0.5;
+}
+
+.link_wh_gate .inner {
+  stroke: blue;
+  stroke-width: 7px;
+}
+
+.link_jb .inner {
+  stroke: #b5dafa;
+  stroke-width: 5px;
+  stroke-dasharray: 0 !important;
+}
+
+/* outer line */
+.link_gate .outer {
+  stroke: #befdeb;
+  stroke-width: 5px;
+}
+
+.link_wh .outer {
+  stroke: #ff9516;
+  stroke-width: 10px;
+}
+
+.link_wh_gate .outer {
+  stroke: #0088cc;
+  stroke-width: 5px;
+}
+
+.link_jb .outer {
+  stroke: #0088cc;
+  stroke-width: 7px;
 }
 
   /*/
@@ -225,7 +379,7 @@ a:hover { color: #fda }
 
 .panel {
 	position: relative;
-	background-color:#222; 
+	background-color:#222;
 	border-bottom: 0.2rem solid #111;
 	border-top: 1px solid #444;
 	text-align: center;

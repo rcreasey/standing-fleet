@@ -1,11 +1,11 @@
 {
-  "name": "armada-server",
+  "name": "standing-fleet",
   "version": "0.1.0",
-  "description": "Server for Armada",
+  "description": "Standing Fleet Middleware",
   "main": "armadaApp.js",
-  "author": "Charlie Norin",
+  "author": "GARPA",
   "license": "MIT",
-  "repository": "git@bitbucket.org:Feenposhleen/armada.git",
+  "repository": "git@github.com:rcreasey/standing-fleet.git",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

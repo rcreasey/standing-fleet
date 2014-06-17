@@ -116,6 +116,8 @@ var EventHandler = {
 	},
 
 	statusEvents: function (events) {
+		Data.ui.map.append( Data.templates.map() );
+
 		EventHandler.dispatchEvents(events, true);
 	},
 

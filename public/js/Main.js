@@ -180,6 +180,3 @@ function log(message) {
 		console.log('[' + Date.now() + '] - ' + message)
 	}
 }
-
-
-

@@ -41,6 +41,7 @@ var Data = {
 		dim: $('#dim'),
 
 		topMenu: $('#top-menu'),
+		topMenu_map: $('#top-menu-system-map'),
 		topMenu_members: $('#top-menu-members'),
 		topMenu_events: $('#top-menu-events'),
 		topMenu_scans: $('#top-menu-scans'),
@@ -54,13 +55,14 @@ var Data = {
 		bottomMenu_scan: $('#bottom-menu-scan'),
 		bottomMenu_menu: $('#bottom-menu-menu'),
 
+		map: $('#system-map'),
 		members: $('#members'),
 		events: $('#events'),
-
 		scans: $('#scans')
 	},
 
 	templates: {
+		map: Handlebars.compile($('#systemMapTemplate').html()),
 		member: Handlebars.compile($('#memberTemplate').html()),
 		event: Handlebars.compile($('#eventTemplate').html()),
 		alert: Handlebars.compile($('#alertTemplate').html()),
