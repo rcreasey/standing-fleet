@@ -8,13 +8,13 @@ var SystemMap = {
 
     var force = d3.layout.force()
         .size([Data.ui.map.width(), Data.ui.map.height()])
-        .charge(-200)
-        .linkDistance(10)
+        .charge(-250)
+        .linkDistance(75)
         .on("tick", function() {
-          // link.attr("x1", function(d) { return d.source.x; })
-          //     .attr("y1", function(d) { return d.source.y; })
-          //     .attr("x2", function(d) { return d.target.x; })
-          //     .attr("y2", function(d) { return d.target.y; });
+          link.attr("x1", function(d) { return d.source.x; })
+              .attr("y1", function(d) { return d.source.y; })
+              .attr("x2", function(d) { return d.target.x; })
+              .attr("y2", function(d) { return d.target.y; });
 
           node.attr("transform", function(d) {
             return "translate(" + (d.x - rect_width/2) + "," + (d.y - rect_height/2) + ")";
@@ -30,17 +30,32 @@ var SystemMap = {
     var link = svg.selectAll(".link"),
         node = svg.selectAll(".node");
 
-    d3.json("/data/systems.json", function(error, systems) {
-      var system = systems[ Data.state.self.system_id ];
-      var region = $.map( systems, function(s) { if (s["regionID"] == system["regionID"]) return s });
+    d3.json("/data/map.json", function(error, map) {
+      var system = map.Systems[ Data.state.self.system_id ];
+      var region = $.map( map.Systems, function(s) {
+        if (s.regionID == system.regionID) {
+          return s
+        }
+      });
+      var jumps  = [];
+
+      region.forEach(function(system) {
+        map.Gates.forEach(function(gate) {
+          if ( gate.type != "InterRegion" && gate.to == system.id  ) {
+            jumps.push({source: map.Systems[gate.from], target: system});
+          }
+        });
+      });
 
       force
         .nodes(region)
+        .links(jumps)
         .start();
 
-      // link = link.data(graph.links)
-      //   .enter().append("line")
-      //     .attr("class", "link");
+      var link_groups = link = link.data(jumps)
+        .enter().append("g")
+        .attr("class", "link")
+        .append("line");
 
       var node_groups = node = node.data(region)
         .enter().append("g")

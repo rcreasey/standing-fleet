@@ -37,7 +37,7 @@ a:hover { color: #fff0be }
 #top-bar, #top-menu, #bottom-bar, #bottom-menu, .sub-bar.left, .sub-bar.right, .member td {
 	background-color:#222;
 	border-bottom: 0.2rem solid #181818;
-	height: 2.2rem
+	height: 2.4rem
 }
 #top-bar, #top-bar .sub-bar.right { background-color: #111; }
 #bottom-bar .sub-bar.left { background-color: transparent; }
@@ -58,8 +58,8 @@ a:hover { color: #fff0be }
   font-family: 'Lato', sans-serif !important;
   font-size: 14px !important;
   font-weight: 700;
-  height: 20px;
-  padding: 0.4rem 0.4rem;
+  line-height: 25px;
+  padding: 0.5rem 0.4rem;
   text-transform: uppercase;
   text-shadow: 0 0 0.2em #ffcc2a;
 }
@@ -145,6 +145,10 @@ a:hover { color: #fff0be }
   /*/
  / /  MAP
  */
+#system-map {
+	background: url("/images/bg-noise.png");
+}
+
 #system-map svg {
   overflow: hidden;
   padding: 0 !important;
@@ -165,13 +169,13 @@ a:hover { color: #fff0be }
 .node rect {
   stroke: #666;
   stroke-width: 1px;
-  fill-opacity: 0.5;
+  fill-opacity: 1;
 	fill: #333;
 }
 
-rect.status-clear   { stroke: #5cb85c; fill: #5cb85c; }
-rect.status-warm 	 { stroke: #ed9c28; fill: #f0ad4e; }
-rect.status-hostile { stroke: #d9534f; fill: #d9534f; }
+rect.status-clear   { stroke: #5cb85c; fill: #366436; }
+rect.status-warm 	 { stroke: #ed9c28; fill: #805e2f; }
+rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 
 .node text {
   font-family: 'Droid Sans', sans-serif;
@@ -186,57 +190,15 @@ rect.status-hostile { stroke: #d9534f; fill: #d9534f; }
 }
 
 /* Link line styles */
-.link_wh {
-  cursor: pointer;
+.link {
+  stroke: #ccc;
+  stroke-width: 2px;
 }
 
-/* inner line */
-.link_gate .inner {
-  stroke: #7BA69A;
-  stroke-width: 3px;
-}
-
-.link_wh .inner {
-  cursor: pointer;
+/*.line .inner {
   stroke: #d87c10;
-  stroke-width: 8px;
-}
-
-.link_wh .inner:hover {
-  opacity: 0.5;
-}
-
-.link_wh_gate .inner {
-  stroke: blue;
-  stroke-width: 7px;
-}
-
-.link_jb .inner {
-  stroke: #b5dafa;
-  stroke-width: 5px;
-  stroke-dasharray: 0 !important;
-}
-
-/* outer line */
-.link_gate .outer {
-  stroke: #befdeb;
-  stroke-width: 5px;
-}
-
-.link_wh .outer {
-  stroke: #ff9516;
-  stroke-width: 10px;
-}
-
-.link_wh_gate .outer {
-  stroke: #0088cc;
-  stroke-width: 5px;
-}
-
-.link_jb .outer {
-  stroke: #0088cc;
-  stroke-width: 7px;
-}
+  stroke-width: 4px;
+}*/
 
   /*/
  / /  MEMBER
