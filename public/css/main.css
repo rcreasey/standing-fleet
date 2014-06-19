@@ -158,85 +158,31 @@ a:hover { color: #fff0be }
   opacity: 0;
 }
 
-.label-site-a, .badge-site-a { background-color: #09c; }
-.label-site-m, .badge-site-m { background-color: #b94a48; }
-.label-site-r, .badge-site-r { background-color: #468847; }
-.label-site-l, .badge-site-l { background-color: #f80; }
-.label-site-g, .badge-site-g { background-color: #f80; }
-.label-site-w, .badge-site-w { background-color: #666666; }
-.label-site-n, .badge-site-n { background-color: #333333; }
-
-.wormhole-class-0 { fill: #00ff99 !important; }
-.wormhole-class-1 { fill: #00ff99 !important; }
-.wormhole-class-2 { fill: #33ccff !important; }
-.wormhole-class-3 { fill: #ffff00 !important; }
-.wormhole-class-4 { fill: #ff9933 !important; }
-.wormhole-class-5 { fill: #aa0000 !important; }
-.wormhole-class-6 { fill: #FF00FF !important; }
-
-.security-class-10 { fill: #B5DAFA !important; }
-.security-class-9 { fill: #B2E66F !important; }
-.security-class-8 { fill: #C6EDBB !important; }
-.security-class-7 { fill: #E9F5DB !important; }
-.security-class-6 { fill: #FFFFBB !important; }
-.security-class-5 { fill: #FFEE66 !important; }
-.security-class-4 { fill: #FFC62F !important; }
-.security-class-3 { fill: #FFB55F !important; }
-.security-class-2 { fill: #FF975F !important; }
-.security-class-1 { fill: #FF795F !important; }
-.security-class-0 { fill: #EAEAEA !important; }
-
-.label-system-class-1 { color: #000; background-color: #00ff99; }
-.label-system-class-2 { color: #000; background-color: #33ccff; }
-.label-system-class-3 { color: #000; background-color: #ffff00; }
-.label-system-class-4 { color: #000; background-color: #ff9933; }
-.label-system-class-5 { color: #000; background-color: #aa0000; }
-.label-system-class-6 { color: #000; background-color: #FF00FF; }
-.label-system-class-7 { color: #000; background-color: #aaaaaa; }
-.label-system-class-8 { color: #000; background-color: #aaaaaa; }
-.label-system-class-9 { color: #fff; background-color: #aa0000; }
-
 .node {
-  font-family: 'Droid Sans', sans-serif !important;
-  font-weight: bold;
+	cursor: pointer;
 }
 
-svg line {
-	stroke: #7BA69A;
-	stroke-width: 3px;
-}
-
-
-svg circle,
 .node rect {
-  cursor: pointer;
   stroke: #666;
-  stroke-width: 2px;
-  fill-opacity: 1;
-  fill: #ccc;
+  stroke-width: 1px;
+  fill-opacity: 0.5;
+	fill: #333;
 }
+
+rect.status-clear   { stroke: #5cb85c; fill: #5cb85c; }
+rect.status-warm 	 { stroke: #ed9c28; fill: #f0ad4e; }
+rect.status-hostile { stroke: #d9534f; fill: #d9534f; }
 
 .node text {
-  font-family: 'Droid Sans', sans-serif !important;
-  font-size: 12px;
-  font-weight: normal;
+  font-family: 'Droid Sans', sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+	fill: #fff;
 }
 
 .current_system {
   stroke: #00AAFF !important;
   stroke-width: 3px !important;
-}
-
-.node .system_name {
-  font-weight: bold;
-}
-
-.node .details {
-  font-size: .9em;
-}
-
-.node .security-class {
-  font-size: .9em;
 }
 
 /* Link line styles */

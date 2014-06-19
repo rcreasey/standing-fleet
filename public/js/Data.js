@@ -22,7 +22,8 @@ var Data = {
 		self: {
 			name: '',
 			id: '',
-			key: ''
+			key: '',
+			system_id: ''
 		},
 		alertCount: 0,
 		dimmed: false,

@@ -107,6 +107,7 @@ var EventHandler = {
 		Data.state.self.name = self.name;
 		Data.state.self.id = self.id;
 		Data.state.self.key = self.key;
+		Data.state.self.system_id = self.system_id;
 	},
 
 	statusArmada: function (armada) {
