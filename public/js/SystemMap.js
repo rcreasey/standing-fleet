@@ -26,9 +26,18 @@ var SystemMap = {
           d3.select(this).classed("fixed", d.fixed = true);
         });
 
-    var svg = d3.select("svg");
+    var svg = d3.select("#system-map")
+                .attr("width", Data.ui.map.width())
+                .attr("height", Data.ui.map.height())
+                .append("svg").append("g");
+
     var link = svg.selectAll(".link"),
         node = svg.selectAll(".node");
+
+    svg.append("rect")
+      .attr("class", "overlay")
+      .attr("width", Data.ui.map.width() * 2)
+      .attr("height", Data.ui.map.height() * 2)
 
     d3.json("/data/map.json", function(error, map) {
       var system = map.Systems[ Data.state.self.system_id ];
