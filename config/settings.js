@@ -1,20 +1,11 @@
 module.exports = function (fs) {
 
-	var privateSettings = {};
-	if (fs.existsSync(__dirname + '/private.js')) {
-		privateSettings = require(__dirname + '/private.js')();
-	}
-
 	var getSetting = function (setting) {
-		if (privateSettings[setting]) {
-			return privateSettings[setting];
-
-		} else if (process.env[setting]) {
+		if (process.env[setting]) {
 			return process.env[setting];
 
 		} else {
 			throw "Setting " + setting + " not found. "
-				+ "Either add it in config/private.js or as an environment variable.";
 		}
 	};
 

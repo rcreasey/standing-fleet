@@ -26,18 +26,21 @@ var SystemMap = {
           d3.select(this).classed("fixed", d.fixed = true);
         });
 
+    var zoomListener = d3.behavior.zoom()
+      .scaleExtent([0.5, 1])
+      .on("zoom", zoomHandler);
+
     var svg = d3.select("#system-map")
                 .attr("width", Data.ui.map.width())
                 .attr("height", Data.ui.map.height())
-                .append("svg").append("g");
+                .append("svg");
+
+    function zoomHandler() {
+      svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+    }
 
     var link = svg.selectAll(".link"),
         node = svg.selectAll(".node");
-
-    svg.append("rect")
-      .attr("class", "overlay")
-      .attr("width", Data.ui.map.width() * 2)
-      .attr("height", Data.ui.map.height() * 2)
 
     d3.json("/data/map.json", function(error, map) {
       var system = map.Systems[ Data.state.self.system_id ];
@@ -68,20 +71,26 @@ var SystemMap = {
 
       var node_groups = node = node.data(region)
         .enter().append("g")
-        .attr("class", "node")
+        .attr("class", function(d) {
+          if (d.id == Data.state.self.system_id ) {
+            return "node current-system"
+          } else {
+            return "node"
+          }
+        })
         .on("dblclick", function(d) {
           d3.select(this).classed("fixed", d.fixed = false);
         })
         .call(drag);
 
       node_groups.append("rect")
-        .attr("class", "status-clear")
+        .attr("class", "status-hostile")
         .attr("width", rect_width)
         .attr("height", rect_height)
         .attr("rx", 2).attr("ry", 2);
 
       node_groups.append("text")
-        .attr("class", "system_name")
+        .attr("class", "system-name")
         .attr("text-anchor", "middle")
         .attr("alignment-baseline", "middle")
         .attr("x", rect_width / 2)
@@ -90,8 +99,8 @@ var SystemMap = {
           var name = d.name;
           return name;
         });
-
     });
+
   }
 
 };
