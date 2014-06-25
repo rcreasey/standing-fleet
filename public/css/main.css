@@ -196,6 +196,12 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
   stroke-width: 2px;
 }
 
+.anchorLink {
+    stroke: #00aaff;
+    stroke-width: 1px;
+    stroke-dasharray: 2,2,4,2
+}
+
 /*.line .inner {
   stroke: #d87c10;
   stroke-width: 4px;
