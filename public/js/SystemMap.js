@@ -19,9 +19,6 @@ var SystemMap = {
       var rect_height = 17;
       var rect_width = 60;
 
-      var padlocked = true;
-
-      var translate;
       var system;
 
       var force = d3.layout.force()
@@ -55,6 +52,38 @@ var SystemMap = {
               systemNode.y -= dy * k * 0.15;
             });
           });
+        })
+        .on("end", function(){
+
+          var link_groups = link = link.data(jumps)
+            .enter().append("g")
+            .attr("class", "link")
+            .append("line");
+
+          var node_groups = node = node.data(systems)
+            .enter().append("g")
+            .attr("class", function(d) {
+              if(d.id == Data.state.self.system_id) {
+                return "node current-system"
+              }
+              else {
+                return "node"
+              }
+            });
+
+          node_groups.append("rect")
+            .attr("class", "status-hostile")
+            .attr("width", rect_width)
+            .attr("height", rect_height)
+            .attr("rx", 2).attr("ry", 2);
+
+          node_groups.append("text")
+            .attr("class", "system-name")
+            .attr("text-anchor", "middle")
+            .attr("alignment-baseline", "middle")
+            .attr("x", rect_width / 2)
+            .attr("y", 10)
+            .text(function(d) {return d.name;});
 
           link.attr("x1", function(d) {return d.source.x;})
             .attr("y1", function(d) {return d.source.y;})
@@ -65,12 +94,6 @@ var SystemMap = {
             return "translate(" + (d.x - rect_width / 2) + "," + (d.y - rect_height / 2) + ")";
           });
 
-          if(padlocked) {
-            var scale = zoom.scale();
-            translate = [(Data.ui.map.width() / 2 - system.x * scale), (Data.ui.map.height() / 2 - system.y * scale)];
-            zoom.translate(translate);
-            zoom.event(root);
-          }
         });
 
       var zoom = d3.behavior.zoom()
@@ -80,9 +103,6 @@ var SystemMap = {
       var root = svg.append("g");
 
       function zoomHandler() {
-        if(padlocked && ( d3.event.translate[0] !== translate[0] || d3.event.translate[1] !== translate[1] )) {
-          padlocked = false;
-        }
         root.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
       }
 
@@ -133,38 +153,16 @@ var SystemMap = {
             return 0.1;
           }
           return 0.25;
-        })
-        .start();
-
-      var link_groups = link = link.data(jumps)
-        .enter().append("g")
-        .attr("class", "link")
-        .append("line");
-
-      var node_groups = node = node.data(systems)
-        .enter().append("g")
-        .attr("class", function(d) {
-          if(d.id == Data.state.self.system_id) {
-            return "node current-system"
-          }
-          else {
-            return "node"
-          }
         });
+      force.start();
+      while( force.alpha() > 0.01 ) {
+        force.tick();
+      }
+      force.stop();
 
-      node_groups.append("rect")
-        .attr("class", "status-hostile")
-        .attr("width", rect_width)
-        .attr("height", rect_height)
-        .attr("rx", 2).attr("ry", 2);
-
-      node_groups.append("text")
-        .attr("class", "system-name")
-        .attr("text-anchor", "middle")
-        .attr("alignment-baseline", "middle")
-        .attr("x", rect_width / 2)
-        .attr("y", 10)
-        .text(function(d) {return d.name;});
+      var scale = zoom.scale();
+      zoom.translate([(Data.ui.map.width() / 2 - system.x * scale), (Data.ui.map.height() / 2 - system.y * scale)]);
+      zoom.event(root);
     });
 
     // Given a line AB and a point C, finds point D such that CD is perpendicular
