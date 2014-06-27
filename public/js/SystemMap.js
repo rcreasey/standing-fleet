@@ -1,4 +1,9 @@
 var SystemMap = {
+  nodes: [],
+  links: [],
+  systems: [],
+  jumps: [],
+
   init: function() {
     // Change this to globally adjust minimum node distance and system [x,y] scale
     const SCALING_FACTOR = 0.75;
@@ -11,24 +16,19 @@ var SystemMap = {
       .append("svg");
 
     d3.json("/data/map.json", function(error, map) {
-      var nodes = [];
-      var links = [];
-      var systems = [];
-      var jumps = [];
-
       var rect_height = 17;
       var rect_width = 60;
-
+      var link_distance = 25;
       var system;
 
       var force = d3.layout.force()
         .size([Data.ui.map.width(), Data.ui.map.height()])
         .charge(-250 * SCALING_FACTOR)
-        .linkDistance(75 * SCALING_FACTOR)
+        .linkDistance(link_distance * SCALING_FACTOR)
         .on("tick", function() {
 
-          systems.forEach(function(systemNode) {
-            jumps.forEach(function(jump) {
+          SystemMap.systems.forEach(function(systemNode) {
+            SystemMap.jumps.forEach(function(jump) {
               // Push each node away from any lines passing within r=20 units of its center.
               // This is implemented as a weak repulsive force that scales with r but not with
               // the layout's stabilisation factor.
@@ -55,24 +55,18 @@ var SystemMap = {
         })
         .on("end", function(){
 
-          var link_groups = link = link.data(jumps)
+          var link_groups = link = link.data(SystemMap.jumps)
             .enter().append("g")
             .attr("class", "link")
             .append("line");
 
-          var node_groups = node = node.data(systems)
+          var node_groups = node = node.data(SystemMap.systems)
             .enter().append("g")
-            .attr("class", function(d) {
-              if(d.id == Data.state.self.system_id) {
-                return "node current-system"
-              }
-              else {
-                return "node"
-              }
-            });
+            .attr("id", function(n) { return "system-" + n.id })
+            .attr("class", "node");
 
           node_groups.append("rect")
-            .attr("class", "status-hostile")
+            .attr("class", "status-unknown")
             .attr("width", rect_width)
             .attr("height", rect_height)
             .attr("rx", 2).attr("ry", 2);
@@ -112,32 +106,32 @@ var SystemMap = {
         node = root.selectAll(".node");
 
       system = map.Systems[ Data.state.self.system_id ];
-      systems = $.map(map.Systems, function(s) {
+      SystemMap.systems = $.map(map.Systems, function(s) {
         if(s.regionID === system.regionID) {
           return s;
         }
       });
 
-      systems.forEach(function(system) {
+      SystemMap.systems.forEach(function(system) {
         var anchor;
         system.x *= SCALING_FACTOR;
         system.y *= SCALING_FACTOR;
-        nodes.push(system);
-        nodes.push(anchor = { x: system.x, y: system.y, fixed: true });
-        links.push({ source: system, target: anchor });
+        SystemMap.nodes.push(system);
+        SystemMap.nodes.push(anchor = { x: system.x, y: system.y, fixed: true });
+        SystemMap.links.push({ source: system, target: anchor });
       });
 
       map.Gates.forEach(function(gate) {
         var jump;
         if(map.Systems[gate.from].regionID == system.regionID && map.Systems[gate.to].regionID == system.regionID) {
-          jumps.push(jump = {source: map.Systems[gate.from], target: map.Systems[gate.to]});
-          links.push(jump);
+          SystemMap.jumps.push(jump = {source: map.Systems[gate.from], target: map.Systems[gate.to]});
+          SystemMap.links.push(jump);
         }
       });
 
       force
-        .nodes(nodes)
-        .links(links)
+        .nodes(SystemMap.nodes)
+        .links(SystemMap.links)
         .gravity(0)
         .charge(function(d) {return d.fixed ? 0 : -1250 * SCALING_FACTOR;})
         .chargeDistance(200 * SCALING_FACTOR)
@@ -163,6 +157,7 @@ var SystemMap = {
       var scale = zoom.scale();
       zoom.translate([(Data.ui.map.width() / 2 - system.x * scale), (Data.ui.map.height() / 2 - system.y * scale)]);
       zoom.event(root);
+      SystemMap.update();
     });
 
     // Given a line AB and a point C, finds point D such that CD is perpendicular
@@ -199,5 +194,12 @@ var SystemMap = {
       }
       return cadb >= 0 && cadb <= a2b2;
     }
+  },
+
+  update: function() {
+    log("Updating System Map...");
+
+    $('g.node').removeClass('current-system');
+    $('g#system-' + Data.state.self.system_id).addClass('current-system');
   }
 };

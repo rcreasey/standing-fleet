@@ -173,6 +173,7 @@ a:hover { color: #fff0be }
 	fill: #333;
 }
 
+rect.status-unknown { stroke: #666666; fill: #333333; }
 rect.status-blue    { stroke: #0079a1; fill: #0b5168; }
 rect.status-clear   { stroke: #5cb85c; fill: #366436; }
 rect.status-warm 	 { stroke: #ed9c28; fill: #805e2f; }

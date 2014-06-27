@@ -1,7 +1,6 @@
 var EventHandler = {
 
 	internalEvents: [
-		'systemMapUpdate',
 		'statusScans',
 		'statusMembers',
 		'statusEvents',
@@ -85,6 +84,7 @@ var EventHandler = {
 		MemberList.removeMember(member.id);
 		MemberList.addMember(member);
 		MemberList.sortAndRenderAll();
+		SystemMap.update(member);
 	},
 
 	memberTimedOut: function (member) {
@@ -96,6 +96,7 @@ var EventHandler = {
 	memberUpdated: function (member) {
 		MemberList.addMember(member);
 		MemberList.renderSingleMember(member);
+		SystemMap.update(member);
 	},
 
 	memberLeft: function (member) {
@@ -108,6 +109,7 @@ var EventHandler = {
 		Data.state.self.id = self.id;
 		Data.state.self.key = self.key;
 		Data.state.self.system_id = self.system_id;
+		SystemMap.init();
 	},
 
 	statusArmada: function (armada) {
@@ -115,7 +117,7 @@ var EventHandler = {
 		Data.state.armada.key = armada.key;
 		UI.setString('armadaKey', armada.key);
 		if (armada.password) UI.setString('armadaPassword', '/ ' + armada.password);
-		SystemMap.init();
+		SystemMap.update(members);
 	},
 
 	statusEvents: function (events) {
