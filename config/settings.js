@@ -1,4 +1,4 @@
-module.exports = function (fs) {
+module.exports = function () {
 
 	var getSetting = function (setting) {
 		if (process.env[setting]) {
