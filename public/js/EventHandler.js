@@ -1,7 +1,6 @@
 var EventHandler = {
 
 	internalEvents: [
-		'updateSystemMap',
 		'statusScans',
 		'statusMembers',
 		'statusEvents',
@@ -117,13 +116,9 @@ var EventHandler = {
 		Data.state.self.name = self.name;
 		Data.state.self.id = self.id;
 		Data.state.self.key = self.key;
-		this.statusSelfSystem(self);
+		this.updateSystemMap(self);
 	},
-
-	statusSelfSystem: function(self) {
-		Data.state.self.system_id = self.system_id;
-	},
-
+	
 	statusArmada: function (armada) {
 		Data.state.armada.name = armada.name;
 		Data.state.armada.key = armada.key;
@@ -151,7 +146,7 @@ var EventHandler = {
 	},
 
 	updateSystemMap: function (self) {
-		this.statusSelfSystem(self);
+		Data.state.self.systemId = self.systemId;
 		SystemMap.updateCurrent(self);
 	}
 };

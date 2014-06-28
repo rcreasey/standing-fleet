@@ -64,7 +64,7 @@ var UIPanels = {
 				},
 				{
 					class: 'join-armada',
-					text: 'Join existing',
+					text: '<i class="fa fa-arrow-circle-left"></i> Go Back',
 					onClick: 'UIPanels.showJoinPanel()'
 				}
 	 		],

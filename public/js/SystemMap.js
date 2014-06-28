@@ -64,7 +64,7 @@ var SystemMap = {
             .enter().append("g")
             .attr("id", function(n) { return "system-" + n.id })
             .attr("class", function(n) {
-              if (n.id === +Data.state.self.system_id ) {
+              if (n.id === +Data.state.self.systemId ) {
                 return "node current"
               } else {
                 return "node"
@@ -111,7 +111,7 @@ var SystemMap = {
       var link = root.selectAll(".link"),
         node = root.selectAll(".node");
 
-      system = map.Systems[ Data.state.self.system_id ];
+      system = map.Systems[ Data.state.self.systemId ];
       SystemMap.systems = $.map(map.Systems, function(s) {
         if(system && (s.regionID === system.regionID)) {
           return s;
@@ -203,6 +203,6 @@ var SystemMap = {
 
   updateCurrent: function(data) {
     d3.selectAll('g').classed('current', false);
-    d3.select('#system-'+ Data.state.self.system_id).classed('current', true);
+    d3.select('#system-'+ Data.state.self.systemId).classed('current', true);
   }
 };
