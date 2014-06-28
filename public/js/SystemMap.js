@@ -63,7 +63,13 @@ var SystemMap = {
           var node_groups = node = node.data(SystemMap.systems)
             .enter().append("g")
             .attr("id", function(n) { return "system-" + n.id })
-            .attr("class", "node");
+            .attr("class", function(n) {
+              if (n.id === +Data.state.self.system_id ) {
+                return "node current"
+              } else {
+                return "node"
+              }
+            });
 
           node_groups.append("rect")
             .attr("class", "status-unknown")
@@ -107,7 +113,7 @@ var SystemMap = {
 
       system = map.Systems[ Data.state.self.system_id ];
       SystemMap.systems = $.map(map.Systems, function(s) {
-        if(s.regionID === system.regionID) {
+        if(system && (s.regionID === system.regionID)) {
           return s;
         }
       });
@@ -157,7 +163,6 @@ var SystemMap = {
       var scale = zoom.scale();
       zoom.translate([(Data.ui.map.width() / 2 - system.x * scale), (Data.ui.map.height() / 2 - system.y * scale)]);
       zoom.event(root);
-      SystemMap.update();
     });
 
     // Given a line AB and a point C, finds point D such that CD is perpendicular
@@ -196,10 +201,8 @@ var SystemMap = {
     }
   },
 
-  update: function() {
-    log("Updating System Map...");
-
-    $('g.node').removeClass('current-system');
-    $('g#system-' + Data.state.self.system_id).addClass('current-system');
+  updateCurrent: function(data) {
+    d3.selectAll('g').classed('current', false);
+    d3.select('#system-'+ Data.state.self.system_id).classed('current', true);
   }
 };

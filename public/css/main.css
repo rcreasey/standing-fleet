@@ -186,7 +186,7 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	fill: #fff;
 }
 
-.current-system rect {
+.current rect {
   stroke: #00AAFF !important;
   stroke-width: 2px !important;
 }

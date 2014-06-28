@@ -1,6 +1,7 @@
 var EventHandler = {
 
 	internalEvents: [
+		'updateSystemMap',
 		'statusScans',
 		'statusMembers',
 		'statusEvents',
@@ -73,8 +74,16 @@ var EventHandler = {
 			var member = event.data;
 			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
 				+ member.id + ');">' + member.name + '</a> lost a '
- 				+ '<a href="javascript:CCPEVE.showInfo('
+				+ '<a href="javascript:CCPEVE.showInfo('
 				+ member.shipTypeId + ');">' + member.shipTypeName + '</a>';
+			event.alert = true;
+
+		} else if (event.type === 'updateSystemMap' ) {
+			var target = event.data;
+			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
+				+ target.id + ');">' + target.name + '</a> has moved into '
+				+ '<a href="javascript:CCPEVE.showInfo(5, ' + target.systemId + ');">'
+				+ target.systemName + '</a>';
 			event.alert = true;
 		}
 	},
@@ -84,7 +93,7 @@ var EventHandler = {
 		MemberList.removeMember(member.id);
 		MemberList.addMember(member);
 		MemberList.sortAndRenderAll();
-		SystemMap.update(member);
+		// SystemMap.update(member);
 	},
 
 	memberTimedOut: function (member) {
@@ -96,7 +105,7 @@ var EventHandler = {
 	memberUpdated: function (member) {
 		MemberList.addMember(member);
 		MemberList.renderSingleMember(member);
-		SystemMap.update(member);
+		// SystemMap.update(member);
 	},
 
 	memberLeft: function (member) {
@@ -108,8 +117,11 @@ var EventHandler = {
 		Data.state.self.name = self.name;
 		Data.state.self.id = self.id;
 		Data.state.self.key = self.key;
+		this.statusSelfSystem(self);
+	},
+
+	statusSelfSystem: function(self) {
 		Data.state.self.system_id = self.system_id;
-		SystemMap.init();
 	},
 
 	statusArmada: function (armada) {
@@ -117,7 +129,7 @@ var EventHandler = {
 		Data.state.armada.key = armada.key;
 		UI.setString('armadaKey', armada.key);
 		if (armada.password) UI.setString('armadaPassword', '/ ' + armada.password);
-		SystemMap.update(members);
+		SystemMap.init();
 	},
 
 	statusEvents: function (events) {
@@ -126,6 +138,7 @@ var EventHandler = {
 
 	statusScans: function (scans) {
 		scans.forEach(ScanList.addScan);
+		// SystemMap.update(scans);
 	},
 
 	statusMembers: function (members) {
@@ -136,4 +149,9 @@ var EventHandler = {
 	scanPosted: function (scan) {
 		ScanList.addScan(scan);
 	},
+
+	updateSystemMap: function (self) {
+		this.statusSelfSystem(self);
+		SystemMap.updateCurrent(self);
+	}
 };
