@@ -31,8 +31,7 @@ module.exports = function () {
 		eventTtl: 3600000,
 		scanTtl: 3600000,
 
-		// minPollInterval: 6000,
-		minPollInterval: 1,
+		minPollInterval: 10,
 		cleanInterval: 60000,
 
 		requestSizeLimit: '80kb',
