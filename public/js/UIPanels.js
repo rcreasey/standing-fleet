@@ -8,12 +8,12 @@ var UIPanels = {
 			buttons: [
 				{
 					class: 'reload-armada no-margin',
-					text: 'Reload Armada',
+					text: 'Reload Standing Fleet',
 					onClick: 'location.reload()'
 				},
 				{
 					class: 'leave-armada',
-					text: 'Leave Armada',
+					text: 'Leave Standing Fleet',
 					onClick: 'leaveArmada()'
 				}
 			],
@@ -27,7 +27,7 @@ var UIPanels = {
 			type: 'start',
 			image: 'panel-logo.png',
 			textinputs: [{
-				legend: 'Enter armada key',
+				legend: 'Enter Fleet key',
 				class: 'armada-key'
 			}],
 			buttons: [
@@ -53,7 +53,7 @@ var UIPanels = {
 			type: 'create',
 			image: 'panel-logo.png',
 			textinputs: [{
-					legend: 'Choose armada password.<br />Blank makes armada public.',
+					legend: 'Choose Standing Fleet password.<br />Blank makes Fleet public.',
 					class: 'armada-password'
 			}],
 			buttons: [
@@ -80,7 +80,7 @@ var UIPanels = {
 			image: 'panel-logo.png',
 			text: 'Authorization required.',
 			textinputs: [{
-					legend: 'Enter armada password',
+					legend: 'Enter Standing Fleet password',
 					class: 'armada-password'
 			}],
 			buttons: [
@@ -141,7 +141,7 @@ var UIPanels = {
 		var panel = {
 			type: 'pending',
 			image: 'spinner.gif',
-			text: 'Waiting for armada to accept...',
+			text: 'Waiting for Standing Fleet to accept...',
 			buttons: [{
 				class: 'abort-pending',
 				text: 'Cancel',
