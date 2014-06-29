@@ -21,6 +21,8 @@ var SystemMap = {
       var link_distance = 25;
       var system;
 
+      var security_classes = ['unknown', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'hostile']
+
       var force = d3.layout.force()
         .size([Data.ui.map.width(), Data.ui.map.height()])
         .charge(-250 * SCALING_FACTOR)
@@ -63,19 +65,18 @@ var SystemMap = {
           var node_groups = node = node.data(SystemMap.systems)
             .enter().append("g")
             .attr("id", function(n) { return "system-" + n.id })
-            .attr("class", function(n) {
-              if (n.id === +Data.state.self.systemId ) {
-                return "node current"
-              } else {
-                return "node"
-              }
-            });
+            .attr("class", function(n) { if (n.id === +Data.state.self.systemId ) return "current"; });
+
+          node_groups.classed('node', true);
 
           node_groups.append("rect")
-            .attr("class", "status-unknown")
             .attr("width", rect_width)
             .attr("height", rect_height)
-            .attr("rx", 2).attr("ry", 2);
+            .attr("rx", 2).attr("ry", 2)
+            .attr("class", function(n) {
+              // >>>>>
+              return "status-" + security_classes[ Math.floor(Math.random() * 10) ];
+            });
 
           node_groups.append("text")
             .attr("class", "system-name")
@@ -83,7 +84,7 @@ var SystemMap = {
             .attr("alignment-baseline", "middle")
             .attr("x", rect_width / 2)
             .attr("y", 10)
-            .text(function(d) {return d.name;});
+            .text(function(d) { return d.name; });
 
           link.attr("x1", function(d) {return d.source.x;})
             .attr("y1", function(d) {return d.source.y;})
@@ -201,8 +202,11 @@ var SystemMap = {
     }
   },
 
-  updateCurrent: function(data) {
-    d3.selectAll('g').classed('current', false);
-    d3.select('#system-'+ Data.state.self.systemId).classed('current', true);
+  updateCurrent: function(target) {
+    console.log(target)
+    if (target) {
+      d3.selectAll('g').classed('current', false);
+      d3.select('#system-'+ target.systemId).classed('current', true);
+    }
   }
 };

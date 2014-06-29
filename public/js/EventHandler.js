@@ -36,14 +36,14 @@ var EventHandler = {
 		} else if (event.type === 'memberJoined') {
 			var member = event.data;
 			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
-				+ member.id + ');">' + member.name + '</a> joined the Armada';
+				+ member.id + ');">' + member.name + '</a> joined the Standing Fleet';
 			event.blink = 'members';
 			event.alert = true;
 
 		} else if (event.type === 'memberLeft') {
 			var member = event.data;
 			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
-				+ member.id + ');">' + member.name + '</a> left the Armada';
+				+ member.id + ');">' + member.name + '</a> left the Standing FLeet';
 			event.blink = 'members';
 			event.alert = true;
 
@@ -66,7 +66,7 @@ var EventHandler = {
 		} else if (event.type === 'armadaCreated') {
 			var creator = event.data;
 			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
-				+ creator.id + ');">' + creator.name + '</a> created this armada ';
+				+ creator.id + ');">' + creator.name + '</a> created this fleet ';
 			event.alert = true;
 
 		} else if (event.type === 'shipLost') {
@@ -104,7 +104,6 @@ var EventHandler = {
 	memberUpdated: function (member) {
 		MemberList.addMember(member);
 		MemberList.renderSingleMember(member);
-		// SystemMap.update(member);
 	},
 
 	memberLeft: function (member) {
@@ -116,9 +115,13 @@ var EventHandler = {
 		Data.state.self.name = self.name;
 		Data.state.self.id = self.id;
 		Data.state.self.key = self.key;
-		this.updateSystemMap(self);
+		this.statusSelfSystem(self);
 	},
-	
+
+	statusSelfSystem: function(self) {
+		Data.state.self.systemId = self.systemId;
+	},
+
 	statusArmada: function (armada) {
 		Data.state.armada.name = armada.name;
 		Data.state.armada.key = armada.key;
@@ -133,7 +136,6 @@ var EventHandler = {
 
 	statusScans: function (scans) {
 		scans.forEach(ScanList.addScan);
-		// SystemMap.update(scans);
 	},
 
 	statusMembers: function (members) {
@@ -145,8 +147,8 @@ var EventHandler = {
 		ScanList.addScan(scan);
 	},
 
-	updateSystemMap: function (self) {
-		Data.state.self.systemId = self.systemId;
-		SystemMap.updateCurrent(self);
+	updateSystemMap: function (target) {
+		this.statusSelfSystem(target);
+		SystemMap.updateCurrent(target);
 	}
 };

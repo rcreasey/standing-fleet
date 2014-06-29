@@ -176,7 +176,7 @@ a:hover { color: #fff0be }
 rect.status-unknown { stroke: #666666; fill: #333333; }
 rect.status-blue    { stroke: #0079a1; fill: #0b5168; }
 rect.status-clear   { stroke: #5cb85c; fill: #366436; }
-rect.status-warm 	 { stroke: #ed9c28; fill: #805e2f; }
+rect.status-warm 	  { stroke: #ed9c28; fill: #805e2f; }
 rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 
 .node text {
@@ -187,7 +187,8 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 }
 
 .current rect {
-  stroke: #00AAFF !important;
+  /*stroke: #ffcc2a !important;*/
+  stroke: #f39c12 !important;
   stroke-width: 2px !important;
 }
 
