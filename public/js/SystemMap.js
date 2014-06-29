@@ -65,9 +65,13 @@ var SystemMap = {
           var node_groups = node = node.data(SystemMap.systems)
             .enter().append("g")
             .attr("id", function(n) { return "system-" + n.id })
-            .attr("class", function(n) { if (n.id === +Data.state.self.systemId ) return "current"; });
-
-          node_groups.classed('node', true);
+            .attr("class", function(n) {
+              if (n.id === +Data.state.self.systemId )  {
+                return "current node";
+              } else {
+                return "node"
+              }
+            });
 
           node_groups.append("rect")
             .attr("width", rect_width)
