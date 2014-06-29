@@ -207,10 +207,10 @@ var SystemMap = {
   },
 
   updateCurrent: function(target) {
-    console.log(target)
-    if (target) {
-      d3.selectAll('g').classed('current', false);
-      d3.select('#system-'+ target.systemId).classed('current', true);
-    }
+    // console.log(target)
+    // if (target) {
+    //   d3.selectAll('g').classed('current', false);
+    //   d3.select('#system-'+ target.systemId).classed('current', true);
+    // }
   }
 };
