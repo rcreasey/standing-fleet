@@ -207,10 +207,16 @@ var SystemMap = {
   },
 
   updateCurrent: function(target) {
-    // console.log(target)
-    // if (target) {
-    //   d3.selectAll('g').classed('current', false);
-    //   d3.select('#system-'+ target.systemId).classed('current', true);
-    // }
+    if (target) {
+      d3.selectAll('g.node')
+        .attr("class", function(n) {
+          if (n.id === +target.systemId )  {
+            return "current node";
+          } else {
+            return "node"
+          }
+        });
+
+    }
   }
 };
