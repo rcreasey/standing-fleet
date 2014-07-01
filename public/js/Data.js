@@ -1,6 +1,7 @@
 var Data = {
 
 	members: [],
+	hostiles: [],
 	events: [],
 	scans: [],
 
@@ -43,6 +44,7 @@ var Data = {
 
 		topMenu: $('#top-menu'),
 		topMenu_map: $('#top-menu-system-map'),
+		topMenu_hostiles: $('#top-menu-hostiles'),
 		topMenu_members: $('#top-menu-members'),
 		topMenu_events: $('#top-menu-events'),
 		topMenu_scans: $('#top-menu-scans'),
@@ -57,6 +59,7 @@ var Data = {
 		bottomMenu_menu: $('#bottom-menu-menu'),
 
 		map: $('#system-map'),
+		hostiles: $('#members'),
 		members: $('#members'),
 		events: $('#events'),
 		scans: $('#scans')
@@ -64,6 +67,7 @@ var Data = {
 
 	templates: {
 		map: Handlebars.compile($('#systemMapTemplate').html()),
+		hostile: Handlebars.compile($('#hostileTemplate').html()),
 		member: Handlebars.compile($('#memberTemplate').html()),
 		event: Handlebars.compile($('#eventTemplate').html()),
 		alert: Handlebars.compile($('#alertTemplate').html()),
@@ -83,7 +87,7 @@ var Data = {
 
 			error: function(data, error, errorstring) {
 				if (error) {
-					callback({type: 'net', message: errorString}, null);
+					console.log("Error: " + errorString);
 				}
 			}
 		});

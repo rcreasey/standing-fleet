@@ -17,6 +17,9 @@
           <div class="menu-button system-map active" id="top-menu-system-map">
             <i class="fa fa-sitemap"></i> <span>MAP</span>
           </div>
+          <div class="menu-button hostiles" id="top-menu-hostiles">
+            <i class="fa fa-exclamation-triangle"></i> <span>HOSTILES</span>
+          </div>
           <div class="menu-button members" id="top-menu-members">
             <i class="fa fa-users"></i> <span>MEMBERS</span>
           </div>
@@ -30,6 +33,7 @@
       </div>
       <div id="content-wrapper">
         <div id="system-map" class="main-content active"></div>
+        <div id="hostiles" class="main-content"></div>
         <div id="members" class="main-content"></div>
         <div id="events" class="main-content"></div>
         <div id="scans" class="main-content"></div>
@@ -139,6 +143,19 @@
 
     <script type="text/x-handlebars-template" id="memberTemplate">
       <table class="member" id="member-{{id}}">
+        <tr>
+          <td class="ship-icon">{{{shipIcon}}}</td>
+          <td class="name"><a href="javascript:CCPEVE.showInfo(1377, {{id}});">{{name}}</a></td>
+          <td class="ship-type"><a href="javascript:CCPEVE.showInfo({{shipTypeId}});">{{shipType}}</a></td>
+          <td class="ship-name">{{shipName}}</td>
+          <td class="system {{#if isDocked}}docked{{/if}}"><a href="javascript:CCPEVE.showInfo(5,{{systemId}});">{{systemName}}</a></td>
+          <td class="actions" onClick="UIPanels.showMemberOptionsPanel('{{id}}');"><img src="/images/icon-options.png" alt="Options"/></td>
+        </tr>
+      </table>
+    </script>
+
+    <script type="text/x-handlebars-template" id="hostileTemplate">
+      <table class="hostile" id="hostile-{{id}}">
         <tr>
           <td class="ship-icon">{{{shipIcon}}}</td>
           <td class="name"><a href="javascript:CCPEVE.showInfo(1377, {{id}});">{{name}}</a></td>

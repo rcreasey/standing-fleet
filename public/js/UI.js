@@ -26,6 +26,7 @@ var UI = {
 
 	registerEventHandlers: function () {
 		Data.ui.topMenu_map.on('click', $.proxy(UI.tabClick, null, "system-map"));
+		Data.ui.topMenu_hostiles.on('click', $.proxy(UI.tabClick, null, "hostiles"));
 		Data.ui.topMenu_members.on('click', $.proxy(UI.tabClick, null, "members"));
 		Data.ui.topMenu_events.on('click', $.proxy(UI.tabClick, null, "events"));
 		Data.ui.topMenu_scans.on('click', $.proxy(UI.tabClick, null, "scans"));
