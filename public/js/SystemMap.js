@@ -21,8 +21,6 @@ var SystemMap = {
       var link_distance = 25;
       var system;
 
-      var security_classes = ['unknown', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'hostile']
-
       var force = d3.layout.force()
         .size([Data.ui.map.width(), Data.ui.map.height()])
         .charge(-250 * SCALING_FACTOR)
@@ -66,11 +64,7 @@ var SystemMap = {
             .enter().append("g")
             .attr("id", function(n) { return "system-" + n.id })
             .attr("class", function(n) {
-              if (n.id === +Data.state.self.systemId )  {
-                return "current node";
-              } else {
-                return "node"
-              }
+              return (n.id === +Data.state.self.systemId ) ? "current node" : "node";
             });
 
           node_groups.append("rect")
@@ -78,8 +72,9 @@ var SystemMap = {
             .attr("height", rect_height)
             .attr("rx", 2).attr("ry", 2)
             .attr("class", function(n) {
-              // >>>>>
-              return "status-" + security_classes[ Math.floor(Math.random() * 10) ];
+              if ( $.grep(Data.members, function(m) { return n.name === m.systemName; }).length > 0 ) {
+                return "status-blue";
+              }
             });
 
           node_groups.append("text")
@@ -210,13 +205,15 @@ var SystemMap = {
     if (target) {
       d3.selectAll('g.node')
         .attr("class", function(n) {
-          if (n.id === +target.systemId )  {
-            return "current node";
-          } else {
-            return "node"
-          }
+          return (n.id === +target.systemId ) ? "current node" : "node";
         });
-
     }
+
+    d3.selectAll('g.node rect')
+      .attr("class", function(n) {
+        if ( $.grep(Data.members, function(m) { return n.name === m.systemName; }).length > 0 ) {
+          return "status-blue";
+        }
+      });
   }
 };
