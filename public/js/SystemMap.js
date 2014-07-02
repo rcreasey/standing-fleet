@@ -208,7 +208,7 @@ var SystemMap = {
           return (n.id === +target.systemId ) ? "current node" : "node";
         });
     }
-  }
+  },
 
   refreshSystems: function() {
     d3.selectAll('g.node rect')
