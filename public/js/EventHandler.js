@@ -92,23 +92,26 @@ var EventHandler = {
 		MemberList.removeMember(member.id);
 		MemberList.addMember(member);
 		MemberList.sortAndRenderAll();
-		// SystemMap.update(member);
+		SystemMap.refreshSystems();
 	},
 
 	memberTimedOut: function (member) {
 		log('Adding member: ' + member.name + '...');
 		MemberList.removeMember(member.id);
 		MemberList.sortAndRenderAll();
+		SystemMap.refreshSystems();
 	},
 
 	memberUpdated: function (member) {
 		MemberList.addMember(member);
 		MemberList.renderSingleMember(member);
+		SystemMap.refreshSystems();
 	},
 
 	memberLeft: function (member) {
 		MemberList.removeMember(member.id)
 		MemberList.sortAndRenderAll();
+		SystemMap.refreshSystems();
 	},
 
 	statusSelf: function (self) {
@@ -136,6 +139,7 @@ var EventHandler = {
 
 	statusScans: function (scans) {
 		scans.forEach(ScanList.addScan);
+		SystemMap.refreshSystems();
 	},
 
 	statusMembers: function (members) {
@@ -150,5 +154,6 @@ var EventHandler = {
 	updateSystemMap: function (target) {
 		this.statusSelfSystem(target);
 		SystemMap.updateCurrent(target);
+		SystemMap.refreshSystems();
 	}
 };
