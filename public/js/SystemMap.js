@@ -4,6 +4,14 @@ var SystemMap = {
   systems: [],
   jumps: [],
 
+  system_color: function(system) {
+    if ( $.grep(Data.hostiles, function(h) { return system.name === h.systemName; }).length > 0 ) {
+      return "status-hostile";
+    } else if ( $.grep(Data.members, function(m) { return system.name === m.systemName; }).length > 0 ) {
+      return "status-clear";
+    }
+  },
+
   init: function() {
     // Change this to globally adjust minimum node distance and system [x,y] scale
     const SCALING_FACTOR = 0.75;
@@ -67,15 +75,15 @@ var SystemMap = {
               return (n.id === +Data.state.self.systemId ) ? "current node" : "node";
             });
 
+          $('#current-system')
+            .data('systemId', system.id)
+            .text( system.name );
+
           node_groups.append("rect")
             .attr("width", rect_width)
             .attr("height", rect_height)
             .attr("rx", 2).attr("ry", 2)
-            .attr("class", function(n) {
-              if ( $.grep(Data.members, function(m) { return n.name === m.systemName; }).length > 0 ) {
-                return "status-blue";
-              }
-            });
+            .attr("class", function(n) { return SystemMap.system_color(n); });
 
           node_groups.append("text")
             .attr("class", "system-name")
@@ -201,21 +209,20 @@ var SystemMap = {
     }
   },
 
-  updateCurrent: function(target) {
-    if (target) {
-      d3.selectAll('g.node')
-        .attr("class", function(n) {
-          return (n.id === +target.systemId ) ? "current node" : "node";
-        });
-    }
+  updateCurrent: function() {
+    d3.selectAll('g.node')
+      .attr("class", function(n) {
+        return (n.id === +Data.state.self.systemId ) ? "current node" : "node";
+      });
+
+    $('#current-system')
+      .data('system-id', Data.state.self.systemId)
+      .text( $('.current text').text() );
   },
 
   refreshSystems: function() {
     d3.selectAll('g.node rect')
-      .attr("class", function(n) {
-        if ( $.grep(Data.members, function(m) { return n.name === m.systemName; }).length > 0 ) {
-          return "status-blue";
-        }
-      });
-  }
+      .attr("class", function(n) { return SystemMap.system_color(n); });
+  },
+
 };

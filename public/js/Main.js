@@ -9,6 +9,7 @@ function initialize() {
 	stopPolling();
 
 	MemberList.clear();
+	HostileList.clear();
 	EventList.clear();
 	ScanList.clear();
 
@@ -124,6 +125,32 @@ function submitScan(scanData) {
 
 				EventList.addEvent({ type: 'info', text: 'Scan was uploaded...', alert: true });
 			});
+		});
+	});
+}
+
+function submitStatusButtonClick(button) {
+	var status = {systemId: $('#current-system').data('systemId'), systemName: $('#current-system').text(), hostiles: []};
+	status.text = $(button).text().trim().toLowerCase();
+
+	if ($(button).text().trim().toLowerCase() === 'hostile') {
+		// TODO: replace with actual intel
+		status.hostiles.push({ id: "144509256", name: "SirMolle", shipType: 'Rifter', shipTypeId: 587, shipName: 'Talk shit, get hit.'});
+	}
+
+	submitStatus(status);
+}
+
+function submitStatus(statusData) {
+	Server.postStatus(statusData, function(error, data) {
+		UIPanels.hidePanel(function () {
+			if (error) {
+				handleError(error);
+				return;
+			}
+
+			EventList.addEvent({ type: 'info', class: statusData.text, alert: true,
+													 text: 'Status <span class="status ' + statusData.text + '">' + statusData.text + '</span> was reported on <strong>' + statusData.systemName + '</strong>...' });
 		});
 	});
 }

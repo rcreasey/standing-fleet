@@ -86,4 +86,8 @@ var Server = {
 	postScan: function (scanData, callback) {
 		Server.ajaxPost('/postscan', scanData, callback);
 	},
+
+	postStatus: function(statusData, callback) {
+		Server.ajaxPost('/poststatus', statusData, callback);
+	}
 };

@@ -33,6 +33,10 @@ var Data = {
 			property: 'name',
 			order: 'asc'
 		},
+		hostileSortOrder: {
+			property: 'name',
+			order: 'asc'
+		},
 		pollLoop: 0
 	},
 
@@ -50,8 +54,8 @@ var Data = {
 		topMenu_scans: $('#top-menu-scans'),
 
 		infoStrings: $('#info-strings'),
-		infoStrings_armadaPassword: $('#info-string-armada-password'),
-		infoStrings_armadaKey: $('#info-string-armada-key'),
+		infoStrings_fleetPassword: $('#info-string-fleet-password'),
+		infoStrings_fleetKey: $('#info-string-fleet-key'),
 
 		bottomMenu: $('#bottom-menu'),
 		bottomMenu_spinner: $('#bottom-menu-spinner'),

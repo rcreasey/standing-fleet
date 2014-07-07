@@ -17,17 +17,17 @@
           <div class="menu-button system-map active" id="top-menu-system-map">
             <i class="fa fa-sitemap"></i> <span>MAP</span>
           </div>
-          <!-- <div class="menu-button hostiles" id="top-menu-hostiles">
-            <i class="fa fa-exclamation-triangle"></i> <span>HOSTILES</span>
-          </div> -->
-          <div class="menu-button members" id="top-menu-members">
-            <i class="fa fa-users"></i> <span>MEMBERS</span>
+          <div class="menu-button hostiles" id="top-menu-hostiles">
+            <i class="fa fa-exclamation-triangle"></i> <span>ADVISORIES</span>
           </div>
           <div class="menu-button events" id="top-menu-events">
             <i class="fa fa-bell"></i> <span>EVENTS</span>
           </div>
           <div class="menu-button scans" id="top-menu-scans">
             <i class="fa fa-bullseye"></i> <span>SCANS</span>
+          </div>
+          <div class="menu-button members" id="top-menu-members">
+            <i class="fa fa-users"></i> <span>IN FLEET</span>
           </div>
         </div>
       </div>
@@ -40,8 +40,8 @@
       </div>
       <div id="bottom-bar">
         <div class="sub-bar left" id="info-strings">
-          <span id="info-string-armada-key"></span>
-          <span id="info-string-armada-password"></span>
+          <input id="info-string-fleet-key" type="text" readonly="true" placeholder="Fleet Key" style="display: none;" />
+          <input id="info-string-fleet-password" type="text"readonly="true" placeholder="Fleet Password"  style="display: none;" />
         </div>
         <div class="sub-bar right" id="bottom-menu">
           <div class="menu-button" id="bottom-menu-spinner">
@@ -101,8 +101,8 @@
 
     <script type="text/x-handlebars-template" id="eventTemplate">
       <div class="event {{type}}" data-key="{{key}}">
-        <img class="icon" src="/images/icon-{{type}}.png" />
-        <span class="text">{{{text}}}</span>
+        <!--<img class="icon" src="/images/icon-{{type}}.png" />-->
+        <span class="text"><i class="fa fa-info-circle"></i> {{{text}}}</span>
         <div class="right">
           {{#if respondable}}
           <span class="response">
@@ -146,8 +146,8 @@
         <tr>
           <td class="ship-icon">{{{shipIcon}}}</td>
           <td class="name"><a href="javascript:CCPEVE.showInfo(1377, {{id}});">{{name}}</a></td>
-          <td class="ship-type"><a href="javascript:CCPEVE.showInfo({{shipTypeId}});">{{shipType}}</a></td>
-          <td class="ship-name">{{shipName}}</td>
+          <td class="ship-type"><!-- <a href="javascript:CCPEVE.showInfo({{shipTypeId}});">{{shipType}}</a> --></td>
+          <td class="ship-name"><!-- {{shipName}} --></td>
           <td class="system {{#if isDocked}}docked{{/if}}"><a href="javascript:CCPEVE.showInfo(5,{{systemId}});">{{systemName}}</a></td>
           <td class="actions" onClick="UIPanels.showMemberOptionsPanel('{{id}}');"><img src="/images/icon-options.png" alt="Options"/></td>
         </tr>
@@ -167,7 +167,13 @@
       </table>
     </script>
 
-    <script type="text/x-handlebars-template" id="systemMapTemplate"></script>
+    <script type="text/x-handlebars-template" id="systemMapTemplate">
+      <div id="status-buttons">
+        <h2 id="current-system"></h2>
+        <button type="button" class="btn btn-clear" onclick="submitStatusButtonClick(this);"><i class="fa fa-check"></i> Clear</button>
+        <button type="button" class="btn btn-hostile" onclick="submitStatusButtonClick(this);"><i class="fa fa-crosshairs"></i> Hostile</button>
+      </div>
+    </script>
 
     <script type="text/javascript" src="/js/3rd/hbs130.js"></script>
     <script type="text/javascript" src="/js/3rd/jquery1110.js"></script>
@@ -180,6 +186,7 @@
     <script type="text/javascript" src="/js/Server.js"></script>
     <script type="text/javascript" src="/js/SystemMap.js"></script>
     <script type="text/javascript" src="/js/MemberList.js"></script>
+    <script type="text/javascript" src="/js/HostileList.js"></script>
     <script type="text/javascript" src="/js/EventList.js"></script>
     <script type="text/javascript" src="/js/ScanList.js"></script>
     <script type="text/javascript" src="/js/EventHandler.js"></script>

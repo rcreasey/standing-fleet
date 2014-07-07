@@ -201,4 +201,8 @@ var UIPanels = {
 		Data.ui.dim.children().remove();
 		UI.unDim(callback);
 	},
+
+	submitSystemStatus: function (status) {
+		alert(Data.ui.current_system.text() + " status " + status);		
+	}
 };

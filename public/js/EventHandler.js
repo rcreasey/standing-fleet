@@ -2,6 +2,7 @@ var EventHandler = {
 
 	internalEvents: [
 		'statusScans',
+		'statusHostiles',
 		'statusMembers',
 		'statusEvents',
 		'statusSelf',
@@ -114,6 +115,18 @@ var EventHandler = {
 		SystemMap.refreshSystems();
 	},
 
+	reportHostile: function (hostiles) {
+		hostiles.forEach(HostileList.addHostile);
+		HostileList.sortAndRenderAll();
+		SystemMap.refreshSystems();
+	},
+
+	reportClear: function (system) {
+		HostileList.clear(system);
+		HostileList.sortAndRenderAll();
+		SystemMap.refreshSystems();
+	},
+
 	statusSelf: function (self) {
 		Data.state.self.name = self.name;
 		Data.state.self.id = self.id;
@@ -147,13 +160,18 @@ var EventHandler = {
 		MemberList.sortAndRenderAll();
 	},
 
+	statusHostiles: function (hostiles) {
+		hostiles.forEach(HostileList.addHostile);
+		HostileList.sortAndRenderAll();
+	},
+
 	scanPosted: function (scan) {
 		ScanList.addScan(scan);
 	},
 
 	updateSystemMap: function (target) {
 		this.statusSelfSystem(target);
-		SystemMap.updateCurrent(target);
+		SystemMap.updateCurrent();
 		SystemMap.refreshSystems();
 	}
 };

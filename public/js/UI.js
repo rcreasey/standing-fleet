@@ -61,10 +61,12 @@ var UI = {
 	setString: function (target, string) {
 		switch (target) {
 			case "armadaPassword":
-				Data.ui.infoStrings_armadaPassword.html(string);
+				Data.ui.infoStrings_fleetPassword.val(string);
+				Data.ui.infoStrings_fleetPassword.toggle();
 				break;
 			case "armadaKey":
-				Data.ui.infoStrings_armadaKey.html(string);
+				Data.ui.infoStrings_fleetKey.val(string);
+				Data.ui.infoStrings_fleetKey.toggle();
 				break;
 		}
 	},

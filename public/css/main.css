@@ -91,6 +91,84 @@ a:hover { color: #fff0be }
 	width: 70%
 }
 
+#status-buttons {
+	bottom: 0;
+	margin-bottom: 3rem;
+	margin-left: 5px;
+	position: absolute;
+}
+
+#status-buttons h2 {
+	color: #ffcc2a;
+	font-family: 'Droid Sans', sans-serif;
+	font-size: 16px;
+	font-weight: bold;
+	margin-left: 5px;
+}
+
+.btn {
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-webkit-user-select: none;
+	background-image: none;
+	border-radius: 4px;
+	border: 1px solid transparent;
+	color: #fff;
+	cursor: pointer;
+	display: inline-block;
+	font-family: 'Droid Sans', sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 1.42857143;
+	margin-bottom: 0;
+	padding: 6px 12px;
+	text-align: center;
+	user-select: none;
+	vertical-align: middle;
+	white-space: nowrap;
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+.btn:hover,
+.btn:focus {
+  color: #333;
+  text-decoration: none;
+}
+.btn:active,
+.btn.active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+          box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+
+.btn-clear   {	background-color: #366436; border-color: #5cb85c; }
+.btn-clear:hover,
+.btn-clear:focus,
+.btn-clear:active,
+.btn-clear.active,
+.open > .dropdown-toggle.btn-clear {
+	background-color: #5cb85c;
+	border-color: #398439;
+}
+
+.btn-hostile {	background-color: #74312f; border-color: #d9534f; }
+.btn-hostile:hover,
+.btn-hostile:focus,
+.btn-hostile:active,
+.btn-hostile.active,
+.open > .dropdown-toggle.btn-clear {
+	background-color: #d9534f;
+	border-color: #ac2925;
+}
+
   /*/
  / /  MISC ELEMENTS
  */
@@ -133,11 +211,14 @@ a:hover { color: #fff0be }
 	border: none;
 }
 
-#info-strings span {
+#info-strings input {
+	background: #222;
+	border: 0;
 	display: inline-block;
 	padding: 0rem;
 	color: #ffcc2a;
 }
+
 #info-strings {
 	padding: 0.4rem 0.6rem;
 }
@@ -150,6 +231,7 @@ a:hover { color: #fff0be }
 }
 
 #system-map svg {
+	cursor: move;
   overflow: hidden;
   padding: 0 !important;
 	width: 99%;
@@ -160,10 +242,6 @@ a:hover { color: #fff0be }
 #system-map .overlay {
   fill: transparent !important;
   opacity: 0;
-}
-
-.node {
-	cursor: pointer;
 }
 
 .node rect {
