@@ -200,9 +200,5 @@ var UIPanels = {
 	hidePanel: function (callback) {
 		Data.ui.dim.children().remove();
 		UI.unDim(callback);
-	},
-
-	submitSystemStatus: function (status) {
-		alert(Data.ui.current_system.text() + " status " + status);		
 	}
 };
