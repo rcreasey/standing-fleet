@@ -191,7 +191,7 @@ var EventHandler = {
 	},
 
 	updateSystemMap: function (target) {
-		this.statusSelfSystem(target);
+		if (Data.state.self.id === target.id) this.statusSelfSystem(target);
 		SystemMap.updateCurrent();
 		SystemMap.refreshSystems();
 	}
