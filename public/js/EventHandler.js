@@ -34,6 +34,27 @@ var EventHandler = {
 		if (EventHandler.internalEvents.indexOf(event.type) > -1) {
 			event.internal = true;
 
+		} else if (event.type === 'reportHostile') {
+			var reported = event.data;
+			if ( reported.length === 1 ) {
+				var hostile = reported[0];
+				event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
+					+ hostile.id + ');">' + hostile.name + '</a> has been reported in '
+					+ '<a href="javascript:CCPEVE.showInfo(5, ' + hostile.systemId + ');">'
+					+ hostile.systemName + '</a>';
+			} else {
+				event.text = reported.length + ' hostiles have been reported in '
+					+ '<a href="javascript:CCPEVE.showInfo(5, ' + reported[0].systemId + ');">'
+					+ reported[0].systemName + '</a>';
+			}
+			event.blink = 'hostiles';
+			event.alert = true;
+
+		} else if (event.type === 'reportClear') {
+			var reported = event.data;
+			event.text = '<a href="javascript:CCPEVE.showInfo(5, ' + reported.systemId + ');">'
+					+ reported.systemName + '</a> was reported clear';
+
 		} else if (event.type === 'memberJoined') {
 			var member = event.data;
 			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '

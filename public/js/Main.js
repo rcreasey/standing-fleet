@@ -149,7 +149,7 @@ function submitStatus(statusData) {
 				return;
 			}
 
-			EventList.addEvent({ type: 'info', class: statusData.text, alert: true,
+			EventList.addEvent({ type: 'info', class: statusData.text,
 													 text: 'Status <span class="status ' + statusData.text + '">' + statusData.text + '</span> was reported on <strong>' + statusData.systemName + '</strong>...' });
 		});
 	});

@@ -311,6 +311,8 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 .member td.system.docked a,
 .member td.ship-name { color: #888 }
 
+.member td.reporter { width: 10rem }
+
 .member td.system { width: 6rem }
 .member td.ship-type { min-width: 10rem }
 
@@ -369,11 +371,14 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 }
 
 .event.clickable { cursor: pointer }
-.event.memberJoined { 	background-color:#226; border-bottom: 0.2rem solid #113; border-top: 0.16rem solid #558; }
-.event.youJoined { 		background-color:#330; border-bottom: 0.2rem solid #110; border-top: 0.16rem solid #886; }
-.event.memberLeft {		background-color:#123; border-bottom: 0.2rem solid #012; border-top: 0.16rem solid #246; }
-.event.scanShared {		background-color:#332; border-bottom: 0.2rem solid #110; border-top: 0.16rem solid #553; }
-.event.error {			background-color:#411; border-bottom: 0.2rem solid #200; border-top: 0.16rem solid #633; }
+.event.memberJoined { background-color:#226; border-bottom: 0.2rem solid #113; border-top: 0.16rem solid #558; }
+.event.memberLeft {	background-color:#123; border-bottom: 0.2rem solid #012; border-top: 0.16rem solid #246; }
+.event.scanShared {	background-color:#332; border-bottom: 0.2rem solid #110; border-top: 0.16rem solid #553; }
+.event.reportShared {	background-color:#332; border-bottom: 0.2rem solid #110; border-top: 0.16rem solid #553; }
+.event.error { background-color:#411; border-bottom: 0.2rem solid #200; border-top: 0.16rem solid #633; }
+.event.reportHostile { background-color:#411; border-bottom: 0.2rem solid #200; border-top: 0.16rem solid #633; }
+.event.reportClear { background-color:#366436; border-bottom: 0.2rem solid #222; border-top: 0.16rem solid #5cb85c; }
+
 
   /*/
  / /  PANEL

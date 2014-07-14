@@ -101,8 +101,8 @@
 
     <script type="text/x-handlebars-template" id="eventTemplate">
       <div class="event {{type}}" data-key="{{key}}">
-        <!--<img class="icon" src="/images/icon-{{type}}.png" />-->
-        <span class="text"><i class="fa fa-info-circle"></i> {{{text}}}</span>
+        <img class="icon" src="/images/icon-{{type}}.png" />
+        <span class="text">{{{text}}}</span>
         <div class="right">
           {{#if respondable}}
           <span class="response">
@@ -155,14 +155,15 @@
     </script>
 
     <script type="text/x-handlebars-template" id="hostileTemplate">
-      <table class="hostile" id="hostile-{{id}}">
+      <table class="member" id="hostile-{{id}}">
         <tr>
           <td class="ship-icon">{{{shipIcon}}}</td>
           <td class="name"><a href="javascript:CCPEVE.showInfo(1377, {{id}});">{{name}}</a></td>
           <td class="ship-type"><a href="javascript:CCPEVE.showInfo({{shipTypeId}});">{{shipType}}</a></td>
           <td class="ship-name">{{shipName}}</td>
           <td class="system {{#if isDocked}}docked{{/if}}"><a href="javascript:CCPEVE.showInfo(5,{{systemId}});">{{systemName}}</a></td>
-          <td class="actions" onClick="UIPanels.showMemberOptionsPanel('{{id}}');"><img src="/images/icon-options.png" alt="Options"/></td>
+          <td class="reporter"><a href="javascript:CCPEVE.showInfo(1377, {{reporterId}});">{{reporterName}}</a></td>
+          <td class="actions" onClick="UIPanels.showHostileOptionsPanel('{{id}}');"><img src="/images/icon-options.png" alt="Options"/></td>
         </tr>
       </table>
     </script>

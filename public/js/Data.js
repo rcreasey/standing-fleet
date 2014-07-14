@@ -63,7 +63,7 @@ var Data = {
 		bottomMenu_menu: $('#bottom-menu-menu'),
 
 		map: $('#system-map'),
-		hostiles: $('#members'),
+		hostiles: $('#hostiles'),
 		members: $('#members'),
 		events: $('#events'),
 		scans: $('#scans')

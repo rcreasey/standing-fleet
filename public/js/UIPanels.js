@@ -101,6 +101,23 @@ var UIPanels = {
 	 	UIPanels.showPanel(panel, callback);
 	},
 
+	showHostileOptionsPanel: function (hostileId) {
+		var hostile = HostileList.findHostile(hostileId);
+
+		var panel = {
+			type: 'options',
+			image: 'panel-options.png',
+			buttons: [
+				{ text: 'Set destination: ' + hostile.systemName, class: 'no-margin', onClick: 'CCPEVE.setDestination(' + hostile.systemId + ')' },
+				{ text: 'zKillboard: ' + hostile.name, class: 'no-margin', link: 'https://zkillboard.com/search/' + encodeURIComponent(hostile.name) },
+				{ text: 'Eve-Kill: ' + hostile.name, link: 'http://eve-kill.net/?a=search&searchtype=pilot&searchphrase=' + encodeURIComponent(hostile.name) }
+			],
+			closeable: true
+		};
+
+		UIPanels.showPanel(panel);
+	},
+
 	showMemberOptionsPanel: function (memberId) {
 		var member = MemberList.findMember(memberId);
 
@@ -201,4 +218,5 @@ var UIPanels = {
 		Data.ui.dim.children().remove();
 		UI.unDim(callback);
 	}
+	
 };
