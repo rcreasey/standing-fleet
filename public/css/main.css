@@ -92,9 +92,13 @@ a:hover { color: #fff0be }
 }
 
 #status-buttons {
+	background-color: #000;
+	border: solid 1px #222;
+	border-radius: 5px;
 	bottom: 0;
 	margin-bottom: 3rem;
 	margin-left: 5px;
+	padding: .5rem;
 	position: absolute;
 }
 
