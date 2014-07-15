@@ -1,3 +1,4 @@
+require('newrelic');
 require('simple-ioc')
 	.register('fs', require('fs'))
 	.register('express', require('express'))
