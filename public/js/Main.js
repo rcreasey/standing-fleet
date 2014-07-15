@@ -131,6 +131,8 @@ function submitScan(scanData) {
 
 function submitStatusButtonClick(button) {
 	var status = {systemId: $('#current-system').data('systemId'), systemName: $('#current-system').text(), hostiles: []};
+	status.reporterId = Data.state.self.id;
+	status.reporterName = Data.state.self.name;
 	status.text = $(button).text().trim().toLowerCase();
 
 	if ($(button).text().trim().toLowerCase() === 'hostile') {

@@ -2,3 +2,4 @@ node_modules
 *.sublime*
 config/private.js
 .env
+newrelic_agent.log

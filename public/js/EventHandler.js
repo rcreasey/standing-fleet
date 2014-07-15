@@ -47,6 +47,8 @@ var EventHandler = {
 					+ '<a href="javascript:CCPEVE.showInfo(5, ' + reported[0].systemId + ');">'
 					+ reported[0].systemName + '</a>';
 			}
+			event.text += ' by ' + '<a href="javascript:CCPEVE.showInfo(1377, '
+								 + reported[0].reporterId + ');">' + reported[0].reporterName + '</a>';
 			event.blink = 'hostiles';
 			event.alert = true;
 
@@ -54,6 +56,10 @@ var EventHandler = {
 			var reported = event.data;
 			event.text = '<a href="javascript:CCPEVE.showInfo(5, ' + reported.systemId + ');">'
 					+ reported.systemName + '</a> was reported clear';
+			event.text += ' by ' + '<a href="javascript:CCPEVE.showInfo(1377, '
+								+ reported.reporterId + ');">' + reported.reporterName + '</a>';
+			event.blink = 'hostiles';
+			event.alert = true;
 
 		} else if (event.type === 'memberJoined') {
 			var member = event.data;
