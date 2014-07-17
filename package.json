@@ -13,12 +13,13 @@
     "node": "0.10.x"
   },
   "dependencies": {
+    "async": "^0.2.10",
     "express": "3.10.x",
-    "simple-ioc": "^2.4.3",
+    "hamster": "git://github.com/kuja/hamster.git",
     "lodash": "^2.4.1",
     "mongodb": "^1.3.23",
     "newrelic": "^1.8.0",
-    "async": "^0.2.10",
-    "raw-body": "~1.1.3"
+    "raw-body": "~1.1.3",
+    "simple-ioc": "^2.4.3"
   }
 }

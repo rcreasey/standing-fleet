@@ -139,8 +139,9 @@ var UIPanels = {
 		var panel = {
 			type: 'hostiles',
 			image: 'panel-scan.png',
+			text: Data.ui.currentSystem.text(),
 			textinputs: [{
-				legend: 'Copy and paste pilots out of local below',
+				legend:  'Copy and paste pilots out of local below',
 				class: 'status-data',
 			}],
 			buttons: [{

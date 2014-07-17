@@ -63,7 +63,7 @@ var Util = {
 
 	redirectIfNecessary: function (armadaKey, callback) {
 		if (!!armadaKey !== !!Util.getUrlKey() || armadaKey !== Util.getUrlKey()) {
-			UIPanels.showLoadingPanel('Redirecting to armada URL...', function () {
+			UIPanels.showLoadingPanel('Redirecting to Standing Fleet URL...', function () {
 				setTimeout($.proxy(Util.redirectToKeyUrl, null, armadaKey),
 					Data.config.pollInterval);
 			});

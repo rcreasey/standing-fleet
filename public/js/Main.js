@@ -134,9 +134,9 @@ function submitStatusButtonClick(button) {
 	submitStatus(scanData);
 }
 
-function submitStatus(scanData) {
+function submitStatus(localPilots) {
 	UIPanels.showLoadingPanel('Uploading status...', function () {
-		// var parsedScanData = ScanList.parse(scanData);
+		var status = ScanList.addStatus(localPilots);
 
 		Server.postStatus(status, function(error, data) {
 			UIPanels.hidePanel(function () {
@@ -146,15 +146,16 @@ function submitStatus(scanData) {
 				}
 
 				EventList.addEvent({ type: 'info', class: status.text,
-														text: 'Status <span class="status ' + status.text + '">' + status.text
-																+ '</span> was reported on <strong>' + status.systemName + '</strong> by you.' });
+														 text: 'Status was reported on <strong>' +
+        													 '<a href="javascript:CCPEVE.showInfo(5, ' + status.systemId + ')">' +
+																	 status.systemName + '</a> by you.' });
 			});
 		});
 	});
 }
 
 function leaveArmada() {
-	UIPanels.showLoadingPanel('Leaving armada...', function () {
+	UIPanels.showLoadingPanel('Leaving Standing Fleet...', function () {
 		Server.leaveArmada(function(error, data) {
 			if (error) {
 				handleError(error);

@@ -6,6 +6,7 @@ require('simple-ioc')
 	.register('async', require('async'))
 	.register('mongodb', require('mongodb'))
 	.register('rawbody', require('raw-body'))
+	.register('eveapi', require('hamster'))
 
 	.autoRegister('./lib/')
 	.autoRegister('./config/')

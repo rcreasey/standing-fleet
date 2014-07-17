@@ -6,6 +6,22 @@ var ScanList = {
 		Data.ui.scans.empty();
 	},
 
+  addStatus: function(pilotList) {
+		var status = {systemId: Data.ui.currentSystem.data('systemId')
+					      , systemName: Data.ui.currentSystem.text(), pilots: []
+			      		, reporterId: Data.state.self.id
+			      		, reporterName: Data.state.self.name
+			      		, pilots: ScanList.parseLocal(pilotList)};
+
+		if (status.pilots.length > 0) {
+			status.text = 'hostile';
+		} else {
+			status.text = 'clear';
+		}
+
+		return status;
+	},
+
 	addScan: function (scan) {
 		scan.time = Util.getTime(scan.ts);
 		Data.scans.push(scan);
@@ -64,6 +80,16 @@ var ScanList = {
 		return parsedScanData;
 	},
 
+	parseLocal: function (localPilots) {
+		var parsedLocal = [];
+
+		localPilots.split("\n").forEach(function (pilot) {
+			if (pilot.length > 0) parsedLocal.push(pilot);
+		});
+
+		return parsedLocal;
+	},
+
 	getShipTypeContainer: function (shipType, parsedScanData) {
 		var foundShipTypeContainer = false;
 
@@ -96,18 +122,3 @@ var ScanList = {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
