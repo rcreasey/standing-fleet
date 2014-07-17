@@ -92,9 +92,9 @@ a:hover { color: #fff0be }
 }
 
 #status-buttons {
-	background-color: #000;
-	border: solid 1px #222;
-	border-radius: 5px;
+	background-color: #222;
+	border: solid 1px #444;
+	border-radius: 2px;
 	bottom: 0;
 	margin-bottom: 3rem;
 	margin-left: 5px;
@@ -417,6 +417,13 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	padding-bottom: 2.4rem;
 }
 
+.panel .text.system {
+	color: #ffcc2a;
+	font-family: 'Droid Sans', sans-serif;
+	font-size: 16px;
+	padding-bottom: 0;
+}
+
 .panel .close {
 	width: 1rem;
 	height: 1rem;
@@ -456,19 +463,21 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	background-color: #111;
 	width: 14.1rem;
 	color: #ccc;
-	min-width: 25rem;
-	min-height: 10rem;
 	padding: 0.8rem 0.4rem;
 	font-weight: normal;
 	text-align: left;
 	border: 0.16rem solid #111
 }
 
+.panel .textinput.status-data {
+	min-width: 25rem;
+	min-height: 10rem;
+}
+
 .panel .legend {
 	display: block;
 	color: #666;
 	padding: 0.2rem;
-	width: 14rem;
 	margin: 0 auto;
 }
 

@@ -74,7 +74,7 @@
         {{/if}}
         <div class="content">
         {{#if text}}
-          <div class="text">{{{text}}}</div>
+          <div class="text {{#if textclass}}{{textclass}}{{/if}}">{{{text}}}</div>
         {{/if}}
         {{#if textinputs}}
           {{#each textinputs}}
@@ -165,8 +165,34 @@
         <tr>
           <td class="ship-icon">{{{shipIcon}}}</td>
           <td class="name"><a href="javascript:CCPEVE.showInfo(1377, {{id}});">{{name}}</a></td>
-          <td class="ship-type"><a href="javascript:CCPEVE.showInfo({{shipTypeId}});">{{shipType}}</a></td>
-          <td class="ship-name">{{shipName}}</td>
+          <td class="corp">
+            {{#if corporationName}}
+              <a href="javascript:CCPEVE.showInfo(2, {{corporationID}});">[ {{corporationName}} ]</a>
+            {{else}}
+              Corporation details unavailable
+            {{/if}}
+          </td>
+          <td class="alliance">
+            {{#if allianceName}}
+              <a href="javascript:CCPEVE.showInfo(16159, {{allianceID}});">&lt; {{allianceName}} &gt;</a>
+            {{else}}
+              No Alliance
+            {{/if}}
+          </td>
+          <td class="ship-type">
+            {{#if shipTypeId}}
+              <a href="javascript:CCPEVE.showInfo({{shipTypeId}});">{{shipType}}</a>
+            {{else}}
+              Non-visual
+            {{/if}}
+          </td>
+          <td class="ship-name">
+            {{#if shipName}}
+              {{shipName}}
+            {{else}}
+              Ship name unavailable
+            {{/if}}
+          </td>
           <td class="system {{#if isDocked}}docked{{/if}}"><a href="javascript:CCPEVE.showInfo(5,{{systemId}});">{{systemName}}</a></td>
           <td class="reporter"><a href="javascript:CCPEVE.showInfo(1377, {{reporterId}});">{{reporterName}}</a></td>
           <td class="actions" onClick="UIPanels.showHostileOptionsPanel('{{id}}');"><img src="/images/icon-options.png" alt="Options"/></td>

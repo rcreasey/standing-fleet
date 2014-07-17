@@ -41,5 +41,11 @@ module.exports = function () {
 
 		scanMaxShips: 100,
 		scanMinShips: 1,
+
+		whitelist: {
+			alliances: [ 1354830081 ],
+			corporations: []
+		}
+
 	};
 };

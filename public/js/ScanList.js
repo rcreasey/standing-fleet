@@ -6,19 +6,14 @@ var ScanList = {
 		Data.ui.scans.empty();
 	},
 
-  addStatus: function(pilotList) {
+  addStatus: function(reported_status, pilots) {
 		var status = {systemId: Data.ui.currentSystem.data('systemId')
 					      , systemName: Data.ui.currentSystem.text(), pilots: []
 			      		, reporterId: Data.state.self.id
 			      		, reporterName: Data.state.self.name
-			      		, pilots: ScanList.parseLocal(pilotList)};
+			      		, pilots: ScanList.parseLocal(pilots)};
 
-		if (status.pilots.length > 0) {
-			status.text = 'hostile';
-		} else {
-			status.text = 'clear';
-		}
-
+		if (reported_status) status.text = reported_status;
 		return status;
 	},
 
@@ -80,12 +75,14 @@ var ScanList = {
 		return parsedScanData;
 	},
 
-	parseLocal: function (localPilots) {
+	parseLocal: function (local) {
 		var parsedLocal = [];
 
-		localPilots.split("\n").forEach(function (pilot) {
-			if (pilot.length > 0) parsedLocal.push(pilot);
-		});
+		if (local) {
+			local.split("\n").forEach(function (pilot) {
+				if (pilot.length > 0) parsedLocal.push(pilot);
+			});
+		}
 
 		return parsedLocal;
 	},

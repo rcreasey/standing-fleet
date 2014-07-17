@@ -39,7 +39,7 @@ var UI = {
 	},
 
 	submitStatusClear: function() {
-		submitStatus(null);
+		submitStatus('clear', Data.state.self.name);
 	},
 
 	showAlert: function (event) {

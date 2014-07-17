@@ -131,12 +131,12 @@ function submitScan(scanData) {
 
 function submitStatusButtonClick(button) {
 	var scanData = $(button).siblings('.status-data').val();
-	submitStatus(scanData);
+	submitStatus("validate", scanData);
 }
 
-function submitStatus(localPilots) {
+function submitStatus(reported_status, pilots) {
 	UIPanels.showLoadingPanel('Uploading status...', function () {
-		var status = ScanList.addStatus(localPilots);
+		var status = ScanList.addStatus(reported_status, pilots);
 
 		Server.postStatus(status, function(error, data) {
 			UIPanels.hidePanel(function () {
