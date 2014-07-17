@@ -31,6 +31,7 @@ var UI = {
 		Data.ui.topMenu_events.on('click', $.proxy(UI.tabClick, null, "events"));
 		Data.ui.topMenu_scans.on('click', $.proxy(UI.tabClick, null, "scans"));
 
+		Data.ui.bottomMenu_local.on('click', $.proxy(UIPanels.showStatusPanel, null, false));
 		Data.ui.bottomMenu_scan.on('click', $.proxy(UIPanels.showScanPanel, null, false));
 		Data.ui.bottomMenu_menu.on('click', $.proxy(UIPanels.showMenuPanel, null, false));
 

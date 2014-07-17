@@ -59,6 +59,7 @@ var Data = {
 
 		bottomMenu: $('#bottom-menu'),
 		bottomMenu_spinner: $('#bottom-menu-spinner'),
+		bottomMenu_local: $('#bottom-menu-local'),
 		bottomMenu_scan: $('#bottom-menu-scan'),
 		bottomMenu_menu: $('#bottom-menu-menu'),
 
