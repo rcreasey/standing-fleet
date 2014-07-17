@@ -451,14 +451,16 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 .panel .button.no-margin { margin-bottom: 0rem }
 
 .panel .textinput {
-	font-size: 1.2rem;
+	font-size: 1rem;
 	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	background-color: #111;
 	width: 14.1rem;
-	color: #444;
+	color: #ccc;
+	min-width: 25rem;
+	min-height: 10rem;
 	padding: 0.8rem 0.4rem;
 	font-weight: normal;
-	text-align: center;
+	text-align: left;
 	border: 0.16rem solid #111
 }
 

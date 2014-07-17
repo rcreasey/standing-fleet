@@ -62,6 +62,10 @@ var Data = {
 		bottomMenu_scan: $('#bottom-menu-scan'),
 		bottomMenu_menu: $('#bottom-menu-menu'),
 
+		currentSystem: $('#current-system'),
+		statusClear: $('#status-clear'),
+		statusHostile: $('#status-hostile'),
+
 		map: $('#system-map'),
 		hostiles: $('#hostiles'),
 		members: $('#members'),
@@ -70,7 +74,6 @@ var Data = {
 	},
 
 	templates: {
-		map: Handlebars.compile($('#systemMapTemplate').html()),
 		hostile: Handlebars.compile($('#hostileTemplate').html()),
 		member: Handlebars.compile($('#memberTemplate').html()),
 		event: Handlebars.compile($('#eventTemplate').html()),

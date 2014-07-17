@@ -16,7 +16,6 @@ var SystemMap = {
     // Change this to globally adjust minimum node distance and system [x,y] scale
     const SCALING_FACTOR = 0.75;
     log("Initializing System Map...");
-    Data.ui.map.append(Data.templates.map());
 
     var svg = d3.select("#system-map")
       .attr("width", Data.ui.map.width())

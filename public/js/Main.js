@@ -130,26 +130,25 @@ function submitScan(scanData) {
 }
 
 function submitStatusButtonClick(button) {
-	var status = {systemId: $('#current-system').data('systemId'), systemName: $('#current-system').text(), hostiles: []};
-	status.reporterId = Data.state.self.id;
-	status.reporterName = Data.state.self.name;
-	status.text = $(button).text().toLowerCase();
+	var scanData = $(button).siblings('.status-data').val();
+	submitStatus(scanData);
+}
 
-	if ($(button).text().toLowerCase() === ' hostile') {
-		// TODO: replace with actual intel
-		status.hostiles.push({ id: "144509256", name: "SirMolle", shipType: 'Rifter', shipTypeId: 587, shipName: 'Talk shit, get hit.'});
-	}
- 
-	Server.postStatus(status, function(error, data) {
-		UIPanels.hidePanel(function () {
-			if (error) {
-				handleError(error);
-				return;
-			}
+function submitStatus(scanData) {
+	UIPanels.showLoadingPanel('Uploading status...', function () {
+		// var parsedScanData = ScanList.parse(scanData);
 
-			EventList.addEvent({ type: 'info', class: status.text,
-													 text: 'Status <span class="status ' + status.text + '">' + status.text
-													     + '</span> was reported on <strong>' + status.systemName + '</strong> by you.' });
+		Server.postStatus(status, function(error, data) {
+			UIPanels.hidePanel(function () {
+				if (error) {
+					handleError(error);
+					return;
+				}
+
+				EventList.addEvent({ type: 'info', class: status.text,
+														text: 'Status <span class="status ' + status.text + '">' + status.text
+																+ '</span> was reported on <strong>' + status.systemName + '</strong> by you.' });
+			});
 		});
 	});
 }

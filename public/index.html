@@ -32,7 +32,13 @@
         </div>
       </div>
       <div id="content-wrapper">
-        <div id="system-map" class="main-content active"></div>
+        <div id="system-map" class="main-content active">
+          <div id="status-buttons">
+            <h2 id="current-system"></h2>
+            <a id="status-clear" target="_blank" class="btn btn-clear"><i class="fa fa-check"></i> Clear</a>
+            <a id="status-hostile" target="_blank" class="btn btn-hostile"><i class="fa fa-crosshairs"></i> Hostile</a>
+          </div>
+        </div>
         <div id="hostiles" class="main-content"></div>
         <div id="members" class="main-content"></div>
         <div id="events" class="main-content"></div>
@@ -146,8 +152,8 @@
         <tr>
           <td class="ship-icon">{{{shipIcon}}}</td>
           <td class="name"><a href="javascript:CCPEVE.showInfo(1377, {{id}});">{{name}}</a></td>
-          <td class="ship-type"><!-- <a href="javascript:CCPEVE.showInfo({{shipTypeId}});">{{shipType}}</a> --></td>
-          <td class="ship-name"><!-- {{shipName}} --></td>
+          <td class="ship-type"><a href="javascript:CCPEVE.showInfo({{shipTypeId}});">{{shipType}}</a></td>
+          <td class="ship-name">{{shipName}}</td>
           <td class="system {{#if isDocked}}docked{{/if}}"><a href="javascript:CCPEVE.showInfo(5,{{systemId}});">{{systemName}}</a></td>
           <td class="actions" onClick="UIPanels.showMemberOptionsPanel('{{id}}');"><img src="/images/icon-options.png" alt="Options"/></td>
         </tr>
@@ -166,14 +172,6 @@
           <td class="actions" onClick="UIPanels.showHostileOptionsPanel('{{id}}');"><img src="/images/icon-options.png" alt="Options"/></td>
         </tr>
       </table>
-    </script>
-
-    <script type="text/x-handlebars-template" id="systemMapTemplate">
-      <div id="status-buttons">
-        <h2 id="current-system"></h2>
-        <a target="_blank" class="btn btn-clear" onClick="submitStatusButtonClick(this);"><i class="fa fa-check"></i> Clear</a>
-        <a target="_blank" class="btn btn-hostile" onclick="submitStatusButtonClick(this);"><i class="fa fa-crosshairs"></i> Hostile</a>
-      </div>
     </script>
 
     <script type="text/javascript" src="/js/3rd/hbs130.js"></script>

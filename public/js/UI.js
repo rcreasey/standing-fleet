@@ -33,6 +33,24 @@ var UI = {
 
 		Data.ui.bottomMenu_scan.on('click', $.proxy(UIPanels.showScanPanel, null, false));
 		Data.ui.bottomMenu_menu.on('click', $.proxy(UIPanels.showMenuPanel, null, false));
+
+		Data.ui.statusClear.on('click', $.proxy(UI.submitStatus, null, "clear"));
+		// Data.ui.statusHostile.on('click', $.proxy(UI.submitStatus, null, "hostile"));
+		Data.ui.statusHostile.on('click', $.proxy(UIPanels.showStatusPanel, null, false));
+	},
+
+	submitStatus: function(level) {
+		var status = {systemId: Data.ui.currentSystem.data('systemId'), systemName: Data.ui.currentSystem.text(), pilots: []};
+		status.reporterId = Data.state.self.id;
+		status.reporterName = Data.state.self.name;
+		status.text = level;
+
+		if (level === 'hostile') {
+			// TODO: replace with actual intel
+			status.pilots.push({ id: "144509256", name: "SirMolle", shipType: 'Rifter', shipTypeId: 587, shipName: 'Talk shit, get hit.'});
+		}
+
+		submitStatus(status);
 	},
 
 	showAlert: function (event) {

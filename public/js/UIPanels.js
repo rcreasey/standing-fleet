@@ -135,6 +135,25 @@ var UIPanels = {
 		UIPanels.showPanel(panel);
 	},
 
+	showStatusPanel: function (callback) {
+		var panel = {
+			type: 'hostiles',
+			image: 'panel-scan.png',
+			textinputs: [{
+				legend: 'Copy and paste pilots out of local below',
+				class: 'status-data',
+			}],
+			buttons: [{
+				class: 'submit-scan',
+				text: 'Update Status',
+				onClick: 'submitStatusButtonClick(this)'
+			}],
+			closeable: true
+		};
+
+		UIPanels.showPanel(panel, callback);
+	},
+
 	showScanPanel: function (callback) {
 		var panel = {
 			type: 'scan',
@@ -218,5 +237,5 @@ var UIPanels = {
 		Data.ui.dim.children().remove();
 		UI.unDim(callback);
 	}
-	
+
 };
