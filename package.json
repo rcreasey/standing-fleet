@@ -2,7 +2,7 @@
   "name": "standing-fleet",
   "version": "0.1.0",
   "description": "Standing Fleet Middleware",
-  "main": "standingFleetApp.js",
+  "main": "server.js",
   "author": "GARPA",
   "license": "MIT",
   "repository": "git@github.com:rcreasey/standing-fleet.git",

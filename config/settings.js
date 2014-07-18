@@ -3,9 +3,8 @@ module.exports = function () {
 	var getSetting = function (setting) {
 		if (process.env[setting]) {
 			return process.env[setting];
-
 		} else {
-			throw "Setting " + setting + " not found. "
+			return "disabled"
 		}
 	};
 
