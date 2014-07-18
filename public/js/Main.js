@@ -31,7 +31,7 @@ function initialize() {
 			EventHandler.dispatchEvents(data.events);
 
 			if (Data.state.armada.key) {
-				EventList.addEvent({ type: 'youJoined', text: 'You opened this armada', alert: false });
+				EventList.addEvent({ type: 'youJoined', text: 'You opened this standing fleet', alert: false });
 
 				Util.redirectIfNecessary(Data.state.armada.key, function () {
 					UIPanels.hidePanel(pollLoop);
