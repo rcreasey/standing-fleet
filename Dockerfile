@@ -1,19 +1,18 @@
-FROM phusion/baseimage
-MAINTAINER Ryan Creasey "ryan@infern.al"
-
-RUN apt-get update && apt-get clean
-RUN apt-get install -q -y nodejs npm git && apt-get clean
+FROM node
+MAINTAINER Ryan Creasey "ryan@kaneda.net"
 
 ADD . /src
-RUN cd /src; npm install
+WORKDIR /src
+
+RUN npm install
 
 ENV PORT 5000
-ENV COOKIE_SECRET dongues
-ENV SESSION_SECRET buttes
+ENV COOKIE_SECRET cookiesekrets
+ENV SESSION_SECRET sessionsekrets
 ENV STORAGE_MODE memory
 
-WORKDIR /src
-CMD ["$PORT"]
-ENTRYPOINT ["nodejs", "server.js"]
-
 EXPOSE 5000
+
+CMD ["$PORT"]
+ENTRYPOINT ["node", "server.js"]
+
