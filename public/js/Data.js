@@ -99,5 +99,21 @@ var Data = {
 				}
 			}
 		});
+		$.ajax({
+			url: '/data/map.json',
+			dataType: 'json',
+
+			success: function( data ) {
+				Data.regions = data.Regions;
+				Data.systems = data.Systems;
+				Data.gates   = data.Gates;
+			},
+
+			error: function(data, error, errorstring) {
+				if (error) {
+					console.log("Error: " + errorString);
+				}
+			}
+		});
 	}
 };

@@ -158,11 +158,12 @@ var EventHandler = {
 		Data.state.self.name = self.name;
 		Data.state.self.id = self.id;
 		Data.state.self.key = self.key;
-		this.statusSelfSystem(self);
+		if (self.systemId) this.statusSelfSystem(self);
 	},
 
 	statusSelfSystem: function(self) {
 		Data.state.self.systemId = self.systemId;
+		Data.state.self.regionId = Data.systems[self.systemId].regionID;
 	},
 
 	statusArmada: function (armada) {
@@ -197,6 +198,7 @@ var EventHandler = {
 	},
 
 	updateSystemMap: function (target) {
+		SystemMap.redraw();
 		if (Data.state.self.id === target.id) this.statusSelfSystem(target);
 		SystemMap.updateCurrent();
 		SystemMap.refreshSystems();
