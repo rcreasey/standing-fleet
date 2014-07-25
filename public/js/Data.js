@@ -91,6 +91,7 @@ var Data = {
 
 			success: function( data ) {
 				Data.ships = data;
+				Data.ship_types = [1,2,3,4,5];
 			},
 
 			error: function(data, error, errorstring) {

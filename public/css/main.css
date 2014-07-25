@@ -53,6 +53,10 @@ a:hover { color: #fff0be }
 	overflow: hidden
 }
 
+#logo {
+	margin: 0 auto;
+}
+
 #brand {
   color: #ffcc2a;
   font-family: 'Lato', sans-serif !important;
@@ -332,6 +336,47 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 .member td.actions:hover img { opacity: 1 }
 
   /*/
+ / /  HOSTILE
+ */
+
+.hostile {
+	width: 100%;
+	table-layout: fixed
+}
+
+.hostile td {
+	vertical-align: middle;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	height: 2.4rem;
+	border-top: 0.16rem solid #666;
+}
+
+.hostile td.system, .hostile td.ship-type, .hostile td.actions,
+.hostile td.name { padding-left: 0.6rem }
+
+.hostile td.system.docked a,
+.hostile td.ship-name { color: #888 }
+
+.hostile td.reporter { width: 10rem }
+
+.hostile td.system { width: 6rem }
+.hostile td.ship-type { min-width: 10rem; cursor: pointer; }
+.hostile td.ship-name { cursor: pointer; }
+
+.hostile td.ship-icon { vertical-align: top }
+
+.hostile td.ship-icon { width: 2.4rem; padding: 0rem }
+.hostile td.actions { width: 3rem; text-align: center }
+
+.hostile td.ship-icon div { position: relative; }
+.hostile td.ship-icon img { position: absolute; top: 0.3rem ; left: 0.3rem }
+
+.hostile td.actions img { width: 1rem; height: 1rem; opacity: 0.6; cursor: pointer }
+.hostile td.actions:hover img { opacity: 1 }
+
+  /*/
  / /  EVENT
  */
 
@@ -397,7 +442,11 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	width: 100%;
 	max-width: 30rem;
 	margin: 0em auto;
-	padding-top: 2.4rem
+}
+
+.panel .header {
+	display: block;
+	padding: 1rem 1rem 0;
 }
 
 .panel .content {
@@ -408,16 +457,14 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 
 .panel img {
 	display: block;
-	margin: 0px auto;
 	max-height: 2rem;
-	padding-bottom: 2.4rem
 }
 
 .panel .text {
-	padding-bottom: 2.4rem;
+	padding-bottom: 1.4rem;
 }
 
-.panel .text.system {
+.panel .text.title {
 	color: #ffcc2a;
 	font-family: 'Droid Sans', sans-serif;
 	font-size: 16px;
@@ -425,13 +472,11 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 }
 
 .panel .close {
+	float: right;
 	width: 1rem;
 	height: 1rem;
 	padding: 0;
-	position: absolute;
-	top: 1rem;
-	right: 1rem;
-	cursor: pointer
+	cursor: pointer;
 }
 
 .panel .button {
@@ -450,6 +495,11 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	font-weight: normal
 }
 
+.panel .button.submit-local,
+.panel .button.submit-scan {
+	margin-top: 1rem;
+}
+
 .panel .button:hover {
 	background-color:#444;
 	color: #fff
@@ -457,18 +507,27 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 
 .panel .button.no-margin { margin-bottom: 0rem }
 
+.panel input,
 .panel .textinput {
 	font-size: 1rem;
 	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	background-color: #111;
 	width: 14.1rem;
 	color: #ccc;
-	padding: 0.8rem 0.4rem;
 	font-weight: normal;
 	text-align: left;
 	border: 0.16rem solid #111
 }
 
+.panel input {
+	padding: 0.5rem;
+}
+
+.panel .textinput {
+	padding: 0.8rem 0.4rem;
+}
+
+.panel .textinput.scan-data,
 .panel .textinput.status-data {
 	min-width: 25rem;
 	min-height: 10rem;
@@ -489,6 +548,20 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	border: 1px solid #d66;
 	width: 12rem;
 	color: #faa;
+}
+
+.panel .form .legend {
+	display: inline-block;
+	text-align: right;
+	width: 6rem;
+}
+
+.panel .form input {
+	width: 15rem;
+}
+
+.panel .form .submit {
+	margin-top: 1rem;
 }
 
   /*/

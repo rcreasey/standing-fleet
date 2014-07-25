@@ -4,6 +4,7 @@ var UIPanels = {
 		var panel = {
 			type: 'options',
 			image: 'panel-settings.png',
+			title: 'Standing Fleet Options',
 			closeable: true,
 			buttons: [
 				{
@@ -25,7 +26,7 @@ var UIPanels = {
 	showJoinPanel: function (error, callback) {
 		var panel = {
 			type: 'start',
-			image: 'panel-logo.png',
+			title: '<img id="logo" src="/images/panel-logo.png" alt="Standing Fleet" />',
 			textinputs: [{
 				legend: 'Enter Fleet key',
 				class: 'armada-key'
@@ -33,12 +34,12 @@ var UIPanels = {
 			buttons: [
 				{
 					class: 'submit-join',
-					text: 'Join',
+					text: 'Join Fleet',
 					onClick: 'joinArmadaButtonClick(this)'
 				},
 				{
 					class: 'submit-create',
-					text: 'Create new',
+					text: 'Create Fleet',
 					onClick: 'UIPanels.showCreatePanel()'
 				}
 			],
@@ -51,15 +52,15 @@ var UIPanels = {
 	showCreatePanel: function (error, callback) {
 		var panel = {
 			type: 'create',
-			image: 'panel-logo.png',
+			title: '<img id="logo" src="/images/panel-logo.png" alt="Standing Fleet" />',
 			textinputs: [{
-					legend: 'Choose Standing Fleet password.<br />Blank makes Fleet public.',
+					legend: 'Choose a Standing Fleet key.<br />Blank makes the fleet public.',
 					class: 'armada-password'
 			}],
 			buttons: [
 				{
 					class: 'submit-key',
-					text: 'Create',
+					text: 'Create Fleet',
 					onClick: 'createArmadaButtonClick(this)'
 				},
 				{
@@ -77,7 +78,7 @@ var UIPanels = {
 	showPasswordPanel: function (error, callback) {
 		var panel = {
 			type: 'password',
-			image: 'panel-logo.png',
+			title: '<img id="logo" src="/images/panel-logo.png" alt="Standing Fleet" />',
 			text: 'Authorization required.',
 			textinputs: [{
 					legend: 'Enter Standing Fleet password',
@@ -86,7 +87,7 @@ var UIPanels = {
 			buttons: [
 				{
 					class: 'submit-password',
-					text: 'Join',
+					text: 'Join Fleet',
 					onClick: 'submitPasswordButtonClick(this)'
 				},
 				{
@@ -118,6 +119,25 @@ var UIPanels = {
 		UIPanels.showPanel(panel);
 	},
 
+	updateHostileDetailsPanel: function (hostileId) {
+		var hostile = HostileList.findHostile(hostileId);
+
+		var panel = {
+			type: 'options',
+			image: 'panel-options.png',
+			title: hostile.name,
+			text: 'Confirm details of hostile pilot:',
+			formitems: [
+				{select: {legend: 'Ship Type', id: 'shipType', values: Data.ship_types,	selected: hostile.shipTypeId} },
+				{textinput: {legend: 'Ship Name', id: 'shipName', value: hostile.shipName}},
+				{submit: {text: 'Update Details'}}
+			],
+			closeable: true
+		};
+
+		UIPanels.showPanel(panel);
+	},
+
 	showMemberOptionsPanel: function (memberId) {
 		var member = MemberList.findMember(memberId);
 
@@ -139,8 +159,7 @@ var UIPanels = {
 		var panel = {
 			type: 'hostiles',
 			image: 'panel-scan.png',
-			text: Data.ui.currentSystem.text(),
-			textclass: 'system',
+			title: Data.ui.currentSystem.text(),
 			textinputs: [{
 				legend:  'Copy and paste pilots out of local below',
 				class: 'status-data',
@@ -160,13 +179,14 @@ var UIPanels = {
 		var panel = {
 			type: 'scan',
 			image: 'panel-scan.png',
+			title: Data.ui.currentSystem.text(),
 			textinputs: [{
 				legend: 'Paste scan results below',
 				class: 'scan-data',
 			}],
 			buttons: [{
 				class: 'submit-scan',
-				text: 'Share',
+				text: 'Send Scan',
 				onClick: 'submitScanButtonClick(this)'
 			}],
 			closeable: true

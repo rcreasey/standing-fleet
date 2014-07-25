@@ -69,15 +69,43 @@
 
     <script type="text/x-handlebars-template" id="panelTemplate">
       <div class="panel {{type}}">
-        {{#if closeable}}
-        <img class="close" src="/images/icon-close.png" alt="Close panel" onClick="UIPanels.hidePanel()" />
-        {{/if}}
-        {{#if image}}
-        <img src="/images/{{image}}" alt="Panel image" />
-        {{/if}}
+        <div class="header">
+          {{#if closeable}}
+          <img class="close" src="/images/icon-close.png" alt="Close panel" onClick="UIPanels.hidePanel()" />
+          {{/if}}
+          {{#if image}}
+          <img src="/images/{{image}}" alt="Panel image" />
+          {{/if}}
+        </div>
         <div class="content">
+        {{#if title}}
+          <div class="text title">{{{title}}}</div>
+        {{/if}}
         {{#if text}}
           <div class="text {{#if textclass}}{{textclass}}{{/if}}">{{{text}}}</div>
+        {{/if}}
+        {{#if formitems}}
+          <div class="form">
+          {{#each formitems}}
+            {{#if select}}
+            <div class="group">
+              {{#if select.legend}}<span class="legend">{{{select.legend}}}</span>{{/if}}
+              <input id="{{{select.id}}}" value="{{{select.selected}}}" />
+            </div>
+            {{/if}}
+            {{#if textinput}}
+            <div class="group">
+              {{#if textinput.legend}}<span class="legend">{{{textinput.legend}}}</span>{{/if}}
+              <input id="{{textinput.id}}" value="{{{textinput.value}}}" />
+            </div>
+            {{/if}}
+            {{#if submit}}
+            <div class="submit">
+              <a {{#if submit.link}}href="{{{submit.link}}}"{{/if}} target="_blank" class="button" onClick="{{{submit.onClick}}}">{{{submit.text}}}</a>
+            </div>
+            {{/if}}
+          {{/each}}
+          </div>
         {{/if}}
         {{#if textinputs}}
           {{#each textinputs}}
@@ -164,7 +192,7 @@
     </script>
 
     <script type="text/x-handlebars-template" id="hostileTemplate">
-      <table class="member" id="hostile-{{id}}">
+      <table class="hostile" id="hostile-{{id}}">
         <tr>
           <td class="ship-icon">{{{shipIcon}}}</td>
           <td class="name"><a href="javascript:CCPEVE.showInfo(1377, {{id}});">{{name}}</a></td>
@@ -182,14 +210,14 @@
               No Alliance
             {{/if}}
           </td>
-          <td class="ship-type">
+          <td class="ship-type" onClick="UIPanels.updateHostileDetailsPanel('{{id}}');">
             {{#if shipTypeId}}
               <a href="javascript:CCPEVE.showInfo({{shipTypeId}});">{{shipType}}</a>
             {{else}}
-              Non-visual
+              No Tally
             {{/if}}
           </td>
-          <td class="ship-name">
+          <td class="ship-name" onClick="UIPanels.updateHostileDetailsPanel('{{id}}');">
             {{#if shipName}}
               {{shipName}}
             {{else}}
@@ -205,6 +233,7 @@
 
     <script type="text/javascript" src="/js/3rd/hbs130.js"></script>
     <script type="text/javascript" src="/js/3rd/jquery1110.js"></script>
+    <script type="text/javascript" src="/js/3rd/jqueryui1110.js"></script>
     <script type="text/javascript" src="/js/3rd/d3348.js"></script>
 
     <script type="text/javascript" src="/js/Util.js"></script>
