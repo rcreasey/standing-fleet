@@ -84,10 +84,14 @@ var Server = {
 	},
 
 	postScan: function (scanData, callback) {
-		Server.ajaxPost('/postscan', scanData, callback);
+		Server.ajaxPost('/scan', scanData, callback);
 	},
 
 	postStatus: function(statusData, callback) {
-		Server.ajaxPost('/poststatus', statusData, callback);
+		Server.ajaxPost('/status', statusData, callback);
+	},
+
+	postDetails: function(detailsData, callback) {
+		Server.ajaxPost('/details', detailsData, callback);
 	}
 };

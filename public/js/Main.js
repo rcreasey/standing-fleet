@@ -154,6 +154,35 @@ function submitStatus(reported_status, pilots) {
 	});
 }
 
+function submitHostileDetailsClick(button) {
+	var hostileId = $('#hostile-id').val();
+	var hostileName = $('#hostile-name').val();
+	var shipTypeId = $('#hostile-ship-type').val();
+	var shipName = $('#hostile-ship-name').val();
+
+	submitHostileDetails(hostileId, hostileName, shipTypeId, shipName);
+}
+
+function submitHostileDetails(hostileId, hostileName, shipTypeId, shipName) {
+	UIPanels.showLoadingPanel('Uploading status...', function () {
+		var details = {type: 'hostile', id: hostileId, name: hostileName, shipTypeId: shipTypeId, shipName: shipName};
+
+		Server.postDetails(details, function(error, data) {
+			UIPanels.hidePanel(function () {
+				if (error) {
+					handleError(error);
+					return;
+				}
+
+				EventList.addEvent({ type: 'info', class: status.text,
+														text: 'Details were reported on <strong>' +
+																	'<a href="javascript:CCPEVE.showInfo(1377, ' + details.id + ')">' +
+																	details.name + '</a> by you.' });
+			});
+		});
+	});
+}
+
 function leaveArmada() {
 	UIPanels.showLoadingPanel('Leaving Standing Fleet...', function () {
 		Server.leaveArmada(function(error, data) {

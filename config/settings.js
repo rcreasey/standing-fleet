@@ -4,11 +4,12 @@ module.exports = function () {
 		if (process.env[setting]) {
 			return process.env[setting];
 		} else {
-			return "disabled"
+			console.log("ERROR: setting '" + setting + "' not set.  Please check your ENV variables.");
+			process.exit();
 		}
 	};
 
-	return {
+	var settings = {
 		cookieSession: {
 			key: 'armadaSession',
 			secret: getSetting('SESSION_SECRET'),
@@ -20,7 +21,6 @@ module.exports = function () {
 		},
 
 		port: getSetting('PORT'),
-		mongoDbURI: getSetting('MONGODB_URI'),
 		cookieSecret: getSetting('COOKIE_SECRET'),
 		storage: getSetting('STORAGE_MODE'),
 		log: 'console',
@@ -42,6 +42,9 @@ module.exports = function () {
 		scanMinShips: 1,
 
 		whitelist: { url: 'https://standings.goonfleet.com', threshold: 0.1, alliances: ['1354830081'], corporations: [] }
-
 	};
+
+	if (settings.storage == 'mongoDb') settings.mongoDbURI = getSetting('MONGODB_URI');
+
+	return settings;
 };

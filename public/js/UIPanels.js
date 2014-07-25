@@ -83,23 +83,6 @@ var UIPanels = {
 	 	UIPanels.showPanel(panel, callback);
 	},
 
-	showHostileOptionsPanel: function (hostileId) {
-		var hostile = HostileList.findHostile(hostileId);
-
-		var panel = {
-			type: 'options',
-			image: 'panel-options.png',
-			buttons: [
-				{ text: 'Set destination: ' + hostile.systemName, class: 'no-margin', onClick: 'CCPEVE.setDestination(' + hostile.systemId + ')' },
-				{ text: 'zKillboard: ' + hostile.name, class: 'no-margin', link: 'https://zkillboard.com/search/' + encodeURIComponent(hostile.name) },
-				{ text: 'Eve-Kill: ' + hostile.name, link: 'http://eve-kill.net/?a=search&searchtype=pilot&searchphrase=' + encodeURIComponent(hostile.name) }
-			],
-			closeable: true
-		};
-
-		UIPanels.showPanel(panel);
-	},
-
 	updateHostileDetailsPanel: function (hostileId) {
 		var hostile = HostileList.findHostile(hostileId);
 
@@ -109,9 +92,11 @@ var UIPanels = {
 			title: hostile.name,
 			text: 'Confirm details of hostile pilot:',
 			formitems: [
-				{select: {label: 'Ship Type', id: 'shipType', values: Data.ship_types,	selected: hostile.shipTypeId} },
-				{input:  {label: 'Ship Name', id: 'shipName', value: hostile.shipName}},
-				{submit: {text: 'Update Details'}}
+				{input:  {hidden: true, id: 'hostile-id', value: hostile.id}},
+				{input:  {hidden: true, id: 'hostile-name', value: hostile.name}},
+				{select: {label: 'Ship Type', id: 'hostile-ship-type', values: Data.ship_types,	selected: hostile.shipTypeId} },
+				{input:  {label: 'Ship Name', id: 'hostile-ship-name', value: hostile.shipName}},
+				{submit: {text: 'Update Details', onClick: 'submitHostileDetailsClick(this)'}}
 			],
 			closeable: true
 		};
@@ -120,15 +105,22 @@ var UIPanels = {
 	},
 
 	showMemberOptionsPanel: function (memberId) {
-		var member = MemberList.findMember(memberId);
+		UIPanels.showOptionsPanel( MemberList.findMember(memberId) );
+	},
 
+	showHostileOptionsPanel: function (hostileId) {
+		UIPanels.showOptionsPanel( HostileList.findHostile(hostileId) );
+	},
+
+	showOptionsPanel: function(person) {
 		var panel = {
 			type: 'options',
 			image: 'panel-options.png',
+			title: person.name,
 			buttons: [
-				{ text: 'Set destination: ' + member.systemName, class: 'no-margin', onClick: 'CCPEVE.setDestination(' + member.systemId + ')' },
-				{ text: 'zKillboard: ' + member.name, class: 'no-margin', link: 'https://zkillboard.com/search/' + encodeURIComponent(member.name) },
-				{ text: 'Eve-Kill: ' + member.name, link: 'http://eve-kill.net/?a=search&searchtype=pilot&searchphrase=' + encodeURIComponent(member.name) }
+				{ text: 'Set destination: ' + person.systemName, class: 'no-margin', onClick: 'CCPEVE.setDestination(' + person.systemId + ')' },
+				{ text: 'zKillboard: ' + person.name, class: 'no-margin', link: 'https://zkillboard.com/search/' + encodeURIComponent(person.name) },
+				{ text: 'Eve-Kill: ' + person.name, link: 'http://eve-kill.net/?a=search&searchtype=pilot&searchphrase=' + encodeURIComponent(person.name) }
 			],
 			closeable: true
 		};

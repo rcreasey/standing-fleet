@@ -54,10 +54,10 @@
             <img src="/images/spinner.gif" alt="Processing..." />
           </div>
           <div class="menu-button" id="bottom-menu-local">
-            <i class="fa fa-bullseye"></i> <span>ADD LOCAL</span>
+            <i class="fa fa-bullseye"></i> <span>REPORT LOCAL</span>
           </div>
           <div class="menu-button" id="bottom-menu-scan">
-            <i class="fa fa-bullseye"></i> <span>ADD SCAN</span>
+            <i class="fa fa-bullseye"></i> <span>REPORT SCAN</span>
           </div>
           <div class="menu-button" id="bottom-menu-menu">
             <i class="fa fa-cog"></i> <span>MENU</span>
@@ -102,7 +102,7 @@
             <div class="group">
               {{#if input.legend}}<span class="legend">{{{input.legend}}}</span>{{/if}}
               {{#if input.label}}<label for="{{input.id}}">{{{input.label}}}</label>{{/if}}
-              <input id="{{input.id}}" value="{{{input.value}}}" />
+              <input id="{{input.id}}" value="{{{input.value}}}" type={{#if input.hidden}}"hidden"{{else}}"text"{{/if}} />
             </div>
             {{/if}}
             {{#if textinput}}
@@ -227,7 +227,7 @@
             {{#if shipTypeId}}
               <a href="javascript:CCPEVE.showInfo({{shipTypeId}});">{{shipType}}</a>
             {{else}}
-              No Tally
+              Ship type unavailable
             {{/if}}
           </td>
           <td class="ship-name" onClick="UIPanels.updateHostileDetailsPanel('{{id}}');">
