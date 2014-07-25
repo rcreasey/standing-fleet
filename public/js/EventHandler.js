@@ -61,6 +61,15 @@ var EventHandler = {
 			event.blink = 'hostiles';
 			event.alert = true;
 
+		} else if (event.type === 'updateHostile') {
+			var hostile = event.data;
+			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
+				+ hostile.id + ');">' + hostile.name + '</a> has been identified in a '
+				+ '<a href="javascript:CCPEVE.showInfo(' + hostile.shipTypeId + ');">' + hostile.shipType + '</a> in '
+				+ '<a href="javascript:CCPEVE.showInfo(5, ' + hostile.systemId + ');">' + hostile.systemName + '</a>';
+			event.blink = 'hostiles';
+			event.alert = true;
+
 		} else if (event.type === 'memberJoined') {
 			var member = event.data;
 			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
@@ -145,6 +154,12 @@ var EventHandler = {
 	reportHostile: function (hostiles) {
 		hostiles.forEach(HostileList.addHostile);
 		HostileList.sortAndRenderAll();
+		SystemMap.refreshSystems();
+	},
+
+	updateHostile: function (hostile) {
+		HostileList.addHostile(hostile);
+		HostileList.renderSingleHostile(hostile);
 		SystemMap.refreshSystems();
 	},
 
