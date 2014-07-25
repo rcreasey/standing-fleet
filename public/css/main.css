@@ -54,7 +54,8 @@ a:hover { color: #fff0be }
 }
 
 #logo {
-	margin: 0 auto;
+	float: none;
+	margin: 0 auto 1rem;
 }
 
 #brand {
@@ -446,17 +447,20 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 
 .panel .header {
 	display: block;
+	min-height: 2.5rem;
 	padding: 1rem 1rem 0;
 }
 
 .panel .content {
 	color: #aaa;
 	display: block;
-	padding: 0rem 2.4rem 0.4rem
+	min-height: 0.5rem;
+	padding: 0rem 2.4rem;
 }
 
 .panel img {
-	display: block;
+	display: inline-block;
+	float: left;
 	max-height: 2rem;
 }
 
@@ -534,8 +538,10 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 }
 
 .panel .legend {
+	color: #ffcc2a;
+	font-family: 'Droid Sans', sans-serif;
+	font-size: 12px;
 	display: block;
-	color: #666;
 	padding: 0.2rem;
 	margin: 0 auto;
 }
@@ -550,7 +556,7 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	color: #faa;
 }
 
-.panel .form .legend {
+.panel .form label {
 	display: inline-block;
 	text-align: right;
 	width: 6rem;

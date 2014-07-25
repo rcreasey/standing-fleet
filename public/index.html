@@ -76,13 +76,17 @@
           {{#if image}}
           <img src="/images/{{image}}" alt="Panel image" />
           {{/if}}
+          {{#if title}}
+            <div class="text title">{{{title}}}</div>
+          {{/if}}
         </div>
         <div class="content">
-        {{#if title}}
-          <div class="text title">{{{title}}}</div>
-        {{/if}}
+
         {{#if text}}
           <div class="text {{#if textclass}}{{textclass}}{{/if}}">{{{text}}}</div>
+        {{/if}}
+        {{#if error}}
+          <span class="error">ERROR:<br />{{{error.message}}}</span>
         {{/if}}
         {{#if formitems}}
           <div class="form">
@@ -90,13 +94,25 @@
             {{#if select}}
             <div class="group">
               {{#if select.legend}}<span class="legend">{{{select.legend}}}</span>{{/if}}
+              {{#if select.label}}<label for="{{select.id}}">{{{select.label}}}</label>{{/if}}
               <input id="{{{select.id}}}" value="{{{select.selected}}}" />
             </div>
             {{/if}}
-            {{#if textinput}}
+            {{#if input}}
             <div class="group">
+              {{#if input.legend}}<span class="legend">{{{input.legend}}}</span>{{/if}}
+              {{#if input.label}}<label for="{{input.id}}">{{{input.label}}}</label>{{/if}}
+              <input id="{{input.id}}" value="{{{input.value}}}" />
+            </div>
+            {{/if}}
+            {{#if textinput}}
               {{#if textinput.legend}}<span class="legend">{{{textinput.legend}}}</span>{{/if}}
-              <input id="{{textinput.id}}" value="{{{textinput.value}}}" />
+              {{#if textinput.label}}<label for="{{textinput.id}}" class="legend">{{{textinput.legend}}}</label>{{/if}}
+              <textarea rows="1" class="textinput {{{textinput.class}}}"></textarea>
+            {{/if}}
+            {{#if button}}
+            <div class="group">
+              <a {{#if button.link}}href="{{{button.link}}}"{{/if}} target="_blank" class="button {{{button.class}}}" onClick="{{{button.onClick}}}">{{{button.text}}}</a>
             </div>
             {{/if}}
             {{#if submit}}
@@ -117,9 +133,6 @@
           {{#each buttons}}
           <a {{#if link}}href="{{{link}}}"{{/if}} target="_blank" class="button {{{class}}}" onClick="{{{onClick}}}">{{{text}}}</a>
           {{/each}}
-        {{/if}}
-        {{#if error}}
-          <span class="error">ERROR:<br />{{{error.message}}}</span>
         {{/if}}
         </div>
       </div>

@@ -6,18 +6,10 @@ var UIPanels = {
 			image: 'panel-settings.png',
 			title: 'Standing Fleet Options',
 			closeable: true,
-			buttons: [
-				{
-					class: 'reload-armada no-margin',
-					text: 'Reload Standing Fleet',
-					onClick: 'location.reload()'
-				},
-				{
-					class: 'leave-armada',
-					text: 'Leave Standing Fleet',
-					onClick: 'leaveArmada()'
-				}
-			],
+			formitems: [
+				{button: {class: 'reload-armada no-margin', text: 'Reload Standing Fleet', onClick: 'location.reload()'}},
+				{button: {class: 'leave-armada', text: 'Leave Standing Fleett', onClick: 'leaveArmada()'}}
+			]
 		};
 
 		UIPanels.showPanel(panel, callback);
@@ -27,21 +19,10 @@ var UIPanels = {
 		var panel = {
 			type: 'start',
 			title: '<img id="logo" src="/images/panel-logo.png" alt="Standing Fleet" />',
-			textinputs: [{
-				legend: 'Enter Fleet key',
-				class: 'armada-key'
-			}],
-			buttons: [
-				{
-					class: 'submit-join',
-					text: 'Join Fleet',
-					onClick: 'joinArmadaButtonClick(this)'
-				},
-				{
-					class: 'submit-create',
-					text: 'Create Fleet',
-					onClick: 'UIPanels.showCreatePanel()'
-				}
+			formitems: [
+				{button: {class: 'submit-create', text: 'Create Fleet', onClick: 'UIPanels.showCreatePanel()'}},
+				{textinput: {legend: 'Fleet Key', class: 'armada-key'}},
+				{submit: {class: 'submit-join', text: 'Join Fleet', onClick: 'joinArmadaButtonClick(this)'}}
 			],
 			error: error
 		};
@@ -128,8 +109,8 @@ var UIPanels = {
 			title: hostile.name,
 			text: 'Confirm details of hostile pilot:',
 			formitems: [
-				{select: {legend: 'Ship Type', id: 'shipType', values: Data.ship_types,	selected: hostile.shipTypeId} },
-				{textinput: {legend: 'Ship Name', id: 'shipName', value: hostile.shipName}},
+				{select: {label: 'Ship Type', id: 'shipType', values: Data.ship_types,	selected: hostile.shipTypeId} },
+				{input:  {label: 'Ship Name', id: 'shipName', value: hostile.shipName}},
 				{submit: {text: 'Update Details'}}
 			],
 			closeable: true
@@ -213,7 +194,7 @@ var UIPanels = {
 	showLoadingPanel: function (text, callback) {
 		var panel = {
 			type: 'loading',
-			text: text || UI.getLoadingText(),
+			title: text || UI.getLoadingText(),
 			image: 'spinner.gif'
 		};
 
