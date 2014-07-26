@@ -6,7 +6,7 @@ var Util = {
 
 	getShipType: function (shipName) {
 		if (Util.isShip(shipName)){
-			return  Data.ships[shipName][0];
+			return Data.ships[shipName].class[0];
 		}
 		return 'other';
 	},
@@ -15,8 +15,8 @@ var Util = {
 		var returnElement 	= $('<div/>');
 
 		if (Util.isShip(shipName)){
-			for (var i in Data.ships[shipName]) {
-				returnElement.append($('<img src="/images/ship-icons/ship-icon-' + Data.ships[shipName][i] + '.gif" alt="" />'));
+			for (var i in Data.ships[shipName].class) {
+				returnElement.append($('<img src="/images/ship-icons/ship-icon-' + Data.ships[shipName].class[i] + '.gif" alt="" />'));
 			}
 		} else {
 			returnElement.append($('<img src="/images/ship-icons/ship-icon-other.gif" alt="Ship type" />'));
@@ -70,13 +70,5 @@ var Util = {
 		} else {
 			callback();
 		}
-	},
-
-	goToEveKill: function (encodedMemberName) {
-		var link = $('<a href='
-			+ '"http://defiant.eve-kill.net/?a=search&searchtype=pilot&searchphrase=' + encodedMemberName + '"'
-			+ ' target="_newtab">');
-
-		$(link)[0].click();
 	}
 };

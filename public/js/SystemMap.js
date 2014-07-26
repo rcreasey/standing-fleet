@@ -22,7 +22,6 @@ var SystemMap = {
     return {x: x, y: y}; //this is D
   },
 
-
   // A square-root and division free line segment / circle intersection algorithm
   lineCircleIntersection: function(A, B, C, r) {
     var a, b, c, d;

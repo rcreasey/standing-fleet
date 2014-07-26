@@ -91,18 +91,10 @@
         {{#if formitems}}
           <div class="form">
           {{#each formitems}}
-            {{#if select}}
-            <div class="group">
-              {{#if select.legend}}<span class="legend">{{{select.legend}}}</span>{{/if}}
-              {{#if select.label}}<label for="{{select.id}}">{{{select.label}}}</label>{{/if}}
-              <input id="{{{select.id}}}" value="{{{select.selected}}}" />
-            </div>
-            {{/if}}
             {{#if input}}
             <div class="group">
               {{#if input.legend}}<span class="legend">{{{input.legend}}}</span>{{/if}}
-              {{#if input.label}}<label for="{{input.id}}">{{{input.label}}}</label>{{/if}}
-              <input id="{{input.id}}" value="{{{input.value}}}" type={{#if input.hidden}}"hidden"{{else}}"text"{{/if}} />
+              <input id="{{input.id}}" value="{{{input.value}}}" type={{#if input.hidden}}"hidden"{{else}}"text"{{/if}} {{#if input.label}}placeholder="{{{input.label}}}"{{/if}}/>
             </div>
             {{/if}}
             {{#if textinput}}
@@ -246,7 +238,7 @@
 
     <script type="text/javascript" src="/js/3rd/hbs130.js"></script>
     <script type="text/javascript" src="/js/3rd/jquery1110.js"></script>
-    <script type="text/javascript" src="/js/3rd/jqueryui1110.js"></script>
+    <script type="text/javascript" src="/js/3rd/typeahead0104.js"></script>
     <script type="text/javascript" src="/js/3rd/d3348.js"></script>
 
     <script type="text/javascript" src="/js/Util.js"></script>

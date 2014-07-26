@@ -1,5 +1,29 @@
 var UIPanels = {
 
+	substringMatcher: function(strs) {
+	  return function findMatches(q, cb) {
+	    var matches, substrRegex;
+
+	    // an array that will be populated with substring matches
+	    matches = [];
+
+	    // regex used to determine if a string contains the substring `q`
+	    substrRegex = new RegExp(q, 'i');
+
+	    // iterate through the pool of strings and for any string that
+	    // contains the substring `q`, add it to the `matches` array
+	    $.each(strs, function(i, str) {
+	      if (substrRegex.test(str)) {
+	        // the typeahead jQuery plugin expects suggestions to a
+	        // JavaScript object, refer to typeahead docs for more info
+	        matches.push({ value: str });
+	      }
+	    });
+
+	    cb(matches);
+	  };
+	},
+
 	showMenuPanel: function(callback) {
 		var panel = {
 			type: 'options',
@@ -21,7 +45,7 @@ var UIPanels = {
 			title: '<img id="logo" src="/images/panel-logo.png" alt="Standing Fleet" />',
 			formitems: [
 				{button: {class: 'submit-create', text: 'Create Fleet', onClick: 'UIPanels.showCreatePanel()'}},
-				{textinput: {legend: 'Fleet Key', class: 'armada-key'}},
+				{input:  {label: 'Fleet Key', class: 'armada-key'}},
 				{submit: {class: 'submit-join', text: 'Join Fleet', onClick: 'joinArmadaButtonClick(this)'}}
 			],
 			error: error
@@ -94,7 +118,7 @@ var UIPanels = {
 			formitems: [
 				{input:  {hidden: true, id: 'hostile-id', value: hostile.id}},
 				{input:  {hidden: true, id: 'hostile-name', value: hostile.name}},
-				{select: {label: 'Ship Type', id: 'hostile-ship-type', values: Data.ship_types,	selected: hostile.shipTypeId} },
+				{input:  {label: 'Ship Type', id: 'hostile-ship-type', value: hostile.shipTypeId} },
 				{input:  {label: 'Ship Name', id: 'hostile-ship-name', value: hostile.shipName}},
 				{submit: {text: 'Update Details', onClick: 'submitHostileDetailsClick(this)'}}
 			],
@@ -102,6 +126,17 @@ var UIPanels = {
 		};
 
 		UIPanels.showPanel(panel);
+
+		$('#hostile-ship-type').typeahead({
+		  hint: false,
+		  highlight: true,
+		  minLength: 1
+		},
+		{
+		  name: 'ships',
+		  displayKey: 'value',
+		  source: UIPanels.substringMatcher($.map(Data.ships, function(s) { return s.name; }))
+		});
 	},
 
 	showMemberOptionsPanel: function (memberId) {

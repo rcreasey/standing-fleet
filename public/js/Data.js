@@ -89,17 +89,10 @@ var Data = {
 			url: '/data/ships.json',
 			dataType: 'json',
 
-			success: function( data ) {
-				Data.ships = data;
-				Data.ship_types = [1,2,3,4,5];
-			},
-
-			error: function(data, error, errorstring) {
-				if (error) {
-					console.log("Error: " + errorString);
-				}
-			}
+			success: function( data ) { Data.ships = data; },
+			error: function(data, error, errorstring) {	if (error) console.log("Error: " + errorString); }
 		});
+
 		$.ajax({
 			url: '/data/map.json',
 			dataType: 'json',
@@ -109,12 +102,7 @@ var Data = {
 				Data.systems = data.Systems;
 				Data.gates   = data.Gates;
 			},
-
-			error: function(data, error, errorstring) {
-				if (error) {
-					console.log("Error: " + errorString);
-				}
-			}
+			error: function(data, error, errorstring) {	if (error) console.log("Error: " + errorString); }
 		});
 	}
 };

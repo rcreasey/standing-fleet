@@ -521,6 +521,12 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	border: 0.16rem solid #111
 }
 
+.panel form input[placeholder], [placeholder], *[placeholder] {
+	color: #ffcc2a !important;
+	font-family: 'Droid Sans', sans-serif !important;
+	font-size: 12px;
+}
+
 .panel input {
 	padding: 0.5rem;
 }
@@ -552,16 +558,6 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	border: 1px solid #d66;
 	width: 12rem;
 	color: #faa;
-}
-
-.panel .form label {
-	display: inline-block;
-	text-align: right;
-	width: 6rem;
-}
-
-.panel .form input {
-	width: 15rem;
 }
 
 .panel .form .submit {
@@ -649,4 +645,27 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	.menu-button img { margin-top: 0.3rem; }
 	.member td.ship-name { width: 0rem }
 	.member td.ship-icon img { width: 2rem; height:2rem }
+}
+
+/*/
+/ /  TYPEAHEAD
+*/
+.tt-dropdown-menu {
+  width: 100%;
+  margin-top: 2px;
+  padding: 5px 0;
+	text-align: left;
+  background-color: #000;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0,0,0,.2);
+}
+
+.tt-suggestion {
+  display: block;
+  padding: 3px 20px;
+}
+
+.tt-cursor {
+  color: #000;
+  background-color: #ffcc2a;
 }
