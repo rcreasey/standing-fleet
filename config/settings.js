@@ -45,6 +45,7 @@ module.exports = function () {
 	};
 
 	if (settings.storage == 'mongoDb') settings.mongoDbURI = getSetting('MONGODB_URI');
+	settings.ships = require('../public/data/ships.json')
 
 	return settings;
 };
