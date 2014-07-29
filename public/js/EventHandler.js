@@ -164,7 +164,7 @@ var EventHandler = {
 	},
 
 	reportClear: function (system) {
-		HostileList.clear(system);
+		HostileList.clearBySystem(system.systemId);
 		HostileList.sortAndRenderAll();
 		SystemMap.refreshSystems();
 	},
@@ -213,7 +213,7 @@ var EventHandler = {
 	},
 
 	updateSystemMap: function (target) {
-		SystemMap.redraw();
+		// SystemMap.redraw();
 		if (Data.state.self.id === target.id) this.statusSelfSystem(target);
 		SystemMap.updateCurrent();
 		SystemMap.refreshSystems();

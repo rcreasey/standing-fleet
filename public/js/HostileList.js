@@ -8,7 +8,7 @@ var HostileList = {
 
   clearBySystem: function (systemId) {
     log('Clearing system ' + systemId);
-    Data.hostiles = $.map(Data.hostiles, function(h) { return h.systemId != systemId; });
+    Data.hostiles = $.map(Data.hostiles, function(h) { return h.systemId !== systemId ? h : null; });
     Data.ui.hostiles.empty();
   },
 

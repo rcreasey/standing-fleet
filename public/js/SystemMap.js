@@ -6,6 +6,7 @@ var SystemMap = {
 
   // Given a system, return the class that corresponds to whether a system is hostile or not.
   system_color: function(system) {
+    console.log(system)
     if ( $.grep(Data.hostiles, function(h) { return system.name === h.systemName; }).length > 0 ) {
       return "status-hostile";
     } else if ( $.grep(Data.members, function(m) { return system.name === m.systemName; }).length > 0 ) {
