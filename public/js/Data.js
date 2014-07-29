@@ -34,7 +34,7 @@ var Data = {
 			order: 'asc'
 		},
 		hostileSortOrder: {
-			property: 'name',
+			property: 'systemName',
 			order: 'asc'
 		},
 		pollLoop: 0
