@@ -220,16 +220,21 @@ a:hover { color: #fff0be }
 	border: none;
 }
 
-#info-strings input {
+#info-strings {
+	padding: 0.4rem 0.6rem;
+}
+
+input#info-string-fleet-password,
+input#info-string-fleet-key {
 	background: #222;
 	border: 0;
 	display: inline-block;
+	margin-bottom: 1rem;
 	padding: 0rem;
-	color: #ffcc2a;
-}
-
-#info-strings {
-	padding: 0.4rem 0.6rem;
+	color: #888 !important;
+	font-family: monospace !important;
+	font-size: 1.2rem;
+	text-align: center;
 }
 
   /*/

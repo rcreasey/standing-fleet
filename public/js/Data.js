@@ -17,6 +17,7 @@ var Data = {
 
 	state: {
 		armada: {
+			password: '',
 			name: '',
 			key: ''
 		},

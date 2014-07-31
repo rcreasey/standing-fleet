@@ -21,10 +21,14 @@ var UIPanels = {
 			title: 'Standing Fleet Options',
 			closeable: true,
 			formitems: [
-				{button: {class: 'reload-armada no-margin', text: 'Reload Standing Fleet', onClick: 'location.reload()'}},
-				{button: {class: 'leave-armada', text: 'Leave Standing Fleett', onClick: 'leaveArmada()'}}
+				{button: {legend: 'Fleet Actions', class: 'reload-armada no-margin', text: 'Reload Standing Fleet', onClick: 'location.reload()'}},
+				{button: {class: 'leave-armada', text: 'Leave Standing Fleet', onClick: 'leaveArmada()'}},
+				{input:  {legend: 'Fleet Key', label: 'Fleet Key', id: 'info-string-fleet-key', value: Data.state.armada.key, readonly: true}}
 			]
 		};
+
+		if (Data.state.armada.password) panel.formitems.push( {input:  {legend: 'Fleet Password', label: 'Fleet Password', id: 'info-string-fleet-password',
+																																		value: Data.state.armada.password, readonly: true}} );
 
 		UIPanels.showPanel(panel, callback);
 	},

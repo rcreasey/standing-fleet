@@ -46,8 +46,8 @@
       </div>
       <div id="bottom-bar">
         <div class="sub-bar left" id="info-strings">
-          <input id="info-string-fleet-key" type="text" readonly="true" placeholder="Fleet Key" style="display: none;" />
-          <input id="info-string-fleet-password" type="text"readonly="true" placeholder="Fleet Password"  style="display: none;" />
+          <!-- <input id="info-string-fleet-key" type="text" readonly="true" placeholder="Fleet Key" style="display: none;" />
+          <input id="info-string-fleet-password" type="text"readonly="true" placeholder="Fleet Password"  style="display: none;" /> -->
         </div>
         <div class="sub-bar right" id="bottom-menu">
           <div class="menu-button" id="bottom-menu-spinner">
@@ -94,7 +94,7 @@
             {{#if input}}
             <div class="group">
               {{#if input.legend}}<span class="legend">{{{input.legend}}}</span>{{/if}}
-              <input id="{{input.id}}" value="{{{input.value}}}" type={{#if input.hidden}}"hidden"{{else}}"text"{{/if}} {{#if input.label}}placeholder="{{{input.label}}}"{{/if}}/>
+              <input id="{{input.id}}" value="{{{input.value}}}" type={{#if input.hidden}}"hidden"{{else}}"text"{{/if}} {{#if input.readonly}}readonly="true"{{/if}} {{#if input.label}}placeholder="{{{input.label}}}"{{/if}}/>
             </div>
             {{/if}}
             {{#if textinput}}
