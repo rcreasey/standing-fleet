@@ -18,7 +18,10 @@ html {
 	font-size: 11px;
 	color: #bbb;
 	background-color: #111;
+	overflow: hidden;
 }
+
+body { overflow: hidden; }
 
 a, a:visited { color: #ffcc2a; text-decoration: none }
 a:hover { color: #fff0be }
@@ -234,7 +237,7 @@ input#info-string-fleet-key {
   overflow: hidden;
   padding: 0 !important;
 	width: 99%;
-	height: 92%;
+	height: 99%;
 	margin: 0 auto;
 }
 
