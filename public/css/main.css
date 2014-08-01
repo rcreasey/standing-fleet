@@ -58,9 +58,9 @@ a:hover { color: #fff0be }
 	overflow: hidden;
 }
 
-#hostiles, #members, #events, #scans {
+/*#hostiles, #members, #events, #scans {
 	overflow-y: scroll;
-}
+}*/
 
 #logo {
 	float: none;
