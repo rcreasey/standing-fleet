@@ -6,7 +6,7 @@ var Util = {
 
 	getShipType: function (shipName) {
 		if (Util.isShip(shipName)){
-			return Data.ships[shipName].class[0];
+			return Data.ships[shipName].icons[0];
 		}
 		return 'other';
 	},
@@ -16,7 +16,7 @@ var Util = {
 
 		if (Util.isShip(shipName)){
 			for (var i in Data.ships[shipName].class) {
-				returnElement.append($('<img src="/images/ship-icons/ship-icon-' + Data.ships[shipName].class[i] + '.gif" alt="" />'));
+				returnElement.append($('<img src="/images/ship-icons/ship-icon-' + Data.ships[shipName].icons[i] + '.gif" alt="" />'));
 			}
 		} else {
 			returnElement.append($('<img src="/images/ship-icons/ship-icon-other.gif" alt="Ship type" />'));

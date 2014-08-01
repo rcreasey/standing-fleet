@@ -39,7 +39,7 @@ var UIPanels = {
 			title: '<img id="logo" src="/images/panel-logo.png" alt="Standing Fleet" />',
 			formitems: [
 				{button: {class: 'submit-create', text: 'Create Fleet', onClick: 'UIPanels.showCreatePanel()'}},
-				{input:  {label: 'Fleet Key', class: 'armada-key'}},
+				{input:  {label: 'Fleet Key', id: 'join-fleet-key', class: 'armada-key'}},
 				{submit: {class: 'submit-join', text: 'Join Fleet', onClick: 'joinArmadaButtonClick(this)'}}
 			],
 			error: error
@@ -52,22 +52,11 @@ var UIPanels = {
 		var panel = {
 			type: 'create',
 			title: '<img id="logo" src="/images/panel-logo.png" alt="Standing Fleet" />',
-			textinputs: [{
-					legend: 'Choose a Standing Fleet key.<br />Blank makes the fleet public.',
-					class: 'armada-password'
-			}],
-			buttons: [
-				{
-					class: 'submit-key',
-					text: 'Create Fleet',
-					onClick: 'createArmadaButtonClick(this)'
-				},
-				{
-					class: 'join-armada',
-					text: '<i class="fa fa-arrow-circle-left"></i> Go Back',
-					onClick: 'UIPanels.showJoinPanel()'
-				}
-	 		],
+			formitems: [
+				{input:  {label: 'Fleet Password', id: 'create-fleet-password', class: 'submit-key'}},
+				{button: {class: 'submit-key', text: 'Create Fleet', onClick: 'createArmadaButtonClick(this)'}},
+				{submit: {class: 'submit-join', text: '<i class="fa fa-arrow-circle-left"></i> Go Back', onClick: 'UIPanels.showJoinPanel()'}}
+			],
 	 		error: error
 	 	};
 

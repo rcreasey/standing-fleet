@@ -4,12 +4,19 @@
     "name": "Bantam",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "logistics"
     ]
   },
   "Condor": {
     "id": 583,
     "name": "Condor",
     "class": [
+      "frigate"
+    ],
+    "icons": [
       "frigate"
     ]
   },
@@ -18,12 +25,19 @@
     "name": "Griffin",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "support"
     ]
   },
   "Slasher": {
     "id": 585,
     "name": "Slasher",
     "class": [
+      "frigate"
+    ],
+    "icons": [
       "frigate"
     ]
   },
@@ -32,12 +46,19 @@
     "name": "Probe",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "support"
     ]
   },
   "Rifter": {
     "id": 587,
     "name": "Rifter",
     "class": [
+      "frigate"
+    ],
+    "icons": [
       "frigate"
     ]
   },
@@ -46,6 +67,9 @@
     "name": "Executioner",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate"
     ]
   },
   "Inquisitor": {
@@ -53,12 +77,19 @@
     "name": "Inquisitor",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "logistics"
     ]
   },
   "Tormentor": {
     "id": 591,
     "name": "Tormentor",
     "class": [
+      "frigate"
+    ],
+    "icons": [
       "frigate"
     ]
   },
@@ -67,6 +98,10 @@
     "name": "Navitas",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "logistics"
     ]
   },
   "Tristan": {
@@ -74,12 +109,18 @@
     "name": "Tristan",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate"
     ]
   },
   "Incursus": {
     "id": 594,
     "name": "Incursus",
     "class": [
+      "frigate"
+    ],
+    "icons": [
       "frigate"
     ]
   },
@@ -95,12 +136,18 @@
     "name": "Punisher",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate"
     ]
   },
   "Breacher": {
     "id": 598,
     "name": "Breacher",
     "class": [
+      "frigate"
+    ],
+    "icons": [
       "frigate"
     ]
   },
@@ -109,6 +156,10 @@
     "name": "Burst",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "logistics"
     ]
   },
   "Minmatar Peacekeeper Ship": {
@@ -123,12 +174,18 @@
     "name": "Kestrel",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate"
     ]
   },
   "Merlin": {
     "id": 603,
     "name": "Merlin",
     "class": [
+      "frigate"
+    ],
+    "icons": [
       "frigate"
     ]
   },
@@ -137,6 +194,10 @@
     "name": "Heron",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "support"
     ]
   },
   "Imicus": {
@@ -144,12 +205,19 @@
     "name": "Imicus",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "support"
     ]
   },
   "Atron": {
     "id": 608,
     "name": "Atron",
     "class": [
+      "frigate"
+    ],
+    "icons": [
       "frigate"
     ]
   },
@@ -158,6 +226,10 @@
     "name": "Maulus",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "support"
     ]
   },
   "Devourer": {
@@ -228,6 +300,10 @@
     "name": "Crucifier",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "support"
     ]
   },
   "Echelon": {
@@ -235,6 +311,10 @@
     "name": "Echelon",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "faction"
     ]
   },
   "SOCT 1": {
@@ -256,6 +336,10 @@
     "name": "Vigil",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "support"
     ]
   },
   "Amarr Police Frigate": {
@@ -277,6 +361,11 @@
     "name": "Gold Magnate",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "faction",
+      "support"
     ]
   },
   "Silver Magnate": {
@@ -284,6 +373,11 @@
     "name": "Silver Magnate",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "faction",
+      "support"
     ]
   },
   "Immovable Enigma": {
@@ -298,6 +392,10 @@
     "name": "Caldari Navy Hookbill",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "faction"
     ]
   },
   "Imperial Navy Slicer": {
@@ -305,6 +403,10 @@
     "name": "Imperial Navy Slicer",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "faction"
     ]
   },
   "Khanid Navy Frigate": {
@@ -326,6 +428,10 @@
     "name": "Republic Fleet Firetail",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "faction"
     ]
   },
   "Federation Navy Comet": {
@@ -333,6 +439,10 @@
     "name": "Federation Navy Comet",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "faction"
     ]
   },
   "Succubus": {
@@ -340,6 +450,10 @@
     "name": "Succubus",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "faction"
     ]
   },
   "Cruor": {
@@ -347,6 +461,10 @@
     "name": "Cruor",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "faction"
     ]
   },
   "Daredevil": {
@@ -354,6 +472,10 @@
     "name": "Daredevil",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "faction"
     ]
   },
   "Worm": {
@@ -361,6 +483,10 @@
     "name": "Worm",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "faction"
     ]
   },
   "Dramiel": {
@@ -368,6 +494,10 @@
     "name": "Dramiel",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "faction"
     ]
   },
   "Magnate": {
@@ -375,6 +505,10 @@
     "name": "Magnate",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "support"
     ]
   },
   "Venture": {
@@ -382,6 +516,9 @@
     "name": "Venture",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Sukuuvestaa Heron": {
@@ -389,6 +526,11 @@
     "name": "Sukuuvestaa Heron",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "faction",
+      "support"
     ]
   },
   "Inner Zone Shipping Imicus": {
@@ -396,6 +538,11 @@
     "name": "Inner Zone Shipping Imicus",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "faction",
+      "support"
     ]
   },
   "Sarum Magnate": {
@@ -403,6 +550,11 @@
     "name": "Sarum Magnate",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "faction",
+      "support"
     ]
   },
   "Vherokior Probe": {
@@ -410,6 +562,11 @@
     "name": "Vherokior Probe",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "faction",
+      "support"
     ]
   },
   "Tash-Murkon Magnate": {
@@ -417,6 +574,11 @@
     "name": "Tash-Murkon Magnate",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "faction",
+      "support"
     ]
   },
   "Astero": {
@@ -424,12 +586,19 @@
     "name": "Astero",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "faction"
     ]
   },
   "Punisher Kador Edition": {
     "id": 33655,
     "name": "Punisher Kador Edition",
     "class": [
+      "frigate"
+    ],
+    "icons": [
       "frigate"
     ]
   },
@@ -438,12 +607,18 @@
     "name": "Punisher Tash-Murkon Edition",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate"
     ]
   },
   "Merlin Nugoeihuvi Edition": {
     "id": 33659,
     "name": "Merlin Nugoeihuvi Edition",
     "class": [
+      "frigate"
+    ],
+    "icons": [
       "frigate"
     ]
   },
@@ -452,12 +627,18 @@
     "name": "Merlin Wiyrkomi Edition",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate"
     ]
   },
   "Rifter Nefantar Edition": {
     "id": 33663,
     "name": "Rifter Nefantar Edition",
     "class": [
+      "frigate"
+    ],
+    "icons": [
       "frigate"
     ]
   },
@@ -466,12 +647,18 @@
     "name": "Rifter Krusual Edition",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate"
     ]
   },
   "Incursus Aliastra Edition": {
     "id": 33667,
     "name": "Incursus Aliastra Edition",
     "class": [
+      "frigate"
+    ],
+    "icons": [
       "frigate"
     ]
   },
@@ -480,6 +667,9 @@
     "name": "Incursus Innerzone Shipping Edition",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate"
     ]
   },
   "Police Pursuit Comet": {
@@ -487,6 +677,10 @@
     "name": "Police Pursuit Comet",
     "class": [
       "frigate"
+    ],
+    "icons": [
+      "frigate",
+      "faction"
     ]
   },
   "Garmur": {
@@ -501,12 +695,19 @@
     "name": "Osprey",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "logistics"
     ]
   },
   "Caracal": {
     "id": 621,
     "name": "Caracal",
     "class": [
+      "cruiser"
+    ],
+    "icons": [
       "cruiser"
     ]
   },
@@ -515,12 +716,18 @@
     "name": "Stabber",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser"
     ]
   },
   "Moa": {
     "id": 623,
     "name": "Moa",
     "class": [
+      "cruiser"
+    ],
+    "icons": [
       "cruiser"
     ]
   },
@@ -529,6 +736,9 @@
     "name": "Maller",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser"
     ]
   },
   "Augoror": {
@@ -536,12 +746,19 @@
     "name": "Augoror",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "logistics"
     ]
   },
   "Vexor": {
     "id": 626,
     "name": "Vexor",
     "class": [
+      "cruiser"
+    ],
+    "icons": [
       "cruiser"
     ]
   },
@@ -550,6 +767,9 @@
     "name": "Thorax",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser"
     ]
   },
   "Arbitrator": {
@@ -557,12 +777,19 @@
     "name": "Arbitrator",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "support"
     ]
   },
   "Rupture": {
     "id": 629,
     "name": "Rupture",
     "class": [
+      "cruiser"
+    ],
+    "icons": [
       "cruiser"
     ]
   },
@@ -571,6 +798,10 @@
     "name": "Bellicose",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "support"
     ]
   },
   "Scythe": {
@@ -578,6 +809,10 @@
     "name": "Scythe",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "logistics"
     ]
   },
   "Blackbird": {
@@ -585,6 +820,10 @@
     "name": "Blackbird",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "support"
     ]
   },
   "Celestis": {
@@ -592,6 +831,10 @@
     "name": "Celestis",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "support"
     ]
   },
   "Exequror": {
@@ -599,6 +842,10 @@
     "name": "Exequror",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "logistics"
     ]
   },
   "Opux Luxury Yacht": {
@@ -606,6 +853,10 @@
     "name": "Opux Luxury Yacht",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "faction"
     ]
   },
   "Concord Police Cruiser": {
@@ -620,6 +871,9 @@
     "name": "Omen",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser"
     ]
   },
   "Guardian-Vexor": {
@@ -627,6 +881,10 @@
     "name": "Guardian-Vexor",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "faction"
     ]
   },
   "Caracal Navy Issue": {
@@ -634,6 +892,10 @@
     "name": "Caracal Navy Issue",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "faction"
     ]
   },
   "Omen Navy Issue": {
@@ -641,6 +903,10 @@
     "name": "Omen Navy Issue",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "faction"
     ]
   },
   "Stabber Fleet Issue": {
@@ -648,6 +914,10 @@
     "name": "Stabber Fleet Issue",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "faction"
     ]
   },
   "Gila": {
@@ -655,6 +925,10 @@
     "name": "Gila",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "faction"
     ]
   },
   "Phantasm": {
@@ -662,6 +936,10 @@
     "name": "Phantasm",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "faction"
     ]
   },
   "Cynabal": {
@@ -669,6 +947,10 @@
     "name": "Cynabal",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "faction"
     ]
   },
   "Vigilant": {
@@ -676,6 +958,10 @@
     "name": "Vigilant",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "faction"
     ]
   },
   "Vexor Navy Issue": {
@@ -683,6 +969,10 @@
     "name": "Vexor Navy Issue",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "faction"
     ]
   },
   "Ashimmu": {
@@ -690,6 +980,10 @@
     "name": "Ashimmu",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "faction"
     ]
   },
   "Opux Dragoon Yacht": {
@@ -697,6 +991,10 @@
     "name": "Opux Dragoon Yacht",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "faction"
     ]
   },
   "Scythe Fleet Issue": {
@@ -704,6 +1002,10 @@
     "name": "Scythe Fleet Issue",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "faction"
     ]
   },
   "Augoror Navy Issue": {
@@ -711,6 +1013,10 @@
     "name": "Augoror Navy Issue",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "faction"
     ]
   },
   "Osprey Navy Issue": {
@@ -718,6 +1024,10 @@
     "name": "Osprey Navy Issue",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "faction"
     ]
   },
   "Exequror Navy Issue": {
@@ -725,6 +1035,10 @@
     "name": "Exequror Navy Issue",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "faction"
     ]
   },
   "Stratios": {
@@ -732,6 +1046,10 @@
     "name": "Stratios",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "faction"
     ]
   },
   "Stratios Emergency Responder": {
@@ -753,6 +1071,9 @@
     "name": "Omen Tash-Murkon Edition",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser"
     ]
   },
   "Caracal Nugoeihuvi Edition": {
@@ -767,12 +1088,18 @@
     "name": "Caracal Wiyrkomi Edition",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser"
     ]
   },
   "Stabber Nefantar Edition": {
     "id": 33647,
     "name": "Stabber Nefantar Edition",
     "class": [
+      "cruiser"
+    ],
+    "icons": [
       "cruiser"
     ]
   },
@@ -795,6 +1122,9 @@
     "name": "Thorax Innerzone Shipping Edition",
     "class": [
       "cruiser"
+    ],
+    "icons": [
+      "cruiser"
     ]
   },
   "Orthrus": {
@@ -809,12 +1139,18 @@
     "name": "Raven",
     "class": [
       "battleship"
+    ],
+    "icons": [
+      "battleship"
     ]
   },
   "Tempest": {
     "id": 639,
     "name": "Tempest",
     "class": [
+      "battleship"
+    ],
+    "icons": [
       "battleship"
     ]
   },
@@ -823,12 +1159,18 @@
     "name": "Scorpion",
     "class": [
       "battleship"
+    ],
+    "icons": [
+      "battleship"
     ]
   },
   "Megathron": {
     "id": 641,
     "name": "Megathron",
     "class": [
+      "battleship"
+    ],
+    "icons": [
       "battleship"
     ]
   },
@@ -837,6 +1179,9 @@
     "name": "Apocalypse",
     "class": [
       "battleship"
+    ],
+    "icons": [
+      "battleship"
     ]
   },
   "Armageddon": {
@@ -844,12 +1189,18 @@
     "name": "Armageddon",
     "class": [
       "battleship"
+    ],
+    "icons": [
+      "battleship"
     ]
   },
   "Typhoon": {
     "id": 644,
     "name": "Typhoon",
     "class": [
+      "battleship"
+    ],
+    "icons": [
       "battleship"
     ]
   },
@@ -893,6 +1244,10 @@
     "name": "Scorpion Ishukone Watch",
     "class": [
       "battleship"
+    ],
+    "icons": [
+      "battleship",
+      "faction"
     ]
   },
   "Apocalypse Imperial Issue": {
@@ -900,6 +1255,10 @@
     "name": "Apocalypse Imperial Issue",
     "class": [
       "battleship"
+    ],
+    "icons": [
+      "battleship",
+      "faction"
     ]
   },
   "Armageddon Imperial Issue": {
@@ -907,6 +1266,10 @@
     "name": "Armageddon Imperial Issue",
     "class": [
       "battleship"
+    ],
+    "icons": [
+      "battleship",
+      "faction"
     ]
   },
   "Megathron Federate Issue": {
@@ -914,6 +1277,10 @@
     "name": "Megathron Federate Issue",
     "class": [
       "battleship"
+    ],
+    "icons": [
+      "battleship",
+      "faction"
     ]
   },
   "Raven Navy Issue": {
@@ -921,6 +1288,10 @@
     "name": "Raven Navy Issue",
     "class": [
       "battleship"
+    ],
+    "icons": [
+      "battleship",
+      "faction"
     ]
   },
   "Apocalypse Navy Issue": {
@@ -928,6 +1299,10 @@
     "name": "Apocalypse Navy Issue",
     "class": [
       "battleship"
+    ],
+    "icons": [
+      "battleship",
+      "faction"
     ]
   },
   "Megathron Navy Issue": {
@@ -935,6 +1310,10 @@
     "name": "Megathron Navy Issue",
     "class": [
       "battleship"
+    ],
+    "icons": [
+      "battleship",
+      "faction"
     ]
   },
   "Tempest Fleet Issue": {
@@ -942,6 +1321,10 @@
     "name": "Tempest Fleet Issue",
     "class": [
       "battleship"
+    ],
+    "icons": [
+      "battleship",
+      "faction"
     ]
   },
   "Nightmare": {
@@ -949,6 +1332,10 @@
     "name": "Nightmare",
     "class": [
       "battleship"
+    ],
+    "icons": [
+      "battleship",
+      "faction"
     ]
   },
   "Machariel": {
@@ -956,6 +1343,10 @@
     "name": "Machariel",
     "class": [
       "battleship"
+    ],
+    "icons": [
+      "battleship",
+      "faction"
     ]
   },
   "Vindicator": {
@@ -963,6 +1354,10 @@
     "name": "Vindicator",
     "class": [
       "battleship"
+    ],
+    "icons": [
+      "battleship",
+      "faction"
     ]
   },
   "Rattlesnake": {
@@ -970,6 +1365,10 @@
     "name": "Rattlesnake",
     "class": [
       "battleship"
+    ],
+    "icons": [
+      "battleship",
+      "faction"
     ]
   },
   "Bhaalgorn": {
@@ -977,12 +1376,19 @@
     "name": "Bhaalgorn",
     "class": [
       "battleship"
+    ],
+    "icons": [
+      "battleship",
+      "faction"
     ]
   },
   "Rokh": {
     "id": 24688,
     "name": "Rokh",
     "class": [
+      "battleship"
+    ],
+    "icons": [
       "battleship"
     ]
   },
@@ -991,12 +1397,18 @@
     "name": "Hyperion",
     "class": [
       "battleship"
+    ],
+    "icons": [
+      "battleship"
     ]
   },
   "Abaddon": {
     "id": 24692,
     "name": "Abaddon",
     "class": [
+      "battleship"
+    ],
+    "icons": [
       "battleship"
     ]
   },
@@ -1005,6 +1417,9 @@
     "name": "Maelstrom",
     "class": [
       "battleship"
+    ],
+    "icons": [
+      "battleship"
     ]
   },
   "Raven State Issue": {
@@ -1012,6 +1427,10 @@
     "name": "Raven State Issue",
     "class": [
       "battleship"
+    ],
+    "icons": [
+      "battleship",
+      "faction"
     ]
   },
   "Tempest Tribal Issue": {
@@ -1019,6 +1438,10 @@
     "name": "Tempest Tribal Issue",
     "class": [
       "battleship"
+    ],
+    "icons": [
+      "battleship",
+      "faction"
     ]
   },
   "Armageddon Navy Issue": {
@@ -1026,6 +1449,10 @@
     "name": "Armageddon Navy Issue",
     "class": [
       "battleship"
+    ],
+    "icons": [
+      "battleship",
+      "faction"
     ]
   },
   "Dominix Navy Issue": {
@@ -1033,6 +1460,10 @@
     "name": "Dominix Navy Issue",
     "class": [
       "battleship"
+    ],
+    "icons": [
+      "battleship",
+      "faction"
     ]
   },
   "Scorpion Navy Issue": {
@@ -1040,6 +1471,10 @@
     "name": "Scorpion Navy Issue",
     "class": [
       "battleship"
+    ],
+    "icons": [
+      "battleship",
+      "faction"
     ]
   },
   "Typhoon Fleet Issue": {
@@ -1047,6 +1482,10 @@
     "name": "Typhoon Fleet Issue",
     "class": [
       "battleship"
+    ],
+    "icons": [
+      "battleship",
+      "faction"
     ]
   },
   "Nestor": {
@@ -1054,12 +1493,19 @@
     "name": "Nestor",
     "class": [
       "battleship"
+    ],
+    "icons": [
+      "battleship",
+      "faction"
     ]
   },
   "Abaddon Tash-Murkon Edition": {
     "id": 33623,
     "name": "Abaddon Tash-Murkon Edition",
     "class": [
+      "battleship"
+    ],
+    "icons": [
       "battleship"
     ]
   },
@@ -1068,12 +1514,18 @@
     "name": "Abaddon Kador Edition",
     "class": [
       "battleship"
+    ],
+    "icons": [
+      "battleship"
     ]
   },
   "Rokh Nugoeihuvi Edition": {
     "id": 33627,
     "name": "Rokh Nugoeihuvi Edition",
     "class": [
+      "battleship"
+    ],
+    "icons": [
       "battleship"
     ]
   },
@@ -1082,12 +1534,18 @@
     "name": "Rokh Wiyrkomi Edition",
     "class": [
       "battleship"
+    ],
+    "icons": [
+      "battleship"
     ]
   },
   "Maelstrom Nefantar Edition": {
     "id": 33631,
     "name": "Maelstrom Nefantar Edition",
     "class": [
+      "battleship"
+    ],
+    "icons": [
       "battleship"
     ]
   },
@@ -1096,6 +1554,9 @@
     "name": "Maelstrom Krusual Edition",
     "class": [
       "battleship"
+    ],
+    "icons": [
+      "battleship"
     ]
   },
   "Hyperion Aliastra Edition": {
@@ -1103,12 +1564,18 @@
     "name": "Hyperion Aliastra Edition",
     "class": [
       "battleship"
+    ],
+    "icons": [
+      "battleship"
     ]
   },
   "Hyperion Innerzone Shipping Edition": {
     "id": 33637,
     "name": "Hyperion Innerzone Shipping Edition",
     "class": [
+      "battleship"
+    ],
+    "icons": [
       "battleship"
     ]
   },
@@ -1124,6 +1591,9 @@
     "name": "Badger",
     "class": [
       "industrial"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Tayra": {
@@ -1131,6 +1601,9 @@
     "name": "Tayra",
     "class": [
       "industrial"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Nereus": {
@@ -1138,6 +1611,9 @@
     "name": "Nereus",
     "class": [
       "industrial"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Hoarder": {
@@ -1145,6 +1621,9 @@
     "name": "Hoarder",
     "class": [
       "industrial"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Mammoth": {
@@ -1152,6 +1631,9 @@
     "name": "Mammoth",
     "class": [
       "industrial"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Wreathe": {
@@ -1159,6 +1641,9 @@
     "name": "Wreathe",
     "class": [
       "industrial"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Kryos": {
@@ -1166,6 +1651,9 @@
     "name": "Kryos",
     "class": [
       "industrial"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Epithal": {
@@ -1173,6 +1661,9 @@
     "name": "Epithal",
     "class": [
       "industrial"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Miasmos": {
@@ -1180,6 +1671,9 @@
     "name": "Miasmos",
     "class": [
       "industrial"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Iteron Mark V": {
@@ -1187,6 +1681,9 @@
     "name": "Iteron Mark V",
     "class": [
       "industrial"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Bestower": {
@@ -1194,6 +1691,9 @@
     "name": "Bestower",
     "class": [
       "industrial"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Primae": {
@@ -1201,6 +1701,9 @@
     "name": "Primae",
     "class": [
       "industrial"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Noctis": {
@@ -1208,6 +1711,9 @@
     "name": "Noctis",
     "class": [
       "industrial"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Miasmos Quafe Ultra Edition": {
@@ -1271,6 +1777,9 @@
     "name": "Capsule",
     "class": [
       "capsule"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Capsule - Genolution 'Auroral' 197-variant": {
@@ -1285,6 +1794,9 @@
     "name": "Erebus",
     "class": [
       "titan"
+    ],
+    "icons": [
+      "capital"
     ]
   },
   "Leviathan": {
@@ -1292,6 +1804,9 @@
     "name": "Leviathan",
     "class": [
       "titan"
+    ],
+    "icons": [
+      "capital"
     ]
   },
   "Avatar": {
@@ -1299,6 +1814,9 @@
     "name": "Avatar",
     "class": [
       "titan"
+    ],
+    "icons": [
+      "capital"
     ]
   },
   "Ragnarok": {
@@ -1306,6 +1824,9 @@
     "name": "Ragnarok",
     "class": [
       "titan"
+    ],
+    "icons": [
+      "capital"
     ]
   },
   "Caldari Shuttle": {
@@ -1313,6 +1834,9 @@
     "name": "Caldari Shuttle",
     "class": [
       "shuttle"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Gallente Shuttle": {
@@ -1320,6 +1844,9 @@
     "name": "Gallente Shuttle",
     "class": [
       "shuttle"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Minmatar Shuttle": {
@@ -1327,6 +1854,9 @@
     "name": "Minmatar Shuttle",
     "class": [
       "shuttle"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Amarr Shuttle": {
@@ -1334,6 +1864,9 @@
     "name": "Amarr Shuttle",
     "class": [
       "shuttle"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Goru's Shuttle": {
@@ -1341,6 +1874,9 @@
     "name": "Goru's Shuttle",
     "class": [
       "shuttle"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Guristas Shuttle": {
@@ -1348,6 +1884,9 @@
     "name": "Guristas Shuttle",
     "class": [
       "shuttle"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Civilian Amarr Shuttle": {
@@ -1383,6 +1922,9 @@
     "name": "Apotheosis",
     "class": [
       "shuttle"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Amarr Media Shuttle": {
@@ -1418,6 +1960,9 @@
     "name": "Interbus Shuttle",
     "class": [
       "shuttle"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Leopard": {
@@ -1432,6 +1977,9 @@
     "name": "Reaper",
     "class": [
       "rookie ship"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Impairor": {
@@ -1439,6 +1987,9 @@
     "name": "Impairor",
     "class": [
       "rookie ship"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Ibis": {
@@ -1446,6 +1997,9 @@
     "name": "Ibis",
     "class": [
       "rookie ship"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Velator": {
@@ -1453,6 +2007,9 @@
     "name": "Velator",
     "class": [
       "rookie ship"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Immolator": {
@@ -1530,6 +2087,10 @@
     "name": "Utu",
     "class": [
       "assault frigate"
+    ],
+    "icons": [
+      "frigate",
+      "faction"
     ]
   },
   "Malice": {
@@ -1537,6 +2098,10 @@
     "name": "Malice",
     "class": [
       "assault frigate"
+    ],
+    "icons": [
+      "frigate",
+      "faction"
     ]
   },
   "Vengeance": {
@@ -1544,6 +2109,10 @@
     "name": "Vengeance",
     "class": [
       "assault frigate"
+    ],
+    "icons": [
+      "frigate",
+      "t2"
     ]
   },
   "Wolf": {
@@ -1551,6 +2120,10 @@
     "name": "Wolf",
     "class": [
       "assault frigate"
+    ],
+    "icons": [
+      "frigate",
+      "t2"
     ]
   },
   "Blade": {
@@ -1572,6 +2145,10 @@
     "name": "Hawk",
     "class": [
       "assault frigate"
+    ],
+    "icons": [
+      "frigate",
+      "t2"
     ]
   },
   "Harpy": {
@@ -1579,6 +2156,10 @@
     "name": "Harpy",
     "class": [
       "assault frigate"
+    ],
+    "icons": [
+      "frigate",
+      "t2"
     ]
   },
   "Gatherer": {
@@ -1600,6 +2181,10 @@
     "name": "Retribution",
     "class": [
       "assault frigate"
+    ],
+    "icons": [
+      "frigate",
+      "t2"
     ]
   },
   "Jaguar": {
@@ -1607,6 +2192,10 @@
     "name": "Jaguar",
     "class": [
       "assault frigate"
+    ],
+    "icons": [
+      "frigate",
+      "t2"
     ]
   },
   "Dagger": {
@@ -1621,6 +2210,10 @@
     "name": "Ishkur",
     "class": [
       "assault frigate"
+    ],
+    "icons": [
+      "frigate",
+      "t2"
     ]
   },
   "Enyo": {
@@ -1628,6 +2221,10 @@
     "name": "Enyo",
     "class": [
       "assault frigate"
+    ],
+    "icons": [
+      "frigate",
+      "t2"
     ]
   },
   "Freki": {
@@ -1635,6 +2232,10 @@
     "name": "Freki",
     "class": [
       "assault frigate"
+    ],
+    "icons": [
+      "frigate",
+      "faction"
     ]
   },
   "Cambion": {
@@ -1642,6 +2243,10 @@
     "name": "Cambion",
     "class": [
       "assault frigate"
+    ],
+    "icons": [
+      "frigate",
+      "faction"
     ]
   },
   "Adrestia": {
@@ -1649,6 +2254,10 @@
     "name": "Adrestia",
     "class": [
       "heavy assault cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "faction"
     ]
   },
   "Vangel": {
@@ -1656,6 +2265,10 @@
     "name": "Vangel",
     "class": [
       "heavy assault cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "faction"
     ]
   },
   "Cerberus": {
@@ -1663,6 +2276,10 @@
     "name": "Cerberus",
     "class": [
       "heavy assault cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "t2"
     ]
   },
   "Vagabond": {
@@ -1670,6 +2287,10 @@
     "name": "Vagabond",
     "class": [
       "heavy assault cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "t2"
     ]
   },
   "Zealot": {
@@ -1677,6 +2298,10 @@
     "name": "Zealot",
     "class": [
       "heavy assault cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "t2"
     ]
   },
   "Ishtar": {
@@ -1684,6 +2309,10 @@
     "name": "Ishtar",
     "class": [
       "heavy assault cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "t2"
     ]
   },
   "Eagle": {
@@ -1691,6 +2320,10 @@
     "name": "Eagle",
     "class": [
       "heavy assault cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "t2"
     ]
   },
   "Muninn": {
@@ -1698,6 +2331,10 @@
     "name": "Muninn",
     "class": [
       "heavy assault cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "t2"
     ]
   },
   "Sacrilege": {
@@ -1705,6 +2342,10 @@
     "name": "Sacrilege",
     "class": [
       "heavy assault cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "t2"
     ]
   },
   "Deimos": {
@@ -1712,6 +2353,10 @@
     "name": "Deimos",
     "class": [
       "heavy assault cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "t2"
     ]
   },
   "Mimir": {
@@ -1719,6 +2364,10 @@
     "name": "Mimir",
     "class": [
       "heavy assault cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "faction"
     ]
   },
   "Bustard": {
@@ -1726,6 +2375,9 @@
     "name": "Bustard",
     "class": [
       "deep space transport"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Occator": {
@@ -1733,6 +2385,9 @@
     "name": "Occator",
     "class": [
       "deep space transport"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Mastodon": {
@@ -1740,6 +2395,9 @@
     "name": "Mastodon",
     "class": [
       "deep space transport"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Impel": {
@@ -1747,6 +2405,9 @@
     "name": "Impel",
     "class": [
       "deep space transport"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Gnosis": {
@@ -1754,6 +2415,10 @@
     "name": "Gnosis",
     "class": [
       "combat battlecruiser"
+    ],
+    "icons": [
+      "battlecruiser",
+      "faction"
     ]
   },
   "Ferox": {
@@ -1761,6 +2426,9 @@
     "name": "Ferox",
     "class": [
       "combat battlecruiser"
+    ],
+    "icons": [
+      "battlecruiser"
     ]
   },
   "Brutix": {
@@ -1768,6 +2436,9 @@
     "name": "Brutix",
     "class": [
       "combat battlecruiser"
+    ],
+    "icons": [
+      "battlecruiser"
     ]
   },
   "Cyclone": {
@@ -1775,6 +2446,9 @@
     "name": "Cyclone",
     "class": [
       "combat battlecruiser"
+    ],
+    "icons": [
+      "battlecruiser"
     ]
   },
   "Prophecy": {
@@ -1782,6 +2456,9 @@
     "name": "Prophecy",
     "class": [
       "combat battlecruiser"
+    ],
+    "icons": [
+      "battlecruiser"
     ]
   },
   "Harbinger": {
@@ -1789,6 +2466,9 @@
     "name": "Harbinger",
     "class": [
       "combat battlecruiser"
+    ],
+    "icons": [
+      "battlecruiser"
     ]
   },
   "Drake": {
@@ -1796,6 +2476,9 @@
     "name": "Drake",
     "class": [
       "combat battlecruiser"
+    ],
+    "icons": [
+      "battlecruiser"
     ]
   },
   "Myrmidon": {
@@ -1803,6 +2486,9 @@
     "name": "Myrmidon",
     "class": [
       "combat battlecruiser"
+    ],
+    "icons": [
+      "battlecruiser"
     ]
   },
   "Hurricane": {
@@ -1810,6 +2496,9 @@
     "name": "Hurricane",
     "class": [
       "combat battlecruiser"
+    ],
+    "icons": [
+      "battlecruiser"
     ]
   },
   "Brutix Navy Issue": {
@@ -1817,6 +2506,10 @@
     "name": "Brutix Navy Issue",
     "class": [
       "combat battlecruiser"
+    ],
+    "icons": [
+      "battlecruiser",
+      "faction"
     ]
   },
   "Drake Navy Issue": {
@@ -1824,6 +2517,10 @@
     "name": "Drake Navy Issue",
     "class": [
       "combat battlecruiser"
+    ],
+    "icons": [
+      "battlecruiser",
+      "faction"
     ]
   },
   "Harbinger Navy Issue": {
@@ -1831,6 +2528,10 @@
     "name": "Harbinger Navy Issue",
     "class": [
       "combat battlecruiser"
+    ],
+    "icons": [
+      "battlecruiser",
+      "faction"
     ]
   },
   "Hurricane Fleet Issue": {
@@ -1838,6 +2539,10 @@
     "name": "Hurricane Fleet Issue",
     "class": [
       "combat battlecruiser"
+    ],
+    "icons": [
+      "battlecruiser",
+      "faction"
     ]
   },
   "Brutix Serpentis Edition": {
@@ -1866,12 +2571,18 @@
     "name": "Prophecy Blood Raiders Edition",
     "class": [
       "combat battlecruiser"
+    ],
+    "icons": [
+      "battlecruiser"
     ]
   },
   "Coercer": {
     "id": 16236,
     "name": "Coercer",
     "class": [
+      "destroyer"
+    ],
+    "icons": [
       "destroyer"
     ]
   },
@@ -1880,12 +2591,18 @@
     "name": "Cormorant",
     "class": [
       "destroyer"
+    ],
+    "icons": [
+      "destroyer"
     ]
   },
   "Catalyst": {
     "id": 16240,
     "name": "Catalyst",
     "class": [
+      "destroyer"
+    ],
+    "icons": [
       "destroyer"
     ]
   },
@@ -1894,6 +2611,9 @@
     "name": "Thrasher",
     "class": [
       "destroyer"
+    ],
+    "icons": [
+      "destroyer"
     ]
   },
   "InterBus Catalyst": {
@@ -1901,6 +2621,10 @@
     "name": "InterBus Catalyst",
     "class": [
       "destroyer"
+    ],
+    "icons": [
+      "destroyer",
+      "faction"
     ]
   },
   "Intaki Syndicate Catalyst": {
@@ -1915,6 +2639,10 @@
     "name": "Inner Zone Shipping Catalyst",
     "class": [
       "destroyer"
+    ],
+    "icons": [
+      "destroyer",
+      "faction"
     ]
   },
   "Quafe Catalyst": {
@@ -1922,6 +2650,10 @@
     "name": "Quafe Catalyst",
     "class": [
       "destroyer"
+    ],
+    "icons": [
+      "destroyer",
+      "faction"
     ]
   },
   "Aliastra Catalyst": {
@@ -1929,6 +2661,10 @@
     "name": "Aliastra Catalyst",
     "class": [
       "destroyer"
+    ],
+    "icons": [
+      "destroyer",
+      "faction"
     ]
   },
   "Algos": {
@@ -1943,12 +2679,18 @@
     "name": "Dragoon",
     "class": [
       "destroyer"
+    ],
+    "icons": [
+      "destroyer"
     ]
   },
   "Corax": {
     "id": 32876,
     "name": "Corax",
     "class": [
+      "destroyer"
+    ],
+    "icons": [
       "destroyer"
     ]
   },
@@ -1957,6 +2699,9 @@
     "name": "Talwar",
     "class": [
       "destroyer"
+    ],
+    "icons": [
+      "destroyer"
     ]
   },
   "Nefantar Thrasher": {
@@ -1964,6 +2709,10 @@
     "name": "Nefantar Thrasher",
     "class": [
       "destroyer"
+    ],
+    "icons": [
+      "destroyer",
+      "faction"
     ]
   },
   "Catalyst Serpentis Edition": {
@@ -1977,6 +2726,9 @@
     "id": 33879,
     "name": "Coercer Blood Raiders Edition",
     "class": [
+      "destroyer"
+    ],
+    "icons": [
       "destroyer"
     ]
   },
@@ -1999,6 +2751,9 @@
     "name": "Covetor",
     "class": [
       "mining barge"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Retriever": {
@@ -2006,6 +2761,9 @@
     "name": "Retriever",
     "class": [
       "mining barge"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Procurer": {
@@ -2020,6 +2778,9 @@
     "name": "Revelation",
     "class": [
       "dreadnought"
+    ],
+    "icons": [
+      "capital"
     ]
   },
   "Naglfar": {
@@ -2027,6 +2788,9 @@
     "name": "Naglfar",
     "class": [
       "dreadnought"
+    ],
+    "icons": [
+      "capital"
     ]
   },
   "Moros": {
@@ -2034,6 +2798,9 @@
     "name": "Moros",
     "class": [
       "dreadnought"
+    ],
+    "icons": [
+      "capital"
     ]
   },
   "Phoenix": {
@@ -2041,12 +2808,18 @@
     "name": "Phoenix",
     "class": [
       "dreadnought"
+    ],
+    "icons": [
+      "capital"
     ]
   },
   "Providence": {
     "id": 20183,
     "name": "Providence",
     "class": [
+      "freighter"
+    ],
+    "icons": [
       "freighter"
     ]
   },
@@ -2055,12 +2828,18 @@
     "name": "Charon",
     "class": [
       "freighter"
+    ],
+    "icons": [
+      "freighter"
     ]
   },
   "Obelisk": {
     "id": 20187,
     "name": "Obelisk",
     "class": [
+      "freighter"
+    ],
+    "icons": [
       "freighter"
     ]
   },
@@ -2069,6 +2848,9 @@
     "name": "Fenrir",
     "class": [
       "freighter"
+    ],
+    "icons": [
+      "freighter"
     ]
   },
   "Eos": {
@@ -2076,6 +2858,10 @@
     "name": "Eos",
     "class": [
       "command ship"
+    ],
+    "icons": [
+      "battlecruiser",
+      "t2"
     ]
   },
   "Sleipnir": {
@@ -2083,6 +2869,10 @@
     "name": "Sleipnir",
     "class": [
       "command ship"
+    ],
+    "icons": [
+      "battlecruiser",
+      "t2"
     ]
   },
   "Vulture": {
@@ -2090,6 +2880,10 @@
     "name": "Vulture",
     "class": [
       "command ship"
+    ],
+    "icons": [
+      "battlecruiser",
+      "t2"
     ]
   },
   "Absolution": {
@@ -2097,6 +2891,10 @@
     "name": "Absolution",
     "class": [
       "command ship"
+    ],
+    "icons": [
+      "battlecruiser",
+      "t2"
     ]
   },
   "Astarte": {
@@ -2104,6 +2902,10 @@
     "name": "Astarte",
     "class": [
       "command ship"
+    ],
+    "icons": [
+      "battlecruiser",
+      "t2"
     ]
   },
   "Claymore": {
@@ -2111,6 +2913,10 @@
     "name": "Claymore",
     "class": [
       "command ship"
+    ],
+    "icons": [
+      "battlecruiser",
+      "t2"
     ]
   },
   "Nighthawk": {
@@ -2118,6 +2924,10 @@
     "name": "Nighthawk",
     "class": [
       "command ship"
+    ],
+    "icons": [
+      "battlecruiser",
+      "t2"
     ]
   },
   "Damnation": {
@@ -2125,6 +2935,10 @@
     "name": "Damnation",
     "class": [
       "command ship"
+    ],
+    "icons": [
+      "battlecruiser",
+      "t2"
     ]
   },
   "Heretic": {
@@ -2132,6 +2946,11 @@
     "name": "Heretic",
     "class": [
       "interdictor"
+    ],
+    "icons": [
+      "destroyer",
+      "t2",
+      "support"
     ]
   },
   "Sabre": {
@@ -2139,6 +2958,11 @@
     "name": "Sabre",
     "class": [
       "interdictor"
+    ],
+    "icons": [
+      "destroyer",
+      "t2",
+      "support"
     ]
   },
   "Eris": {
@@ -2146,6 +2970,11 @@
     "name": "Eris",
     "class": [
       "interdictor"
+    ],
+    "icons": [
+      "destroyer",
+      "t2",
+      "support"
     ]
   },
   "Flycatcher": {
@@ -2153,6 +2982,11 @@
     "name": "Flycatcher",
     "class": [
       "interdictor"
+    ],
+    "icons": [
+      "destroyer",
+      "t2",
+      "support"
     ]
   },
   "Hulk": {
@@ -2160,6 +2994,9 @@
     "name": "Hulk",
     "class": [
       "exhumer"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Skiff": {
@@ -2167,6 +3004,9 @@
     "name": "Skiff",
     "class": [
       "exhumer"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Mackinaw": {
@@ -2174,6 +3014,9 @@
     "name": "Mackinaw",
     "class": [
       "exhumer"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Mackinaw ORE Development Edition": {
@@ -2188,6 +3031,9 @@
     "name": "Archon",
     "class": [
       "carrier"
+    ],
+    "icons": [
+      "capital"
     ]
   },
   "Thanatos": {
@@ -2195,6 +3041,9 @@
     "name": "Thanatos",
     "class": [
       "carrier"
+    ],
+    "icons": [
+      "capital"
     ]
   },
   "Chimera": {
@@ -2202,6 +3051,9 @@
     "name": "Chimera",
     "class": [
       "carrier"
+    ],
+    "icons": [
+      "capital"
     ]
   },
   "Nidhoggur": {
@@ -2209,6 +3061,9 @@
     "name": "Nidhoggur",
     "class": [
       "carrier"
+    ],
+    "icons": [
+      "capital"
     ]
   },
   "Revenant": {
@@ -2216,6 +3071,9 @@
     "name": "Revenant",
     "class": [
       "supercarrier"
+    ],
+    "icons": [
+      "capital"
     ]
   },
   "Nation": {
@@ -2230,6 +3088,9 @@
     "name": "Hel",
     "class": [
       "supercarrier"
+    ],
+    "icons": [
+      "capital"
     ]
   },
   "Nyx": {
@@ -2237,6 +3098,9 @@
     "name": "Nyx",
     "class": [
       "supercarrier"
+    ],
+    "icons": [
+      "capital"
     ]
   },
   "Wyvern": {
@@ -2244,6 +3108,9 @@
     "name": "Wyvern",
     "class": [
       "supercarrier"
+    ],
+    "icons": [
+      "capital"
     ]
   },
   "Aeon": {
@@ -2251,6 +3118,9 @@
     "name": "Aeon",
     "class": [
       "supercarrier"
+    ],
+    "icons": [
+      "capital"
     ]
   },
   "Helios": {
@@ -2258,6 +3128,11 @@
     "name": "Helios",
     "class": [
       "covert ops"
+    ],
+    "icons": [
+      "frigate",
+      "t2",
+      "support"
     ]
   },
   "Cheetah": {
@@ -2265,6 +3140,11 @@
     "name": "Cheetah",
     "class": [
       "covert ops"
+    ],
+    "icons": [
+      "frigate",
+      "t2",
+      "support"
     ]
   },
   "Anathema": {
@@ -2272,6 +3152,11 @@
     "name": "Anathema",
     "class": [
       "covert ops"
+    ],
+    "icons": [
+      "frigate",
+      "t2",
+      "support"
     ]
   },
   "Buzzard": {
@@ -2279,6 +3164,11 @@
     "name": "Buzzard",
     "class": [
       "covert ops"
+    ],
+    "icons": [
+      "frigate",
+      "t2",
+      "support"
     ]
   },
   "Chremoas": {
@@ -2286,6 +3176,10 @@
     "name": "Chremoas",
     "class": [
       "covert ops"
+    ],
+    "icons": [
+      "frigate",
+      "faction"
     ]
   },
   "Crow": {
@@ -2293,6 +3187,10 @@
     "name": "Crow",
     "class": [
       "interceptor"
+    ],
+    "icons": [
+      "frigate",
+      "t2"
     ]
   },
   "Raptor": {
@@ -2300,6 +3198,10 @@
     "name": "Raptor",
     "class": [
       "interceptor"
+    ],
+    "icons": [
+      "frigate",
+      "t2"
     ]
   },
   "Crusader": {
@@ -2307,6 +3209,10 @@
     "name": "Crusader",
     "class": [
       "interceptor"
+    ],
+    "icons": [
+      "frigate",
+      "t2"
     ]
   },
   "Malediction": {
@@ -2314,6 +3220,10 @@
     "name": "Malediction",
     "class": [
       "interceptor"
+    ],
+    "icons": [
+      "frigate",
+      "t2"
     ]
   },
   "Claw": {
@@ -2321,6 +3231,10 @@
     "name": "Claw",
     "class": [
       "interceptor"
+    ],
+    "icons": [
+      "frigate",
+      "t2"
     ]
   },
   "Stiletto": {
@@ -2328,6 +3242,10 @@
     "name": "Stiletto",
     "class": [
       "interceptor"
+    ],
+    "icons": [
+      "frigate",
+      "t2"
     ]
   },
   "Taranis": {
@@ -2335,6 +3253,10 @@
     "name": "Taranis",
     "class": [
       "interceptor"
+    ],
+    "icons": [
+      "frigate",
+      "t2"
     ]
   },
   "Ares": {
@@ -2342,6 +3264,10 @@
     "name": "Ares",
     "class": [
       "interceptor"
+    ],
+    "icons": [
+      "frigate",
+      "t2"
     ]
   },
   "Whiptail": {
@@ -2356,12 +3282,22 @@
     "name": "Scimitar",
     "class": [
       "logistics"
+    ],
+    "icons": [
+      "cruiser",
+      "t2",
+      "logistics"
     ]
   },
   "Basilisk": {
     "id": 11985,
     "name": "Basilisk",
     "class": [
+      "logistics"
+    ],
+    "icons": [
+      "cruiser",
+      "t2",
       "logistics"
     ]
   },
@@ -2370,12 +3306,22 @@
     "name": "Guardian",
     "class": [
       "logistics"
+    ],
+    "icons": [
+      "cruiser",
+      "t2",
+      "logistics"
     ]
   },
   "Oneiros": {
     "id": 11989,
     "name": "Oneiros",
     "class": [
+      "logistics"
+    ],
+    "icons": [
+      "cruiser",
+      "t2",
       "logistics"
     ]
   },
@@ -2384,6 +3330,10 @@
     "name": "Etana",
     "class": [
       "logistics"
+    ],
+    "icons": [
+      "cruiser",
+      "faction"
     ]
   },
   "Falcon": {
@@ -2391,6 +3341,11 @@
     "name": "Falcon",
     "class": [
       "force recon ship"
+    ],
+    "icons": [
+      "cruiser",
+      "t2",
+      "support"
     ]
   },
   "Rapier": {
@@ -2398,6 +3353,11 @@
     "name": "Rapier",
     "class": [
       "force recon ship"
+    ],
+    "icons": [
+      "cruiser",
+      "t2",
+      "support"
     ]
   },
   "Pilgrim": {
@@ -2405,6 +3365,11 @@
     "name": "Pilgrim",
     "class": [
       "force recon ship"
+    ],
+    "icons": [
+      "cruiser",
+      "t2",
+      "support"
     ]
   },
   "Arazu": {
@@ -2412,6 +3377,11 @@
     "name": "Arazu",
     "class": [
       "force recon ship"
+    ],
+    "icons": [
+      "cruiser",
+      "t2",
+      "support"
     ]
   },
   "Moracha": {
@@ -2419,6 +3389,9 @@
     "name": "Moracha",
     "class": [
       "force recon ship"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Chameleon": {
@@ -2433,6 +3406,10 @@
     "name": "Nemesis",
     "class": [
       "stealth bomber"
+    ],
+    "icons": [
+      "frigate",
+      "t2"
     ]
   },
   "Manticore": {
@@ -2440,6 +3417,10 @@
     "name": "Manticore",
     "class": [
       "stealth bomber"
+    ],
+    "icons": [
+      "frigate",
+      "t2"
     ]
   },
   "Hound": {
@@ -2447,6 +3428,10 @@
     "name": "Hound",
     "class": [
       "stealth bomber"
+    ],
+    "icons": [
+      "frigate",
+      "t2"
     ]
   },
   "Purifier": {
@@ -2454,6 +3439,10 @@
     "name": "Purifier",
     "class": [
       "stealth bomber"
+    ],
+    "icons": [
+      "frigate",
+      "t2"
     ]
   },
   "Rorqual": {
@@ -2461,6 +3450,9 @@
     "name": "Rorqual",
     "class": [
       "capital industrial ship"
+    ],
+    "icons": [
+      "capital"
     ]
   },
   "Rorqual ORE Development Edition": {
@@ -2475,6 +3467,11 @@
     "name": "Keres",
     "class": [
       "electronic attack ship"
+    ],
+    "icons": [
+      "frigate",
+      "t2",
+      "support"
     ]
   },
   "Sentinel": {
@@ -2482,6 +3479,11 @@
     "name": "Sentinel",
     "class": [
       "electronic attack ship"
+    ],
+    "icons": [
+      "frigate",
+      "t2",
+      "support"
     ]
   },
   "Kitsune": {
@@ -2489,6 +3491,11 @@
     "name": "Kitsune",
     "class": [
       "electronic attack ship"
+    ],
+    "icons": [
+      "frigate",
+      "t2",
+      "support"
     ]
   },
   "Hyena": {
@@ -2496,6 +3503,11 @@
     "name": "Hyena",
     "class": [
       "electronic attack ship"
+    ],
+    "icons": [
+      "frigate",
+      "t2",
+      "support"
     ]
   },
   "Onyx": {
@@ -2503,6 +3515,11 @@
     "name": "Onyx",
     "class": [
       "heavy interdiction cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "t2",
+      "support"
     ]
   },
   "Broadsword": {
@@ -2510,6 +3527,11 @@
     "name": "Broadsword",
     "class": [
       "heavy interdiction cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "t2",
+      "support"
     ]
   },
   "Devoter": {
@@ -2517,6 +3539,11 @@
     "name": "Devoter",
     "class": [
       "heavy interdiction cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "t2",
+      "support"
     ]
   },
   "Phobos": {
@@ -2524,6 +3551,11 @@
     "name": "Phobos",
     "class": [
       "heavy interdiction cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "t2",
+      "support"
     ]
   },
   "Redeemer": {
@@ -2531,6 +3563,10 @@
     "name": "Redeemer",
     "class": [
       "black ops"
+    ],
+    "icons": [
+      "battleship",
+      "t2"
     ]
   },
   "Sin": {
@@ -2538,6 +3574,10 @@
     "name": "Sin",
     "class": [
       "black ops"
+    ],
+    "icons": [
+      "battleship",
+      "t2"
     ]
   },
   "Widow": {
@@ -2545,6 +3585,10 @@
     "name": "Widow",
     "class": [
       "black ops"
+    ],
+    "icons": [
+      "battleship",
+      "t2"
     ]
   },
   "Panther": {
@@ -2552,6 +3596,10 @@
     "name": "Panther",
     "class": [
       "black ops"
+    ],
+    "icons": [
+      "battleship",
+      "t2"
     ]
   },
   "Paladin": {
@@ -2559,6 +3607,10 @@
     "name": "Paladin",
     "class": [
       "marauder"
+    ],
+    "icons": [
+      "battleship",
+      "t2"
     ]
   },
   "Kronos": {
@@ -2566,6 +3618,10 @@
     "name": "Kronos",
     "class": [
       "marauder"
+    ],
+    "icons": [
+      "battleship",
+      "t2"
     ]
   },
   "Vargur": {
@@ -2573,6 +3629,10 @@
     "name": "Vargur",
     "class": [
       "marauder"
+    ],
+    "icons": [
+      "battleship",
+      "t2"
     ]
   },
   "Golem": {
@@ -2580,6 +3640,10 @@
     "name": "Golem",
     "class": [
       "marauder"
+    ],
+    "icons": [
+      "battleship",
+      "t2"
     ]
   },
   "Rhea": {
@@ -2587,6 +3651,10 @@
     "name": "Rhea",
     "class": [
       "jump freighter"
+    ],
+    "icons": [
+      "freighter",
+      "t2"
     ]
   },
   "Nomad": {
@@ -2594,6 +3662,10 @@
     "name": "Nomad",
     "class": [
       "jump freighter"
+    ],
+    "icons": [
+      "freighter",
+      "t2"
     ]
   },
   "Anshar": {
@@ -2601,6 +3673,10 @@
     "name": "Anshar",
     "class": [
       "jump freighter"
+    ],
+    "icons": [
+      "freighter",
+      "t2"
     ]
   },
   "Ark": {
@@ -2608,6 +3684,10 @@
     "name": "Ark",
     "class": [
       "jump freighter"
+    ],
+    "icons": [
+      "freighter",
+      "t2"
     ]
   },
   "Rook": {
@@ -2615,6 +3695,11 @@
     "name": "Rook",
     "class": [
       "combat recon ship"
+    ],
+    "icons": [
+      "cruiser",
+      "t2",
+      "support"
     ]
   },
   "Huginn": {
@@ -2622,6 +3707,11 @@
     "name": "Huginn",
     "class": [
       "combat recon ship"
+    ],
+    "icons": [
+      "cruiser",
+      "t2",
+      "support"
     ]
   },
   "Lachesis": {
@@ -2629,6 +3719,11 @@
     "name": "Lachesis",
     "class": [
       "combat recon ship"
+    ],
+    "icons": [
+      "cruiser",
+      "t2",
+      "support"
     ]
   },
   "Curse": {
@@ -2636,6 +3731,11 @@
     "name": "Curse",
     "class": [
       "combat recon ship"
+    ],
+    "icons": [
+      "cruiser",
+      "t2",
+      "support"
     ]
   },
   "Orca": {
@@ -2643,6 +3743,9 @@
     "name": "Orca",
     "class": [
       "industrial command ship"
+    ],
+    "icons": [
+      "capital"
     ]
   },
   "Orca ORE Development Edition": {
@@ -2657,6 +3760,10 @@
     "name": "Tengu",
     "class": [
       "strategic cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "t3"
     ]
   },
   "Legion": {
@@ -2664,6 +3771,10 @@
     "name": "Legion",
     "class": [
       "strategic cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "t3"
     ]
   },
   "Proteus": {
@@ -2671,6 +3782,10 @@
     "name": "Proteus",
     "class": [
       "strategic cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "t3"
     ]
   },
   "Loki": {
@@ -2678,6 +3793,10 @@
     "name": "Loki",
     "class": [
       "strategic cruiser"
+    ],
+    "icons": [
+      "cruiser",
+      "t3"
     ]
   },
   "Zephyr": {
@@ -2685,6 +3804,9 @@
     "name": "Zephyr",
     "class": [
       "prototype exploration ship"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Oracle": {
@@ -2692,6 +3814,10 @@
     "name": "Oracle",
     "class": [
       "attack battlecruiser"
+    ],
+    "icons": [
+      "battlecruiser",
+      "tier3"
     ]
   },
   "Naga": {
@@ -2699,6 +3825,10 @@
     "name": "Naga",
     "class": [
       "attack battlecruiser"
+    ],
+    "icons": [
+      "battlecruiser",
+      "tier3"
     ]
   },
   "Talos": {
@@ -2706,6 +3836,10 @@
     "name": "Talos",
     "class": [
       "attack battlecruiser"
+    ],
+    "icons": [
+      "battlecruiser",
+      "tier3"
     ]
   },
   "Tornado": {
@@ -2713,6 +3847,10 @@
     "name": "Tornado",
     "class": [
       "attack battlecruiser"
+    ],
+    "icons": [
+      "battlecruiser",
+      "tier3"
     ]
   },
   "Crane": {
@@ -2720,6 +3858,9 @@
     "name": "Crane",
     "class": [
       "blockade runner"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Prorator": {
@@ -2727,6 +3868,9 @@
     "name": "Prorator",
     "class": [
       "blockade runner"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Prowler": {
@@ -2734,6 +3878,9 @@
     "name": "Prowler",
     "class": [
       "blockade runner"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Viator": {
@@ -2741,6 +3888,9 @@
     "name": "Viator",
     "class": [
       "blockade runner"
+    ],
+    "icons": [
+      "other"
     ]
   },
   "Prospect": {

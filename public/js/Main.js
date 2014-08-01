@@ -49,7 +49,7 @@ function initialize() {
 }
 
 function createArmadaButtonClick(button) {
-	var armadaPassword = $(button).siblings('.armada-password').val();
+	var armadaPassword = $('#create-fleet-password').val();
 	createArmada(armadaPassword);
 }
 
@@ -67,7 +67,7 @@ function createArmada(armadaPassword) {
 }
 
 function joinArmadaButtonClick(button) {
-	var armadaKey = $(button).siblings('.armada-key').val();
+	var armadaKey = $('#join-fleet-key').val();
 	joinArmada(armadaKey);
 }
 
