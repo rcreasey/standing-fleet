@@ -25,10 +25,10 @@ module.exports = function () {
 		storage: getSetting('STORAGE_MODE'),
 		log: 'console',
 
-		memberTtl: 30000,
+		memberTtl: 300000,
 		armadaTtl: 28800000,
-		eventTtl: 3600000,
-		scanTtl: 3600000,
+		eventTtl: 900000,
+		scanTtl: 900000,
 
 		minPollInterval: 1,
 		cleanInterval: 60000,
