@@ -164,9 +164,9 @@ a:hover { color: #fff0be }
 	border-color: #ac2925;
 }
 
-.btn-clear,
-.btn-hostile {
-	margin-top: 0.2rem;
+#status-clear,
+#status-hostile {
+	margin-top: 0.3rem;
 	padding: 0 5px;
 }
 
@@ -623,7 +623,7 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
  / /  MEDIA QUERY
  */
 
-@media only screen and (max-width: 350px) {
+@media only screen and (max-width: 475px) {
 	html { font-size: 9px }
 
 	#alert-container, .panel {
@@ -633,8 +633,8 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	#dim { padding-top: 0; }
 	.panel { max-width: none }
 
-	#info-strings-member, .menu-button span { display: none }
-	.menu-button img { margin-top: 0.3rem; }
+	#status-clear span, #status-hostile span, .menu-button span { display: none }
+	.menu-button i { margin-top: 0.3rem; }
 	.member td.ship-name { width: 0rem }
 	.member td.ship-icon img { width: 2rem; height:2rem }
 }
