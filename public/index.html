@@ -75,7 +75,6 @@
           {{/if}}
         </div>
         <div class="content">
-
         {{#if text}}
           <div class="text {{#if textclass}}{{textclass}}{{/if}}">{{{text}}}</div>
         {{/if}}
@@ -157,16 +156,17 @@
         <div class="description-container" onclick="ScanList.toggleCollapse(this)">
           <span class="text">
             {{time}} - <a href="javascript:CCPEVE.showInfo(5,{{systemId}});">{{systemName}}</a>,
-            reported by <a href="javascript:CCPEVE.showInfo(1377, {{reporterId}});">{{reporter}}</a> <span class="key">[ {{key}} ]</span>
+            reported by <a href="javascript:CCPEVE.showInfo(1377, {{reporterId}});">{{reporter}}</a>
           </span>
         </div>
         <div class="results-container collapsible">
         {{#each shipTypes}}
           <div class="result">
-            <span class="ship-type" onclick="ScanList.toggleCollapse(this)">{{count}}x <b>{{shipType}}</b></span>
+            <span class="ship-class" onclick="ScanList.toggleCollapse(this)">{{count}}x <b>{{shipType}}</b></span>
 
             {{#each details}}
             <div class="details-container collapsible">
+              <span class="ship-type">{{shipClass}}</span>
               <span class="ship-name">{{shipName}}</span>
               <span class="distance">{{distance}}</span>
             </div>
@@ -195,13 +195,6 @@
         <tr>
           <td class="ship-icon">{{{shipIcon}}}</td>
           <td class="name"><a href="javascript:CCPEVE.showInfo(1377, {{id}});">{{name}}</a></td>
-          <td class="corp">
-            {{#if corporationName}}
-              <a href="javascript:CCPEVE.showInfo(2, {{corporationID}});">[ {{corporationName}} ]</a>
-            {{else}}
-              Corporation details unavailable
-            {{/if}}
-          </td>
           <td class="alliance">
             {{#if allianceName}}
               <a href="javascript:CCPEVE.showInfo(16159, {{allianceID}});">&lt; {{allianceName}} &gt;</a>
@@ -224,8 +217,7 @@
             {{/if}}
           </td>
           <td class="system {{#if isDocked}}docked{{/if}}"><a href="javascript:CCPEVE.showInfo(5,{{systemId}});">{{systemName}}</a></td>
-          <td class="reported_at">{{reported_at}}</a></td>
-          <td class="reporter"><a href="javascript:CCPEVE.showInfo(1377, {{reporterId}});">{{reporterName}}</a></td>
+          <td class="reported"><a title="Reported by {{reporterName}}">{{reported_at}}</a></td>
           <td class="actions" onClick="UIPanels.showHostileOptionsPanel('{{id}}');"><img src="/images/icon-options.png" alt="Options"/></td>
         </tr>
       </table>

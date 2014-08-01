@@ -66,6 +66,7 @@ var ScanList = {
 			shipTypeContainer.count++;
 			shipTypeContainer.details.push({
 				distance: distance,
+				shipClass: shipType,
 				shipName: shipName
 			});
 		}
@@ -91,7 +92,7 @@ var ScanList = {
 		var foundShipTypeContainer = false;
 
 		parsedScanData.forEach(function (shipTypeContainer) {
-			if (shipTypeContainer.shipType === shipType) {
+			if (shipTypeContainer.shipType === Data.ships[shipType].class[0]) {
 				foundShipTypeContainer = shipTypeContainer;
 			}
 		});
@@ -102,7 +103,7 @@ var ScanList = {
 	addShipTypeContainer: function (shipType, parsedScanData) {
 
 		var shipTypeContainer = {
-			shipType: shipType,
+			shipType: Data.ships[shipType].class[0],
 			count: 0,
 			details: []
 		};

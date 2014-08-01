@@ -591,7 +591,7 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	background-color: #171717;
 }
 
-.scan .result .ship-type {
+.scan .result .ship-class {
 	background-color: #222;
 	padding: 0.2rem 3rem 0.3rem;
 	display: block;
@@ -600,7 +600,7 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	cursor: pointer;
 	color: #888;
 }
-.scan .result:first-child .ship-type { border: none;}
+.scan .result:first-child .ship-class { border: none;}
 
 .scan .result .details-container {
 	position: relative;
@@ -608,6 +608,11 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	display: none;
 	border-bottom: 1px solid #222;
 	color: #888;
+}
+
+.scan .result .details-container .ship-type {
+	color: #ffcc2a;
+	font-weight: bold;
 }
 
 .scan .result .details-container .ship-name {
