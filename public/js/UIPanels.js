@@ -68,22 +68,11 @@ var UIPanels = {
 			type: 'password',
 			title: '<img id="logo" src="/images/panel-logo.png" alt="Standing Fleet" />',
 			text: 'Authorization required.',
-			textinputs: [{
-					legend: 'Enter Standing Fleet password',
-					class: 'armada-password'
-			}],
-			buttons: [
-				{
-					class: 'submit-password',
-					text: 'Join Fleet',
-					onClick: 'submitPasswordButtonClick(this)'
-				},
-				{
-					class: 'cancel',
-					text: 'Cancel',
-					onClick: 'Util.redirectToBasePath()'
-				}
-	 		],
+			formitems: [
+				{input:  {label: 'Fleet Password', id: 'join-fleet-password', class: 'submit-key'}},
+				{button: {class: 'submit-key', text: 'Join Fleet', onClick: 'submitPasswordButtonClick(this)'}},
+				{submit: {class: 'submit-join', text: '<i class="fa fa-arrow-circle-left"></i> Cancel', onClick: 'UIPanels.redirectToBasePath()'}}
+			],
 	 		error: error
 	 	};
 

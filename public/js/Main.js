@@ -72,8 +72,9 @@ function joinArmadaButtonClick(button) {
 }
 
 function joinArmada(armadaKey) {
-	UIPanels.showLoadingPanel('Searching for armada...', function () {
+	UIPanels.showLoadingPanel('Searching for fleet...', function () {
 		Server.joinArmada(armadaKey, function(error, data) {
+			Data.state.armada.key = armadaKey;
 			if (error) {
 				if (error.type === 'password') UIPanels.showPasswordPanel();
 				else UIPanels.showJoinPanel(error);
@@ -86,13 +87,13 @@ function joinArmada(armadaKey) {
 }
 
 function submitPasswordButtonClick(button) {
-	var armadaPassword = $(button).siblings('.armada-password').val();
+	var armadaPassword = $('#join-fleet-password').val();
 	submitPassword(armadaPassword);
 }
 
 function submitPassword(armadaPassword) {
 	var armadaKey = Util.getUrlKey();
-	if (!armadaKey) Util.redirectToBasePath();
+	if (!armadaKey) armadaKey = Data.state.armada.key;
 
 	UIPanels.showLoadingPanel('Authenticating...', function () {
 		Server.joinArmadaWithPassword(armadaKey, armadaPassword, function (error, data) {
