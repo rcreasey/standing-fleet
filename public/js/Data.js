@@ -54,10 +54,6 @@ var Data = {
 		topMenu_events: $('#top-menu-events'),
 		topMenu_scans: $('#top-menu-scans'),
 
-		infoStrings: $('#info-strings'),
-		infoStrings_fleetPassword: $('#info-string-fleet-password'),
-		infoStrings_fleetKey: $('#info-string-fleet-key'),
-
 		bottomMenu: $('#bottom-menu'),
 		bottomMenu_spinner: $('#bottom-menu-spinner'),
 		bottomMenu_local: $('#bottom-menu-local'),

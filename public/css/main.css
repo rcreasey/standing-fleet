@@ -46,6 +46,8 @@ a:hover { color: #fff0be }
 	z-index: 6;
 	position: fixed
 }
+.sub-bar.left { z-index: 7 !important; }
+
 
 #content-wrapper {
 	padding: 2.4rem 0rem;
@@ -96,21 +98,11 @@ a:hover { color: #fff0be }
 	width: 70%
 }
 
-#status-buttons {
-	background-color: #222;
-	border: solid 1px #444;
-	border-radius: 2px;
-	bottom: 0;
-	margin-bottom: 3rem;
-	margin-left: 5px;
-	padding: .5rem;
-	position: absolute;
-}
-
-#status-buttons h2 {
+h2#current-system {
 	color: #ffcc2a;
+	display: inline;
 	font-family: 'Droid Sans', sans-serif;
-	font-size: 16px;
+	font-size: 18px;
 	font-weight: bold;
 	margin-left: 5px;
 }
@@ -178,6 +170,12 @@ a:hover { color: #fff0be }
 	border-color: #ac2925;
 }
 
+.btn-clear,
+.btn-hostile {
+	margin-bottom: 5px;
+	padding: 0 5px;
+}
+
   /*/
  / /  MISC ELEMENTS
  */
@@ -218,10 +216,6 @@ a:hover { color: #fff0be }
 	cursor:	default;
 	padding: 0rem 1rem 0rem 1rem;
 	border: none;
-}
-
-#info-strings {
-	padding: 0.4rem 0.6rem;
 }
 
 input#info-string-fleet-password,
@@ -279,7 +273,6 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 }
 
 .current rect {
-  /*stroke: #ffcc2a !important;*/
   stroke: #f39c12 !important;
   stroke-width: 2px !important;
 }

@@ -184,8 +184,8 @@ var EventHandler = {
 	statusArmada: function (armada) {
 		Data.state.armada.name = armada.name;
 		Data.state.armada.key = armada.key;
-		UI.setString('armadaKey', armada.key);
-		if (armada.password) UI.setString('armadaPassword', '/ ' + armada.password);
+		Data.state.armada.password = armada.password;
+
 		SystemMap.init();
 	},
 

@@ -33,11 +33,6 @@
       </div>
       <div id="content-wrapper">
         <div id="system-map" class="main-content active">
-          <div id="status-buttons">
-            <h2 id="current-system"></h2>
-            <a id="status-clear" target="_blank" class="btn btn-clear"><i class="fa fa-check"></i> Clear</a>
-            <a id="status-hostile" target="_blank" class="btn btn-hostile"><i class="fa fa-crosshairs"></i> Hostile</a>
-          </div>
         </div>
         <div id="hostiles" class="main-content"></div>
         <div id="members" class="main-content"></div>
@@ -45,16 +40,17 @@
         <div id="scans" class="main-content"></div>
       </div>
       <div id="bottom-bar">
-        <div class="sub-bar left" id="info-strings">
-          <!-- <input id="info-string-fleet-key" type="text" readonly="true" placeholder="Fleet Key" style="display: none;" />
-          <input id="info-string-fleet-password" type="text"readonly="true" placeholder="Fleet Password"  style="display: none;" /> -->
+        <div class="sub-bar left" id="broadcast">
+        <div id="status-buttons">
+          <h2 id="current-system"></h2>
+          <a id="status-clear" target="_blank" class="btn btn-clear"><i class="fa fa-check"></i> <span>Clear</span></a>
+          <a id="status-hostile" target="_blank" class="btn btn-hostile"><i class="fa fa-crosshairs"></i> <span>Hostile</span></a>
+        </div>
+
         </div>
         <div class="sub-bar right" id="bottom-menu">
           <div class="menu-button" id="bottom-menu-spinner">
             <img src="/images/spinner.gif" alt="Processing..." />
-          </div>
-          <div class="menu-button" id="bottom-menu-local">
-            <i class="fa fa-bullseye"></i> <span>REPORT LOCAL</span>
           </div>
           <div class="menu-button" id="bottom-menu-scan">
             <i class="fa fa-bullseye"></i> <span>REPORT SCAN</span>

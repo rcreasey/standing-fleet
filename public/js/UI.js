@@ -66,19 +66,6 @@ var UI = {
 			});
 	},
 
-	setString: function (target, string) {
-		switch (target) {
-			case "armadaPassword":
-				Data.ui.infoStrings_fleetPassword.val(string);
-				Data.ui.infoStrings_fleetPassword.toggle();
-				break;
-			case "armadaKey":
-				Data.ui.infoStrings_fleetKey.val(string);
-				Data.ui.infoStrings_fleetKey.toggle();
-				break;
-		}
-	},
-
 	tabClick: function (tab) {
 		if ($('#'+tab).hasClass('active')) return;
 
