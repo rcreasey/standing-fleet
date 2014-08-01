@@ -49,11 +49,17 @@ a:hover { color: #fff0be }
 }
 .sub-bar.left { padding-left: 0.5rem; z-index: 7 !important; }
 
-
 #content-wrapper {
 	padding: 2.4rem 0rem;
 	height: 100%;
-	overflow: hidden
+}
+
+#system-map {
+	overflow: hidden;
+}
+
+#hostiles, #members, #events, #scans {
+	overflow-y: scroll;
 }
 
 #logo {
@@ -228,7 +234,6 @@ input#info-string-fleet-key {
  */
 #system-map {
 	background: url("/images/bg-noise.png");
-	overflow: hidden;
 }
 
 #system-map svg {
@@ -293,7 +298,7 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 
 .member {
 	width: 100%;
-	table-layout: fixed
+	table-layout: fixed;
 }
 
 .member td {
