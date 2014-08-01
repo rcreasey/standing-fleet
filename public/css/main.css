@@ -46,7 +46,7 @@ a:hover { color: #fff0be }
 	z-index: 6;
 	position: fixed
 }
-.sub-bar.left { z-index: 7 !important; }
+.sub-bar.left { padding-left: 0.5rem; z-index: 7 !important; }
 
 
 #content-wrapper {
@@ -60,7 +60,7 @@ a:hover { color: #fff0be }
 	margin: 0 auto 1rem;
 }
 
-#brand {
+#current-system {
   color: #ffcc2a;
   font-family: 'Lato', sans-serif !important;
   font-size: 14px !important;
@@ -96,15 +96,6 @@ a:hover { color: #fff0be }
 	bottom: 2.5rem;
 	left: 30%;
 	width: 70%
-}
-
-h2#current-system {
-	color: #ffcc2a;
-	display: inline;
-	font-family: 'Droid Sans', sans-serif;
-	font-size: 18px;
-	font-weight: bold;
-	margin-left: 5px;
 }
 
 .btn {
@@ -172,7 +163,7 @@ h2#current-system {
 
 .btn-clear,
 .btn-hostile {
-	margin-bottom: 5px;
+	margin-top: 0.2rem;
 	padding: 0 5px;
 }
 
