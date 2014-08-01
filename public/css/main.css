@@ -21,8 +21,6 @@ html {
 	overflow: hidden;
 }
 
-body { overflow: hidden; }
-
 a, a:visited { color: #ffcc2a; text-decoration: none }
 a:hover { color: #fff0be }
 
@@ -230,6 +228,7 @@ input#info-string-fleet-key {
  */
 #system-map {
 	background: url("/images/bg-noise.png");
+	overflow: hidden;
 }
 
 #system-map svg {
@@ -350,6 +349,7 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 .hostile td.system.docked a,
 .hostile td.ship-name { color: #888 }
 
+.hostile td.reported_at { width: 5rem; }
 .hostile td.reporter { width: 7rem; }
 
 .hostile td.system { width: 6rem; }
@@ -635,8 +635,10 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 
 	#status-clear span, #status-hostile span, .menu-button span { display: none }
 	.menu-button i { margin-top: 0.3rem; }
-	.member td.ship-name { width: 0rem }
-	.member td.ship-icon img { width: 2rem; height:2rem }
+	.member td.ship-name { width: 0rem; }
+	.member td.ship-icon img { width: 2rem; height:2rem; }
+
+	.hostile td.corp, .hostile td.alliance, .hostile td.ship-name, .hostile td.reporter { width: 0rem; }
 }
 
 /*/

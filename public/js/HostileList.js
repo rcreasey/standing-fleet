@@ -71,6 +71,7 @@ var HostileList = {
   },
 
   addUiProperties: function (hostile) {
+    hostile.reported_at = moment(hostile.ts).utc().format('HH:mm:ss')
     hostile.shipIcon = Util.getShipIcon(hostile.shipType);
     hostile.html = Data.templates.hostile(hostile);
   }

@@ -32,8 +32,7 @@
         </div>
       </div>
       <div id="content-wrapper">
-        <div id="system-map" class="main-content active">
-        </div>
+        <div id="system-map" class="main-content active"></div>
         <div id="hostiles" class="main-content"></div>
         <div id="members" class="main-content"></div>
         <div id="events" class="main-content"></div>
@@ -225,6 +224,7 @@
             {{/if}}
           </td>
           <td class="system {{#if isDocked}}docked{{/if}}"><a href="javascript:CCPEVE.showInfo(5,{{systemId}});">{{systemName}}</a></td>
+          <td class="reported_at">{{reported_at}}</a></td>
           <td class="reporter"><a href="javascript:CCPEVE.showInfo(1377, {{reporterId}});">{{reporterName}}</a></td>
           <td class="actions" onClick="UIPanels.showHostileOptionsPanel('{{id}}');"><img src="/images/icon-options.png" alt="Options"/></td>
         </tr>
@@ -235,6 +235,7 @@
     <script type="text/javascript" src="/js/3rd/jquery1110.js"></script>
     <script type="text/javascript" src="/js/3rd/typeahead0104.js"></script>
     <script type="text/javascript" src="/js/3rd/d3348.js"></script>
+    <script type="text/javascript" src="/js/3rd/moment270.js"></script>
 
     <script type="text/javascript" src="/js/Util.js"></script>
     <script type="text/javascript" src="/js/UI.js"></script>
