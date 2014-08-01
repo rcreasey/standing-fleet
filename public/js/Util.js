@@ -1,7 +1,7 @@
 var Util = {
 
 	isShip: function (shipName) {
-		return (typeof Data.ships[shipName] !== 'undefined')
+		return (typeof Data.ships[shipName] !== 'undefined' && Data.ships[shipName].icons !== undefined)
 	},
 
 	getShipType: function (shipName) {
