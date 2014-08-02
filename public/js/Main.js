@@ -130,6 +130,21 @@ function submitScan(scanData) {
 	});
 }
 
+function scanFilter(button, filter) {
+	var results = $(button).closest('.scan').find('.type-classes .result')
+	$(button).closest('ul').find('.btn').removeClass('active');
+	results.removeClass('selected');
+
+	$(button).addClass('active');
+	$.each(results, function(i, result) {
+		if ($(result).find('.details-container .distance:contains("-")').length) {
+			if (filter === 'offgrid') $(result).addClass('selected');
+		} else {
+			if (filter === 'grid') $(result).addClass('selected');
+		}
+	})
+}
+
 function submitStatusButtonClick(button) {
 	var scanData = $('#status-data').val();
 	submitStatus("validate", scanData);
