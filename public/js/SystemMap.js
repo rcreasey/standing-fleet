@@ -137,7 +137,7 @@ var SystemMap = {
       });
 
     var zoom = d3.behavior.zoom()
-      .scaleExtent([0.4, 0.7, 1])
+      .scaleExtent([0.4, 1])
       .on("zoom", zoomHandler);
 
     var root = svg.append("g");
