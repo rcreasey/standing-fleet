@@ -92,8 +92,7 @@
             {{/if}}
             {{#if textinput}}
               {{#if textinput.legend}}<span class="legend">{{{textinput.legend}}}</span>{{/if}}
-              {{#if textinput.label}}<label for="{{textinput.id}}" class="legend">{{{textinput.legend}}}</label>{{/if}}
-              <textarea rows="1" class="textinput {{{textinput.class}}}"></textarea>
+              <textarea id="{{textinput.id}}" class="textinput {{{textinput.class}}}" {{#if textinput.label}}placeholder="{{textinput.label}}"{{/if}}></textarea>
             {{/if}}
             {{#if button}}
             <div class="group">
@@ -107,17 +106,6 @@
             {{/if}}
           {{/each}}
           </div>
-        {{/if}}
-        {{#if textinputs}}
-          {{#each textinputs}}
-          {{#if legend}}<span class="legend">{{{legend}}}</span>{{/if}}
-          <textarea rows="1" class="textinput {{{class}}}"></textarea>
-          {{/each}}
-        {{/if}}
-        {{#if buttons}}
-          {{#each buttons}}
-          <a {{#if link}}href="{{{link}}}"{{/if}} target="_blank" class="button {{{class}}}" onClick="{{{onClick}}}">{{{text}}}</a>
-          {{/each}}
         {{/if}}
         </div>
       </div>
@@ -160,19 +148,32 @@
           </span>
         </div>
         <div class="results-container collapsible">
-        {{#each shipTypes}}
-          <div class="result">
-            <span class="ship-class" onclick="ScanList.toggleCollapse(this)">{{count}}x <b>{{shipType}}</b></span>
-
-            {{#each details}}
-            <div class="details-container collapsible">
-              <span class="ship-type">{{shipClass}}</span>
-              <span class="ship-name">{{shipName}}</span>
-              <span class="distance">{{distance}}</span>
+          <!-- <ul class="actions">
+            <li><a class="btn active">Total</a></li>
+            <li><a class="btn">On Grid</a></li>
+            <li><a class="btn">Off Grid</a></li>
+          </ul>-->
+          <div class="scan-classes">
+          {{#each shipClasses}}
+            <div class="result">
+              <span class="ship-class">{{count}}x <b>{{shipClass}}</b></span>
             </div>
-            {{/each}}
+          {{/each}}
           </div>
-        {{/each}}
+          <div class="type-classes">
+          {{#each shipTypes}}
+            <div class="result">
+              <span class="ship-type" onclick="ScanList.toggleCollapse(this)">{{count}}x <b>{{shipType}}</b></span>
+
+              {{#each details}}
+              <div class="details-container collapsible">
+                <span class="ship-name">{{shipName}}</span>
+                <span class="distance">{{distance}}</span>
+              </div>
+              {{/each}}
+            </div>
+          {{/each}}
+          </div>
         </div>
       </div>
     </script>
@@ -217,7 +218,7 @@
             {{/if}}
           </td>
           <td class="system {{#if isDocked}}docked{{/if}}"><a href="javascript:CCPEVE.showInfo(5,{{systemId}});">{{systemName}}</a></td>
-          <td class="reported"><a title="Reported by {{reporterName}}">{{reported_at}}</a></td>
+          <td class="reported_at"><a title="Reported by {{reporterName}}">{{reported_at}}</a></td>
           <td class="actions" onClick="UIPanels.showHostileOptionsPanel('{{id}}');"><img src="/images/icon-options.png" alt="Options"/></td>
         </tr>
       </table>

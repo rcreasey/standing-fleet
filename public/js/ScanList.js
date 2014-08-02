@@ -49,8 +49,8 @@ var ScanList = {
 	},
 
 	parse: function (rawScanData) {
-		var inputRows = rawScanData.split(/\r\n|\r|\n/g),
-			parsedScanData = [];
+		var inputRows = rawScanData.split(/\r\n|\r|\n/g)
+		var parsedScanData = {classes: [], types: []};
 
 		for (var inputRowIndex in inputRows) {
 			var inputRowArray = inputRows[inputRowIndex].split(/\t/g);
@@ -61,17 +61,18 @@ var ScanList = {
 
 			if (!Util.isShip(shipType)) continue;
 
-			var shipTypeContainer = ScanList.getShipTypeContainer(shipType, parsedScanData);
+			var shipTypeContainer  = ScanList.getShipTypeContainer(shipType, parsedScanData);
+			var shipClassContainer = ScanList.getShipClassContainer(shipType, parsedScanData);
 
 			shipTypeContainer.count++;
-			shipTypeContainer.details.push({
-				distance: distance,
-				shipClass: shipType,
-				shipName: shipName
-			});
+			shipTypeContainer.details.push({ distance: distance, shipClass: shipType, shipName: shipName });
+
+			shipClassContainer.count++;
+			shipClassContainer.details.push({ distance: distance, shipClass: shipType, shipName: shipName });
 		}
 
-		parsedScanData.sort(ScanList.scanDataSorter);
+		parsedScanData.types.sort(ScanList.scanDataSorter);
+		parsedScanData.classes.sort(ScanList.scanDataSorter);
 
 		return parsedScanData;
 	},
@@ -91,8 +92,8 @@ var ScanList = {
 	getShipTypeContainer: function (shipType, parsedScanData) {
 		var foundShipTypeContainer = false;
 
-		parsedScanData.forEach(function (shipTypeContainer) {
-			if (shipTypeContainer.shipType === Data.ships[shipType].class[0]) {
+		parsedScanData.types.forEach(function (shipTypeContainer) {
+			if (shipTypeContainer.shipType === shipType) {
 				foundShipTypeContainer = shipTypeContainer;
 			}
 		});
@@ -103,14 +104,39 @@ var ScanList = {
 	addShipTypeContainer: function (shipType, parsedScanData) {
 
 		var shipTypeContainer = {
-			shipType: Data.ships[shipType].class[0],
+			shipType: shipType,
 			count: 0,
 			details: []
 		};
 
-		parsedScanData.push(shipTypeContainer);
+		parsedScanData.types.push(shipTypeContainer);
 
 		return shipTypeContainer;
+	},
+
+	getShipClassContainer: function (shipType, parsedScanData) {
+		var foundShipClassContainer = false;
+
+		parsedScanData.classes.forEach(function (shipClassContainer) {
+			if (shipClassContainer.shipClass === Data.ships[shipType].class[0]) {
+				foundShipClassContainer = shipClassContainer;
+			}
+		});
+
+		return foundShipClassContainer || ScanList.addShipClassContainer(shipType, parsedScanData);
+	},
+
+	addShipClassContainer: function (shipType, parsedScanData) {
+
+		var shipClassContainer = {
+			shipClass: Data.ships[shipType].class[0],
+			count: 0,
+			details: []
+		};
+
+		parsedScanData.classes.push(shipClassContainer);
+
+		return shipClassContainer;
 	},
 
 	scanDataSorter: function (shipType1, shipType2) {

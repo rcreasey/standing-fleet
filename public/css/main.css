@@ -561,9 +561,17 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	margin-top: 1rem;
 }
 
+.panel .form {
+	margin-bottom: 1rem;
+}
+
   /*/
  / /  SCANS
  */
+
+.scan {
+	clear: both;
+}
 
 .scan .description-container {
 	position: relative;
@@ -582,16 +590,43 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 .scan .key { color: #888; }
 
 .scan .results-container {
-	background-color: #171717;
 	display: none;
 	padding-bottom: 1rem;
 }
 
-.scan .result {
-	background-color: #171717;
+.scan .results-container .actions {
+	clear: both;
+	min-height: 4rem;
+	margin-left: 1rem;
 }
 
-.scan .result .ship-class {
+.scan .results-container .btn {
+	background-color: #333;
+	font-size: 12px;
+	font-weight: normal;
+	margin-right: 3px;
+	padding: 3px 6px;
+	float: left;
+	display: inline-block;
+}
+
+.scan .results-container .btn.active,
+.scan .results-container .btn:hover {
+	color: #ffcc2a;
+}
+
+.scan .scan-classes {
+	float: left;
+	width: 30%;
+	margin-right: 10rem;
+}
+
+.scan .type-classes {
+	float: left;
+	width: 30%;
+}
+
+.scan .result {
 	background-color: #222;
 	padding: 0.2rem 3rem 0.3rem;
 	display: block;
@@ -648,7 +683,7 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	.member td.ship-name { width: 0rem; }
 	.member td.ship-icon img { width: 2rem; height:2rem; }
 
-	.hostile td.corp, .hostile td.alliance, .hostile td.ship-name, .hostile td.reporter { width: 0rem; }
+	.hostile td.corp, .hostile td.alliance, .hostile td.ship-name { width: 0rem; }
 }
 
 /*/

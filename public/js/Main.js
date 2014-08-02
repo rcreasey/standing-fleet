@@ -109,7 +109,7 @@ function submitPassword(armadaPassword) {
 }
 
 function submitScanButtonClick(button) {
-	var scanData = $(button).siblings('.scan-data').val();
+	var scanData = $('#scan-data').val();
 	submitScan(scanData);
 }
 
@@ -131,7 +131,7 @@ function submitScan(scanData) {
 }
 
 function submitStatusButtonClick(button) {
-	var scanData = $(button).siblings('.status-data').val();
+	var scanData = $('#status-data').val();
 	submitStatus("validate", scanData);
 }
 

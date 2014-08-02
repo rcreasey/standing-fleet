@@ -40,7 +40,8 @@ var UIPanels = {
 			formitems: [
 				{button: {class: 'submit-create', text: 'Create Fleet', onClick: 'UIPanels.showCreatePanel()'}},
 				{input:  {label: 'Fleet Key', id: 'join-fleet-key', class: 'armada-key'}},
-				{submit: {class: 'submit-join', text: 'Join Fleet', onClick: 'joinArmadaButtonClick(this)'}}
+				{submit: {class: 'submit-join', text: 'Join Fleet', onClick: 'joinArmadaButtonClick(this)'}},
+				{button: {class: 'leave-armada', text: 'Leave Standing Fleet', onClick: 'leaveArmada()'}},
 			],
 			error: error
 		};
@@ -124,10 +125,10 @@ var UIPanels = {
 			type: 'options',
 			image: 'panel-options.png',
 			title: person.name,
-			buttons: [
-				{ text: 'Set destination: ' + person.systemName, class: 'no-margin', onClick: 'CCPEVE.setDestination(' + person.systemId + ')' },
-				{ text: 'zKillboard: ' + person.name, class: 'no-margin', link: 'https://zkillboard.com/search/' + encodeURIComponent(person.name) },
-				{ text: 'Eve-Kill: ' + person.name, link: 'http://eve-kill.net/?a=search&searchtype=pilot&searchphrase=' + encodeURIComponent(person.name) }
+			formitems: [
+				{button: {text: 'Set destination: ' + person.systemName, class: 'no-margin', onClick: 'CCPEVE.setDestination(' + person.systemId + ')'}},
+				{button: {text: 'zKillboard', class: 'no-margin', link: 'https://zkillboard.com/search/' + encodeURIComponent(person.name)}},
+				{button: {text: 'Eve-Kill', class: 'no-margin', link: 'http://eve-kill.net/?a=search&searchtype=pilot&searchphrase=' + encodeURIComponent(person.name)}},
 			],
 			closeable: true
 		};
@@ -140,15 +141,10 @@ var UIPanels = {
 			type: 'hostiles',
 			image: 'panel-scan.png',
 			title: Data.ui.currentSystem.text(),
-			textinputs: [{
-				legend:  'Copy and paste pilots out of local below',
-				class: 'status-data',
-			}],
-			buttons: [{
-				class: 'submit-scan',
-				text: 'Update Status',
-				onClick: 'submitStatusButtonClick(this)'
-			}],
+			formitems: [
+				{textinput:  {label: 'Copy and paste pilots out of local below', id: 'status-data', class: 'status-data'}},
+				{submit: {text: 'Update Status', onClick: 'submitStatusButtonClick(this)'}}
+			],
 			closeable: true
 		};
 
@@ -160,15 +156,10 @@ var UIPanels = {
 			type: 'scan',
 			image: 'panel-scan.png',
 			title: Data.ui.currentSystem.text(),
-			textinputs: [{
-				legend: 'Paste scan results below',
-				class: 'scan-data',
-			}],
-			buttons: [{
-				class: 'submit-scan',
-				text: 'Send Scan',
-				onClick: 'submitScanButtonClick(this)'
-			}],
+			formitems: [
+				{textinput:  {label: 'Paste scan results below', id: 'scan-data', class: 'scan-data'}},
+				{submit: {text: 'Send Scan', onClick: 'submitScanButtonClick(this)'}}
+			],
 			closeable: true
 		};
 
@@ -180,11 +171,9 @@ var UIPanels = {
 			type: 'pending',
 			image: 'spinner.gif',
 			text: 'Waiting for Standing Fleet to accept...',
-			buttons: [{
-				class: 'abort-pending',
-				text: 'Cancel',
-				onClick: 'leaveArmadaButtonClick(this)'
-			}]
+			formitems: [
+				{button: {text: 'Cancel', class: 'abort-pending', onClick: 'leaveArmadaButtonClick(this)'}}
+			],
 		};
 
 		UIPanels.showPanel(panel, callback);
