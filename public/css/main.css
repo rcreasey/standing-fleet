@@ -618,12 +618,14 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	float: left;
 	width: 40%;
 	margin-left: 2rem;
+	margin-bottom: 1rem;
 }
 
 .scan .type-classes {
 	float: left;
 	width: 40%;
 	margin-left: 4rem;
+	margin-bottom: 1rem;
 }
 
 .scan .result {
