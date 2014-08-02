@@ -30,7 +30,7 @@ a:hover { color: #fff0be }
  / /  LAYOUT
  */
 
-div.page, div.content-wrapper, #system-map { position: relative; height: 100%; width: 100%; }
+div.page, div.content-wrapper { position: relative; height: 100%; width: 100%; }
 
 #bottom-bar, #top-bar { width: 100%; }
 
@@ -62,9 +62,9 @@ div.page, div.content-wrapper, #system-map { position: relative; height: 100%; w
 	overflow: hidden;
 }
 
-#hostiles, #members, #events, #scans {
+/*#hostiles, #members, #events, #scans {
 	overflow-y: scroll;
-}
+}*/
 
 #logo {
 	float: none;
@@ -290,11 +290,6 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
     stroke-width: 1px;
     stroke-dasharray: 2,2,4,2
 }
-
-/*.line .inner {
-  stroke: #d87c10;
-  stroke-width: 4px;
-}*/
 
   /*/
  / /  MEMBER
@@ -600,13 +595,13 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 
 .scan .results-container .actions {
 	clear: both;
-	min-height: 4rem;
-	margin-left: 1rem;
+	min-height: 3rem;
+	margin: 0.5rem 1rem;
 }
 
 .scan .results-container .btn {
 	background-color: #333;
-	font-size: 12px;
+	font-size: 10px;
 	font-weight: normal;
 	margin-right: 3px;
 	padding: 3px 6px;
@@ -628,7 +623,7 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 .scan .type-classes {
 	float: left;
 	width: 40%;
-	margin-left: 6rem;
+	margin-left: 4rem;
 }
 
 .scan .result {
