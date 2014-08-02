@@ -634,6 +634,7 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	border-top: 1px solid #111;
 	cursor: pointer;
 	color: #888;
+	text-transform: capitalize;
 }
 .scan .result:first-child .ship-class { border: none;}
 
