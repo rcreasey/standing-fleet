@@ -182,6 +182,8 @@
         <tr>
           <td class="ship-icon">{{{shipIcon}}}</td>
           <td class="name"><a href="javascript:CCPEVE.showInfo(1377, {{id}});">{{name}}</a></td>
+          <td class="ship-type"><a href="javascript:CCPEVE.showInfo({{shipTypeId}});">{{shipType}}</a></td>
+          <td class="ship-name">{{shipName}}</td>
           <td class="system {{#if isDocked}}docked{{/if}}"><a href="javascript:CCPEVE.showInfo(5,{{systemId}});">{{systemName}}</a></td>
           <td class="actions" onClick="UIPanels.showMemberOptionsPanel('{{id}}');"><img src="/images/icon-options.png" alt="Options"/></td>
         </tr>
