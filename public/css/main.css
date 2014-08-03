@@ -30,7 +30,8 @@ a:hover { color: #fff0be }
  / /  LAYOUT
  */
 
-div.page, div.content-wrapper { position: relative; height: 100%; width: 100%; }
+/* Fix 'height: 100%;' */
+div#page, div#content-wrapper { position: relative; height: 100%; width: 100%; box-sizing: border-box; }
 
 #bottom-bar, #top-bar { width: 100%; }
 
