@@ -48,6 +48,7 @@ var Data = {
 		dim: $('#dim'),
 
 		topMenu: $('#top-menu'),
+		topMenu_hud: $('#top-menu-hud'),
 		topMenu_map: $('#top-menu-system-map'),
 		topMenu_hostiles: $('#top-menu-hostiles'),
 		topMenu_members: $('#top-menu-members'),
@@ -64,6 +65,7 @@ var Data = {
 		statusClear: $('#status-clear'),
 		statusHostile: $('#status-hostile'),
 
+		hud: $('#hud'),
 		map: $('#system-map'),
 		hostiles: $('#hostiles'),
 		members: $('#members'),
@@ -72,6 +74,7 @@ var Data = {
 	},
 
 	templates: {
+		hud: Handlebars.compile($('#hudTemplate').html()),
 		hostile: Handlebars.compile($('#hostileTemplate').html()),
 		member: Handlebars.compile($('#memberTemplate').html()),
 		event: Handlebars.compile($('#eventTemplate').html()),

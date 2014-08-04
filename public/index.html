@@ -14,6 +14,9 @@
       <div id="top-bar">
         <span id="current-system">Standing Fleet</span>
         <div class="sub-bar right" id="top-menu">
+          <div class="menu-button hud" id="top-menu-hud">
+            <i class="fa fa-tachometer"></i> <span>HUD</span>
+          </div>
           <div class="menu-button system-map active" id="top-menu-system-map">
             <i class="fa fa-sitemap"></i> <span>MAP</span>
           </div>
@@ -32,6 +35,7 @@
         </div>
       </div>
       <div id="content-wrapper">
+        <div id="hud" class="main-content"></div>
         <div id="system-map" class="main-content active"></div>
         <div id="hostiles" class="main-content"></div>
         <div id="members" class="main-content"></div>
@@ -40,12 +44,12 @@
       </div>
       <div id="bottom-bar">
         <div class="sub-bar left" id="broadcast">
-        <div id="status-buttons">
-          <a id="status-clear" target="_blank" class="btn btn-clear"><i class="fa fa-check"></i> <span>Clear</span></a>
-          <a id="status-hostile" target="_blank" class="btn btn-hostile"><i class="fa fa-crosshairs"></i> <span>Hostile</span></a>
+          <div id="status-buttons">
+            <a id="status-clear" target="_blank" class="btn btn-clear"><i class="fa fa-check"></i> <span>Clear</span></a>
+            <a id="status-hostile" target="_blank" class="btn btn-hostile"><i class="fa fa-crosshairs"></i> <span>Hostile</span></a>
+          </div>
         </div>
 
-        </div>
         <div class="sub-bar right" id="bottom-menu">
           <div class="menu-button" id="bottom-menu-spinner">
             <img src="/images/spinner.gif" alt="Processing..." />
@@ -108,6 +112,12 @@
           </div>
         {{/if}}
         </div>
+      </div>
+    </script>
+
+    <script type="text/x-handlebars-template" id="hudTemplate">
+      <div class="{{status}}">
+        <h2>{{status}}</h2>
       </div>
     </script>
 

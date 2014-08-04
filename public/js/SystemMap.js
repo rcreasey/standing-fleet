@@ -7,9 +7,9 @@ var SystemMap = {
   // Given a system, return the class that corresponds to whether a system is hostile or not.
   system_color: function(system) {
     if ( $.grep(Data.hostiles, function(h) { return system.name === h.systemName; }).length > 0 ) {
-      return "status-hostile";
+      return "hostile";
     } else if ( $.grep(Data.members, function(m) { return system.name === m.systemName; }).length > 0 ) {
-      return "status-clear";
+      return "clear";
     }
   },
 
@@ -111,11 +111,13 @@ var SystemMap = {
           .data('systemId', system.id)
           .text( system.name );
 
+        SystemMap.updateHud( system.name );
+
         node_groups.append("rect")
           .attr("width", rect_width)
           .attr("height", rect_height)
           .attr("rx", 2).attr("ry", 2)
-          .attr("class", function(n) { return SystemMap.system_color(n); });
+          .attr("class", function(n) { return 'status-' + SystemMap.system_color(n); });
 
         node_groups.append("text")
           .attr("class", "system-name")
@@ -206,20 +208,30 @@ var SystemMap = {
     zoom.event(root);
   },
 
+  updateHud: function(system_name) {
+    system = {name: system_name}
+    system.status = SystemMap.system_color(system);
+    Data.ui.hud.html( Data.templates.hud(system) );
+  },
+
   updateCurrent: function() {
     d3.selectAll('g.node')
       .attr("class", function(n) {
         return (n.id === +Data.state.self.systemId ) ? "current node" : "node";
       });
 
-    $('#current-system')
+    Data.ui.currentSystem
       .data('system-id', Data.state.self.systemId)
       .text( $('.current text').text() );
+
+    SystemMap.updateHud( $('#current-system').text() );
   },
 
   refreshSystems: function() {
     d3.selectAll('g.node rect')
-      .attr("class", function(n) { return SystemMap.system_color(n); });
+      .attr("class", function(n) { return 'status-' + SystemMap.system_color(n); });
+
+    SystemMap.updateHud( $('#current-system').text() );
   },
 
   redraw: function() {
@@ -231,6 +243,7 @@ var SystemMap = {
   init: function() {
     log("Initializing System Map...");
     SystemMap.draw();
+    SystemMap.updateCurrent();
   }
 
 };
