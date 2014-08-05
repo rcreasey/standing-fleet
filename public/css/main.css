@@ -719,11 +719,35 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	right: 1rem;
 }
 
+/*/
+/ /  TYPEAHEAD
+*/
+.tt-dropdown-menu {
+	width: 100%;
+	margin-top: 2px;
+	padding: 5px 0;
+	text-align: left;
+	background-color: #000;
+	border: 1px solid #ccc;
+	border: 1px solid rgba(0,0,0,.2);
+}
+
+.tt-suggestion {
+	display: block;
+	padding: 3px 20px;
+}
+
+.tt-cursor {
+	color: #000;
+	background-color: #ffcc2a;
+}
+
+
   /*/
  / /  MEDIA QUERY
  */
 
-@media only screen and (max-width: 475px) {
+@media only screen and (max-width: 500px) {
 	html { font-size: 9px }
 
 	#alert-container, .panel {
@@ -739,27 +763,4 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	.member td.ship-icon img { width: 2rem; height:2rem; }
 
 	.hostile td.corp, .hostile td.alliance, .hostile td.ship-name { width: 0rem; }
-}
-
-/*/
-/ /  TYPEAHEAD
-*/
-.tt-dropdown-menu {
-  width: 100%;
-  margin-top: 2px;
-  padding: 5px 0;
-	text-align: left;
-  background-color: #000;
-  border: 1px solid #ccc;
-  border: 1px solid rgba(0,0,0,.2);
-}
-
-.tt-suggestion {
-  display: block;
-  padding: 3px 20px;
-}
-
-.tt-cursor {
-  color: #000;
-  background-color: #ffcc2a;
 }

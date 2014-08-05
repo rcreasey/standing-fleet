@@ -91,13 +91,13 @@ var UI = {
 			"Shitpoasting",
 			"Lemming'ing",
 			"Clicking jump instead of bridge",
-			"Burning guns",
+			"Overheating guns",
 			"Bumping the titan",
 			"Fitting a windicator",
 			"Burning point",
 			"Posting gudfites",
 			"Z0r",
-			"Getting the pod"
+			"Whoring on the pod"
 		];
 		return msgs[Math.floor(Math.random()*msgs.length)] + "...";
 	}
