@@ -6,11 +6,11 @@ var SystemMap = {
 
   // let's count things
   hostile_count: function(system) {
-    return $.grep(Data.hostiles, function(h) { return system.name === h.systemName; }).length
+    return (system.name !== undefined ) ? $.grep(Data.hostiles, function(h) { return system.name === h.systemName; }).length : 0
   },
 
   friendly_count: function(system) {
-    return $.grep(Data.members, function(m) { return system.name === m.systemName; }).length
+    return (system.name !== undefined ) ? $.grep(Data.members, function(h) { return system.name === h.systemName; }).length : 0
   },
 
   // Given a system, return the class that corresponds to whether a system is hostile or not.
@@ -222,11 +222,11 @@ var SystemMap = {
     system.status = SystemMap.system_color(system);
     system.neighbors = $.map(SystemMap.links, function(n) {
       if (n.target.name === system_name) {
-        n.source.hostiles = SystemMap.hostile_count(n.source.name);
+        n.source.hostiles = SystemMap.hostile_count(n.source);
         return n.source;
       }
       if (n.source.name === system_name) {
-        n.target.hostiles = SystemMap.hostile_count(n.target.name);
+        n.target.hostiles = SystemMap.hostile_count(n.target);
         return n.target;
       }
     });
