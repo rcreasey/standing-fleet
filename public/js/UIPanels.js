@@ -142,7 +142,7 @@ var UIPanels = {
 			image: 'panel-scan.png',
 			title: Data.ui.currentSystem.text(),
 			formitems: [
-				{textinput:  {label: 'Copy and paste pilots out of local below', id: 'status-data', class: 'status-data'}},
+				{textinput:  {legend: 'Copy and paste pilots out of local below', id: 'status-data', class: 'status-data'}},
 				{submit: {text: 'Update Status', onClick: 'submitStatusButtonClick(this)'}}
 			],
 			closeable: true
@@ -157,7 +157,7 @@ var UIPanels = {
 			image: 'panel-scan.png',
 			title: Data.ui.currentSystem.text(),
 			formitems: [
-				{textinput:  {label: 'Paste scan results below', id: 'scan-data', class: 'scan-data'}},
+				{textinput:  {legend: 'Paste scan results below', id: 'scan-data', class: 'scan-data'}},
 				{submit: {text: 'Send Scan', onClick: 'submitScanButtonClick(this)'}}
 			],
 			closeable: true

@@ -235,7 +235,10 @@ input#info-string-fleet-key {
 }
 
 #hud div {
-	position: relative; height: 98%; width: 100%; box-sizing: border-box;
+	padding: 0 !important;
+	width: 99%;
+	height: 99%;
+	margin: 0 auto;
 }
 
 #hud .clear   {
