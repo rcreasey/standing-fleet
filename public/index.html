@@ -120,7 +120,7 @@
         <h2>{{status}}</h2>
         {{#each neighbors}}
         {{#if name}}
-        <h3>{{hostiles}} hostile{{#if neighbors.length}}s{{/if}} in {{name}}</h3>
+        <h3>{{hostiles}} hostile{{#if hostiles}}s{{/if}} in {{name}}</h3>
         {{/if}}
         {{/each}}
       </div>

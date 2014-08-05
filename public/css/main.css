@@ -259,6 +259,15 @@ input#info-string-fleet-key {
 	background-color: #74312f;
 }
 
+#hud .warning {
+	-moz-box-shadow: inset 0 0 10px #ed9c28;
+	-webkit-box-shadow: inset 0 0 10px #ed9c28;
+	box-shadow: inset 0 0 10px #ed9c28;
+	border: solid 2px #ed9c28;
+	color: #ed9c28;
+	background-color: #805e2f;
+}
+
 #hud h2,
 #hud h3 {
 	font-family: 'Droid Sans', sans-serif;

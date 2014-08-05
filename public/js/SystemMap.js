@@ -219,7 +219,6 @@ var SystemMap = {
 
   updateHud: function(system_name) {
     system = {name: system_name}
-    system.status = SystemMap.system_color(system);
     system.neighbors = $.map(SystemMap.links, function(n) {
       if (n.target.name === system_name) {
         n.source.hostiles = SystemMap.hostile_count(n.source);
@@ -230,6 +229,9 @@ var SystemMap = {
         return n.target;
       }
     });
+
+    system.status = (system.neighbors.filter(function(n) { return n.hostiles > 0 }).length) ? 'warning' : SystemMap.system_color(system);
+
     Data.ui.hud.html( Data.templates.hud(system) );
   },
 
