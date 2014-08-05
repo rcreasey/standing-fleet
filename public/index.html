@@ -118,8 +118,10 @@
     <script type="text/x-handlebars-template" id="hudTemplate">
       <div class="{{status}}">
         <h2>{{status}}</h2>
-        {{#each neighbor}}
-        <h3>{{neighbor.hostiles}} in {{neighbor.name}}</h3>
+        {{#each neighbors}}
+        {{#if name}}
+        <h3>{{hostiles}} hostile{{#if neighbors.length}}s{{/if}} in {{name}}</h3>
+        {{/if}}
         {{/each}}
       </div>
     </script>

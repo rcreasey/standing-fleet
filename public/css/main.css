@@ -259,13 +259,18 @@ input#info-string-fleet-key {
 	background-color: #74312f;
 }
 
-#hud h2 {
+#hud h2,
+#hud h3 {
 	font-family: 'Droid Sans', sans-serif;
 	font-size: 5rem;
 	font-weight: bold;
 	margin: auto auto;
 	text-align: center;
 	text-transform: uppercase;
+}
+
+#hud h3 {
+	font-size: 2rem;
 }
 
   /*/

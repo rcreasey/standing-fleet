@@ -4,11 +4,20 @@ var SystemMap = {
   systems: [],
   jumps: [],
 
+  // let's count things
+  hostile_count: function(system) {
+    return $.grep(Data.hostiles, function(h) { return system.name === h.systemName; }).length
+  },
+
+  friendly_count: function(system) {
+    return $.grep(Data.members, function(m) { return system.name === m.systemName; }).length
+  },
+
   // Given a system, return the class that corresponds to whether a system is hostile or not.
   system_color: function(system) {
-    if ( $.grep(Data.hostiles, function(h) { return system.name === h.systemName; }).length > 0 ) {
+    if ( SystemMap.hostile_count(system) > 0 ) {
       return "hostile";
-    } else if ( $.grep(Data.members, function(m) { return system.name === m.systemName; }).length > 0 ) {
+    } else if ( SystemMap.friendly_count(system) > 0 ) {
       return "clear";
     }
   },
@@ -211,6 +220,16 @@ var SystemMap = {
   updateHud: function(system_name) {
     system = {name: system_name}
     system.status = SystemMap.system_color(system);
+    system.neighbors = $.map(SystemMap.links, function(n) {
+      if (n.target.name === system_name) {
+        n.source.hostiles = SystemMap.hostile_count(n.source.name);
+        return n.source;
+      }
+      if (n.source.name === system_name) {
+        n.target.hostiles = SystemMap.hostile_count(n.target.name);
+        return n.target;
+      }
+    });
     Data.ui.hud.html( Data.templates.hud(system) );
   },
 
