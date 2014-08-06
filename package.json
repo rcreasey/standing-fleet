@@ -7,8 +7,6 @@
   "license": "MIT",
   "repository": "git@github.com:rcreasey/standing-fleet.git",
   "scripts": {
-    "install": "bower install",
-    "postinstall": "gulp",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "engines": {
