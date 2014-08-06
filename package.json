@@ -22,11 +22,7 @@
     "raw-body": "~1.1.3",
     "request": "2.37.0",
     "simple-ioc": "2.4.3",
-    "xml2js": "0.4.4"
-  },
-  "devDependencies": {
-    "bower": "^1.3.9",
-    "gulp": "^3.8.7",
+    "xml2js": "0.4.4",
     "gulp-cache": "^0.2.0",
     "gulp-concat": "^2.3.4",
     "gulp-imagemin": "^0.6.2",
