@@ -29,3 +29,11 @@ gulp.task('usemin', function() {
 gulp.task('default', function() {
   gulp.start('usemin');
 });
+
+gulp.task('heroku:production', function() {
+  gulp.start('usemin');
+});
+
+gulp.task('heroku:staging', function() {
+  gulp.start('usemin');
+});
