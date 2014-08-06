@@ -1,0 +1,27 @@
+{
+  "name": "standing-fleet",
+  "version": "0.2.2",
+  "homepage": "https://github.com/rcreasey/standing-fleet",
+  "author": "GARPA",
+  "description": "Intelligence visualized",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "d3": "~3.4.11",
+    "handlebars": "~1.3.0",
+    "moment": "~2.8.1",
+    "typeahead.js": "~0.10.4",
+    "jquery": "1.11.1"
+  },
+  "resolutions": {
+    "jquery": "1.11.1"
+  }
+}

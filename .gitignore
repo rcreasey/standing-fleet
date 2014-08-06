@@ -1,6 +1,5 @@
 .DS_Store
 node_modules
-*.sublime*
-config/private.js
+vendor
 .env
-newrelic_agent.log
+*.log

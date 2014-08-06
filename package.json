@@ -1,7 +1,7 @@
 {
   "name": "standing-fleet",
   "version": "0.1.0",
-  "description": "Standing Fleet Middleware",
+  "description": "Intelligence visualized",
   "main": "server.js",
   "author": "GARPA",
   "license": "MIT",
