@@ -371,8 +371,10 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 .member td.ship-icon { vertical-align: top }
 
 .member td.ship-icon { width: 2.4rem; padding: 0rem; }
-.member td.actions { width: 5rem; text-align: left; }
-.member td.actions a i { width: 1rem; cursor: pointer; }
+.member td.actions { width: 6rem; text-align: left; }
+.member td.actions a { text-align: center; }
+.member td.actions a:hover { color: #fff; }
+.member td.actions a i { width: 1.5rem; cursor: pointer; }
 
 .member td.ship-icon div { position: relative; }
 .member td.ship-icon img { position: absolute; top: 0.3rem ; left: 0.3rem }
@@ -414,7 +416,10 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 .hostile td.ship-icon { vertical-align: top }
 
 .hostile td.ship-icon { width: 2.4rem; padding: 0rem }
-.hostile td.actions { width: 3rem; text-align: center }
+.hostile td.actions { width: 4rem; text-align: center }
+.hostile td.actions a { text-align: center; }
+.hostile td.actions a:hover { color: #fff; }
+.hostile td.actions a i { width: 1.5rem; cursor: pointer; }
 
 .hostile td.ship-icon div { position: relative; }
 .hostile td.ship-icon img { position: absolute; top: 0.3rem ; left: 0.3rem }
@@ -757,7 +762,7 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
  / /  MEDIA QUERY
  */
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 550px) {
 	html { font-size: 9px }
 
 	#alert-container, .panel {

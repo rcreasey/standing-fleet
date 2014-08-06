@@ -92,7 +92,6 @@ var UIPanels = {
 				{input:  {hidden: true, id: 'hostile-id', value: hostile.id}},
 				{input:  {hidden: true, id: 'hostile-name', value: hostile.name}},
 				{input:  {label: 'Ship Type', id: 'hostile-ship-type', value: hostile.shipType} },
-				{input:  {label: 'Ship Name', id: 'hostile-ship-name', value: hostile.shipName}},
 				{submit: {text: 'Update Details', onClick: 'submitHostileDetailsClick(this)'}}
 			],
 			closeable: true
@@ -110,30 +109,6 @@ var UIPanels = {
 		  displayKey: 'value',
 		  source: UIPanels.substringMatcher($.map(Data.ships, function(s) { return s.name; }))
 		});
-	},
-
-	showMemberOptionsPanel: function (memberId) {
-		UIPanels.showOptionsPanel( MemberList.findMember(memberId) );
-	},
-
-	showHostileOptionsPanel: function (hostileId) {
-		UIPanels.showOptionsPanel( HostileList.findHostile(hostileId) );
-	},
-
-	showOptionsPanel: function(person) {
-		var panel = {
-			type: 'options',
-			image: 'panel-options.png',
-			title: person.name,
-			formitems: [
-				{button: {text: 'Set destination: ' + person.systemName, class: 'no-margin', onClick: 'CCPEVE.setDestination(' + person.systemId + ')'}},
-				{button: {text: 'zKillboard', class: 'no-margin', link: 'https://zkillboard.com/search/' + encodeURIComponent(person.name)}},
-				{button: {text: 'Eve-Kill', class: 'no-margin', link: 'http://eve-kill.net/?a=search&searchtype=pilot&searchphrase=' + encodeURIComponent(person.name)}},
-			],
-			closeable: true
-		};
-
-		UIPanels.showPanel(panel);
 	},
 
 	showStatusPanel: function (callback) {

@@ -102,3 +102,10 @@ var UI = {
 		return msgs[Math.floor(Math.random()*msgs.length)] + "...";
 	}
 }
+
+Handlebars.registerHelper('killboard_link', function(person, id) {
+  name = Handlebars.Utils.escapeExpression(person);
+  var result = '<a title="Killboard: ' + name + '" target="_blank" href="https://zkillboard.com/character/' + id + '/"><i class="fa fa-crosshairs" title="Killboard"></i></a>';
+
+  return new Handlebars.SafeString(result);
+});
