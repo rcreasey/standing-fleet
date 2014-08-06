@@ -7,7 +7,7 @@
   "license": "MIT",
   "repository": "git@github.com:rcreasey/standing-fleet.git",
   "scripts": {
-    "postinstall": "./node_modules/bower/bin/bower install && ./node_modules/gulp/bin/gulp",
+    "postinstall": "bower install && gulp",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "engines": {
@@ -19,7 +19,6 @@
     "express": "3.10.x",
     "gulp": "^3.8.7",
     "gulp-cache": "^0.2.0",
-    "gulp-clean": "^0.3.1",
     "gulp-concat": "^2.3.4",
     "gulp-imagemin": "^0.6.2",
     "gulp-jshint": "^1.8.4",
