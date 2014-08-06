@@ -5,7 +5,9 @@
     <meta name="language" content="en" />
     <link type="text/css" rel="stylesheet" media="screen" href="https://fonts.googleapis.com/css?family=Lato:900|Droid+Sans+Mono">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.min.css"/>
+    <!-- build:css /css/style.css -->
+    <link rel="stylesheet" type="text/css" href="styles/main.css" />
+    <!-- endbuild -->
     <title>Standing Fleet</title>
   </head>
   <body>
@@ -236,9 +238,28 @@
       </table>
     </script>
 
-    <script src="/js/lib.js"></script>
+    <!-- build:js /js/lib.js -->
+    <script type="text/javascript" src="../vendor/handlebars/handlebars.js"></script>
+    <script type="text/javascript" src="../vendor/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="../vendor/typeahead.js/dist/typeahead.jquery.js"></script>
+    <script type="text/javascript" src="../vendor/d3/d3.js"></script>
+    <script type="text/javascript" src="../vendor/moment/moment.js"></script>
+    <!-- endbuild -->
 
-    <script src="/js/app.js"></script>
+    <!-- build:js /js/app.js -->
+    <script type="text/javascript" src="/js/Util.js"></script>
+    <script type="text/javascript" src="/js/UI.js"></script>
+    <script type="text/javascript" src="/js/UIPanels.js"></script>
+    <script type="text/javascript" src="/js/Data.js"></script>
+    <script type="text/javascript" src="/js/Server.js"></script>
+    <script type="text/javascript" src="/js/SystemMap.js"></script>
+    <script type="text/javascript" src="/js/MemberList.js"></script>
+    <script type="text/javascript" src="/js/HostileList.js"></script>
+    <script type="text/javascript" src="/js/EventList.js"></script>
+    <script type="text/javascript" src="/js/ScanList.js"></script>
+    <script type="text/javascript" src="/js/EventHandler.js"></script>
+    <script type="text/javascript" src="/js/Main.js"></script>
+    <!-- endbuild -->
 
   </body>
 </html>

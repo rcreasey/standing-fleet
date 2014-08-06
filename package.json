@@ -7,6 +7,7 @@
   "license": "MIT",
   "repository": "git@github.com:rcreasey/standing-fleet.git",
   "scripts": {
+    "install": "bower install && gulp",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "engines": {
@@ -23,5 +24,20 @@
     "request": "2.37.0",
     "simple-ioc": "2.4.3",
     "xml2js": "0.4.4"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.7",
+    "gulp-cache": "^0.2.0",
+    "gulp-clean": "^0.3.1",
+    "gulp-concat": "^2.3.4",
+    "gulp-imagemin": "^0.6.2",
+    "gulp-jshint": "^1.8.4",
+    "gulp-livereload": "^2.1.0",
+    "gulp-minify-css": "^0.3.7",
+    "gulp-minify-html": "^0.1.4",
+    "gulp-rename": "^1.2.0",
+    "gulp-rev": "^1.0.0",
+    "gulp-uglify": "^0.3.1",
+    "gulp-usemin": "^0.3.7"
   }
 }
