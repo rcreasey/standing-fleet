@@ -89,6 +89,7 @@ var UIPanels = {
 			title: hostile.name,
 			text: 'Confirm details of hostile pilot:',
 			formitems: [
+				{input:  {hidden: true, id: 'hostile-key', value: hostile.key}},
 				{input:  {hidden: true, id: 'hostile-id', value: hostile.id}},
 				{input:  {hidden: true, id: 'hostile-name', value: hostile.name}},
 				{input:  {label: 'Ship Type', id: 'hostile-ship-type', value: hostile.shipType} },

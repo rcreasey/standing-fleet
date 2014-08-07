@@ -171,17 +171,18 @@ function submitStatus(reported_status, pilots) {
 }
 
 function submitHostileDetailsClick(button) {
-	var hostileId = $('#hostile-id').val();
-	var hostileName = $('#hostile-name').val();
+	var key = $('#hostile-key').val();
+	var id = $('#hostile-id').val();
+	var name = $('#hostile-name').val();
 	var shipType = $('#hostile-ship-type').val();
 	var shipName = $('#hostile-ship-name').val();
 
-	submitHostileDetails(hostileId, hostileName, shipType, shipName);
+	submitHostileDetails(key, id, name, shipType, shipName);
 }
 
-function submitHostileDetails(hostileId, hostileName, shipType, shipName) {
+function submitHostileDetails(key, id, name, shipType, shipName) {
 	UIPanels.showLoadingPanel('Uploading status...', function () {
-		var details = {type: 'hostile', id: hostileId, name: hostileName, shipType: shipType, shipName: shipName};
+		var details = {type: 'hostile', key: key, id: id, name: name, shipType: shipType, shipName: shipName};
 
 		Server.postDetails(details, function(error, data) {
 			UIPanels.hidePanel(function () {

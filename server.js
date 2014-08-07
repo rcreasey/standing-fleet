@@ -7,6 +7,7 @@ require('simple-ioc')
 	.register('mongodb', require('mongodb'))
 	.register('rawbody', require('raw-body'))
 	.register('neow', require('neow'))
+	.register('Q', require('q'))
 
 	.autoRegister('./lib/')
 	.autoRegister('./config/')
