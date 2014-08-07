@@ -10,14 +10,17 @@ var gulp = require('gulp'),
     usemin = require('gulp-usemin'),
     livereload = require('gulp-livereload');
 
-gulp.task('styles', function() {
-  return gulp.src('app/styles/main.css')
-    .pipe(rename({suffix: '.min'}))
-    .pipe(minifycss())
-    .pipe(gulp.dest('public/css/styles.css'));
+gulp.task('default', function() {
+  gulp.src('app/*.html')
+    .pipe(usemin({
+      css: ['concat'],
+      js: []
+    }))
+    .pipe(gulp.dest('public/'));
 });
+gulp.task('heroku:staging', function() { gulp.start('default'); });
 
-gulp.task('usemin', function() {
+gulp.task('heroku:production', function() {
   gulp.src('app/*.html')
     .pipe(usemin({
       css: [minifycss(), 'concat', rename({suffix: '.min'})],
@@ -25,10 +28,3 @@ gulp.task('usemin', function() {
     }))
     .pipe(gulp.dest('public/'));
 });
-
-gulp.task('default', function() {
-  gulp.start('styles');
-});
-
-gulp.task('heroku:production', function() { gulp.start('usemin'); });
-gulp.task('heroku:staging', function() { gulp.start('default'); });

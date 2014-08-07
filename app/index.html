@@ -216,14 +216,14 @@
           <td class="name"><a href="javascript:CCPEVE.showInfo(1377, {{id}});">{{name}}</a></td>
           <td class="alliance">
             {{#if allianceName}}
-              <a href="javascript:CCPEVE.showInfo(16159, {{allianceID}});">&lt; {{allianceName}} &gt;</a>
+              <a href="javascript:CCPEVE.showInfo(16159, {{allianceID}});">&lt;{{allianceName}}&gt;</a>
             {{else}}
               No Alliance
             {{/if}}
           </td>
           <td class="ship-type" onClick="UIPanels.updateHostileDetailsPanel('{{id}}');">
             {{#if shipTypeId}}
-              <a href="javascript:CCPEVE.showInfo({{shipTypeId}});">{{shipType}}</a>
+              <i class="fa fa-eye"></i> <a href="javascript:CCPEVE.showInfo({{shipTypeId}});">{{shipType}}</a>
             {{else}}
               <i class="fa fa-eye-slash"></i> Non Visual
             {{/if}}
