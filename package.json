@@ -23,15 +23,8 @@
     "request": "2.37.0",
     "simple-ioc": "2.4.3",
     "xml2js": "0.4.4",
-    "gulp-cache": "^0.2.0",
-    "gulp-concat": "^2.3.4",
-    "gulp-imagemin": "^0.6.2",
-    "gulp-jshint": "^1.8.4",
-    "gulp-livereload": "^2.1.0",
     "gulp-minify-css": "^0.3.7",
-    "gulp-minify-html": "^0.1.4",
     "gulp-rename": "^1.2.0",
-    "gulp-rev": "^1.0.0",
     "gulp-uglify": "^0.3.1",
     "gulp-usemin": "^0.3.7"
   }

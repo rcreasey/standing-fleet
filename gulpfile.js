@@ -1,14 +1,8 @@
-var gulp = require('gulp'),
-    minifycss = require('gulp-minify-css'),
-    jshint = require('gulp-jshint'),
-    uglify = require('gulp-uglify'),
-    imagemin = require('gulp-imagemin'),
-    rename = require('gulp-rename'),
-    concat = require('gulp-concat'),
-    cache = require('gulp-cache'),
-    rev = require('gulp-rev'),
-    usemin = require('gulp-usemin'),
-    livereload = require('gulp-livereload');
+var gulp = require('gulp')
+  , minifycss = require('gulp-minify-css')
+  , uglify = require('gulp-uglify')
+  , rename = require('gulp-rename')
+  , usemin = require('gulp-usemin')
 
 gulp.task('default', function() {
   gulp.src('app/*.html')
