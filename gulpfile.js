@@ -22,3 +22,7 @@ gulp.task('heroku:production', function() {
     }))
     .pipe(gulp.dest('public/'));
 });
+
+gulp.task('watch', function () {
+   gulp.watch('app/**', ['default']);
+});
