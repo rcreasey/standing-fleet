@@ -26,7 +26,7 @@ module.exports = function () {
 		log: 'console',
 
 		memberTtl: 300000,
-		armadaTtl: 28800000,
+		armadaTtl: 86400000,
 		eventTtl: 900000,
 		scanTtl: 900000,
 
