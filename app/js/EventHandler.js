@@ -213,9 +213,16 @@ var EventHandler = {
 	},
 
 	updateSystemMap: function (target) {
-		// SystemMap.redraw();
-		if (Data.state.self.id === target.id) this.statusSelfSystem(target);
-		SystemMap.updateCurrent();
-		SystemMap.refreshSystems();
-	}
+    if(Data.state.self.id === target.id) {
+      if(Data.state.self.regionId !== Data.systems[target.systemId].regionID) {
+        this.statusSelfSystem(target);
+        SystemMap.redraw();
+      }
+      else {
+        this.statusSelfSystem(target);
+        SystemMap.updateCurrent();
+        SystemMap.refreshSystems();
+      }
+    }
+  }
 };
