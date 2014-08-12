@@ -3,6 +3,8 @@ var SystemMap = {
   links: [],
   systems: [],
   jumps: [],
+  _system_nodes: {},
+  zoom: null,
 
   // let's count things
   hostile_count: function(system) {
@@ -147,7 +149,7 @@ var SystemMap = {
       });
 
 
-    var zoom = d3.behavior.zoom()
+    SystemMap.zoom = d3.behavior.zoom()
       .scaleExtent([0.4, 1])
       .on("zoom", zoomHandler);
 
@@ -157,7 +159,7 @@ var SystemMap = {
       root.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
     }
 
-    zoom(d3.select("#system-map"));
+    SystemMap.zoom(d3.select("#system-map"));
 
     var link = root.selectAll(".link"),
       node = root.selectAll(".node");
@@ -170,7 +172,7 @@ var SystemMap = {
     SystemMap.jumps = [];
     SystemMap.links = [];
 
-    var nodes = {};
+    var nodes = SystemMap._system_nodes = {};
 
     // Only draw systems that are in our current region
     SystemMap.systems = $.map(Data.systems, function(s) {
@@ -210,7 +212,6 @@ var SystemMap = {
       SystemMap.links.push({ source: system, target: anchor });
     });
 
-
     force
       .nodes(SystemMap.nodes)
       .links(SystemMap.links)
@@ -236,13 +237,13 @@ var SystemMap = {
     }
     force.stop();
 
-    var scale = zoom.scale();
-    zoom.translate([(Data.ui.map.width() / 2 - nodes[system.id].x * scale), (Data.ui.map.height() / 2 - nodes[system.id].y * scale)]);
-    zoom.event(root);
+    var scale = SystemMap.zoom.scale();
+    SystemMap.zoom.translate([(Data.ui.map.width() / 2 - nodes[system.id].x * scale), (Data.ui.map.height() / 2 - nodes[system.id].y * scale)]);
+    SystemMap.zoom.event(root);
   },
 
   updateHud: function(system_name) {
-    system = {name: system_name}
+    var system = {name: system_name}
     system.neighbors = $.map(SystemMap.links, function(n) {
       if (n.target.name === system_name) {
         n.source.hostiles = SystemMap.hostile_count(n.source);
@@ -264,6 +265,12 @@ var SystemMap = {
       .attr("class", function(n) {
         return (n.system.id === +Data.state.self.systemId ) ? "current node" : "node";
       });
+
+    var node = SystemMap._system_nodes[Data.state.self.systemId];
+    var scale = SystemMap.zoom.scale();
+
+    SystemMap.zoom.translate([(Data.ui.map.width() / 2 - node.x * scale), (Data.ui.map.height() / 2 - node.y * scale)]);
+    SystemMap.zoom.event(d3.select('#system-map'));
 
     Data.ui.currentSystem
       .data('system-id', Data.state.self.systemId)
