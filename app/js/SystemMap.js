@@ -148,10 +148,13 @@ var SystemMap = {
         });
       });
 
+    var scale = 1;
+    if( SystemMap.zoom ) scale = SystemMap.zoom.scale();
 
     SystemMap.zoom = d3.behavior.zoom()
       .scaleExtent([0.4, 1])
-      .on("zoom", zoomHandler);
+      .on("zoom", zoomHandler)
+      .scale(scale);
 
     var root = svg.append("g");
 
@@ -237,7 +240,6 @@ var SystemMap = {
     }
     force.stop();
 
-    var scale = SystemMap.zoom.scale();
     SystemMap.zoom.translate([(Data.ui.map.width() / 2 - nodes[system.id].x * scale), (Data.ui.map.height() / 2 - nodes[system.id].y * scale)]);
     SystemMap.zoom.event(root);
   },
