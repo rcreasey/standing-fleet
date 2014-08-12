@@ -104,29 +104,29 @@ var SystemMap = {
       })
       .on("end", function(){
 
-        var link_groups = link = link.data(SystemMap.jumps)
-          .enter().append("g")
-          .attr("class", "link")
-          .append("line");
-
-        var node_groups = node = node.data(SystemMap.systems)
-          .enter().append("g")
-          .attr("id", function(n) { return "system-" + n.id })
-          .attr("class", function(n) {
-            return (n.id === +Data.state.self.systemId ) ? "current node" : "node";
-          });
-
         $('#current-system')
           .data('systemId', system.id)
           .text( system.name );
 
         SystemMap.updateHud( system.name );
 
+        var link_groups = link.data(SystemMap.jumps)
+          .enter().append("g")
+          .attr("class", "link")
+          .append("line");
+
+        var node_groups = node.data(SystemMap.systems)
+          .enter().append("g")
+          .attr("id", function(n) { return "system-" + n.system.id })
+          .attr("class", function(n) {
+            return (n.system.id === +Data.state.self.systemId ) ? "current node" : "node";
+          });
+
         node_groups.append("rect")
           .attr("width", rect_width)
           .attr("height", rect_height)
           .attr("rx", 2).attr("ry", 2)
-          .attr("class", function(n) { return 'status-' + SystemMap.system_color(n); });
+          .attr("class", function(n) { return 'status-' + SystemMap.system_color(n.system); });
 
         node_groups.append("text")
           .attr("class", "system-name")
@@ -134,18 +134,18 @@ var SystemMap = {
           .attr("alignment-baseline", "middle")
           .attr("x", rect_width / 2)
           .attr("y", 10)
-          .text(function(d) { return d.name; });
+          .text(function(d) { return d.system.name; });
 
-        link.attr("x1", function(d) {return d.source.x;})
+        link_groups.attr("x1", function(d) {return d.source.x;})
           .attr("y1", function(d) {return d.source.y;})
           .attr("x2", function(d) {return d.target.x;})
           .attr("y2", function(d) {return d.target.y;});
 
-        node.attr("transform", function(d) {
+        node_groups.attr("transform", function(d) {
           return "translate(" + (d.x - rect_width / 2) + "," + (d.y - rect_height / 2) + ")";
         });
-
       });
+
 
     var zoom = d3.behavior.zoom()
       .scaleExtent([0.4, 1])
@@ -165,12 +165,43 @@ var SystemMap = {
     // fetch data about our current system
     system = Data.systems[ Data.state.self.systemId ];
 
+    SystemMap.systems = [];
+    SystemMap.nodes = [];
+    SystemMap.jumps = [];
+    SystemMap.links = [];
+
+    var nodes = {};
+
     // Only draw systems that are in our current region
     SystemMap.systems = $.map(Data.systems, function(s) {
-      if (system && (s.regionID === system.regionID)) return s;
+      if (system && (s.regionID === system.regionID)) {
+        var node = { system: s, x: s.x, y: s.y };
+        nodes[s.id] = node;
+        return node;
+      }
     });
 
-    SystemMap.systems.forEach(function(system) {
+    Data.gates.forEach(function(gate) {
+      var jump, node;
+      var from = Data.systems[gate.from];
+      var to = Data.systems[gate.to];
+      if(from.regionID == system.regionID || to.regionID == system.regionID) {
+        if(from.regionID != system.regionID && !nodes.hasOwnProperty(from.id)) {
+          node = { system: from, x: from.x, y: from.y };
+          nodes[from.id] = node;
+          SystemMap.systems.push(node);
+        }
+        if( to.regionID != system.regionID && !nodes.hasOwnProperty(to.id)) {
+          node = { system: to, x: to.x, y: to.y };
+          nodes[to.id] = node;
+          SystemMap.systems.push(node);
+        }
+        SystemMap.jumps.push(jump = {source: nodes[from.id], target: nodes[to.id]});
+        SystemMap.links.push(jump);
+      }
+    });
+
+    SystemMap.systems.forEach(function (system) {
       var anchor;
       system.x *= SCALING_FACTOR;
       system.y *= SCALING_FACTOR;
@@ -179,13 +210,6 @@ var SystemMap = {
       SystemMap.links.push({ source: system, target: anchor });
     });
 
-    Data.gates.forEach(function(gate) {
-      var jump;
-      if(Data.systems[gate.from].regionID == system.regionID && Data.systems[gate.to].regionID == system.regionID) {
-        SystemMap.jumps.push(jump = {source: Data.systems[gate.from], target: Data.systems[gate.to]});
-        SystemMap.links.push(jump);
-      }
-    });
 
     force
       .nodes(SystemMap.nodes)
@@ -213,7 +237,7 @@ var SystemMap = {
     force.stop();
 
     var scale = zoom.scale();
-    zoom.translate([(Data.ui.map.width() / 2 - system.x * scale), (Data.ui.map.height() / 2 - system.y * scale)]);
+    zoom.translate([(Data.ui.map.width() / 2 - nodes[system.id].x * scale), (Data.ui.map.height() / 2 - nodes[system.id].y * scale)]);
     zoom.event(root);
   },
 
@@ -238,7 +262,7 @@ var SystemMap = {
   updateCurrent: function() {
     d3.selectAll('g.node')
       .attr("class", function(n) {
-        return (n.id === +Data.state.self.systemId ) ? "current node" : "node";
+        return (n.system.id === +Data.state.self.systemId ) ? "current node" : "node";
       });
 
     Data.ui.currentSystem
@@ -250,7 +274,7 @@ var SystemMap = {
 
   refreshSystems: function() {
     d3.selectAll('g.node rect')
-      .attr("class", function(n) { return 'status-' + SystemMap.system_color(n); });
+      .attr("class", function(n) { return 'status-' + SystemMap.system_color(n.system); });
 
     SystemMap.updateHud( $('#current-system').text() );
   },
@@ -259,6 +283,7 @@ var SystemMap = {
     log("Redrawing System Map...");
     $("#system-map > svg").remove();
     SystemMap.draw();
+    SystemMap.updateHud( $('#current-system').text() );
   },
 
   init: function() {
