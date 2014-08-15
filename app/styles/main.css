@@ -391,41 +391,46 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	table-layout: fixed
 }
 
+.hostile th,
 .hostile td {
 	vertical-align: middle;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	height: 2.4rem;
-	border-top: 0.16rem solid #666;
+	border-top: 0.16rem solid #333;
 }
 
-.hostile td.system, .hostile td.ship-type, .hostile td.actions,
-.hostile td.name { padding-left: 0.6rem }
+.hostile th {
+	color: #fff;
+	font-weight: bold;
+}
+.hostile .system, .hostile .ship-type, .hostile .actions, .hostile .alliance,
+.hostile .name { padding-left: 0.6rem; text-align: left; }
 
-.hostile td.system.docked a,
-.hostile td.ship-name { color: #888 }
+.hostile .system.docked a,
+.hostile .ship-name { color: #888 }
 
-.hostile td.reported_at { width: 5rem; }
-.hostile td.reporter { width: 7rem; }
+.hostile .reported-at { width: 5rem; }
+.hostile .reporter { width: 7rem; }
 
-.hostile td.system { width: 6rem; }
-.hostile td.ship-type { min-width: 10rem; cursor: pointer; }
-.hostile td.ship-name { cursor: pointer; }
+.hostile .system { width: 6rem; }
+.hostile .ship-type { min-width: 10rem; cursor: pointer; }
+.hostile .ship-name { cursor: pointer; }
 
-.hostile td.ship-icon { vertical-align: top }
+.hostile .ship-icon { vertical-align: top }
 
-.hostile td.ship-icon { width: 2.4rem; padding: 0rem }
-.hostile td.actions { width: 4rem; text-align: center }
-.hostile td.actions a { text-align: center; }
-.hostile td.actions a:hover { color: #fff; }
-.hostile td.actions a i { width: 1.5rem; cursor: pointer; }
+.hostile .ship-icon { width: 2.4rem; padding: 0rem }
+.hostile .actions { width: 4rem; text-align: center }
+.hostile .actions a { text-align: center; }
+.hostile .actions a:hover { color: #fff; }
+.hostile .actions a i { width: 1.5rem; cursor: pointer; }
 
-.hostile td.ship-icon div { position: relative; }
-.hostile td.ship-icon img { position: absolute; top: 0.3rem ; left: 0.3rem }
+.hostile .ship-icon div { position: relative; }
+.hostile .ship-icon img { position: absolute; top: 0.3rem ; left: 0.3rem }
 
-.hostile td.actions img { width: 1rem; height: 1rem; opacity: 0.6; cursor: pointer }
-.hostile td.actions:hover img { opacity: 1 }
+.hostile .actions img { width: 1rem; height: 1rem; opacity: 0.6; cursor: pointer }
+.hostile .actions:hover img { opacity: 1 }
 
   /*/
  / /  EVENT

@@ -3,13 +3,13 @@ var HostileList = {
   clear: function () {
     log('Clearing hostile list...');
     Data.hostiles = [];
-    Data.ui.hostiles.empty();
+    Data.ui.hostiles_list.empty();
   },
 
   clearBySystem: function (systemId) {
     log('Clearing system ' + systemId);
     Data.hostiles = $.map(Data.hostiles, function(h) { return h.systemId !== systemId ? h : null; });
-    Data.ui.hostiles.empty();
+    Data.ui.hostiles_list.empty();
   },
 
   addHostile: function (hostileToAdd) {
@@ -34,18 +34,18 @@ var HostileList = {
   },
 
   findHostileElement: function (hostileId) {
-    var foundHostileElement = Data.ui.hostiles.find('.hostile-' + hostileId);
+    var foundHostileElement = Data.ui.hostiles_list.find('.hostile-' + hostileId);
     return foundHostileElement || false;
   },
 
   renderSingleHostile: function (hostile) {
     log('Rendering hostile: ' + hostile.name + ' (single)...');
     HostileList.addUiProperties(hostile);
-    var existingHostileElement = Data.ui.hostiles.find('#hostile-' + hostile.id);
+    var existingHostileElement = Data.ui.hostiles_list.find('#hostile-' + hostile.id);
     if (existingHostileElement.length) {
       existingHostileElement.after($(hostile.html)).remove();
     } else {
-      Data.ui.hostiles.append($(hostile.html));
+      Data.ui.hostiles_list.append($(hostile.html));
     }
   },
 
@@ -62,11 +62,11 @@ var HostileList = {
       }
     });
 
-    Data.ui.hostiles.empty();
+    Data.ui.hostiles_list.empty();
     Data.hostiles.forEach(function (hostile) {
       log('Rendering hostile: ' + hostile.name + ' (batch)...');
       HostileList.addUiProperties(hostile);
-      Data.ui.hostiles.append($(hostile.html));
+      Data.ui.hostiles_list.append($(hostile.html));
     });
   },
 
