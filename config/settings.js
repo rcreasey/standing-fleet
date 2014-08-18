@@ -30,6 +30,8 @@ module.exports = function () {
 		eventTtl: 900000,
 		scanTtl: 900000,
 
+		enableCache: false,
+
 		minPollInterval: 1,
 		cleanInterval: 60000,
 
