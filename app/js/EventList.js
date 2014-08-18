@@ -3,7 +3,7 @@ var EventList = {
 	clear: function () {
 		log('Clearing event list...');
 		Data.events = [];
-		Data.ui.events.empty();
+		Data.ui.events_list.empty();
 	},
 
 	addEvent: function (event) {
@@ -14,7 +14,7 @@ var EventList = {
 		Data.events.unshift(event);
 
 		if (Data.events.length > Data.config.maxEvents) {
-			Data.ui.events.children().last().remove();
+			Data.ui.events_list.children().last().remove();
 			Data.events.pop();
 		}
 
@@ -23,15 +23,17 @@ var EventList = {
 
 	renderEvent: function (event) {
 		var eventElement = $(Data.templates.event(event)),
-			existingElement = Data.ui.events.find('.' + event.id);
+			existingElement = Data.ui.events_list.find('.' + event.id);
 
 		if (existingElement.length) {
 			eventElement.insertAfter(existingElement);
 		} else {
-			Data.ui.events.prepend(
+			Data.ui.events_list.prepend(
 				$(Data.templates.event(event))
 			);
 		}
+
+		UI.update_scrollables();
 	},
 
 	handleEvent: function (event) {
@@ -44,7 +46,7 @@ var EventList = {
 	},
 
 	disableResponse: function (eventKey) {
-		Data.ui.events.children().each(function () {
+		Data.ui.events_list.children().each(function () {
 			if ($(this).data('key') === eventKey) {
 				$(this).find('.response').remove();
 			}

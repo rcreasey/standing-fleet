@@ -70,8 +70,11 @@ var Data = {
 		hostiles: $('#hostiles'),
 		hostiles_list: $('#hostiles > .list'),
 		members: $('#members'),
+		members_list: $('#members > .list'),
 		events: $('#events'),
-		scans: $('#scans')
+		events_list: $('#events > .list'),
+		scans: $('#scans'),
+		scans_list: $('#scans > .list')
 	},
 
 	templates: {

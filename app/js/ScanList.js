@@ -3,7 +3,7 @@ var ScanList = {
 	clear: function () {
 		log('Clearing scan list...');
 		Data.scans = [];
-		Data.ui.scans.empty();
+		Data.ui.scans_list.empty();
 	},
 
   addStatus: function(reported_status, pilots) {
@@ -22,7 +22,7 @@ var ScanList = {
 		Data.scans.push(scan);
 
 		if (Data.scans.length > Data.config.maxScans) {
-			Data.ui.scans.children().last().remove();
+			Data.ui.scans_list.children().last().remove();
 			Data.scans.pop();
 		}
 
@@ -31,7 +31,9 @@ var ScanList = {
 
 	renderScan: function (scan) {
 		var element = $(Data.templates.scan(scan));
-		Data.ui.scans.prepend(element);
+		Data.ui.scans_list.prepend(element);
+
+		UI.update_scrollables();
 	},
 
 	toggleCollapse: function (element) {

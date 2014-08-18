@@ -3,7 +3,7 @@ var MemberList = {
 	clear: function () {
 		log('Clearing member list...');
 		Data.members = [];
-		Data.ui.members.empty();
+		Data.ui.members_list.empty();
 	},
 
 	addMember: function (memberToAdd) {
@@ -28,18 +28,18 @@ var MemberList = {
 	},
 
 	findMemberElement: function (memberId) {
-		var foundMemberElement = Data.ui.members.find('.member-' + memberId);
+		var foundMemberElement = Data.ui.members_list.find('.member-' + memberId);
 		return foundMemberElement || false;
 	},
 
 	renderSingleMember: function (member) {
 		log('Rendering member: ' + member.name + ' (single)...');
 		MemberList.addUiProperties(member);
-		var existingMemberElement = Data.ui.members.find('#member-' + member.id);
+		var existingMemberElement = Data.ui.members_list.find('#member-' + member.id);
 		if (existingMemberElement.length) {
 			existingMemberElement.after($(member.html)).remove();
 		} else {
-			Data.ui.members.append($(member.html));
+			Data.ui.members_list.append($(member.html));
 		}
 	},
 
@@ -56,12 +56,14 @@ var MemberList = {
 			}
 		});
 
-		Data.ui.members.empty();
+		Data.ui.members_list.empty();
 		Data.members.forEach(function (member) {
 			log('Rendering member: ' + member.name + ' (batch)...');
 			MemberList.addUiProperties(member);
-			Data.ui.members.append($(member.html));
+			Data.ui.members_list.append($(member.html));
 		});
+
+		UI.update_scrollables();
 	},
 
 	addUiProperties: function (member) {
