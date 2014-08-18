@@ -40,7 +40,7 @@ div#page, div#content-wrapper { position: relative; height: 100%; width: 100%; b
 .sub-bar.left { left: 0 }
 .sub-bar.right { right: 0 }
 
-#top-bar, #top-menu, #bottom-bar, #bottom-menu, .sub-bar.left, .sub-bar.right, .member td, .hostile td {
+#top-bar, #top-menu, #bottom-bar, #bottom-menu, .sub-bar.left, .sub-bar.right, .member td, .hostile td, .description td {
 	background-color:#222;
 	border-bottom: 0.2rem solid #181818;
 	height: 2.4rem
@@ -632,11 +632,29 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
  / /  SCANS
  */
 
+
 .scan {
 	clear: both;
 }
 
-.scan .description-container {
+.scan table {
+width: 100%;
+table-layout: fixed
+}
+
+.scan td {
+vertical-align: middle;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+height: 2.4rem;
+border-top: 0.16rem solid #333;
+}
+
+.scan .system, .scan .reported-by { padding-left: 0.6rem; text-align: left; }
+.scan .system, .scan .reported-at { width: 5rem; }
+
+.scan .description {
 	position: relative;
 	height: 1.4rem;
 	padding: 0.5rem 1rem;
