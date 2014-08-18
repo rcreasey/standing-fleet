@@ -8,10 +8,12 @@ var SystemMap = {
 
   // let's count things
   hostile_count: function(system) {
+    if (system == undefined) { return 0; }
     return (system.name !== undefined ) ? $.grep(Data.hostiles, function(h) { return system.name === h.systemName; }).length : 0
   },
 
   friendly_count: function(system) {
+    if (system == undefined) { return 0; }
     return (system.name !== undefined ) ? $.grep(Data.members, function(h) { return system.name === h.systemName; }).length : 0
   },
 
@@ -247,12 +249,12 @@ var SystemMap = {
   updateHud: function(system_name) {
     var system = {name: system_name}
     system.neighbors = $.map(SystemMap.links, function(n) {
-      if (n.target.name === system_name) {
-        n.source.hostiles = SystemMap.hostile_count(n.source);
+      if (n.target.system && n.target.system.name === system_name) {
+        n.source.hostiles = SystemMap.hostile_count(n.source.system);
         return n.source;
       }
-      if (n.source.name === system_name) {
-        n.target.hostiles = SystemMap.hostile_count(n.target);
+      if (n.source.system && n.source.system.name === system_name) {
+        n.target.hostiles = SystemMap.hostile_count(n.target.system);
         return n.target;
       }
     });

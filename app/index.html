@@ -132,8 +132,8 @@
       <div class="{{status}}">
         <h2>{{status}}</h2>
         {{#each neighbors}}
-        {{#if name}}
-        <h3>{{hostiles}} hostile{{#if hostiles}}s{{/if}} in {{name}}</h3>
+        {{#if system.name}}
+        <h3>{{hostiles}} hostile{{#if hostiles}}s{{/if}} in {{system.name}}</h3>
         {{/if}}
         {{/each}}
       </div>
@@ -169,7 +169,6 @@
 
     <script type="text/x-handlebars-template" id="scanTemplate">
       <div class="scan">
-
         <table class="description" onclick="ScanList.toggleCollapse(this);">
           <tr>
             <td class="reported-by"><a href="javascript:CCPEVE.showInfo(1377, {{reporterId}});">{{reporter}}</a> shared scan results</td>
@@ -177,7 +176,6 @@
             <td class="reported-at">{{time}}</td>
           </tr>
         </table>
-
         <div class="results-container collapsible">
           <ul class="actions">
             <li><a class="btn" onclick="scanFilter(this, 'grid');">On Grid</a></li>
