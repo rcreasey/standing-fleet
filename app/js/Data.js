@@ -68,7 +68,7 @@ var Data = {
 		hud: $('#hud'),
 		map: $('#system-map'),
 		hostiles: $('#hostiles'),
-		hostiles_list: $('#hostiles > table > tbody'),
+		hostiles_list: $('#hostiles > .list'),
 		members: $('#members'),
 		events: $('#events'),
 		scans: $('#scans')

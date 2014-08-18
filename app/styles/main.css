@@ -40,17 +40,20 @@ div#page, div#content-wrapper { position: relative; height: 100%; width: 100%; b
 .sub-bar.left { left: 0 }
 .sub-bar.right { right: 0 }
 
-#top-bar, #top-menu, #bottom-bar, #bottom-menu, .sub-bar.left, .sub-bar.right, .member td {
+#top-bar, #top-menu, #bottom-bar, #bottom-menu, .sub-bar.left, .sub-bar.right, .member td, .hostile td {
 	background-color:#222;
 	border-bottom: 0.2rem solid #181818;
 	height: 2.4rem
 }
 #top-bar, #top-bar .sub-bar.right { background-color: #111; }
-#bottom-bar .sub-bar.left { background-color: transparent; }
+#bottom-bar .sub-bar.left { background-color: transparent; border-top: 0; }
 
-#top-bar, #top-menu, #bottom-bar, #bottom-menu, .sub-bar.left, .sub-bar.right{
+#top-bar, #top-menu, #bottom-bar, #bottom-menu, .sub-bar.left, .sub-bar.right {
+	border-top: 0.16rem solid #666;
+	border-bottom: 0.16rem solid #333;
+	background-color: #282828;
+	position: fixed;
 	z-index: 6;
-	position: fixed
 }
 .sub-bar.left { padding-left: 0.5rem; z-index: 7 !important; }
 
@@ -186,7 +189,7 @@ div#page, div#content-wrapper { position: relative; height: 100%; width: 100%; b
 	padding: 0.3rem 1rem 0rem 1rem;
 	cursor: pointer;
 	background-color: #222;
-	border-top: 0.16rem solid #666;
+	border-top: 0.16rem solid transparent;
 	border-left: 0.16rem solid #171717;
 	border-right: 0.16rem solid #171717;
 }
@@ -231,7 +234,7 @@ input#info-string-fleet-key {
  */
 
 #hud {
-	margin-top: 2px;
+	margin-top: 3px;
 }
 
 #hud div {

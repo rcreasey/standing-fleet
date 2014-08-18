@@ -40,21 +40,7 @@
         <div id="hud" class="main-content"></div>
         <div id="system-map" class="main-content active"></div>
         <div id="hostiles" class="main-content">
-          <table id="hostiles-list" class="hostile">
-          <thead>
-            <tr>
-              <th class="ship-icon">&#160;</th>
-              <th class="name">Name</th>
-              <th class="alliance">Alliance</th>
-              <th class="ship-type">Ship Type</th>
-              <th class="system">System</th>
-              <th class="reported-at">Time</th>
-              <th class="actions">&#160;</th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>
-          </table>
+          <div class="list"></div>
         </div>
         <div id="dicks" class="main-content">
           <table id="hostiles-list" class="hostile">
@@ -235,30 +221,32 @@
     </script>
 
     <script type="text/x-handlebars-template" id="hostileTemplate">
-      <tr id="hostile-{{id}}">
-        <td class="ship-icon">{{{shipIcon}}}</td>
-        <td class="name"><a href="javascript:CCPEVE.showInfo(1377, {{id}});">{{name}}</a></td>
-        <td class="alliance">
-          {{#if allianceName}}
-            <a href="javascript:CCPEVE.showInfo(16159, {{allianceID}});">&lt;{{allianceName}}&gt;</a>
-          {{else}}
-            No Alliance
-          {{/if}}
-        </td>
-        <td class="ship-type" onClick="UIPanels.updateHostileDetailsPanel('{{id}}');">
-          {{#if shipTypeId}}
-            <i class="fa fa-eye"></i> <a href="javascript:CCPEVE.showInfo({{shipTypeId}});">{{shipType}}</a>
-          {{else}}
-            <i class="fa fa-eye-slash"></i> Non Visual
-          {{/if}}
-        </td>
-        <td class="system {{#if isDocked}}docked{{/if}}"><a href="javascript:CCPEVE.showInfo(5,{{systemId}});">{{systemName}}</a></td>
-        <td class="reported-at"><a title="Reported by {{reporterName}}">{{reported_at}}</a></td>
-        <td class="actions">
-          <a title="Set Destination" onClick="CCPEVE.setDestination({{systemId}})"><i class="fa fa-map-marker" title="Set Destination"></i></a>
-          {{killboard_link name id}}
-        </td>
-      </tr>
+      <table id="hostiles-list" class="hostile">
+        <tr id="hostile-{{id}}">
+          <td class="ship-icon">{{{shipIcon}}}</td>
+          <td class="name"><a href="javascript:CCPEVE.showInfo(1377, {{id}});">{{name}}</a></td>
+          <td class="alliance">
+            {{#if allianceName}}
+              <a href="javascript:CCPEVE.showInfo(16159, {{allianceID}});">&lt;{{allianceName}}&gt;</a>
+            {{else}}
+              No Alliance
+            {{/if}}
+          </td>
+          <td class="ship-type" onClick="UIPanels.updateHostileDetailsPanel('{{id}}');">
+            {{#if shipTypeId}}
+              <i class="fa fa-eye"></i> <a href="javascript:CCPEVE.showInfo({{shipTypeId}});">{{shipType}}</a>
+            {{else}}
+              <i class="fa fa-eye-slash"></i> Non Visual
+            {{/if}}
+          </td>
+          <td class="system {{#if isDocked}}docked{{/if}}"><a href="javascript:CCPEVE.showInfo(5,{{systemId}});">{{systemName}}</a></td>
+          <td class="reported-at"><a title="Reported by {{reporterName}}">{{reported_at}}</a></td>
+          <td class="actions">
+            <a title="Set Destination" onClick="CCPEVE.setDestination({{systemId}})"><i class="fa fa-map-marker" title="Set Destination"></i></a>
+            {{killboard_link name id}}
+          </td>
+        </tr>
+      </table>
     </script>
 
     <!-- build:js /js/lib.js -->
