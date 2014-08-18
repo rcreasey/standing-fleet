@@ -39,10 +39,14 @@ var UI = {
 		Data.ui.statusClear.on('click', $.proxy(UI.submitStatusClear, null));
 		Data.ui.statusHostile.on('click', $.proxy(UIPanels.showStatusPanel, null, false));
 
+		UI.update_scrollables();
+	},
+
+	update_scrollables: function() {
 		Data.ui.hostiles_list.slimScroll({
-    	height: 'auto',
-    	color: '#ffcc2a',
-    	alwaysVisible: true
+			height: 'auto',
+			color: '#ffcc2a',
+			alwaysVisible: true
 		});
 	},
 

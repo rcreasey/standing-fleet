@@ -68,6 +68,8 @@ var HostileList = {
       HostileList.addUiProperties(hostile);
       Data.ui.hostiles_list.append($(hostile.html));
     });
+
+    UI.update_scrollables();
   },
 
   addUiProperties: function (hostile) {
