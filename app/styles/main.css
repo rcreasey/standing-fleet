@@ -289,7 +289,7 @@ input#info-string-fleet-key {
  / /  MAP
  */
 #system-map {
-	background: url("/images/bg-noise.png");
+	background: url("/images/bg-graph-sm.png");
 	overflow: hidden;
 }
 
