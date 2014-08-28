@@ -13,5 +13,5 @@ require('simple-ioc')
 	.autoRegister('./lib/')
 	.autoRegister('./config/')
 	.start(function(expressSetup, settings) {
-		expressSetup.start(settings.port);
+		expressSetup.start(settings.port || process.env.PORT || 5000);
 	});
