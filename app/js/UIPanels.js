@@ -15,6 +15,8 @@ var UIPanels = {
 	},
 
 	showMenuPanel: function(callback) {
+		var fleet_link = Data.config.domain + Data.state.armada.key;
+
 		var panel = {
 			type: 'options',
 			image: 'panel-settings.png',
@@ -23,6 +25,7 @@ var UIPanels = {
 			formitems: [
 				{button: {legend: 'Fleet Actions', class: 'reload-armada no-margin', text: 'Reload Standing Fleet', onClick: 'location.reload()'}},
 				{button: {class: 'leave-armada', text: 'Leave Standing Fleet', onClick: 'leaveArmada()'}},
+				{input:  {legend: 'Fleet URL (triple click to select)', label: 'Fleet URL', id: 'info-string-fleet-key', value: fleet_link, readonly: true}},
 				{input:  {legend: 'Fleet Key', label: 'Fleet Key', id: 'info-string-fleet-key', value: Data.state.armada.key, readonly: true}}
 			]
 		};

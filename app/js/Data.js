@@ -6,6 +6,7 @@ var Data = {
 	scans: [],
 
 	config: {
+		domain: 'https://standing-fleet.herokuapp.com/',
 		apiUrl: '/api',
 		alertStay: 6000,
 		pollInterval: 7000,

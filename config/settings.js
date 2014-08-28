@@ -10,8 +10,10 @@ module.exports = function () {
 	};
 
 	var settings = {
+		domain: 'https://standing-fleet.herokuapp.com/',
+
 		cookieSession: {
-			key: 'armadaSession',
+			key: 'standing-fleet',
 			secret: getSetting('SESSION_SECRET'),
 			cookie: {
 				path: '/',
