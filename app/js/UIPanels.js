@@ -15,7 +15,7 @@ var UIPanels = {
 	},
 
 	showMenuPanel: function(callback) {
-		var fleet_link = Data.config.domain + Data.state.armada.key;
+		var fleet_link = Data.config.domain + Data.state.armada.key + '/';
 
 		var panel = {
 			type: 'options',
