@@ -8,6 +8,7 @@ require('simple-ioc')
 	.register('rawbody', require('raw-body'))
 	.register('neow', require('neow'))
 	.register('Q', require('q'))
+	.register('chunk', require('chunk'))
 
 	.autoRegister('./lib/')
 	.autoRegister('./config/')
