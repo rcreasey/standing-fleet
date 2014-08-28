@@ -45,7 +45,7 @@ div#page, div#content-wrapper { position: relative; height: 100%; width: 100%; b
 	border-bottom: 0.2rem solid #181818;
 	height: 2.4rem
 }
-#top-bar, #top-bar .sub-bar.right { background-color: #111; }
+#top-bar, #top-bar .sub-bar.right { background-color: #282828; }
 #bottom-bar .sub-bar.left { background-color: transparent; border-top: 0; }
 
 #top-bar, #top-menu, #bottom-bar, #bottom-menu, .sub-bar.left, .sub-bar.right {
@@ -188,7 +188,7 @@ div#page, div#content-wrapper { position: relative; height: 100%; width: 100%; b
 	height: 2rem;
 	padding: 0.3rem 1rem 0rem 1rem;
 	cursor: pointer;
-	background-color: #222;
+	background-color: #111;
 	border-top: 0.16rem solid transparent;
 	border-left: 0.16rem solid #171717;
 	border-right: 0.16rem solid #171717;
@@ -203,9 +203,8 @@ div#page, div#content-wrapper { position: relative; height: 100%; width: 100%; b
 	opacity: 1.0;
 	border-top: 1px solid #ffcc2a;
 }
-.menu-button.active { height: 2.2rem }
+.menu-button.active { height: 2rem }
 .menu-button.blink { background-color: #842; }
-
 
 #bottom-menu-spinner {
 	width: 1.2rem;
