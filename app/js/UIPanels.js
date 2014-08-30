@@ -21,12 +21,14 @@ var UIPanels = {
 			type: 'options',
 			image: 'panel-settings.png',
 			title: 'Standing Fleet Options',
+			footer: '&copy; 2014 Goonswarm Federation',
 			closeable: true,
 			formitems: [
 				{button: {legend: 'Fleet Actions', class: 'reload-armada no-margin', text: 'Reload Standing Fleet', onClick: 'location.reload()'}},
 				{button: {class: 'leave-armada', text: 'Leave Standing Fleet', onClick: 'leaveArmada()'}},
-				{input:  {legend: 'Fleet URL (triple click to select)', label: 'Fleet URL', id: 'info-string-fleet-key', value: fleet_link, readonly: true}},
-				{input:  {legend: 'Fleet Key', label: 'Fleet Key', id: 'info-string-fleet-key', value: Data.state.armada.key, readonly: true}}
+				{input:  {legend: 'Pilot Key', label: 'Pilot Key', class: 'info-string', value: Data.state.self.key, readonly: true}},
+				{input:  {legend: 'Fleet Key', label: 'Fleet Key', class: 'info-string', value: Data.state.armada.key, readonly: true}},
+				{input:  {legend: 'Fleet URL (triple click to select)', label: 'Fleet URL', class: 'info-string', value: fleet_link, readonly: true}}
 			]
 		};
 
@@ -36,14 +38,13 @@ var UIPanels = {
 		UIPanels.showPanel(panel, callback);
 	},
 
-	showJoinPanel: function (error, callback) {
+	showStartPanel: function (error, callback) {
 		var panel = {
 			type: 'start',
-			title: '<img id="logo" src="/images/panel-logo.png" alt="Standing Fleet" />',
+			logo: true,
 			formitems: [
 				{button: {class: 'submit-create', text: 'Create Fleet', onClick: 'UIPanels.showCreatePanel()'}},
-				{input:  {label: 'Fleet Key', id: 'join-fleet-key', class: 'armada-key'}},
-				{submit: {class: 'submit-join', text: 'Join Fleet', onClick: 'joinArmadaButtonClick(this)'}},
+				{submit: {class: 'submit-join', text: 'Join Fleet', onClick: 'UIPanels.showJoinPanel()'}},
 				{button: {class: 'leave-armada', text: 'Leave Standing Fleet', onClick: 'leaveArmada()'}},
 			],
 			error: error
@@ -55,11 +56,26 @@ var UIPanels = {
 	showCreatePanel: function (error, callback) {
 		var panel = {
 			type: 'create',
-			title: '<img id="logo" src="/images/panel-logo.png" alt="Standing Fleet" />',
+			logo: true,
 			formitems: [
 				{input:  {label: 'Fleet Password', id: 'create-fleet-password', class: 'submit-key'}},
-				{button: {class: 'submit-key', text: 'Create Fleet', onClick: 'createArmadaButtonClick(this)'}},
+				{button: {class: 'submit-key', text: 'Create Fleet', onClick: 'createFleetButtonClick(this)'}},
 				{submit: {class: 'submit-join', text: '<i class="fa fa-arrow-circle-left"></i> Go Back', onClick: 'UIPanels.showJoinPanel()'}}
+			],
+	 		error: error
+	 	};
+
+	 	UIPanels.showPanel(panel, callback);
+	},
+
+	showJoinPanel: function (error, callback) {
+		var panel = {
+			type: 'create',
+			logo: true,
+			formitems: [
+				{input:  {label: 'Fleet Key', id: 'join-fleet-key', class: 'fleet-key'}},
+				{submit: {class: 'submit-join', text: 'Join Fleet', onClick: 'joinFleetButtonClick(this)'}},
+				{submit: {class: 'submit-join', text: '<i class="fa fa-arrow-circle-left"></i> Go Back', onClick: 'UIPanels.showStartPanel()'}}
 			],
 	 		error: error
 	 	};
@@ -70,7 +86,7 @@ var UIPanels = {
 	showPasswordPanel: function (error, callback) {
 		var panel = {
 			type: 'password',
-			title: '<img id="logo" src="/images/panel-logo.png" alt="Standing Fleet" />',
+			logo: true,
 			text: 'Authorization required.',
 			formitems: [
 				{input:  {label: 'Fleet Password', id: 'join-fleet-password', class: 'submit-key'}},
@@ -151,7 +167,7 @@ var UIPanels = {
 			image: 'spinner.gif',
 			text: 'Waiting for Standing Fleet to accept...',
 			formitems: [
-				{button: {text: 'Cancel', class: 'abort-pending', onClick: 'leaveArmadaButtonClick(this)'}}
+				{button: {text: 'Cancel', class: 'abort-pending', onClick: 'leaveFleetButtonClick(this)'}}
 			],
 		};
 

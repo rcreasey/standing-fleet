@@ -1,0 +1,38 @@
+extends ../layout/default
+
+block content
+  form#link(action='/link', method='POST')
+    img#logo(src='/images/panel-logo.png', alt='Standing Fleet')
+    h2 Link Session To Pilot
+    p.strong Hello, #{user.username}
+    p In order to view a fleet, you need to link this session to a pilot that's logged in inside of Eve.
+    if error != ''
+      span.error=error
+    p.field
+      input(type='text', name='key', placeholder='Pilot Key')
+      i.fa.fa-fighter-jet.fa-large
+    p.submit
+      button(type='submit', name='submit')
+        i.fa.fa-arrow-right.fa-large
+
+  if linked
+    .linked.panel
+      img(src="https://image.eveonline.com/Character/#{linked.id}_128.jpg" title="#{linked.name}")
+      h2 #{linked.name}
+      dl
+        dt Pilot Key
+        dd= linked.key
+        dt Fleet Link
+        dd
+          a(href="/#{linked.armadaKey}/")= linked.armadaKey
+        dt Current System
+        dd= linked.systemName
+        dt Ship Type
+        dd= linked.shipType
+
+      a.button(href="/unlink")
+        i.fa.fa-chain-broken.fa-large
+        |  Unlink
+      a.button(href="/logout")
+        i.fa.fa-sign-out.fa-large
+        |  Logout

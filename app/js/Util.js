@@ -61,6 +61,13 @@ var Util = {
 			+ '/';
 	},
 
+	redirectToLoginPath: function () {
+		window.location = location.protocol
+			+ '//' + location.hostname
+			+ (location.port ? ':' + location.port : '')
+			+ '/login/';
+	},
+
 	redirectIfNecessary: function (armadaKey, callback) {
 		if (!!armadaKey !== !!Util.getUrlKey() || armadaKey !== Util.getUrlKey()) {
 			UIPanels.showLoadingPanel('Redirecting to Standing Fleet URL...', function () {
