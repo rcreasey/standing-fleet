@@ -1,16 +1,18 @@
 extends ../layout/default
 
 block content
-  form#login(action='/login', method='POST')
-    img#logo(src='/images/panel-logo.png', alt='Standing Fleet')
-    p.field
-      input(type='text', name='username', placeholder='Goonfleet ESA Login')
-      i.fa.fa-user.fa-large
-    p.field
-      input(type='password', name='password', placeholder='Password')
-      i.fa.fa-lock.fa-large
-    p.submit
-      button(type='submit', name='submit')
-        i.fa.fa-arrow-right.fa-large
-    if error != ''
-      span.error=error
+  #dim
+    #content-wrapper
+      form#login(action='/login', method='POST')
+        img#logo(src='/images/panel-logo.png', alt='Standing Fleet')
+        p.field
+          input(type='text', name='username', placeholder='Goonfleet ESA Login')
+          i.fa.fa-user.fa-large
+        p.field
+          input(type='password', name='password', placeholder='Password')
+          i.fa.fa-lock.fa-large
+        p.submit
+          button(type='submit', name='submit')
+            i.fa.fa-arrow-right.fa-large
+        if error != ''
+          span.error=error
