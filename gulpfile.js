@@ -1,5 +1,4 @@
 var gulp = require('gulp')
-  , path = require('path')
   , minifycss = require('gulp-minify-css')
   , concat = require('gulp-concat')
   , uglify = require('gulp-uglify')
@@ -35,14 +34,6 @@ gulp.task('default', function() {
     .pipe(gulp.dest('public'));
 
   gulp.src(mainBowerFiles())
-    // .pipe(order([
-    //   'handlebars/handlebars.js',
-    //   'jquery/dist/jquery.js',
-    //   'typeahead.js/dist/typeahead.jquery.js',
-    //   'd3/d3.js',
-    //   'moment/moment.js',
-    //   'jquery.slimscroll/jquery.slimscroll.js'
-    // ]))
     .pipe(concat('js/lib.js'))
     .pipe(uglify())
     .pipe(gulp.dest('public'));
@@ -58,6 +49,9 @@ gulp.task('default', function() {
     .pipe(uglify())
     .pipe(gulp.dest('public'));
 });
+
+gulp.task('heroku:staging', function() { gulp.start('default'); });
+gulp.task('heroku:production', function() { gulp.start('default'); });
 
 gulp.task('watch', function () {
    gulp.watch('app/**', ['default']);
