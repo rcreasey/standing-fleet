@@ -7,10 +7,11 @@ var gulp = require('gulp')
   , handlebars = require('gulp-handlebars')
   , wrap = require('gulp-wrap')
   , declare = require('gulp-declare')
+  , gutil = require('gulp-util')
 
-gulp.task('default', function() {
+gulp.task('prepare', function() {
   gulp.src('app/**/*.css')
-    .pipe(minifycss())
+    .pipe(gutil.env.type === 'production' ? minifycss() : gutil.noop())
     .pipe(concat('css/style.css'))
     .pipe(gulp.dest('public'));
 
@@ -30,12 +31,12 @@ gulp.task('default', function() {
       'js/Main.js'
     ]))
     .pipe(concat('js/app.js'))
-    .pipe(uglify())
+    .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
     .pipe(gulp.dest('public'));
 
   gulp.src(mainBowerFiles())
     .pipe(concat('js/lib.js'))
-    .pipe(uglify())
+    .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
     .pipe(gulp.dest('public'));
 
   gulp.src('app/templates/*.hbs')
@@ -46,12 +47,24 @@ gulp.task('default', function() {
       noRedeclare: true,
     }))
     .pipe(concat('js/templates.js'))
-    .pipe(uglify())
+    .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
     .pipe(gulp.dest('public'));
 });
 
-gulp.task('heroku:staging', function() { gulp.start('default'); });
-gulp.task('heroku:production', function() { gulp.start('default'); });
+gulp.task('default', function() {
+  gutil.env.type = 'development';
+  gulp.start('prepare');
+});
+
+gulp.task('heroku:staging', function() {
+  gutil.env.type = 'development';
+  gulp.start('prepare');
+});
+
+gulp.task('heroku:production', function() {
+  gutil.env.type = 'production';
+  gulp.start('prepare');
+});
 
 gulp.task('watch', function () {
    gulp.watch('app/**', ['default']);
