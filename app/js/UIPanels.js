@@ -28,11 +28,11 @@ var UIPanels = {
 				{button: {class: 'leave-armada', text: 'Leave Standing Fleet', onClick: 'leaveArmada()'}},
 				{input:  {legend: 'Pilot Key', label: 'Pilot Key', class: 'info-string', value: Data.state.self.key, readonly: true}},
 				{input:  {legend: 'Fleet Key', label: 'Fleet Key', class: 'info-string', value: Data.state.armada.key, readonly: true}},
-				{input:  {legend: 'Fleet URL (triple click to select)', label: 'Fleet URL', class: 'info-string', value: fleet_link, readonly: true}}
+				{input:  {legend: 'Fleet URL', label: 'Fleet URL', class: 'info-string', value: fleet_link, readonly: true}}
 			]
 		};
 
-		if (Data.state.armada.password) panel.formitems.push( {input:  {legend: 'Fleet Password', label: 'Fleet Password', id: 'info-string-fleet-password',
+		if (Data.state.armada.password) panel.formitems.push( {input:  {legend: 'Fleet Password', label: 'Fleet Password', class: 'info-string',
 																																		value: Data.state.armada.password, readonly: true}} );
 
 		UIPanels.showPanel(panel, callback);
