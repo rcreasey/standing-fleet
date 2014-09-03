@@ -1,15 +1,19 @@
 var gulp = require('gulp')
+  , path = require('path')
   , minifycss = require('gulp-minify-css')
   , concat = require('gulp-concat')
   , uglify = require('gulp-uglify')
   , order = require('gulp-order')
   , mainBowerFiles = require('main-bower-files')
+  , handlebars = require('gulp-handlebars')
+  , wrap = require('gulp-wrap')
+  , declare = require('gulp-declare')
 
 gulp.task('default', function() {
   gulp.src('app/**/*.css')
     .pipe(minifycss())
     .pipe(concat('css/style.css'))
-    .pipe(gulp.dest('public'))
+    .pipe(gulp.dest('public'));
 
   gulp.src('app/**/*.js')
     .pipe(order([
@@ -28,20 +32,31 @@ gulp.task('default', function() {
     ]))
     .pipe(concat('js/app.js'))
     .pipe(uglify())
-    .pipe(gulp.dest('public'))
+    .pipe(gulp.dest('public'));
 
   gulp.src(mainBowerFiles())
-    .pipe(order([
-      'handlebars/handlebars.js',
-      'jquery/dist/jquery.js',
-      'typeahead.js/dist/typeahead.jquery.js',
-      'd3/d3.js',
-      'moment/moment.js',
-      'jquery.slimscroll/jquery.slimscroll.js'
-    ]))
+    // .pipe(order([
+    //   'handlebars/handlebars.js',
+    //   'jquery/dist/jquery.js',
+    //   'typeahead.js/dist/typeahead.jquery.js',
+    //   'd3/d3.js',
+    //   'moment/moment.js',
+    //   'jquery.slimscroll/jquery.slimscroll.js'
+    // ]))
     .pipe(concat('js/lib.js'))
     .pipe(uglify())
-    .pipe(gulp.dest('public'))
+    .pipe(gulp.dest('public'));
+
+  gulp.src('app/templates/*.hbs')
+    .pipe(handlebars())
+    .pipe(wrap('Handlebars.template(<%= contents %>)'))
+    .pipe(declare({
+      namespace: 'Templates',
+      noRedeclare: true,
+    }))
+    .pipe(concat('js/templates.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('public'));
 });
 
 gulp.task('watch', function () {

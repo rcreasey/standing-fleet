@@ -185,8 +185,7 @@ var UIPanels = {
 	},
 
 	showPanel: function (params, callback) {
-		var panelTemplate = Handlebars.compile($('#panelTemplate').html()),
-			compiledPanel = $(panelTemplate(params));
+		var compiledPanel = $(Data.templates.panel(params));
 
 		if (Data.ui.dim.children().length) {
 

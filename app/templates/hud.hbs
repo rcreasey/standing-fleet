@@ -1,0 +1,8 @@
+<div class="{{status}}">
+  <h2>{{status}}</h2>
+  {{#each neighbors}}
+  {{#if system.name}}
+  <h3>{{hostiles}} hostile{{#if hostiles}}s{{/if}} in {{system.name}}</h3>
+  {{/if}}
+  {{/each}}
+</div>
