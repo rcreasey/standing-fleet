@@ -19,7 +19,12 @@ function initialize() {
 		Server.status(function(error, data) {
 			if (error) {
 				handleError(error);
-				UIPanels.showJoinPanel(error);
+
+				if (error.type == 'igb-headers') {
+					Util.redirectToLoginPath();
+				} else {
+					UIPanels.showStartPanel(error);
+				}
 
 				if (error.type === 'trust') {
 					CCPEVE.requestTrust(location.protocol + '//' + location.hostname);
@@ -41,14 +46,14 @@ function initialize() {
 				if (Util.getUrlKey()) {
 					joinArmada(Util.getUrlKey());
 				} else {
-					UIPanels.showJoinPanel();
+					UIPanels.showStartPanel();
 				}
 			}
 		});
 	})
 }
 
-function createArmadaButtonClick(button) {
+function createFleetButtonClick(button) {
 	var armadaPassword = $('#create-fleet-password').val();
 	createArmada(armadaPassword);
 }
@@ -66,7 +71,7 @@ function createArmada(armadaPassword) {
 	});
 }
 
-function joinArmadaButtonClick(button) {
+function joinFleetButtonClick(button) {
 	var armadaKey = $('#join-fleet-key').val();
 	joinArmada(armadaKey);
 }

@@ -1,0 +1,51 @@
+<div class="panel {{type}}">
+  <div class="header">
+    {{#if closeable}}<img class="close" src="/images/icon-close.png" alt="Close panel" onClick="UIPanels.hidePanel()" />{{/if}}
+    {{#if image}}<img src="/images/{{image}}" alt="Panel image" />{{/if}}
+    {{#if logo}}<img id="logo" src="/images/panel-logo.png" alt="Standing Fleet" />{{/if}}
+    {{#if title}}<div class="text title">{{{title}}}</div>{{/if}}
+  </div>
+  <div class="content">
+  {{#if text}}
+    <div class="text {{#if textclass}}{{textclass}}{{/if}}">{{{text}}}</div>
+  {{/if}}
+  {{#if error}}
+    <span class="error">{{{error.message}}}</span>
+  {{/if}}
+  {{#if formitems}}
+    <div class="form">
+    {{#each formitems}}
+      {{#if input}}
+      <div class="group">
+        {{#if input.legend}}<span class="legend">{{{input.legend}}}</span>{{/if}}
+        <input {{#if input.id}}id="{{input.id}}" {{/if}}{{#if input.class}}class="{{input.class}}" {{/if}}value="{{{input.value}}}" type={{#if input.hidden}}"hidden"{{else}}"text"{{/if}} {{#if input.readonly}}readonly="true"{{/if}} {{#if input.label}}placeholder="{{{input.label}}}"{{/if}}/>
+      </div>
+      {{/if}}
+      {{#if password}}
+      <div class="group">
+        {{#if password.legend}}<span class="legend">{{{password.legend}}}</span>{{/if}}
+        <input id="{{password.id}}" value="{{{password.value}}}" type="password" />
+      </div>
+      {{/if}}
+      {{#if textinput}}
+        {{#if textinput.legend}}<span class="legend">{{{textinput.legend}}}</span>{{/if}}
+        <textarea id="{{textinput.id}}" class="textinput {{{textinput.class}}}" {{#if textinput.label}}placeholder="{{textinput.label}}"{{/if}}></textarea>
+      {{/if}}
+      {{#if button}}
+      <div class="group">
+        <a {{#if button.link}}href="{{{button.link}}}"{{/if}} target="_blank" class="button {{{button.class}}}" onClick="{{{button.onClick}}}">{{{button.text}}}</a>
+      </div>
+      {{/if}}
+      {{#if submit}}
+      <div class="submit">
+        <a {{#if submit.link}}href="{{{submit.link}}}"{{/if}} target="_blank" class="button" onClick="{{{submit.onClick}}}">{{{submit.text}}}</a>
+      </div>
+      {{/if}}
+    {{/each}}
+    </div>
+  {{/if}}
+  {{#if footer}}
+    <div class="text footer">{{{footer}}}</div>
+  {{/if}}
+  </div>
+</div>

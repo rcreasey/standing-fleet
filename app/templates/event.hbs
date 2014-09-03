@@ -1,0 +1,14 @@
+<div class="event {{type}}" data-key="{{key}}">
+  <img class="icon" src="/images/icon-{{type}}.png" />
+  <span class="text">{{{text}}}</span>
+  <div class="right">
+    {{#if respondable}}
+    <span class="response">
+      <a href="javascript:EventList.eventResponseClick('{{key}}', 'y')">Approve</a>
+      &nbsp;|&nbsp;
+      <a href="javascript:EventList.eventResponseClick('{{key}}', 'n')">Deny</a>
+    </span>
+    {{/if}}
+    <span class="time">{{time}}</span>
+  </div>
+</div>

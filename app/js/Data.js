@@ -79,12 +79,13 @@ var Data = {
 	},
 
 	templates: {
-		hud: Handlebars.compile($('#hudTemplate').html()),
-		hostile: Handlebars.compile($('#hostileTemplate').html()),
-		member: Handlebars.compile($('#memberTemplate').html()),
-		event: Handlebars.compile($('#eventTemplate').html()),
-		alert: Handlebars.compile($('#alertTemplate').html()),
-		scan: Handlebars.compile($('#scanTemplate').html())
+		alert: Templates.alert,
+		event: Templates.event,
+		hostile: Templates.hostile,
+		hud: Templates.hud,
+		member: Templates.member,
+		panel: Templates.panel,
+		scan: Templates.scan
 	},
 
 	ships: {},

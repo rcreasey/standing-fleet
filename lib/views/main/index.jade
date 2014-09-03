@@ -1,0 +1,58 @@
+extends ../layout/default
+
+block content
+  #dim
+  #top-bar
+    span#current-system Standing Fleet
+    #top-menu.sub-bar.right
+      #top-menu-hud.menu-button.hud
+        i.fa.fa-tachometer
+        span HUD
+      #top-menu-system-map.menu-button.system-map.active
+        i.fa.fa-sitemap
+        span MAP
+      #top-menu-hostiles.menu-button.hostiles
+        i.fa.fa-exclamation-triangle
+        span HOSTILES
+      #top-menu-members.menu-button.members
+        i.fa.fa-users
+        span MEMBERS
+      #top-menu-scans.menu-button.scans
+        i.fa.fa-bullseye
+        span SCANS
+      #top-menu-events.menu-button.events
+        i.fa.fa-bell
+        span EVENTS
+  #content-wrapper
+    #hud.main-content
+    #system-map.main-content.active
+    #hostiles.main-content
+      .list
+    #members.main-content
+      .list
+    #events.main-content
+      .list
+    #scans.main-content
+      .list
+  #bottom-bar
+    #broadcast.sub-bar.left
+      #status-buttons
+        a#status-clear.btn.btn-clear(target='_blank')
+          i.fa.fa-check
+          span Clear
+        a#status-hostile.btn.btn-hostile(target='_blank')
+          i.fa.fa-crosshairs
+          span Report Local
+    #bottom-menu.sub-bar.right
+      #bottom-menu-spinner.menu-button
+        img(src='/images/spinner.gif', alt='Processing...')
+      #bottom-menu-scan.menu-button
+        i.fa.fa-bullseye
+        span REPORT SCAN
+      #bottom-menu-menu.menu-button
+        i.fa.fa-cog
+        span MENU
+
+  script(type='text/javascript', src='/js/lib.js')
+  script(type='text/javascript', src='/js/templates.js')
+  script(type='text/javascript', src='/js/app.js')

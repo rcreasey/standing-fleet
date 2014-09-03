@@ -48,7 +48,7 @@
         <div class="sub-bar left" id="broadcast">
           <div id="status-buttons">
             <a id="status-clear" target="_blank" class="btn btn-clear"><i class="fa fa-check"></i> <span>Clear</span></a>
-            <a id="status-hostile" target="_blank" class="btn btn-hostile"><i class="fa fa-crosshairs"></i> <span>Hostile</span></a>
+            <a id="status-hostile" target="_blank" class="btn btn-hostile"><i class="fa fa-crosshairs"></i> <span>Report Local</span></a>
           </div>
         </div>
 
@@ -70,22 +70,17 @@
     <script type="text/x-handlebars-template" id="panelTemplate">
       <div class="panel {{type}}">
         <div class="header">
-          {{#if closeable}}
-          <img class="close" src="/images/icon-close.png" alt="Close panel" onClick="UIPanels.hidePanel()" />
-          {{/if}}
-          {{#if image}}
-          <img src="/images/{{image}}" alt="Panel image" />
-          {{/if}}
-          {{#if title}}
-            <div class="text title">{{{title}}}</div>
-          {{/if}}
+          {{#if closeable}}<img class="close" src="/images/icon-close.png" alt="Close panel" onClick="UIPanels.hidePanel()" />{{/if}}
+          {{#if image}}<img src="/images/{{image}}" alt="Panel image" />{{/if}}
+          {{#if logo}}<img id="logo" src="/images/panel-logo.png" alt="Standing Fleet" />{{/if}}
+          {{#if title}}<div class="text title">{{{title}}}</div>{{/if}}
         </div>
         <div class="content">
         {{#if text}}
           <div class="text {{#if textclass}}{{textclass}}{{/if}}">{{{text}}}</div>
         {{/if}}
         {{#if error}}
-          <span class="error">ERROR:<br />{{{error.message}}}</span>
+          <span class="error">{{{error.message}}}</span>
         {{/if}}
         {{#if formitems}}
           <div class="form">
@@ -93,7 +88,13 @@
             {{#if input}}
             <div class="group">
               {{#if input.legend}}<span class="legend">{{{input.legend}}}</span>{{/if}}
-              <input id="{{input.id}}" value="{{{input.value}}}" type={{#if input.hidden}}"hidden"{{else}}"text"{{/if}} {{#if input.readonly}}readonly="true"{{/if}} {{#if input.label}}placeholder="{{{input.label}}}"{{/if}}/>
+              <input {{#if input.id}}id="{{input.id}}" {{/if}}{{#if input.class}}class="{{input.class}}" {{/if}}value="{{{input.value}}}" type={{#if input.hidden}}"hidden"{{else}}"text"{{/if}} {{#if input.readonly}}readonly="true"{{/if}} {{#if input.label}}placeholder="{{{input.label}}}"{{/if}}/>
+            </div>
+            {{/if}}
+            {{#if password}}
+            <div class="group">
+              {{#if password.legend}}<span class="legend">{{{password.legend}}}</span>{{/if}}
+              <input id="{{password.id}}" value="{{{password.value}}}" type="password" />
             </div>
             {{/if}}
             {{#if textinput}}
@@ -112,6 +113,9 @@
             {{/if}}
           {{/each}}
           </div>
+        {{/if}}
+        {{#if footer}}
+          <div class="text footer">{{{footer}}}</div>
         {{/if}}
         </div>
       </div>
@@ -263,5 +267,6 @@
     <script type="text/javascript" src="/js/Main.js"></script>
     <!-- endbuild -->
 
+    <script type="text/javascript" src="https://jira.goonfleet.com/s/en_USnuezdz-1988229788/6102/63/1.4.0-m3/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?collectorId=2d3f9047"></script>
   </body>
 </html>

@@ -65,6 +65,7 @@ div#page, div#content-wrapper { position: relative; height: 100%; width: 100%; b
 #logo {
 	float: none;
 	margin: 0 auto 1rem;
+	max-height: inherit;
 }
 
 #current-system {
@@ -87,6 +88,7 @@ div#page, div#content-wrapper { position: relative; height: 100%; width: 100%; b
 
 #dim {
 	background-color: #111;
+	background-image: url("/images/bg-graph-sm.png");
 	position: fixed;
 	top:0;
 	left:0;
@@ -215,17 +217,17 @@ div#page, div#content-wrapper { position: relative; height: 100%; width: 100%; b
 	border: none;
 }
 
-input#info-string-fleet-password,
-input#info-string-fleet-key {
-	background: #222;
-	border: 0;
+input.info-string {
+	background: transparent !important;
+	border: 0 !important;
 	display: inline-block;
 	margin-bottom: 1rem;
 	padding: 0rem;
 	color: #888 !important;
 	font-family: monospace !important;
-	font-size: 1.2rem;
-	text-align: center;
+	font-size: 1.5rem !important;
+	text-align: center !important;
+	width: 100% !important;
 }
 
   /*/
@@ -540,16 +542,25 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	cursor: pointer;
 }
 
+a.button,
 .panel .button {
 	font-size: 1rem;
 	text-align: center;
+	background-color: #ffcc2a;
+	background: linear-gradient(#ffd95f, #ffcc2a);
+	box-shadow:
+			inset 0 1px 0 rgba(255,255,255,0.3),
+			0 1px 2px rgba(0,0,0,0.35),
+			inset 0 2px 2px rgba(255,255,255,0.2),
+			inset 0 -3px 2px rgba(0,0,0,0.1);
+
 	border: solid 0.16rem #111;
 	border-top: solid 0.16rem #666;
+	border-radius: 2px;
 	display: block;
 	width: 14rem;
 	text-decoration: none;
-	color: #ccc;
-	background-color:#333;
+	color: #000;
 	padding: 0.5rem;
 	margin: 0 auto 2.4rem;
 	cursor: pointer;
@@ -561,6 +572,7 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	margin-top: 1rem;
 }
 
+a.button:hover,
 .panel .button:hover {
 	background-color:#444;
 	color: #fff
@@ -580,7 +592,7 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	border: 0.16rem solid #111
 }
 
-.panel form input[placeholder], [placeholder], *[placeholder] {
+.panel form input[placeholder] {
 	color: #ffcc2a !important;
 	font-family: 'Droid Sans', sans-serif !important;
 	font-size: 12px;
@@ -615,7 +627,6 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	margin: 0rem auto 2.4rem;
 	background-color: #422;
 	border: 1px solid #d66;
-	width: 12rem;
 	color: #faa;
 }
 
@@ -626,6 +637,34 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 .panel .form {
 	margin-bottom: 1rem;
 }
+
+.panel .form .group {
+	margin-bottom: 1rem;
+}
+
+.linked {
+	padding: 1rem;
+	text-align: left;
+	width: 295px;
+}
+
+.linked img {
+	background: #bbb;
+	border: solid 1px #333;
+	float: right;
+	max-height: inherit !important;
+	padding: 5px;
+}
+
+.linked h2 {
+	color: #ffcc2a;
+	font-size: 1.5rem;
+}
+.linked dl { margin: 1rem 0 0; }
+.linked dl dt { font-size: 1.15rem; font-weight: bold; }
+.linked dl dd { margin-bottom: 0.5rem; }
+.linked a.button { display: inline-block; margin: 1rem 0 0; width: 45%; }
+
 
   /*/
  / /  SCANS
@@ -652,7 +691,6 @@ border-top: 0.16rem solid #333;
 
 .scan .system, .scan .reported-by { padding-left: 0.6rem; text-align: left; }
 .scan .system, .scan .reported-at { width: 5rem; }
-
 .scan .description {
 	position: relative;
 	height: 1.4rem;
@@ -725,7 +763,6 @@ border-top: 0.16rem solid #333;
 }
 
 .scan .result:first-child .ship-class { border: none;}
-
 .scan .result .ship-type,
 .scan .result .ship-class {
 	display: block;
@@ -803,4 +840,163 @@ border-top: 0.16rem solid #333;
 	.member td.ship-icon img { width: 2rem; height:2rem; }
 
 	.hostile td.corp, .hostile td.alliance, .hostile td.ship-name { width: 0rem; }
+}
+
+
+/*/
+/ /  LOGIN/LINK FORM
+*/
+
+.panel .start,
+#link,
+#login {
+  width: 300px;
+  margin: 60px auto 30px;
+  padding: 10px;
+  position: relative;
+  background: linear-gradient(#444, #222 1%);
+}
+
+#link h2 { color: #ffcc2a; font-size: 1.5rem; }
+#link p { text-align: left;}
+#link p.strong { color: #ffcc2a; font-size: 1.2rem; font-weight: bold; text-align: left;}
+
+#link .field,
+#login .field { text-align: center; position: relative; }
+#link .field { margin-top: 1rem;}
+
+#link .field i,
+#login .field i {
+  left: 0px;
+  top: 2px;
+  position: absolute;
+  height: 36px;
+  width: 36px;
+
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 0 0 rgba(255, 255, 255, 0.7);
+
+  color: #777777;
+  text-align: center;
+  line-height: 40px;
+  transition: all 0.3s ease-out;
+  pointer-events: none;
+}
+
+#link input[type=text],
+#login input[type=text],
+#login input[type=password] {
+	font-family: 'Lato', sans-serif !important;
+  font-size: 13px;
+  font-weight: 400;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+
+  width: 235px;
+  padding: 10px 18px 10px 45px;
+
+  border: none;
+  box-shadow:
+    inset 0 0 5px rgba(0,0,0,0.1),
+    inset 0 3px 2px rgba(0,0,0,0.1);
+  border-radius: 3px;
+  background: #f9f9f9;
+  color: #777;
+  transition: color 0.3s ease-out;
+}
+
+#link input[type=text],
+#login input[type=text] { margin-bottom: 10px; }
+
+#link input[type=text]:hover ~ i,
+#login input[type=text]:hover ~ i,
+#login input[type=password]:hover ~ i,
+#link input[type=text]:focus ~ i,
+#login input[type=text]:focus ~ i,
+#login input[type=password]:focus ~ i {
+  color: #ffcc2a;
+}
+
+#link input[type=text]:focus,
+#link input[type=submit]:focus,
+#login input[type=text]:focus,
+#login input[type=password]:focus,
+#login button[type=submit]:focus {
+  outline: none;
+}
+
+#login .submit {
+  width: 65px;
+  height: 65px;
+  position: absolute;
+  top: 52px;
+  right: -45px;
+  padding: 10px;
+  z-index: 2;
+
+  background: #282828;
+  border-radius: 50%;
+  box-shadow:
+      0 0 2px rgba(0,0,0,0.1),
+      0 3px 2px rgba(0,0,0,0.1),
+      inset 0 -3px 2px rgba(0,0,0,0.2);
+}
+
+#link .submit {
+  width: 35px;
+  height: 38px;
+  position: absolute;
+  bottom: 5px;
+  right: -25px;
+  padding: 10px;
+  z-index: 2;
+
+  background: #282828;
+  border-radius: 50%;
+  box-shadow:
+      0 0 2px rgba(0,0,0,0.1),
+      0 3px 2px rgba(0,0,0,0.1),
+      inset 0 -3px 2px rgba(0,0,0,0.2);
+}
+
+#link button,
+#login button {
+  width: 100%;
+  height: 100%;
+  margin-top: -1px;
+
+  font-size: 1.4em;
+  line-height: 1.75;
+  color: #000;
+
+  border: none;
+  border-radius: inherit;
+  background: linear-gradient(#ffd95f, #ffcc2a);
+  box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.3),
+      0 1px 2px rgba(0,0,0,0.35),
+      inset 0 3px 2px rgba(255,255,255,0.2),
+      inset 0 -3px 2px rgba(0,0,0,0.1);
+
+  cursor: pointer;
+}
+
+#link button:hover,
+#login button:hover {
+	color: #fff;
+}
+
+#link .error,
+#login .error {
+	display: block;
+	padding: 1rem;
+	margin: 1rem auto 0;
+	background-color: #422;
+	border: 1px solid #d66;
+	color: #faa;
+}
+
+
+.atlwdg-trigger {
+	z-index: 9001;
+	background: #000 !important;
 }

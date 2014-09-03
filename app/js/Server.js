@@ -28,11 +28,11 @@ var Server = {
 	ajaxPost: function(endpoint, data, callback) {
 		$.ajax({
 			type		: 'POST',
-			data		: { scanData: data },
+			data		: data,
 			url 		: Data.config.apiUrl + endpoint,
 			dataType	: 'json',
 
-			success		: function( data ){
+			success: function( data ){
 				setTimeout(function () {
 					if (data.success) {
 						callback(null, data);
@@ -41,7 +41,7 @@ var Server = {
 					}
 				}, 1000);
 			},
-			error 		: function(data, error, errorString){
+			error: function(data, error, errorString){
 				if (error) {
 					callback({type: 'error', message: errorString}, null);
 				}
@@ -84,14 +84,14 @@ var Server = {
 	},
 
 	postScan: function (scanData, callback) {
-		Server.ajaxPost('/scan', scanData, callback);
+		Server.ajaxPost('/scan', { scanData: scanData }, callback);
 	},
 
 	postStatus: function(statusData, callback) {
-		Server.ajaxPost('/status', statusData, callback);
+		Server.ajaxPost('/status', { scanData: statusData }, callback);
 	},
 
 	postDetails: function(detailsData, callback) {
-		Server.ajaxPost('/details', detailsData, callback);
+		Server.ajaxPost('/details', { scanData: detailsData }, callback);
 	}
 };

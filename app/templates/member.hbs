@@ -1,0 +1,12 @@
+<table class="member" id="member-{{id}}">
+  <tr>
+    <td class="ship-icon">{{{shipIcon}}}</td>
+    <td class="name"><a href="javascript:CCPEVE.showInfo(1377, {{id}});">{{name}}</a></td>
+    <td class="system {{#if isDocked}}docked{{/if}}"><a href="javascript:CCPEVE.showInfo(5,{{systemId}});">{{systemName}}</a></td>
+    <td class="actions">
+      <a title="Set Destination" onClick="CCPEVE.setDestination({{systemId}})"><i class="fa fa-map-marker" title="Set Destination"></i></a>
+      <a title="Start Conversation" onClick="CCPEVE.startConversation({{id}})"><i class="fa fa-comment" title="Start Conversation"></i></a>
+      {{killboard_link name id}}
+    </td>
+  </tr>
+</table>
