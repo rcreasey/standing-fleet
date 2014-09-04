@@ -1,4 +1,11 @@
-require('newrelic');
+// require('newrelic');
+if(process.env.NODETIME_ACCOUNT_KEY) {
+	require('nodetime').profile({
+		accountKey: process.env.NODETIME_ACCOUNT_KEY,
+		appName: 'Standing Fleet'
+	});
+}
+
 require('simple-ioc')
 	.register('fs', require('fs'))
 	.register('express', require('express'))
