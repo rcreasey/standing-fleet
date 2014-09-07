@@ -178,7 +178,9 @@ var EventHandler = {
 
 	statusSelfSystem: function(self) {
 		Data.state.self.systemId = self.systemId;
-		Data.state.self.regionId = Data.systems[self.systemId].regionID;
+		if (Data.state.self.regionId && Data.state.self.systemId) {
+			Data.state.self.regionId = Data.systems[self.systemId].regionID;
+		}
 	},
 
 	statusArmada: function (armada) {

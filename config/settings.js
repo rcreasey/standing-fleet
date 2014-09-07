@@ -18,7 +18,7 @@ module.exports = function () {
 			cookie: {
 				path: '/',
 				httpOnly: true,
-				maxAge: 864000000
+				maxAge: 43200000
 			}
 		},
 
@@ -28,7 +28,7 @@ module.exports = function () {
 		log: 'console',
 
 		memberTtl: 300000,
-		armadaTtl: 86400000,
+		armadaTtl: 43200000,
 		eventTtl: 900000,
 		scanTtl: 900000,
 
