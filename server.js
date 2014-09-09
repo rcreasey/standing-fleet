@@ -7,18 +7,20 @@ if(process.env.NODETIME_ACCOUNT_KEY) {
 }
 
 require('simple-ioc')
-	.register('fs', require('fs'))
-	.register('express', require('express'))
 	.register('_', require('lodash'))
 	.register('async', require('async'))
-	.register('mongodb', require('mongodb'))
-	.register('rawbody', require('raw-body'))
-	.register('neow', require('neow'))
-	.register('Q', require('q'))
 	.register('chunk', require('chunk'))
-	.register('passport', require('passport'))
-	.register('flash', require('connect-flash'))
 	.register('CrowdStrategy', require('./passport/crowd').Strategy)
+	.register('express', require('express'))
+	.register('flash', require('connect-flash'))
+	.register('fs', require('fs'))
+	.register('mongodb', require('mongodb'))
+	.register('mongoose', require('mongoose'))
+	.register('neow', require('neow'))
+	.register('passport', require('passport'))
+	.register('Q', require('q'))
+	.register('rawbody', require('raw-body'))
+
 
 	.autoRegister('./lib/')
 	.autoRegister('./config/')
