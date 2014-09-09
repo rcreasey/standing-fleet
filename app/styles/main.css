@@ -121,7 +121,7 @@ div#page, div#content-wrapper { position: relative; height: 100%; width: 100%; b
 	font-size: 14px;
 	font-weight: bold;
 	line-height: 1.42857143;
-	margin-bottom: 0;
+	margin: 0 0.5rem 0 0;
 	padding: 6px 12px;
 	text-align: center;
 	user-select: none;
@@ -188,6 +188,7 @@ div#page, div#content-wrapper { position: relative; height: 100%; width: 100%; b
 	color: #fff;
 	display: inline-block;
 	height: 2rem;
+	margin-left: 0.5rem;
 	padding: 0.3rem 1rem 0rem 1rem;
 	cursor: pointer;
 	background-color: #111;
@@ -196,6 +197,7 @@ div#page, div#content-wrapper { position: relative; height: 100%; width: 100%; b
 	border-right: 0.16rem solid #171717;
 }
 
+.menu-button i { margin: 0 0.5rem 0 0; }
 .menu-button img {
 	margin: 0.25rem 0rem -0.15rem;
 	height: 1.0rem
@@ -221,8 +223,7 @@ input.info-string {
 	background: transparent !important;
 	border: 0 !important;
 	display: inline-block;
-	margin-bottom: 1rem;
-	padding: 0rem;
+	padding: 0 !important;
 	color: #888 !important;
 	font-family: monospace !important;
 	font-size: 1.5rem !important;
@@ -573,8 +574,7 @@ a.button,
 
 a.button:hover,
 .panel .button:hover {
-	background-color:#444;
-	color: #fff
+	background-color: #FFDF75;
 }
 
 .panel .button.no-margin { margin-bottom: 0rem }
@@ -833,6 +833,8 @@ border-top: 0.16rem solid #333;
 	#dim { padding-top: 0; }
 	.panel { max-width: none }
 
+	#hud h2 { font-size: 3rem; }
+	#hud h3 { font-size: 1.5rem; }
 	#status-clear span, #status-hostile span, .menu-button span { display: none }
 	.menu-button i { margin-top: 0.3rem; }
 	.member td.ship-name { width: 0rem; }

@@ -24,6 +24,9 @@ var UI = {
 			.fadeOut(Data.config.uiSpeed*4);
 	},
 
+	unlink: function() { window.location = "/unlink"; },
+	logout: function() { window.location = "/logout"; },
+
 	registerEventHandlers: function () {
 		Data.ui.topMenu_hud.on('click', $.proxy(UI.tabClick, null, "hud"));
 		Data.ui.topMenu_map.on('click', $.proxy(UI.tabClick, null, "system-map"));
@@ -34,6 +37,7 @@ var UI = {
 
 		Data.ui.bottomMenu_local.on('click', $.proxy(UIPanels.showStatusPanel, null, false));
 		Data.ui.bottomMenu_scan.on('click', $.proxy(UIPanels.showScanPanel, null, false));
+		Data.ui.bottomMenu_unlink.on('click', $.proxy(UI.unlink, null, false));
 		Data.ui.bottomMenu_menu.on('click', $.proxy(UIPanels.showMenuPanel, null, false));
 
 		Data.ui.statusClear.on('click', $.proxy(UI.submitStatusClear, null));
