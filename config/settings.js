@@ -34,8 +34,7 @@ module.exports = function () {
 
 		enableCache: false,
 
-		// minPollInterval: 10000,
-		minPollInterval: 1,
+		minPollInterval: 10000,
 		cleanInterval: 60000,
 
 		requestSizeLimit: '80kb',
@@ -49,7 +48,7 @@ module.exports = function () {
 		whitelist: { url: 'https://standings.goonfleet.com', threshold: 0.1, alliances: ['1354830081'], corporations: [] }
 	};
 
-	if (settings.storage == 'mongoDb') settings.mongoDbURI = getSetting('MONGODB_URI');
+	if (settings.storage == 'mongodb') settings.mongoDbURI = getSetting('MONGODB_URI');
 	settings.ships = require('../public/data/ships.json')
 
 	return settings;
