@@ -9,7 +9,7 @@ var Data = {
 		domain: 'https://standing-fleet.herokuapp.com/',
 		apiUrl: '/api',
 		alertStay: 5000,
-		pollInterval: 7000,
+		pollInterval: 10000,
 		maxEvents: 20,
 		maxScans: 8,
 		uiSpeed: 400,
