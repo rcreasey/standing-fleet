@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="language" content="en" />
+    <link type="text/css" rel="stylesheet" media="screen" href="https://fonts.googleapis.com/css?family=Lato:900|Droid+Sans+Mono">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <title>Standing Fleet Client</title>
+    <script src="js/lib.js"></script>
+    <script src="js/templates.js"></script>
+    <script src="client.js"></script>
+  </head>
+  <body>
+    <div id="page">
+      <!-- <div id="dim"></div> -->
+      <div id="top-bar">
+        <span id="current-system">Standing Fleet</span>
+        <div class="sub-bar right" id="top-menu">
+          <div class="menu-button hostiles" id="top-menu-hostiles">
+            <i class="fa fa-exclamation-triangle"></i> <span>CLIPBOARD</span>
+          </div>
+          <div class="menu-button events" id="top-menu-events">
+            <i class="fa fa-bell"></i> <span>LOGS</span>
+          </div>
+        </div>
+      </div>
+      <div id="content-wrapper">
+        <div id="clipboard" class="main-content active"></div>
+        <div id="logs" class="main-content"><div class="list"></div></div>
+      </div>
+      <div id="bottom-bar">
+        <div class="sub-bar left" id="broadcast">
+        </div>
+
+        <div class="sub-bar right" id="bottom-menu">
+          <div class="menu-button" id="bottom-menu-spinner">
+            <img src="spinner.gif" alt="Processing..." />
+          </div>
+          <div class="menu-button" id="bottom-menu-menu">
+            <i class="fa fa-cog"></i> <span>MENU</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="alert-container"></div>
+  </body>
+</html>

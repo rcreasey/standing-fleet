@@ -13,7 +13,8 @@ gulp.task('prepare', function() {
   gulp.src('app/**/*.css')
     .pipe(gutil.env.type === 'production' ? minifycss() : gutil.noop())
     .pipe(concat('css/style.css'))
-    .pipe(gulp.dest('public'));
+    .pipe(gulp.dest('public'))
+    .pipe(gulp.dest('client'));
 
   gulp.src('app/**/*.js')
     .pipe(order([
@@ -37,7 +38,8 @@ gulp.task('prepare', function() {
   gulp.src(mainBowerFiles())
     .pipe(concat('js/lib.js'))
     .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
-    .pipe(gulp.dest('public'));
+    .pipe(gulp.dest('public'))
+    .pipe(gulp.dest('client'));
 
   gulp.src('app/templates/*.hbs')
     .pipe(handlebars())
@@ -48,7 +50,8 @@ gulp.task('prepare', function() {
     }))
     .pipe(concat('js/templates.js'))
     .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
-    .pipe(gulp.dest('public'));
+    .pipe(gulp.dest('public'))
+    .pipe(gulp.dest('client'));
 });
 
 gulp.task('default', function() {
