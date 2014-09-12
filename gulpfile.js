@@ -8,6 +8,7 @@ var gulp = require('gulp')
   , wrap = require('gulp-wrap')
   , declare = require('gulp-declare')
   , gutil = require('gulp-util')
+  , nwbuilder = require('node-webkit-builder')
 
 gulp.task('prepare', function() {
   gulp.src('app/**/*.css')
@@ -72,3 +73,16 @@ gulp.task('heroku:production', function() {
 gulp.task('watch', function () {
    gulp.watch('app/**', ['default']);
 });
+
+gulp.task('build', function() {
+  var nw = new nwbuilder({
+    files: './client/**/**',
+    platforms: ['win','osx']
+  });
+
+  nw.build().then(function () {
+    console.log('all done!');
+  }).catch(function (error) {
+    console.error(error);
+  });
+})
