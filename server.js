@@ -1,11 +1,4 @@
-// require('newrelic');
-if(process.env.NODETIME_ACCOUNT_KEY) {
-	require('nodetime').profile({
-		accountKey: process.env.NODETIME_ACCOUNT_KEY,
-		appName: 'Standing Fleet'
-	});
-}
-
+require('newrelic');
 require('simple-ioc')
 	.register('_', require('lodash'))
 	.register('async', require('async'))
