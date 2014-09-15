@@ -196,7 +196,7 @@ var UIPanels = {
 				.fadeIn(Data.config.uiSpeed, function () {
 					$(this).find('.textinput').focus().on('keydown', function (event) {
 						if (event.keyCode == 13) {
-							$(this).siblings('.submit-join, .submit-scan').click();
+							$(this).siblings('.submit').children('a').click();
 							return false;
 						}
 					});
@@ -209,7 +209,7 @@ var UIPanels = {
 			UI.dim(function () {
 				compiledPanel.find('.textinput').focus().on('keydown', function (event) {
 					if (event.keyCode == 13) {
-						$(this).siblings('.submit-join, .submit-scan').click();
+						$(this).siblings('.submit').children('a').click();
 						return false;
 					}
 				});

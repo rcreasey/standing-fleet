@@ -5,11 +5,11 @@
     <meta name="language" content="en" />
     <link type="text/css" rel="stylesheet" media="screen" href="https://fonts.googleapis.com/css?family=Lato:900|Droid+Sans+Mono">
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
     <title>Standing Fleet Client</title>
     <script src="js/lib.js"></script>
     <script src="js/templates.js"></script>
-    <script src="client.js"></script>
+    <script src="js/client.js"></script>
   </head>
   <body>
     <div id="page">
@@ -17,16 +17,16 @@
       <div id="top-bar">
         <span id="current-system">Standing Fleet</span>
         <div class="sub-bar right" id="top-menu">
-          <div class="menu-button hostiles" id="top-menu-hostiles">
-            <i class="fa fa-exclamation-triangle"></i> <span>CLIPBOARD</span>
+          <div class="menu-button hostiles" id="top-menu-clipboard">
+            <i class="fa fa-clipboard"></i> <span>CLIPBOARD</span>
           </div>
-          <div class="menu-button events" id="top-menu-events">
-            <i class="fa fa-bell"></i> <span>LOGS</span>
+          <div class="menu-button events" id="top-menu-logs">
+            <i class="fa fa-align-justify"></i> <span>LOGS</span>
           </div>
         </div>
       </div>
       <div id="content-wrapper">
-        <div id="clipboard" class="main-content active"></div>
+        <div id="clipboard" class="main-content active"><div class="list"></div></div>
         <div id="logs" class="main-content"><div class="list"></div></div>
       </div>
       <div id="bottom-bar">
