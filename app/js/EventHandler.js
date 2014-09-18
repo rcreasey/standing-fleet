@@ -91,6 +91,15 @@ var EventHandler = {
 			event.blink = 'members';
 			event.alert = true;
 
+		} else if (event.type === 'hostileTimedOut') {
+			var hostile = event.data;
+			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
+				+ hostile.id + ');">' + hostile.name + '</a> faded in '
+				+ '<a href="javascript:CCPEVE.showInfo(5, ' + hostile.systemId + ');">'
+				+ hostile.systemName + '</a>';
+			event.blink = 'hostiles';
+			event.alert = true;
+
 		} else if (event.type === 'scanPosted') {
 			var scan = event.data;
 			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
