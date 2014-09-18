@@ -103,8 +103,9 @@ div#page, div#content-wrapper { position: relative; height: 100%; width: 100%; b
 	z-index: 1;
 	position: fixed;
 	bottom: 2.5rem;
-	left: 30%;
-	width: 70%
+	right: 0;
+	width: 70%;
+	max-width: 450px;
 }
 
 .btn {
@@ -168,6 +169,10 @@ div#page, div#content-wrapper { position: relative; height: 100%; width: 100%; b
 .open > .dropdown-toggle.btn-clear {
 	background-color: #d9534f;
 	border-color: #ac2925;
+}
+
+#status-buttons i {
+	margin-right: 0.5rem;
 }
 
 #status-clear,
@@ -830,6 +835,7 @@ border-top: 0.16rem solid #333;
 	#alert-container, .panel {
 		left: 0;
 		width: 100%;
+		max-width: 100%;
 	}
 	#dim { padding-top: 0; }
 	.panel { max-width: none }
