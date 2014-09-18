@@ -134,7 +134,6 @@ var EventHandler = {
 	},
 
 	memberJoined: function (member) {
-		log('Adding member: ' + member.name + '...');
 		MemberList.removeMember(member.id);
 		MemberList.addMember(member);
 		MemberList.sortAndRenderAll();
@@ -142,7 +141,6 @@ var EventHandler = {
 	},
 
 	memberTimedOut: function (member) {
-		log('Adding member: ' + member.name + '...');
 		MemberList.removeMember(member.id);
 		MemberList.sortAndRenderAll();
 		SystemMap.refreshSystems();
@@ -162,6 +160,12 @@ var EventHandler = {
 
 	reportHostile: function (hostiles) {
 		hostiles.forEach(HostileList.addHostile);
+		HostileList.sortAndRenderAll();
+		SystemMap.refreshSystems();
+	},
+
+	hostileTimedOut: function (hostile) {
+		HostileList.removeMember(hostile.id);
 		HostileList.sortAndRenderAll();
 		SystemMap.refreshSystems();
 	},
