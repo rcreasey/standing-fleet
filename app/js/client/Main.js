@@ -1,4 +1,6 @@
 var gui = require('nw.gui')
+  , http = require('http')
+  , faye = require('faye')
   , moment = require('moment')
   , fs = require('fs')
   , Tail = require('tail').Tail
@@ -16,14 +18,23 @@ function initializeClient() {
   Data.ui = Data.build_ui();
   Data.templates = Data.build_templates();
 
+  log('Starting Server...')
+  var server = http.createServer(),
+      bayeux = new faye.NodeAdapter({mount: '/', timeout: 45});
+
+  bayeux.attach(server);
+  server.listen(44444);
+
   UI.stopSpin();
   UI.registerEventHandlers();
 
-  pollClipboard();
+  log('Begin Polling...')
+
+  pollClipboard(bayeux);
   gui.Window.get().show();
 };
 
-function pollClipboard() {
+function pollClipboard(bayeux) {
   UI.startSpin();
   setTimeout(function() {
     var cb = gui.Clipboard.get();
@@ -32,9 +43,11 @@ function pollClipboard() {
 
     var renderedEvent = $(Templates.event(event))
     Data.ui.clipboard_list.prepend(renderedEvent);
+    bayeux.getClient().publish('/events', event);
+
     UI.stopSpin();
 
-    pollClipboard();
+    pollClipboard(bayeux);
   }, 7000);
 }
 

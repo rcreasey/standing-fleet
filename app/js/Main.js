@@ -1,6 +1,13 @@
 $(function () {
 	UI.registerEventHandlers();
 	initialize();
+
+	data_client = new Faye.Client('http://127.0.0.1:44444/');
+  data_client.subscribe('/events', function(event) {
+		console.log(event)
+		EventList.addEvent(event);
+  });
+
 });
 
 function initialize() {

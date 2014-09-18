@@ -1,8 +1,8 @@
 <div class="event alert {{type}}" onClick="EventList.alertClick('{{type}}', '{{id}}')">
   {{#if type}}
   <img class="icon" src="/images/icon-{{type}}.png" />
-  <span class="text">{{text}}</span>
+  <span class="text">{{{text}}}</span>
   {{else}}
-  <span class="text"><i class="fa fa-exclamation-triangle"></i>  {{text}}</span>
+  <span class="text"><i class="fa fa-exclamation-triangle"></i>  {{{text}}}</span>
   {{/if}}
 </div>

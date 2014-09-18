@@ -10,7 +10,7 @@ var Data = {
 		apiUrl: '/api',
 		alertStay: 5000,
 		pollInterval: 10000,
-		maxEvents: 20,
+		maxEvents: 50,
 		maxScans: 8,
 		uiSpeed: 400,
 		log: 'console'
