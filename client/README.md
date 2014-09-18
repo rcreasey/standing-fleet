@@ -1,3 +1,3 @@
-# Standing Fleet
+# Standing Fleet Client
 
 Alliance Intelligence, visualized.
