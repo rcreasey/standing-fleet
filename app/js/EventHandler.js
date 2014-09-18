@@ -91,6 +91,15 @@ var EventHandler = {
 			event.blink = 'members';
 			event.alert = true;
 
+		} else if (event.type === 'hostileTimedOut') {
+			var hostile = event.data;
+			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
+				+ hostile.id + ');">' + hostile.name + '</a> faded in '
+				+ '<a href="javascript:CCPEVE.showInfo(5, ' + hostile.systemId + ');">'
+				+ hostile.systemName + '</a>';
+			event.blink = 'hostiles';
+			event.alert = true;
+
 		} else if (event.type === 'scanPosted') {
 			var scan = event.data;
 			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
@@ -125,7 +134,6 @@ var EventHandler = {
 	},
 
 	memberJoined: function (member) {
-		log('Adding member: ' + member.name + '...');
 		MemberList.removeMember(member.id);
 		MemberList.addMember(member);
 		MemberList.sortAndRenderAll();
@@ -133,7 +141,6 @@ var EventHandler = {
 	},
 
 	memberTimedOut: function (member) {
-		log('Adding member: ' + member.name + '...');
 		MemberList.removeMember(member.id);
 		MemberList.sortAndRenderAll();
 		SystemMap.refreshSystems();
@@ -153,6 +160,12 @@ var EventHandler = {
 
 	reportHostile: function (hostiles) {
 		hostiles.forEach(HostileList.addHostile);
+		HostileList.sortAndRenderAll();
+		SystemMap.refreshSystems();
+	},
+
+	hostileTimedOut: function (hostile) {
+		HostileList.removeMember(hostile.id);
 		HostileList.sortAndRenderAll();
 		SystemMap.refreshSystems();
 	},

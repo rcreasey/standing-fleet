@@ -259,3 +259,7 @@ function log(message) {
 		console.log('[' + Date.now() + '] - ' + message)
 	}
 }
+
+$( window ).resize(function() {
+	UI.update_scrollables();
+});
