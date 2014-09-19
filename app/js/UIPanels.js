@@ -207,9 +207,17 @@ var UIPanels = {
 
 			compiledPanel.appendTo(Data.ui.dim);
 			UI.dim(function () {
+				// text input fields
 				compiledPanel.find('.textinput').focus().on('keydown', function (event) {
 					if (event.keyCode == 13) {
 						$(this).siblings('.submit').children('a').click();
+						return false;
+					}
+				});
+				// typeahead fields
+				compiledPanel.find('.tt-input').focus().on('keydown', function (event) {
+					if (event.keyCode == 13) {
+						$(this).parentsUntil('.group').parent().siblings('.submit').children('a').click();
 						return false;
 					}
 				});
