@@ -5,13 +5,17 @@ var Data = {
     alertStay: 5000,
     maxEvents: 20,
     uiSpeed: 400,
+    local_dataport: 44444,
     log: 'console'
   },
 
   state: {
     alertCount: 0,
     dimmed: false,
-    pollLoop: 0
+    pollLoop: 0,
+    datasources: {
+      local: null
+    }
   },
 
   build_ui: function() {

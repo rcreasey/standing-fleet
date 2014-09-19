@@ -2,11 +2,14 @@ $(function () {
 	UI.registerEventHandlers();
 	initialize();
 
-	data_client = new Faye.Client('http://127.0.0.1:44444/');
-  data_client.subscribe('/events', function(event) {
-		console.log(event)
-		EventList.addEvent(event);
-  });
+	try {
+		Data.state.data_client = new Faye.Client(Data.config.data_client);
+		Data.state.data_client.subscribe('/events', function(event) {
+			EventList.addEvent(event);
+		});
+	} catch(err) {
+		console.log('Unable to connect to local data client...')
+	}
 
 });
 

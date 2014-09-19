@@ -6,6 +6,7 @@ var Data = {
 	scans: [],
 
 	config: {
+		data_client: 'http://127.0.0.1:44444/',
 		domain: 'https://standing-fleet.herokuapp.com/',
 		apiUrl: '/api',
 		alertStay: 5000,
@@ -29,6 +30,7 @@ var Data = {
 			systemId: ''
 		},
 		alertCount: 0,
+		data_client: null,
 		dimmed: false,
 		lastPollTs : Date.now(),
 		memberSortOrder: {

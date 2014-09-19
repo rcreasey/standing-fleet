@@ -19,22 +19,22 @@ function initializeClient() {
   Data.templates = Data.build_templates();
 
   log('Starting Server...')
-  var server = http.createServer(),
-      bayeux = new faye.NodeAdapter({mount: '/', timeout: 45});
+  var server = http.createServer()
+  Data.state.datasources.local = new faye.NodeAdapter({mount: '/', timeout: 45});
 
-  bayeux.attach(server);
-  server.listen(44444);
+  Data.state.datasources.local.attach(server);
+  server.listen(Data.config.local_dataport);
 
   UI.stopSpin();
   UI.registerEventHandlers();
 
   log('Begin Polling...')
 
-  pollClipboard(bayeux);
+  pollClipboard();
   gui.Window.get().show();
 };
 
-function pollClipboard(bayeux) {
+function pollClipboard() {
   UI.startSpin();
   setTimeout(function() {
     var cb = gui.Clipboard.get();
@@ -43,11 +43,11 @@ function pollClipboard(bayeux) {
 
     var renderedEvent = $(Templates.event(event))
     Data.ui.clipboard_list.prepend(renderedEvent);
-    bayeux.getClient().publish('/events', event);
+    Data.state.datasources.local.getClient().publish('/events', event);
 
     UI.stopSpin();
 
-    pollClipboard(bayeux);
+    pollClipboard();
   }, 7000);
 }
 
