@@ -4,7 +4,7 @@ var Schema       = mongoose.Schema;
 var MemberSchema  = new Schema({
   ts: { type: Number, default: function() { return new Date().getTime(); } },
   key: { type: String, index: true },
-  fleetKey: String,
+  fleetKey: { type: String, index: true },
   characterId: Number,
   characterName: String,
   shipType: String,

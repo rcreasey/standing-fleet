@@ -4,7 +4,7 @@ var Schema       = mongoose.Schema;
 var EventSchema  = new Schema({
   ts: { type: Number, default: function() { return new Date().getTime(); } },
   key: { type: String, index: true },
-  fleetKey: String,
+  fleetKey: { type: String, index: true },
   type: String,
   data: Schema.Types.Mixed
 });
