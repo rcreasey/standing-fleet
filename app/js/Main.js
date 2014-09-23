@@ -64,13 +64,13 @@ function initialize() {
 }
 
 function createFleetButtonClick(button) {
-	var armadaPassword = $('#create-fleet-password').val();
-	createArmada(armadaPassword);
+	var fleetPassword = $('#create-fleet-password').val();
+	createArmada(fleetPassword);
 }
 
-function createArmada(armadaPassword) {
+function createArmada(fleetPassword) {
 	UIPanels.showLoadingPanel('Creating new armada...', function () {
-		Server.createArmada(armadaPassword, function(error, data) {
+		Server.createArmada(fleetPassword, function(error, data) {
 			if (error) {
 				UIPanels.showCreatePanel(error);
 				return;
@@ -82,14 +82,14 @@ function createArmada(armadaPassword) {
 }
 
 function joinFleetButtonClick(button) {
-	var armadaKey = $('#join-fleet-key').val();
-	joinArmada(armadaKey);
+	var fleetKey = $('#join-fleet-key').val();
+	joinArmada(fleetKey);
 }
 
-function joinArmada(armadaKey) {
+function joinArmada(fleetKey) {
 	UIPanels.showLoadingPanel('Searching for fleet...', function () {
-		Server.joinArmada(armadaKey, function(error, data) {
-			Data.state.armada.key = armadaKey;
+		Server.joinArmada(fleetKey, function(error, data) {
+			Data.state.armada.key = fleetKey;
 			if (error) {
 				if (error.type === 'password') UIPanels.showPasswordPanel();
 				else UIPanels.showJoinPanel(error);
@@ -102,16 +102,16 @@ function joinArmada(armadaKey) {
 }
 
 function submitPasswordButtonClick(button) {
-	var armadaPassword = $('#join-fleet-password').val();
-	submitPassword(armadaPassword);
+	var fleetPassword = $('#join-fleet-password').val();
+	submitPassword(fleetPassword);
 }
 
-function submitPassword(armadaPassword) {
-	var armadaKey = Util.getUrlKey();
-	if (!armadaKey) armadaKey = Data.state.armada.key;
+function submitPassword(fleetPassword) {
+	var fleetKey = Util.getUrlKey();
+	if (!fleetKey) fleetKey = Data.state.armada.key;
 
 	UIPanels.showLoadingPanel('Authenticating...', function () {
-		Server.joinArmadaWithPassword(armadaKey, armadaPassword, function (error, data) {
+		Server.joinArmadaWithPassword(fleetKey, fleetPassword, function (error, data) {
 			if (error) {
 				if (error.type === 'password') UIPanels.showPasswordPanel(error);
 				else UIPanels.showJoinPanel(error);

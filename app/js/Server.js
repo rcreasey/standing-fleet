@@ -54,20 +54,20 @@ var Server = {
 		Data.state.lastPollTs = Date.now();
 	},
 
-	joinArmada: function (armadaKey, callback) {
-		Server.ajaxGet('/join/' + armadaKey, callback);
+	joinArmada: function (fleetKey, callback) {
+		Server.ajaxGet('/join/' + fleetKey, callback);
 	},
 
-	joinArmadaWithPassword: function (armadaKey, armadaPassword, callback) {
-		Server.ajaxGet('/join/' + armadaKey + '/' + armadaPassword, callback);
+	joinArmadaWithPassword: function (fleetKey, fleetPassword, callback) {
+		Server.ajaxGet('/join/' + fleetKey + '/' + fleetPassword, callback);
 	},
 
 	eventResponse: function (eventKey, response, callback) {
 		Server.ajaxGet('/respond/' + eventKey + '/' + response, callback);
 	},
 
-	createArmada: function (armadaPassword, callback) {
-		Server.ajaxGet('/create/' + armadaPassword, callback);
+	createArmada: function (fleetPassword, callback) {
+		Server.ajaxGet('/create/' + fleetPassword, callback);
 	},
 
 	poll: function (callback) {

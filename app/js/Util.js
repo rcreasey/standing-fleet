@@ -44,11 +44,11 @@ var Util = {
 		return match ? match[0] : false;
 	},
 
-	redirectToKeyUrl: function (armadaKey) {
+	redirectToKeyUrl: function (fleetKey) {
 		window.location = location.protocol
 			+ '//' + location.hostname
 			+ (location.port ? ':' + location.port : '')
-			+ '/' + armadaKey + '/';
+			+ '/' + fleetKey + '/';
 	},
 
 	redirectToBasePath: function () {
@@ -65,10 +65,10 @@ var Util = {
 			+ '/login/';
 	},
 
-	redirectIfNecessary: function (armadaKey, callback) {
-		if (!!armadaKey !== !!Util.getUrlKey() || armadaKey !== Util.getUrlKey()) {
+	redirectIfNecessary: function (fleetKey, callback) {
+		if (!!fleetKey !== !!Util.getUrlKey() || fleetKey !== Util.getUrlKey()) {
 			UIPanels.showLoadingPanel('Redirecting to Standing Fleet URL...', function () {
-				setTimeout($.proxy(Util.redirectToKeyUrl, null, armadaKey),
+				setTimeout($.proxy(Util.redirectToKeyUrl, null, fleetKey),
 					Data.config.pollInterval);
 			});
 		} else {

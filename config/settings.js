@@ -41,8 +41,8 @@ module.exports = function () {
 
 		requestSizeLimit: '80kb',
 
-		armadaPasswordMinLength: 3,
-		armadaPasswordMaxLength: 32,
+		fleetPasswordMinLength: 3,
+		fleetPasswordMaxLength: 32,
 
 		scanMaxShips: 100,
 		scanMinShips: 1,
