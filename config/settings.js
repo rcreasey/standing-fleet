@@ -50,6 +50,7 @@ module.exports = function () {
 		whitelist: { url: 'https://standings.goonfleet.com', threshold: 0.1, alliances: ['1354830081'], corporations: [] }
 	};
 
+	settings.root  = require('path').normalize(__dirname + '/..');
 	settings.ships = require('../public/data/ships.json')
 
 	return settings;

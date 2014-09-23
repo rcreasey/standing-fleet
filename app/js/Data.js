@@ -8,7 +8,7 @@ var Data = {
 	config: {
 		data_client: 'http://127.0.0.1:44444/',
 		domain: 'https://standing-fleet.herokuapp.com/',
-		apiUrl: '/api',
+		apiUrl: '/api/fleet',
 		alertStay: 5000,
 		pollInterval: 10000,
 		maxEvents: 50,

@@ -66,10 +66,6 @@ var Server = {
 		Server.ajaxGet('/respond/' + eventKey + '/' + response, callback);
 	},
 
-	createFleet: function (fleetPassword, callback) {
-		Server.ajaxGet('/create/' + fleetPassword, callback);
-	},
-
 	poll: function (callback) {
 		Server.ajaxGet('/poll/' + Data.state.lastPollTs, function (error, data) {
 			if (error) return callback(error);
@@ -77,6 +73,10 @@ var Server = {
 			Data.state.lastPollTs = data.ts;
 			callback(null, data);
 		});
+	},
+
+	createFleet: function (fleetPassword, callback) {
+		Server.ajaxPost('/create', { fleetPassword: fleetPassword }, callback);
 	},
 
 	leaveFleet: function (callback) {
