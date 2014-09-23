@@ -6,7 +6,7 @@ var EventHandler = {
 		'statusMembers',
 		'statusEvents',
 		'statusSelf',
-		'statusArmada',
+		'statusFleet',
 		'memberAccepted',
 		'memberUpdated'
 	],
@@ -109,7 +109,7 @@ var EventHandler = {
 			event.blink = 'scans';
 			event.alert = true;
 
-		} else if (event.type === 'armadaCreated') {
+		} else if (event.type === 'fleetCreated') {
 			var creator = event.data;
 			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
 				+ creator.id + ');">' + creator.name + '</a> created this fleet ';
@@ -196,10 +196,10 @@ var EventHandler = {
 		}
 	},
 
-	statusArmada: function (armada) {
-		Data.state.armada.name = armada.name;
-		Data.state.armada.key = armada.key;
-		Data.state.armada.password = armada.password;
+	statusFleet: function (fleet) {
+		Data.state.fleet.name = fleet.name;
+		Data.state.fleet.key = fleet.key;
+		Data.state.fleet.password = fleet.password;
 
 		SystemMap.init();
 	},

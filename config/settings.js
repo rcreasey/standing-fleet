@@ -30,7 +30,7 @@ module.exports = function () {
 
 		hostileTtl: 900000,
 		memberTtl: 60000,
-		armadaTtl: 43200000,
+		fleetTtl: 43200000,
 		eventTtl: 900000,
 		scanTtl: 900000,
 

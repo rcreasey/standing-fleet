@@ -45,16 +45,16 @@ function initialize() {
 
 			EventHandler.dispatchEvents(data.events);
 
-			if (Data.state.armada.key) {
+			if (Data.state.fleet.key) {
 				EventList.addEvent({ type: 'youJoined', text: 'You opened this standing fleet', alert: false });
 
-				Util.redirectIfNecessary(Data.state.armada.key, function () {
+				Util.redirectIfNecessary(Data.state.fleet.key, function () {
 					UIPanels.hidePanel(pollLoop);
 				});
 
 			} else {
 				if (Util.getUrlKey()) {
-					joinArmada(Util.getUrlKey());
+					joinFleet(Util.getUrlKey());
 				} else {
 					UIPanels.showStartPanel();
 				}
@@ -65,12 +65,12 @@ function initialize() {
 
 function createFleetButtonClick(button) {
 	var fleetPassword = $('#create-fleet-password').val();
-	createArmada(fleetPassword);
+	createFleet(fleetPassword);
 }
 
-function createArmada(fleetPassword) {
-	UIPanels.showLoadingPanel('Creating new armada...', function () {
-		Server.createArmada(fleetPassword, function(error, data) {
+function createFleet(fleetPassword) {
+	UIPanels.showLoadingPanel('Creating new fleet...', function () {
+		Server.createFleet(fleetPassword, function(error, data) {
 			if (error) {
 				UIPanels.showCreatePanel(error);
 				return;
@@ -83,13 +83,13 @@ function createArmada(fleetPassword) {
 
 function joinFleetButtonClick(button) {
 	var fleetKey = $('#join-fleet-key').val();
-	joinArmada(fleetKey);
+	joinFleet(fleetKey);
 }
 
-function joinArmada(fleetKey) {
+function joinFleet(fleetKey) {
 	UIPanels.showLoadingPanel('Searching for fleet...', function () {
-		Server.joinArmada(fleetKey, function(error, data) {
-			Data.state.armada.key = fleetKey;
+		Server.joinFleet(fleetKey, function(error, data) {
+			Data.state.fleet.key = fleetKey;
 			if (error) {
 				if (error.type === 'password') UIPanels.showPasswordPanel();
 				else UIPanels.showJoinPanel(error);
@@ -108,10 +108,10 @@ function submitPasswordButtonClick(button) {
 
 function submitPassword(fleetPassword) {
 	var fleetKey = Util.getUrlKey();
-	if (!fleetKey) fleetKey = Data.state.armada.key;
+	if (!fleetKey) fleetKey = Data.state.fleet.key;
 
 	UIPanels.showLoadingPanel('Authenticating...', function () {
-		Server.joinArmadaWithPassword(fleetKey, fleetPassword, function (error, data) {
+		Server.joinFleetWithPassword(fleetKey, fleetPassword, function (error, data) {
 			if (error) {
 				if (error.type === 'password') UIPanels.showPasswordPanel(error);
 				else UIPanels.showJoinPanel(error);
@@ -215,9 +215,9 @@ function submitHostileDetails(key, id, name, shipType, shipName) {
 	});
 }
 
-function leaveArmada() {
+function leaveFleet() {
 	UIPanels.showLoadingPanel('Leaving Standing Fleet...', function () {
-		Server.leaveArmada(function(error, data) {
+		Server.leaveFleet(function(error, data) {
 			if (error) {
 				handleError(error);
 				UIPanels.hidePanel();

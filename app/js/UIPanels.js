@@ -15,7 +15,7 @@ var UIPanels = {
 	},
 
 	showMenuPanel: function(callback) {
-		var fleet_link = Data.config.domain + Data.state.armada.key + '/';
+		var fleet_link = Data.config.domain + Data.state.fleet.key + '/';
 
 		var panel = {
 			type: 'options',
@@ -24,16 +24,16 @@ var UIPanels = {
 			footer: '&copy; 2014 Goonswarm Federation',
 			closeable: true,
 			formitems: [
-				{button: {legend: 'Fleet Actions', class: 'reload-armada no-margin', text: 'Reload Standing Fleet', onClick: 'location.reload()'}},
-				{button: {class: 'leave-armada', text: 'Leave Standing Fleet', onClick: 'leaveArmada()'}},
+				{button: {legend: 'Fleet Actions', class: 'reload-fleet no-margin', text: 'Reload Standing Fleet', onClick: 'location.reload()'}},
+				{button: {class: 'leave-fleet', text: 'Leave Standing Fleet', onClick: 'leaveFleet()'}},
 				{input:  {legend: 'Pilot Key', label: 'Pilot Key', class: 'info-string', value: Data.state.self.key, readonly: true}},
-				{input:  {legend: 'Fleet Key', label: 'Fleet Key', class: 'info-string', value: Data.state.armada.key, readonly: true}},
+				{input:  {legend: 'Fleet Key', label: 'Fleet Key', class: 'info-string', value: Data.state.fleet.key, readonly: true}},
 				{input:  {legend: 'Fleet URL', label: 'Fleet URL', class: 'info-string', value: fleet_link, readonly: true}}
 			]
 		};
 
-		if (Data.state.armada.password) panel.formitems.push( {input:  {legend: 'Fleet Password', label: 'Fleet Password', class: 'info-string',
-																																		value: Data.state.armada.password, readonly: true}} );
+		if (Data.state.fleet.password) panel.formitems.push( {input:  {legend: 'Fleet Password', label: 'Fleet Password', class: 'info-string',
+																																		value: Data.state.fleet.password, readonly: true}} );
 
 		UIPanels.showPanel(panel, callback);
 	},
@@ -45,7 +45,7 @@ var UIPanels = {
 			formitems: [
 				{button: {class: 'submit-create', text: 'Create Fleet', onClick: 'UIPanels.showCreatePanel()'}},
 				{submit: {class: 'submit-join', text: 'Join Fleet', onClick: 'UIPanels.showJoinPanel()'}},
-				{button: {class: 'leave-armada', text: 'Leave Standing Fleet', onClick: 'leaveArmada()'}},
+				{button: {class: 'leave-fleet', text: 'Leave Standing Fleet', onClick: 'leaveFleet()'}},
 			],
 			error: error
 		};

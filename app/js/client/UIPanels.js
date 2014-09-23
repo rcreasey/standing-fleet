@@ -22,7 +22,7 @@ var UIPanels = {
       footer: '&copy; 2014 Goonswarm Federation',
       closeable: true,
       formitems: [
-        {button: {legend: 'Fleet Actions', class: 'reload-armada no-margin', text: 'Reload Standing Fleet', onClick: 'location.reload()'}}
+        {button: {legend: 'Fleet Actions', class: 'reload-fleet no-margin', text: 'Reload Standing Fleet', onClick: 'location.reload()'}}
       ]
     };
 
