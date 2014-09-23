@@ -7,11 +7,11 @@ require('simple-ioc')
 	.register('express', require('express'))
 	.register('flash', require('connect-flash'))
 	.register('fs', require('fs'))
+	.register('session', require('session-mongoose'))
 	.register('neow', require('neow'))
 	.register('passport', require('passport'))
 	.register('Q', require('q'))
 	.register('rawbody', require('raw-body'))
-
 
 	.autoRegister('./lib/')
 	.autoRegister('./config/')

@@ -1,3 +1,6 @@
+'use strict';
+var mongoose = require('mongoose');
+
 module.exports = function () {
 
 	var getSetting = function (setting) {
@@ -10,6 +13,7 @@ module.exports = function () {
 	};
 
 	var settings = {
+		db: getSetting('MONGODB_URI'),
 		domain: 'https://standing-fleet.herokuapp.com/',
 
 		cookieSession: {
@@ -24,9 +28,9 @@ module.exports = function () {
 
 		port: getSetting('PORT'),
 		cookieSecret: getSetting('COOKIE_SECRET'),
-		storage: getSetting('STORAGE_MODE'),
 		log: 'console',
-
+		sessionSecret: getSetting('SESSION_SECRET'),
+		
 		hostileTtl: 900000,
 		memberTtl: 60000,
 		armadaTtl: 43200000,
@@ -49,7 +53,6 @@ module.exports = function () {
 		whitelist: { url: 'https://standings.goonfleet.com', threshold: 0.1, alliances: ['1354830081'], corporations: [] }
 	};
 
-	if (settings.storage == 'mongodb') settings.mongoDbURI = getSetting('MONGODB_URI');
 	settings.ships = require('../public/data/ships.json')
 
 	return settings;
