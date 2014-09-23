@@ -1,6 +1,3 @@
-'use strict';
-var mongoose = require('mongoose');
-
 module.exports = function () {
 
 	var getSetting = function (setting) {
@@ -28,9 +25,9 @@ module.exports = function () {
 
 		port: getSetting('PORT'),
 		cookieSecret: getSetting('COOKIE_SECRET'),
-		log: 'console',
 		sessionSecret: getSetting('SESSION_SECRET'),
-		
+		log: 'console',
+
 		hostileTtl: 900000,
 		memberTtl: 60000,
 		armadaTtl: 43200000,

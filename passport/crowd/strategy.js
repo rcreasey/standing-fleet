@@ -200,7 +200,7 @@ Strategy.prototype.authenticate = function (req, options) {
                 var groupRequest = http_library.get({
                     host:parsedUrl.hostname,
                     port:parsedUrl.port,
-                    path:parsedUrl.pathname + "rest/usermanagement/latest/user/group/nested?username=" + username,
+                    path:parsedUrl.pathname + "rest/usermanagement/latest/user/group/nested?username=" + username.replace(/\s/g,"%20"),
                     headers:{
                         "Content-Type":"application/json",
                         "Accept":"application/json",
@@ -241,7 +241,7 @@ Strategy.prototype.authenticate = function (req, options) {
     var crowdRequest = http_library.request({
         host:parsedUrl.hostname,
         port:parsedUrl.port,
-        path:parsedUrl.pathname + "rest/usermanagement/latest/authentication?expand=attributes&username=" + username,
+        path:parsedUrl.pathname + "rest/usermanagement/latest/authentication?expand=attributes&username=" + username.replace(/\s/g,"%20"),
         method:"POST",
         headers:{
             "Content-Type":"application/json",
