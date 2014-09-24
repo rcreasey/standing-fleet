@@ -15,7 +15,9 @@
   "dependencies": {
     "async": "0.2.10",
     "chunk": "0.0.1",
+    "connect": "^2.26.2",
     "connect-flash": "^0.1.1",
+    "connect-mongoose": "0.0.2",
     "express": "3.10.x",
     "express-session": "^1.8.2",
     "gulp": "^3.8.7",
@@ -41,6 +43,7 @@
     "q": "1.0.1",
     "raw-body": "~1.1.3",
     "request": "2.37.0",
+    "session-mongoose": "^0.5.2",
     "simple-ioc": "2.4.3",
     "xml2js": "0.4.4"
   },

@@ -39,7 +39,7 @@ var EventHandler = {
 			if ( reported.length === 1 ) {
 				var hostile = reported[0];
 				event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
-					+ hostile.id + ');">' + hostile.name + '</a> has been reported in '
+					+ hostile.characterId + ');">' + hostile.characterName + '</a> has been reported in '
 					+ '<a href="javascript:CCPEVE.showInfo(5, ' + hostile.systemId + ');">'
 					+ hostile.systemName + '</a>';
 			} else {
@@ -112,13 +112,13 @@ var EventHandler = {
 		} else if (event.type === 'fleetCreated') {
 			var creator = event.data;
 			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
-				+ creator.id + ');">' + creator.name + '</a> created this fleet ';
+				+ creator.characterId + ');">' + creator.characterName + '</a> created this fleet ';
 			event.alert = true;
 
 		} else if (event.type === 'shipLost') {
 			var member = event.data;
 			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
-				+ member.id + ');">' + member.name + '</a> lost a '
+				+ member.characterId + ');">' + member.characterName + '</a> lost a '
 				+ '<a href="javascript:CCPEVE.showInfo('
 				+ member.shipTypeId + ');">' + member.shipTypeName + '</a>';
 			event.alert = true;
@@ -126,7 +126,7 @@ var EventHandler = {
 		} else if (event.type === 'updateSystemMap' ) {
 			var target = event.data;
 			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
-				+ target.id + ');">' + target.name + '</a> has moved into '
+				+ target.characterId + ');">' + target.characterName + '</a> has moved into '
 				+ '<a href="javascript:CCPEVE.showInfo(5, ' + target.systemId + ');">'
 				+ target.systemName + '</a>';
 			event.alert = true;
@@ -183,8 +183,8 @@ var EventHandler = {
 	},
 
 	statusSelf: function (self) {
-		Data.state.self.name = self.name;
-		Data.state.self.id = self.id;
+		Data.state.self.characterName = self.characterName;
+		Data.state.self.characterId = self.characterId;
 		Data.state.self.key = self.key;
 		if (self.systemId) this.statusSelfSystem(self);
 	},

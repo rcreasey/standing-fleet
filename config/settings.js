@@ -10,7 +10,7 @@ module.exports = function () {
 	};
 
 	var settings = {
-		db: getSetting('MONGODB_URI'),
+		db: getSetting('MONGODB_URL'),
 		domain: 'https://standing-fleet.herokuapp.com/',
 
 		cookieSession: {
