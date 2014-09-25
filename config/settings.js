@@ -36,7 +36,8 @@ module.exports = function () {
 
 		enableCache: false,
 
-		minPollInterval: 5000,
+		// minPollInterval: 5000,
+		minPollInterval: 500,
 		cleanInterval: 60000,
 
 		requestSizeLimit: '80kb',

@@ -11,7 +11,7 @@ var MemberSchema  = new Schema({
   shipTypeId: Number,
   systemName: String,
   systemId: Number,
-  is_docked: Boolean
+  isDocked: Boolean
 });
 
 module.exports = mongoose.model('Member', MemberSchema);

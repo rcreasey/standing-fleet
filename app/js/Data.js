@@ -24,8 +24,8 @@ var Data = {
 			key: ''
 		},
 		self: {
-			name: '',
-			id: '',
+			characterName: '',
+			characterId: '',
 			key: '',
 			systemId: ''
 		},

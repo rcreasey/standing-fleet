@@ -197,7 +197,7 @@ function submitHostileDetailsClick(button) {
 
 function submitHostileDetails(key, id, name, shipType, shipName) {
 	UIPanels.showLoadingPanel('Uploading status...', function () {
-		var details = {type: 'hostile', key: key, id: id, name: name, shipType: shipType, shipName: shipName};
+		var details = {type: 'hostile', key: key, characterId: id, characterName: name, shipType: shipType, shipName: shipName};
 
 		Server.postDetails(details, function(error, data) {
 			UIPanels.hidePanel(function () {
@@ -208,8 +208,8 @@ function submitHostileDetails(key, id, name, shipType, shipName) {
 
 				EventList.addEvent({ type: 'info', class: status.text,
 														text: 'Details were reported on <strong>' +
-																	'<a href="javascript:CCPEVE.showInfo(1377, ' + details.id + ')">' +
-																	details.name + '</a> by you.' });
+																	'<a href="javascript:CCPEVE.showInfo(1377, ' + details.characterId + ')">' +
+																	details.characterName + '</a> by you.' });
 			});
 		});
 	});
@@ -249,7 +249,10 @@ function stopPolling() {
 
 function handleError (error) {
 	log(error.message);
-	if (error.stopPoll) Data.poll = false;
+	if (error.stopPoll) {
+		Data.poll = false;
+		stopPolling();
+	}
 	if (error.message) UI.showAlert({
 		type: 'error',
 		text: error.message

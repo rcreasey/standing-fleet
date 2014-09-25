@@ -87,13 +87,12 @@ var UIPanels = {
 		var panel = {
 			type: 'password',
 			logo: true,
-			text: 'Authorization required.',
+			error: {message: 'Authorization required.'},
 			formitems: [
 				{input:  {label: 'Fleet Password', id: 'join-fleet-password', class: 'submit-key'}},
 				{button: {class: 'submit-key', text: 'Join Fleet', onClick: 'submitPasswordButtonClick(this)'}},
 				{submit: {class: 'submit-join', text: '<i class="fa fa-arrow-circle-left"></i> Cancel', onClick: 'UIPanels.redirectToBasePath()'}}
 			],
-	 		error: error
 	 	};
 
 	 	UIPanels.showPanel(panel, callback);
@@ -105,12 +104,12 @@ var UIPanels = {
 		var panel = {
 			type: 'options',
 			image: 'panel-options.png',
-			title: hostile.name,
+			title: hostile.characterName,
 			text: 'Confirm details of hostile pilot:',
 			formitems: [
 				{input:  {hidden: true, id: 'hostile-key', value: hostile.key}},
-				{input:  {hidden: true, id: 'hostile-id', value: hostile.id}},
-				{input:  {hidden: true, id: 'hostile-name', value: hostile.name}},
+				{input:  {hidden: true, id: 'hostile-id', value: hostile.characterId}},
+				{input:  {hidden: true, id: 'hostile-name', value: hostile.characterName}},
 				{input:  {label: 'Ship Type', id: 'hostile-ship-type', value: hostile.shipType} },
 				{submit: {text: 'Update Details', onClick: 'submitHostileDetailsClick(this)'}}
 			],
