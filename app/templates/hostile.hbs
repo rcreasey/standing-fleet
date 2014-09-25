@@ -1,7 +1,7 @@
 <table id="hostiles-list" class="hostile">
-  <tr id="hostile-{{id}}">
+  <tr id="hostile-{{characterId}}">
     <td class="ship-icon">{{{shipIcon}}}</td>
-    <td class="name"><a href="javascript:CCPEVE.showInfo(1377, {{id}});">{{name}}</a></td>
+    <td class="name"><a href="javascript:CCPEVE.showInfo(1377, {{characterId}});">{{characterName}}</a></td>
     <td class="alliance">
       {{#if allianceName}}
         <a href="javascript:CCPEVE.showInfo(16159, {{allianceID}});">&lt;{{allianceName}}&gt;</a>
@@ -9,7 +9,7 @@
         No Alliance
       {{/if}}
     </td>
-    <td class="ship-type" onClick="UIPanels.updateHostileDetailsPanel('{{id}}');">
+    <td class="ship-type" onClick="UIPanels.updateHostileDetailsPanel('{{characterId}}');">
       {{#if shipTypeId}}
         <i class="fa fa-eye"></i> <a href="javascript:CCPEVE.showInfo({{shipTypeId}});">{{shipType}}</a>
       {{else}}
@@ -20,7 +20,7 @@
     <td class="reported-at"><a title="Reported by {{reporterName}}">{{reported_at}}</a></td>
     <td class="actions">
       <a title="Set Destination" onClick="CCPEVE.setDestination({{systemId}})"><i class="fa fa-map-marker" title="Set Destination"></i></a>
-      {{killboard_link name id}}
+      {{killboard_link characterName characterId}}
     </td>
   </tr>
 </table>

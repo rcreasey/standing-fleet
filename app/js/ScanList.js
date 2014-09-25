@@ -9,8 +9,8 @@ var ScanList = {
   addStatus: function(reported_status, pilots) {
 		var status = {systemId: Data.ui.currentSystem.data('systemId')
 					      , systemName: Data.ui.currentSystem.text(), pilots: []
-			      		, reporterId: Data.state.self.id
-			      		, reporterName: Data.state.self.name
+			      		, reporterId: Data.state.self.characterId
+			      		, reporterName: Data.state.self.characterName
 			      		, pilots: ScanList.parseLocal(pilots)};
 
 		if (reported_status) status.text = reported_status;

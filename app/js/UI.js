@@ -54,7 +54,7 @@ var UI = {
 	},
 
 	submitStatusClear: function() {
-		submitStatus('clear', Data.state.self.name);
+		submitStatus('clear', Data.state.self.characterName);
 	},
 
 	showAlert: function (event) {
