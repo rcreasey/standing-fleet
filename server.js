@@ -1,24 +1,5 @@
 // require('newrelic');
-// require('simple-ioc')
-// 	.register('_', require('lodash'))
-// 	.register('async', require('async'))
-// 	.register('chunk', require('chunk'))
-// 	.register('CrowdStrategy', require('./passport/crowd').Strategy)
-// 	.register('express', require('express'))
-// 	.register('flash', require('connect-flash'))
-// 	.register('fs', require('fs'))
-// 	.register('moment', require('moment'))
-// 	.register('neow', require('neow'))
-// 	.register('passport', require('passport'))
-// 	.register('Q', require('q'))
-// 	.register('rawbody', require('raw-body'))
-// 	.register('session', require('session-mongoose'))
-//
-// 	.autoRegister('./lib/')
-// 	.autoRegister('./config/')
-// 	.start(function(expressSetup, settings) {
-// 		expressSetup.start(settings.port || process.env.PORT || 5000);
-// 	});
+
 var express = require('express')
   , debug = require('debug')('server')
   , path = require('path')
@@ -55,7 +36,9 @@ app.use(require('express-session')({
   key: 'session',
   maxAge: moment().add(1, 'day')._d, expires: moment().add(1, 'day')._d,
   cookie: { path: '/', httpOnly: true, maxAge: moment().add(1, 'day')._d, expires: moment().add(1, 'day')._d},
+  resave: true,
   secret: process.env.SESSION_SECRET,
+  saveUninitialized: true,
   store: require('mongoose-session')(mongoose)
 }));
 
@@ -94,7 +77,6 @@ app.use(function(err, req, res, next) {
 });
 
 app.set('port', process.env.PORT || 5000);
-
 var server = app.listen(app.get('port'), function() {
-  debug('Server listening on port ' + server.address().port);
+  console.log('Server listening on port ' + server.address().port);
 });
