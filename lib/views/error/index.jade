@@ -58,6 +58,11 @@ block content
         span MENU
   #alert-container
 
+  - if (error)
+    #error
+      code.error
+        pre #{error}
+
   script(type='text/javascript', src='/js/lib.js')
   script(type='text/javascript', src='/js/templates.js')
   - if (user)

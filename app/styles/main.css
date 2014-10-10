@@ -108,6 +108,14 @@ div#page, div#content-wrapper { position: relative; height: 100%; width: 100%; b
 	max-width: 550px;
 }
 
+#error {
+	z-index: 10;
+	position: fixed;
+	bottom: 2.5rem;
+	right: 0;
+	width: 100%;
+}
+
 .btn {
 	-moz-user-select: none;
 	-ms-user-select: none;
@@ -633,6 +641,7 @@ a.button:hover,
 	margin: 0 auto;
 }
 
+code.error,
 .panel .error {
 	display: block;
 	padding: 1rem;
