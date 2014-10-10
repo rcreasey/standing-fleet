@@ -6,17 +6,21 @@ var express = require('express')
   , favicon = require('serve-favicon')
   , logger = require('morgan')
   , moment = require('moment')
+  , mongoose = require('mongoose')
   , compression = require('compression')
   , cookieParser = require('cookie-parser')
   , bodyParser = require('body-parser')
 
+var database = require(__dirname + '/lib/initializers/database')
+  , passport = require(__dirname + '/lib/initializers/passport')
+
 var routes = require(__dirname + '/lib/routes/index')
   , fleet  = require(__dirname + '/lib/routes/fleet');
 
-var mongoose   = require('mongoose');
-mongoose.connect(process.env.MONGODB_URL);
-
 var app = express();
+
+database.init();
+passport.init();
 
 app.use(compression())
 app.use(bodyParser.json());
