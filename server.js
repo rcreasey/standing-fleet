@@ -29,7 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.enable('trust proxy');
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(logger('dev'));
+if (app.get('env') !== 'test') app.use(logger('dev'));
 app.use(cookieParser());
 
 app.set('views', path.join(__dirname,'lib','views'));
@@ -55,8 +55,6 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
-
-app.set('env', process.env.NODE_ENV || 'development');
 
 // development error handler
 // will print stacktrace
@@ -85,6 +83,7 @@ app.set('port', process.env.PORT || 5000);
 function start() {
   var server = app.listen(app.get('port'), function() {
     console.log('Standing Fleet API listening on port ' + server.address().port);
+    console.log('Mode: ' + app.get('env'))
   });
 }
 
