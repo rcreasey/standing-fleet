@@ -89,7 +89,9 @@ app.use(function(err, req, res, next) {
 app.set('port', process.env.PORT || 5000);
 
 function start() {
-  var server = app.listen(app.get('port'));
+  var server = app.listen(app.get('port'), function() {
+    console.log('Standing Fleet server listening on port ' + server.address().port + ' in ' + app.get('env') + ' mode.');
+  });
 }
 
 start();
