@@ -10,6 +10,9 @@ var express = require('express')
   , compression = require('compression')
   , cookieParser = require('cookie-parser')
   , bodyParser = require('body-parser')
+  , flash = require('connect-flash')
+
+var checks = require(__dirname + '/lib/middleware/checks')
 
 var database = require(__dirname + '/lib/initializers/database')
   , passport = require(__dirname + '/lib/initializers/passport')
@@ -25,6 +28,9 @@ passport.init();
 app.use(compression())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(checks.ssl_headers);
+app.use(checks.static_rewrite);
 
 app.enable('trust proxy');
 
@@ -45,6 +51,8 @@ app.use(require('express-session')({
   saveUninitialized: true,
   store: require('mongoose-session')(mongoose)
 }));
+
+app.use(flash());
 
 app.use('/', routes);
 app.use('/api', fleet);
@@ -81,10 +89,7 @@ app.use(function(err, req, res, next) {
 app.set('port', process.env.PORT || 5000);
 
 function start() {
-  var server = app.listen(app.get('port'), function() {
-    console.log('Standing Fleet API listening on port ' + server.address().port);
-    console.log('Mode: ' + app.get('env'))
-  });
+  var server = app.listen(app.get('port'));
 }
 
 start();
