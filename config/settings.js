@@ -1,31 +1,11 @@
 module.exports = function () {
-
-	var getSetting = function (setting) {
-		if (process.env[setting]) {
-			return process.env[setting];
-		} else {
-			console.log("ERROR: setting '" + setting + "' not set.  Please check your ENV variables.");
-			process.exit();
-		}
-	};
-
 	var settings = {
-		db: getSetting('MONGODB_URL'),
+		db: process.env.MONGODB_URL,
 		domain: 'https://standing-fleet.herokuapp.com/',
 
-		cookieSession: {
-			key: 'standing-fleet',
-			secret: getSetting('SESSION_SECRET'),
-			cookie: {
-				path: '/',
-				httpOnly: true,
-				maxAge: 43200000
-			}
-		},
-
-		port: getSetting('PORT'),
-		cookieSecret: getSetting('COOKIE_SECRET'),
-		sessionSecret: getSetting('SESSION_SECRET'),
+		port: process.env.PORT || 5000,
+		cookie_secret: process.env.COOKIE_SECRET || 'dongues',
+		session_secret: process.env.SESSION_SECRET || 'buttes',
 		log: 'console',
 
 		hostileTtl: 900000,
@@ -52,7 +32,7 @@ module.exports = function () {
 	};
 
 	settings.root  = require('path').normalize(__dirname + '/..');
-	settings.ships = require('../public/data/ships.json')
+	// settings.ships = require('../public/data/ships.json')
 
 	return settings;
-};
+}();

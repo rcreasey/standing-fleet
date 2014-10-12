@@ -6,16 +6,18 @@ var express = require('express')
   , favicon = require('serve-favicon')
   , logger = require('morgan')
   , moment = require('moment')
-  , mongoose = require('mongoose')
+  , mongoose = require('mongoose-q')()
   , compression = require('compression')
   , cookieParser = require('cookie-parser')
   , bodyParser = require('body-parser')
   , flash = require('connect-flash')
+  , passport = require('passport')
 
-var checks = require(__dirname + '/lib/middleware/checks')
+var settings = require(__dirname + '/config/settings')
+  , checks = require(__dirname + '/lib/middleware/checks')
 
 var database = require(__dirname + '/lib/initializers/database')
-  , passport = require(__dirname + '/lib/initializers/passport')
+  , strategy = require(__dirname + '/lib/initializers/passport')
 
 var routes = require(__dirname + '/lib/routes/index')
   , fleet  = require(__dirname + '/lib/routes/fleet');
@@ -23,7 +25,7 @@ var routes = require(__dirname + '/lib/routes/index')
 var app = express();
 
 database.init();
-passport.init();
+strategy.init();
 
 app.use(compression())
 app.use(bodyParser.json());
@@ -47,12 +49,14 @@ app.use(require('express-session')({
   maxAge: moment().add(1, 'day')._d, expires: moment().add(1, 'day')._d,
   cookie: { path: '/', httpOnly: true, maxAge: moment().add(1, 'day')._d, expires: moment().add(1, 'day')._d},
   resave: true,
-  secret: process.env.SESSION_SECRET,
+  secret: settings.session_secret,
   saveUninitialized: true,
   store: require('mongoose-session')(mongoose)
 }));
 
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', routes);
 app.use('/api', fleet);
@@ -86,7 +90,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
-app.set('port', process.env.PORT || 5000);
+app.set('port', settings.port);
 
 function start() {
   var server = app.listen(app.get('port'), function() {

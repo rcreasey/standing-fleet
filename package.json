@@ -14,7 +14,6 @@
     "node": "0.10.x"
   },
   "dependencies": {
-    "async": "0.2.10",
     "body-parser": "~1.0.0",
     "chunk": "0.0.1",
     "compression": "^1.0.11",
@@ -27,6 +26,7 @@
     "lodash": "2.4.1",
     "moment": "^2.8.3",
     "mongoose": "^3.8.16",
+    "mongoose-q": "0.0.13",
     "mongoose-session": "0.0.1",
     "morgan": "~1.0.0",
     "neow": "1.0.0",
