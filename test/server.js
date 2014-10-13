@@ -4,6 +4,7 @@ var request = require('supertest');
 var mongoose = require('mongoose');
 var winston = require('winston');
 var config = require('./config');
+var _ = require('lodash');
 
 describe('Server', function() {
   var url = 'http://0.0.0.0:5000';
@@ -64,6 +65,8 @@ describe('Server', function() {
 
   describe('Middleware', function() {
     describe('IGB Headers', function() {
+      var igb_headers = require('./fixtures/tarei-ju-.json');
+
       it('should error if not present', function(done) {
         request(url)
           .get('/api/fleet/status')
@@ -71,16 +74,32 @@ describe('Server', function() {
           .end(function(err, res) {
             if (err) return done(err);
             res.body.success.should.not.be.ok;
-            res.body.error.type.should.equal('request');
+            res.body.error.should.have.property('type', 'request');
+            done();
+          });
+      });
+
+      it('should error if the domain isn\'t trusted by IGB.', function(done) {
+        var untrusted_igb_headers = _.clone(igb_headers);
+        untrusted_igb_headers.EVE_TRUSTED = 'no';
+        request(url)
+          .get('/api/fleet/status')
+          .set(untrusted_igb_headers)
+          .expect(200)
+          .end(function(err,res) {
+            if (err) return done(err);
+            res.body.success.should.not.be.ok;
+            res.body.error.should.have.property('type', 'trust');
+            res.body.error.message.should.match(/you need to enable trust for this domain/);
             done();
           });
       });
 
       it('should parse values appropriately', function(done) {
-        var tarei = require('./fixtures/tarei-ju-.json')
+        debugger;
         request(url)
           .get('/api/fleet/status')
-          .set(tarei)
+          .set(igb_headers)
           .expect(200)
           .end(function(err,res) {
             if (err) return done(err);
