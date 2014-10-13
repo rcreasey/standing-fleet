@@ -4,6 +4,8 @@ var should = require('should')
   , mongoose = require('mongoose-q')()
   , winston = require('winston')
   , config = require('./config')
+  , superagent = require('superagent')
+  , agent = superagent.agent()
 
 var Fleet = require('../lib/models/fleet')
 
@@ -129,13 +131,18 @@ describe('API', function() {
         //     .end(function(err, res) {
         //       if (err) return done(err);
         //       res.body.success.should.be.ok;
+        //       agent.saveCookies(res);
         //
-        //       request(url)
-        //         .post('/fleet/create')
-        //         .set(igb_headers)
-        //         .expect(200)
+        //       var req = request(url)
+        //                   .post('/fleet/create')
+        //                   .set(igb_headers);
+        //
+        //       agent.attachCookies(req);
+        //
+        //       req.expect(200)
         //         .end(function(err, res) {
         //           if (err) return done(err);
+        //           debugger;
         //           res.body.success.should.not.be.ok;
         //           res.body.error.message.should.match(/Please leave your current fleet before creating a new one/);
         //           done();
