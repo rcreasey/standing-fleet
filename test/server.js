@@ -9,10 +9,6 @@ var _ = require('lodash');
 describe('Server', function() {
   var url = 'http://0.0.0.0:5000';
 
-  before(function(done) {
-    done();
-  });
-
   describe('Assets', function() {
     it('should serve images', function(done) {
       request(url)
@@ -96,7 +92,6 @@ describe('Server', function() {
       });
 
       it('should parse values appropriately', function(done) {
-        debugger;
         request(url)
           .get('/api/fleet/status')
           .set(igb_headers)
