@@ -39,7 +39,7 @@ var Util = {
 
 	getUrlKey: function () {
 		var url = window.location.href,
-			match = url.match(/[A-z0-9]{16}/);
+			match = url.match(/[A-z0-9]{17}/);
 
 		return match ? match[0] : false;
 	},
