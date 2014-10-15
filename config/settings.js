@@ -8,17 +8,17 @@ module.exports = function () {
 		session_secret: process.env.SESSION_SECRET || 'buttes',
 		log: 'console',
 
-		hostileTtl: 900000,
-		memberTtl: 60000,
-		fleetTtl: 43200000,
-		eventTtl: 900000,
-		scanTtl: 900000,
+		hostileTtl: 9000,
+		memberTtl: 600,
+		fleetTtl: 432000,
+		eventTtl: 9000,
+		scanTtl: 9000,
 
 		enableCache: false,
 
-		// minPollInterval: 5000,
-		minPollInterval: 500,
-		cleanInterval: 60000,
+		// minPollInterval: 5,
+		minPollInterval: 0,
+		cleanInterval: 60,
 
 		requestSizeLimit: '80kb',
 
