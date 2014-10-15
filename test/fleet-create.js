@@ -1,11 +1,12 @@
-var should = require('should')
+var server = require('../server')
+  , should = require('should')
   , assert = require('assert')
   , request = require('supertest')
   , mongoose = require('mongoose-q')()
   , winston = require('winston')
   , db = mongoose.connection
-  , superagent = require('superagent')
-  , agent = superagent.agent()
+  , Q = require('q')
+  , session = require('supertest-session')({app: server.app})
 
 var Fleet = require('../lib/models/fleet')
 
@@ -14,12 +15,14 @@ describe('Fleet API: Create', function() {
   var igb_headers = require('./fixtures/tarei-ju-.json');
 
   describe('Invalid', function() {
-
-    afterEach(function(done) {
-      Fleet.find(function(err, fleets) {
-        fleets.should.be.empty;
-        done();
-      });
+    beforeEach(function(done) {
+      Q.all([
+        db.models.Fleet.remove().execQ(),
+        db.models.Member.remove().execQ(),
+        db.models.Event.remove().execQ(),
+        db.models.Session.remove().execQ()
+      ])
+        .fin(done);
     });
 
     it('should catch invalid sessions', function(done) {
@@ -68,6 +71,16 @@ describe('Fleet API: Create', function() {
 
   describe('Valid', function() {
 
+    beforeEach(function(done) {
+      Q.all([
+        db.models.Fleet.remove().execQ(),
+        db.models.Member.remove().execQ(),
+        db.models.Event.remove().execQ(),
+        db.models.Session.remove().execQ()
+      ])
+        .fin(done);
+    });
+
     afterEach(function(done) {
       Fleet.find(function(err, fleets) {
         fleets.length.should.eql(1, 'should only create one fleet');
@@ -106,36 +119,39 @@ describe('Fleet API: Create', function() {
 
           done();
         });
+
+    describe('should not create a fleet if one already exists', function() {
+      before(function() { this.sess = new session(); });
+      after(function() { this.sess.destroy(); });
+
+      it('creating a fleet should succeed', function(done) {
+        this.sess
+          .post('/api/fleet/create')
+          .set(igb_headers)
+          .expect(200)
+          .end(function(err,res) {
+            if (err) return done(err);
+            res.body.success.should.be.ok;
+            done();
+          });
+      });
+
+      it('creating another fleet should error', function(done) {
+        this.sess
+          .post('/api/fleet/create')
+          .set(igb_headers)
+          .expect(200)
+          .end(function(err,res) {
+            if (err) return done(err);
+            res.body.success.should.not.be.ok;
+            res.body.error.message.should.match(/Please leave your current fleet before creating a new one/);
+            done();
+          });
+        });
+        
+      });
+
     });
-
-    // it('should not create a fleet if one is already joined', function(done) {
-    //   request(url)
-    //     .post('/fleet/create')
-    //     .set(igb_headers)
-    //     .expect(200)
-    //     .end(function(err, res) {
-    //       if (err) return done(err);
-    //       res.body.success.should.be.ok;
-    //       agent.saveCookies(res);
-    //
-    //       var req = request(url)
-    //                   .post('/fleet/create')
-    //                   .set(igb_headers);
-    //
-    //       agent.attachCookies(req);
-    //
-    //       req.expect(200)
-    //         .end(function(err, res) {
-    //           if (err) return done(err);
-    //           debugger;
-    //           res.body.success.should.not.be.ok;
-    //           res.body.error.message.should.match(/Please leave your current fleet before creating a new one/);
-    //           done();
-    //         });
-    //     });
-    // });
-
-
 
   });
 

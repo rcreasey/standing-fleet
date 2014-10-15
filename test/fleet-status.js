@@ -1,11 +1,12 @@
-var should = require('should')
+var server = require('../server')
+  , should = require('should')
   , assert = require('assert')
   , request = require('supertest')
   , mongoose = require('mongoose-q')()
   , winston = require('winston')
+  , Q = require('q')
   , db = mongoose.connection
-  , superagent = require('superagent')
-  , agent = superagent.agent()
+  , session = require('supertest-session')({app: server.app})
 
 var Fleet = require('../lib/models/fleet')
   , Member = require('../lib/models/member')
@@ -17,11 +18,14 @@ describe('Fleet API: Status', function() {
 
   describe('Invalid', function() {
 
-    afterEach(function(done) {
-      Fleet.find(function(err, fleets) {
-        fleets.should.be.empty;
-        done();
-      });
+    beforeEach(function(done) {
+      Q.all([
+        db.models.Fleet.remove().execQ(),
+        db.models.Member.remove().execQ(),
+        db.models.Event.remove().execQ(),
+        db.models.Session.remove().execQ()
+      ])
+        .fin(done);
     });
 
     it('should catch invalid headers', function(done) {
@@ -52,39 +56,37 @@ describe('Fleet API: Status', function() {
 
   });
 
-  describe('Valid', function() {
-    afterEach(function(done) {
-      done();
+  describe('should send status updates by', function() {
+    before(function() { this.sess = new session(); });
+    after(function() { this.sess.destroy(); });
+
+    it('creating a fleet', function(done) {
+      this.sess
+        .post('/api/fleet/create')
+        .set(igb_headers)
+        .expect(200, done)
     });
 
-  //   it('should send events for a valid fleet', function(done) {
-  //     request(url)
-  //       .post('/fleet/create')
-  //       .set(igb_headers)
-  //       .expect(200)
-  //       .end(function(err,res) {
-  //         if (err) return done(err);
-  //         res.body.success.should.be.ok;
-  //
-  //         agent.saveCookies(res);
-  //         var req = request(url)
-  //                     .post('/fleet/status')
-  //                     .set(igb_headers);
-  //
-  //         agent.attachCookies(req);
-  //
-  //         req.expect(200)
-  //           .end(function(err, res) {
-  //             if (err) return done(err);
-  //             console.log(res.body);
-  //             res.body.success.should.not.be.ok;
-  //
-  //             done();
-  //           });
-  //
-  //         done();
-  //       });
-  //   });
+    it('and then checking it\'s status', function(done) {
+      this.sess
+        .get('/api/fleet/status')
+        .set(igb_headers)
+        .expect(200)
+        .end(function(err,res) {
+          if (err) return done(err);
+
+          res.body.success.should.be.ok;
+          res.body.should.have.property('events').with.lengthOf(6);
+          res.body.events[0].should.have.property('type', 'statusSelf');
+          res.body.events[1].should.have.property('type', 'statusFleet');
+          res.body.events[2].should.have.property('type', 'statusEvents');
+          res.body.events[3].should.have.property('type', 'statusMembers');
+          res.body.events[4].should.have.property('type', 'statusHostiles');
+          res.body.events[5].should.have.property('type', 'statusScans');
+
+          done();
+        });
+    });
 
   });
 
