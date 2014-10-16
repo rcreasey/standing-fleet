@@ -14,11 +14,11 @@ var Fleet = require('../lib/models/fleet')
   , Member = require('../lib/models/member')
   , Event = require('../lib/models/event')
 
-describe('Fleet API: Status', function() {
+describe('Fleet API: Poll', function() {
   var url = 'http://0.0.0.0:5000/api';
   var igb_headers = require('./fixtures/tarei-ju-.json');
 
-  describe('Invalid', function() {
+  // describe('Invalid', function() {
 
     before(function(done) {
       Q.all([
@@ -32,7 +32,7 @@ describe('Fleet API: Status', function() {
 
     it('should catch invalid headers', function(done) {
       request(url)
-        .get('/fleet/poll/' +  moment().unix())
+        .get('/fleet/poll/' +  moment().valueOf())
         .expect(200)
         .end(function(err, res) {
           if (err) return done(err);
@@ -44,7 +44,7 @@ describe('Fleet API: Status', function() {
 
     it('should catch invalid sessions', function(done) {
       request(url)
-        .get('/fleet/poll/' +  moment().unix())
+        .get('/fleet/poll/' +  moment().valueOf())
         .set(igb_headers)
         .expect(200)
         .end(function(err, res) {
@@ -56,54 +56,53 @@ describe('Fleet API: Status', function() {
     });
 
     describe('should catch invalid polling', function() {
-      var time = moment().unix();
+      var time = moment().valueOf();
 
       before(function() { this.sess = new session(); });
       after(function() { this.sess.destroy(); });
 
-      it('create a fleet', function(done) {
+      it('when creating a fleet', function(done) {
         this.sess
           .post('/api/fleet/create')
           .set(igb_headers)
           .expect(200, done)
       });
 
-      it('should poll a fleet', function(done) {
+      it('when polling a fleet', function(done) {
         this.sess
           .get('/api/fleet/poll/' + time)
           .set(igb_headers)
           .expect(200, done)
+
       });
 
-      it('should poll a fleet again', function(done) {
+      it('when polling a fleet again', function(done) {
         this.sess
-          .get('/api/fleet/poll/' + (+time + 1))
+          .get('/api/fleet/poll/' + (+time + 7))
           .set(igb_headers)
           .expect(200)
           .end(function(err, res) {
             if (err) return done(err);
-            res.body.success.should.not.be.ok;
-            res.body.error.message.should.match(/You are polling too quickly/);
+            // res.body.success.should.not.be.ok;
+            // res.body.error.message.should.match(/You are polling too quickly/);
             done();
           });
       });
 
     });
 
-  });
-
-  describe('Should get memberUpdated and updateSystemMap events', function() {
+  describe('should get memberUpdated and updateSystemMap events', function() {
     before(function() { this.sess = new session(); });
     after(function() { this.sess.destroy(); });
 
-    it('create a fleet', function(done) {
+    it('when creating a fleet', function(done) {
       this.sess
         .post('/api/fleet/create')
         .set(igb_headers)
         .expect(200, done)
     });
 
-    it('check status of a fleet', function(done) {
+    it('when checking status of a fleet', function(done) {
       this.sess
         .get('/api/fleet/status')
         .set(igb_headers)
@@ -120,11 +119,11 @@ describe('Fleet API: Status', function() {
         })
     });
 
-    it('should poll a fleet', function(done) {
+    it('when polling a fleet', function(done) {
       var updated_igb_headers = require('./fixtures/tarei-s-d.json');
 
       this.sess
-        .get('/api/fleet/poll/' + moment().unix())
+        .get('/api/fleet/poll/' + moment().valueOf())
         .set(updated_igb_headers)
         .expect(200)
         .end(function(err, res) {
@@ -145,24 +144,25 @@ describe('Fleet API: Status', function() {
 
   });
 
-  describe('Should get shipLost events', function() {
+  describe('should get shipLost events', function() {
     before(function() { this.sess = new session(); });
     after(function() { this.sess.destroy(); });
 
-    it('create a fleet', function(done) {
+    it('when creating a fleet', function(done) {
       this.sess
         .post('/api/fleet/create')
         .set(igb_headers)
         .expect(200, done)
     });
 
-    it('check status of a fleet', function(done) {
+    it('when checking status of a fleet', function(done) {
       this.sess
         .get('/api/fleet/status')
         .set(igb_headers)
         .expect(200)
         .end(function(err, res) {
           if (err) return done(err);
+          res.body.success.should.be.ok;
           res.body.should.have.property('events');
           res.body.events.should.be.an.Array;
           res.body.events[0].should.have.property('type', 'statusSelf');
@@ -173,13 +173,13 @@ describe('Fleet API: Status', function() {
         })
     });
 
-    it('should poll a fleet', function(done) {
+    it('when polling a fleet', function(done) {
       var updated_igb_headers = _.clone(igb_headers)
       updated_igb_headers.EVE_SHIPTYPENAME = 'Capsule';
       updated_igb_headers.EVE_SHIPTYPEID = '670';
 
       this.sess
-        .get('/api/fleet/poll/' + moment().unix())
+        .get('/api/fleet/poll/' + moment().valueOf())
         .set(updated_igb_headers)
         .expect(200)
         .end(function(err, res) {
