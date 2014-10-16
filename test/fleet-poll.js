@@ -18,78 +18,77 @@ describe('Fleet API: Poll', function() {
   var url = 'http://0.0.0.0:5000/api';
   var igb_headers = require('./fixtures/tarei-ju-.json');
 
-  // describe('Invalid', function() {
+  before(function(done) {
+    Q.all([
+      db.models.Fleet.remove().execQ(),
+      db.models.Member.remove().execQ(),
+      db.models.Event.remove().execQ(),
+      db.models.Session.remove().execQ()
+    ])
+      .fin(done);
+  });
 
-    before(function(done) {
-      Q.all([
-        db.models.Fleet.remove().execQ(),
-        db.models.Member.remove().execQ(),
-        db.models.Event.remove().execQ(),
-        db.models.Session.remove().execQ()
-      ])
-        .fin(done);
+  it('should catch invalid headers', function(done) {
+    request(url)
+      .get('/fleet/poll/' +  moment().valueOf())
+      .expect(200)
+      .end(function(err, res) {
+        if (err) return done(err);
+        res.body.success.should.not.be.ok;
+        res.body.error.message.should.match(/You do not seem to be running the IGB, or your request was corrupted/);
+        done();
+      });
+  });
+
+  it('should catch invalid sessions', function(done) {
+    request(url)
+      .get('/fleet/poll/' +  moment().valueOf())
+      .set(igb_headers)
+      .expect(200)
+      .end(function(err, res) {
+        if (err) return done(err);
+        res.body.success.should.not.be.ok;
+        res.body.error.message.should.match(/Error fetching fleet poll/);
+        done();
+      });
+  });
+
+  describe('should catch invalid polling', function() {
+    var time = moment().valueOf();
+
+    before(function() { this.sess = new session(); });
+    after(function() { this.sess.destroy(); });
+
+    it('when creating a fleet', function(done) {
+      this.sess
+        .post('/api/fleet/create')
+        .set(igb_headers)
+        .expect(200, done)
     });
 
-    it('should catch invalid headers', function(done) {
-      request(url)
-        .get('/fleet/poll/' +  moment().valueOf())
-        .expect(200)
-        .end(function(err, res) {
-          if (err) return done(err);
-          res.body.success.should.not.be.ok;
-          res.body.error.message.should.match(/You do not seem to be running the IGB, or your request was corrupted/);
-          done();
-        });
+    it('when polling a fleet', function(done) {
+      this.sess
+        .get('/api/fleet/poll/' + time)
+        .set(igb_headers)
+        .expect(200, done)
+
     });
 
-    it('should catch invalid sessions', function(done) {
-      request(url)
-        .get('/fleet/poll/' +  moment().valueOf())
+    it('when polling a fleet again', function(done) {
+      this.sess
+        .get('/api/fleet/poll/' + (+time + 7))
         .set(igb_headers)
         .expect(200)
         .end(function(err, res) {
           if (err) return done(err);
-          res.body.success.should.not.be.ok;
-          res.body.error.message.should.match(/Error fetching fleet poll/);
+          // TODO
+          // res.body.success.should.not.be.ok;
+          // res.body.error.message.should.match(/You are polling too quickly/);
           done();
         });
     });
 
-    describe('should catch invalid polling', function() {
-      var time = moment().valueOf();
-
-      before(function() { this.sess = new session(); });
-      after(function() { this.sess.destroy(); });
-
-      it('when creating a fleet', function(done) {
-        this.sess
-          .post('/api/fleet/create')
-          .set(igb_headers)
-          .expect(200, done)
-      });
-
-      it('when polling a fleet', function(done) {
-        this.sess
-          .get('/api/fleet/poll/' + time)
-          .set(igb_headers)
-          .expect(200, done)
-
-      });
-
-      it('when polling a fleet again', function(done) {
-        this.sess
-          .get('/api/fleet/poll/' + (+time + 7))
-          .set(igb_headers)
-          .expect(200)
-          .end(function(err, res) {
-            if (err) return done(err);
-            // res.body.success.should.not.be.ok;
-            // res.body.error.message.should.match(/You are polling too quickly/);
-            done();
-          });
-      });
-
-    });
+  });
 
   describe('should get memberUpdated and updateSystemMap events', function() {
     before(function() { this.sess = new session(); });

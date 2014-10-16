@@ -68,8 +68,8 @@ var Util = {
 	redirectIfNecessary: function (fleetKey, callback) {
 		if (!!fleetKey !== !!Util.getUrlKey() || fleetKey !== Util.getUrlKey()) {
 			UIPanels.showLoadingPanel('Redirecting to Standing Fleet URL...', function () {
-				setTimeout($.proxy(Util.redirectToKeyUrl, null, fleetKey),
-					Data.config.pollInterval);
+				setTimeout($.proxy(Util.redirectToKeyUrl, null, fleetKey), 2);
+					// Data.config.pollInterval);
 			});
 		} else {
 			callback();
