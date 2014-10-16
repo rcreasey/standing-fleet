@@ -56,7 +56,7 @@ describe('Fleet API: Status', function() {
 
   });
 
-  describe('WIP should send status updates by', function() {
+  describe('Should send status update events', function() {
     before(function() { this.sess = new session(); });
     after(function() { this.sess.destroy(); });
 
