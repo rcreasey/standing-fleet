@@ -51,7 +51,7 @@ var Server = {
 
 	status: function (callback) {
 		Server.ajaxGet('/status', callback);
-		Data.state.lastPollTs = Date.now();
+		Data.state.lastPollTs = moment().unix();
 	},
 
 	joinFleet: function (fleetKey, callback) {

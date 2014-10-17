@@ -61,6 +61,6 @@ function log(message) {
     });
 
   } else if (Data.config.log === 'console') {
-    console.log('[' + Date.now() + '] - ' + message)
+    console.log('[' + moment().unix() + '] - ' + message)
   }
 };

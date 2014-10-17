@@ -48,7 +48,8 @@ describe('Fleet API: Poll', function() {
       .end(function(err, res) {
         if (err) return done(err);
         res.body.success.should.not.be.ok;
-        res.body.error.message.should.match(/Error fetching fleet poll/);
+        res.body.error.message.should.match(/Invalid or no session/);
+
         done();
       });
   });

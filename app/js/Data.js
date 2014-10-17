@@ -32,7 +32,7 @@ var Data = {
 		alertCount: 0,
 		data_client: null,
 		dimmed: false,
-		lastPollTs : Date.now(),
+		lastPollTs : moment().unix(),
 		memberSortOrder: {
 			property: 'name',
 			order: 'asc'

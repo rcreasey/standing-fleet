@@ -15,9 +15,10 @@ var Fleet = require('../lib/models/fleet')
   , Event = require('../lib/models/event')
   , Hostile = require('../lib/models/hostile')
 
-describe('Fleet API: Report', function() {
+describe('Fleet API: Scan', function() {
   var url = 'http://0.0.0.0:5000';
   var igb_headers = require('./fixtures/tarei-ju-.json');
+  var scan_data = require('./fixtures/scan-data.json');
 
   before(function(done) {
     Q.all([
@@ -33,7 +34,7 @@ describe('Fleet API: Report', function() {
 
   it('should catch invalid headers', function(done) {
     request(url)
-      .post('/api/fleet/status')
+      .post('/api/fleet/scan')
       .expect(200)
       .end(function(err, res) {
         if (err) return done(err);
@@ -45,7 +46,7 @@ describe('Fleet API: Report', function() {
 
   it('should catch invalid sessions', function(done) {
     request(url)
-      .post('/api/fleet/status')
+      .post('/api/fleet/scan')
       .set(igb_headers)
       .expect(200)
       .end(function(err, res) {
@@ -56,7 +57,7 @@ describe('Fleet API: Report', function() {
       });
   });
 
-  describe('should get reportHostile events', function() {
+  describe('WIP should get reportScan events', function() {
     before(function() { this.sess = new session(); });
     after(function() { this.sess.destroy(); });
 
@@ -82,20 +83,11 @@ describe('Fleet API: Report', function() {
         });
     });
 
-    it('when submitting a report', function(done) {
+    it('when submitting a scan', function(done) {
       this.sess
-        .post('/api/fleet/status')
+        .post('/api/fleet/scan')
         .set(igb_headers)
-        .send({
-          scanData: {
-            systemId: igb_headers.EVE_SOLARSYSTEMID,
-            systemName: igb_headers.EVE_SOLARSYSTEMNAME,
-            reporterId: igb_headers.EVE_CHARID,
-            reporterName: igb_headers.EVE_CHARNAME,
-            text: 'validate',
-            data: ['SirMolle', igb_headers.EVE_CHARNAME]
-          }
-        })
+        .send(scan_data)
         .expect(200)
         .end(function(err, res) {
           if (err) return done(err);
@@ -121,103 +113,8 @@ describe('Fleet API: Report', function() {
           res.body.events[3].should.have.property('type', 'statusMembers');
           res.body.events[4].should.have.property('type', 'statusHostiles');
           res.body.events[5].should.have.property('type', 'statusScans');
-
-          res.body.events[4].should.have.property('data').with.lengthOf(1)
-
-          done();
-        });
-    });
-
-    it('when polling a fleet', function(done) {
-      this.sess
-        .get('/api/fleet/poll/' + moment().unix())
-        .set(igb_headers)
-        .expect(200)
-        .end(function(err, res) {
-          if (err) return done(err);
-          res.body.success.should.be.ok;
-
-          res.body.should.have.property('events').with.lengthOf(1)
-          res.body.events[0].should.have.property('type', 'reportHostile');
-          res.body.events[0].data[0].should.have.property('systemName', igb_headers.EVE_SOLARSYSTEMNAME);
-          res.body.events[0].data[0].should.have.property('systemId', igb_headers.EVE_SOLARSYSTEMID);
-
-          done();
-        });
-
-    });
-
-  });
-
-  describe('should get reportClear events', function() {
-    before(function() { this.sess = new session(); });
-    after(function() { this.sess.destroy(); });
-
-    var fleet_key;
-
-    it('when creating a fleet', function(done) {
-      this.sess
-        .post('/api/fleet/create')
-        .set(igb_headers)
-        .expect(200, done)
-    });
-
-    it('when checking status of a fleet', function(done) {
-      this.sess
-        .get('/api/fleet/status')
-        .set(igb_headers)
-        .expect(200)
-        .end(function(err, res) {
-          if (err) return done(err);
-          res.body.success.should.be.ok;
-          fleet_key = res.body.fleetKey;
-
-          done();
-        });
-    });
-
-    it('when submitting a report', function(done) {
-      this.sess
-        .post('/api/fleet/status')
-        .set(igb_headers)
-        .send({
-          scanData: {
-            systemId: igb_headers.EVE_SOLARSYSTEMID,
-            systemName: igb_headers.EVE_SOLARSYSTEMNAME,
-            reporterId: igb_headers.EVE_CHARID,
-            reporterName: igb_headers.EVE_CHARNAME,
-            text: 'clear',
-            data: [ igb_headers.EVE_CHARNAME ]
-          }
-        })
-        .expect(200)
-        .end(function(err, res) {
-          if (err) return done(err);
-          res.body.success.should.be.ok;
-
-          done();
-        });
-
-    });
-
-    it('when checking fleet status', function(done) {
-      this.sess
-        .get('/api/fleet/status')
-        .set(igb_headers)
-        .expect(200)
-        .end(function(err,res) {
-          if (err) return done(err);
-
-          res.body.success.should.be.ok;
-          res.body.should.have.property('events').with.lengthOf(6);
-          res.body.events[0].should.have.property('type', 'statusSelf');
-          res.body.events[1].should.have.property('type', 'statusFleet');
-          res.body.events[2].should.have.property('type', 'statusEvents');
-          res.body.events[3].should.have.property('type', 'statusMembers');
-          res.body.events[4].should.have.property('type', 'statusHostiles');
-          res.body.events[5].should.have.property('type', 'statusScans');
-
-          res.body.events[4].should.have.property('data').with.lengthOf(0)
+          
+          res.body.events[5].should.have.property('data').with.lengthOf(1)
 
           done();
         });
@@ -231,9 +128,8 @@ describe('Fleet API: Report', function() {
         .end(function(err, res) {
           if (err) return done(err);
           res.body.success.should.be.ok;
-
           res.body.should.have.property('events').with.lengthOf(2)
-          res.body.events[1].should.have.property('type', 'reportClear');
+          res.body.events[1].should.have.property('type', 'scanPosted');
           res.body.events[1].data.should.have.property('systemName', igb_headers.EVE_SOLARSYSTEMNAME);
           res.body.events[1].data.should.have.property('systemId', igb_headers.EVE_SOLARSYSTEMID);
 
@@ -243,5 +139,6 @@ describe('Fleet API: Report', function() {
     });
 
   });
+
 
 });
