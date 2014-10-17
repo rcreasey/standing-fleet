@@ -30,7 +30,7 @@ describe('Fleet API: Poll', function() {
 
   it('should catch invalid headers', function(done) {
     request(url)
-      .get('/fleet/poll/' +  moment().valueOf())
+      .get('/fleet/poll/' +  moment().unix())
       .expect(200)
       .end(function(err, res) {
         if (err) return done(err);
@@ -42,7 +42,7 @@ describe('Fleet API: Poll', function() {
 
   it('should catch invalid sessions', function(done) {
     request(url)
-      .get('/fleet/poll/' +  moment().valueOf())
+      .get('/fleet/poll/' +  moment().unix())
       .set(igb_headers)
       .expect(200)
       .end(function(err, res) {
@@ -54,7 +54,7 @@ describe('Fleet API: Poll', function() {
   });
 
   describe('should catch invalid polling', function() {
-    var time = moment().valueOf();
+    var time = moment().unix();
 
     before(function() { this.sess = new session(); });
     after(function() { this.sess.destroy(); });
@@ -81,9 +81,8 @@ describe('Fleet API: Poll', function() {
         .expect(200)
         .end(function(err, res) {
           if (err) return done(err);
-          // TODO
-          // res.body.success.should.not.be.ok;
-          // res.body.error.message.should.match(/You are polling too quickly/);
+          res.body.success.should.not.be.ok;
+          res.body.error.message.should.match(/You are polling too quickly/);
           done();
         });
     });
@@ -122,13 +121,13 @@ describe('Fleet API: Poll', function() {
       var updated_igb_headers = require('./fixtures/tarei-s-d.json');
 
       this.sess
-        .get('/api/fleet/poll/' + moment().valueOf())
+        .get('/api/fleet/poll/' + moment().unix())
         .set(updated_igb_headers)
         .expect(200)
         .end(function(err, res) {
           if (err) return done(err);
           res.body.success.should.be.ok;
-          res.body.should.have.property('events').with.lengthOf(2);
+          res.body.should.have.property('events').with.lengthOf(3);
           res.body.events[0].should.have.property('type', 'memberUpdated');
           res.body.events[0].data.should.have.property('systemName', 'S-DN5M');
           res.body.events[0].data.should.have.property('systemId', '30002912');
@@ -178,13 +177,13 @@ describe('Fleet API: Poll', function() {
       updated_igb_headers.EVE_SHIPTYPEID = '670';
 
       this.sess
-        .get('/api/fleet/poll/' + moment().valueOf())
+        .get('/api/fleet/poll/' + moment().unix())
         .set(updated_igb_headers)
         .expect(200)
         .end(function(err, res) {
           if (err) return done(err);
           res.body.success.should.be.ok;
-          res.body.should.have.property('events').with.lengthOf(2);
+          res.body.should.have.property('events').with.lengthOf(3);
           res.body.events[0].should.have.property('type', 'memberUpdated');
           res.body.events[1].should.have.property('type', 'shipLost');
           res.body.events[1].data.should.have.property('shipTypeName', 'Stratios');

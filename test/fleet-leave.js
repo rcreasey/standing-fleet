@@ -53,7 +53,7 @@ describe('Fleet API: Leave', function() {
     var fleet_key = null;
     var igb_headers_a = _.clone(igb_headers);
     var igb_headers_b = require('./fixtures/jbethusela-ju-.json');
-    var time = moment().valueOf();
+    var time = moment().unix();
 
     it('when creating a fleet', function(done) {
       this.sess_a
@@ -69,19 +69,6 @@ describe('Fleet API: Leave', function() {
           fleet_key = res.body.events.data.key;
           done();
         });
-    });
-
-    it('when polling a fleet', function(done) {
-      this.sess_a
-        .get('/api/fleet/poll/' + time)
-        .set(igb_headers_a)
-        .expect(200)
-        .end(function(err, res) {
-          if (err) return done(err);
-          res.body.success.should.be.ok;
-          done();
-        });
-
     });
 
     it('when joining a fleet', function(done) {

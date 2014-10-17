@@ -32,7 +32,7 @@ describe('Fleet API: Poll', function() {
 
   it('should catch invalid headers', function(done) {
     request(url)
-      .get('/fleet/poll/' +  moment().valueOf())
+      .get('/fleet/poll/' +  moment().unix())
       .expect(200)
       .end(function(err, res) {
         if (err) return done(err);
@@ -44,7 +44,7 @@ describe('Fleet API: Poll', function() {
 
   it('should catch invalid sessions', function(done) {
     request(url)
-      .get('/fleet/poll/' +  moment().valueOf())
+      .get('/fleet/poll/' +  moment().unix())
       .set(igb_headers)
       .expect(200)
       .end(function(err, res) {
@@ -55,7 +55,7 @@ describe('Fleet API: Poll', function() {
       });
   });
 
-  describe('WIP should get reportHostile events', function() {
+  describe('should get reportHostile events', function() {
     before(function() { this.sess = new session(); });
     after(function() { this.sess.destroy(); });
 
@@ -130,17 +130,17 @@ describe('Fleet API: Poll', function() {
 
     it('when polling a fleet', function(done) {
       this.sess
-        .get('/api/fleet/poll/' + moment().valueOf())
+        .get('/api/fleet/poll/' + moment().unix())
         .set(igb_headers)
         .expect(200)
         .end(function(err, res) {
           if (err) return done(err);
           res.body.success.should.be.ok;
-          console.log(res.body.events)
-          res.body.should.have.property('events').with.lengthOf(2)
-          res.body.events[0].should.have.property('type', 'memberUpdated');
-          res.body.events[0].data.should.have.property('systemName', 'S-DN5M');
-          res.body.events[0].data.should.have.property('systemId', '30002912');
+
+          res.body.should.have.property('events').with.lengthOf(1)
+          res.body.events[0].should.have.property('type', 'reportHostile');
+          res.body.events[0].data[0].should.have.property('systemName', 'JU-OWQ');
+          res.body.events[0].data[0].should.have.property('systemId', '30002911');
 
           done();
         });
