@@ -15,10 +15,9 @@ var Fleet = require('../lib/models/fleet')
   , Event = require('../lib/models/event')
   , Hostile = require('../lib/models/hostile')
 
-describe('Fleet API: Scan', function() {
+describe('Fleet API: Report Update', function() {
   var url = 'http://0.0.0.0:5000';
   var igb_headers = require('./fixtures/tarei-ju-.json');
-  var scan_data = require('./fixtures/scan-data.json');
 
   before(function(done) {
     Q.all([
@@ -34,7 +33,7 @@ describe('Fleet API: Scan', function() {
 
   it('should catch invalid headers', function(done) {
     request(url)
-      .post('/api/fleet/scan')
+      .post('/api/fleet/status')
       .expect(200)
       .end(function(err, res) {
         if (err) return done(err);
@@ -46,7 +45,7 @@ describe('Fleet API: Scan', function() {
 
   it('should catch invalid sessions', function(done) {
     request(url)
-      .post('/api/fleet/scan')
+      .post('/api/fleet/status')
       .set(igb_headers)
       .expect(200)
       .end(function(err, res) {
@@ -57,11 +56,12 @@ describe('Fleet API: Scan', function() {
       });
   });
 
-  describe('should get reportScan events', function() {
+  describe('should get updateHostile events', function() {
     before(function() { this.sess = new session(); });
     after(function() { this.sess.destroy(); });
 
     var fleet_key;
+    var hostile;
 
     it('when creating a fleet', function(done) {
       this.sess
@@ -83,11 +83,20 @@ describe('Fleet API: Scan', function() {
         });
     });
 
-    it('when submitting a scan', function(done) {
+    it('when submitting a report', function(done) {
       this.sess
-        .post('/api/fleet/scan')
+        .post('/api/fleet/status')
         .set(igb_headers)
-        .send(scan_data)
+        .send({
+          scanData: {
+            systemId: igb_headers.EVE_SOLARSYSTEMID,
+            systemName: igb_headers.EVE_SOLARSYSTEMNAME,
+            reporterId: igb_headers.EVE_CHARID,
+            reporterName: igb_headers.EVE_CHARNAME,
+            text: 'validate',
+            data: ['SirMolle', igb_headers.EVE_CHARNAME]
+          }
+        })
         .expect(200)
         .end(function(err, res) {
           if (err) return done(err);
@@ -114,8 +123,55 @@ describe('Fleet API: Scan', function() {
           res.body.events[4].should.have.property('type', 'statusHostiles');
           res.body.events[5].should.have.property('type', 'statusScans');
 
-          res.body.events[5].should.have.property('data').with.lengthOf(1)
+          res.body.events[4].should.have.property('data').with.lengthOf(1)
+          hostile = res.body.events[4].data[0];
 
+          done();
+        });
+    });
+
+    it('when submitting a report', function(done) {
+      this.sess
+        .post('/api/fleet/details')
+        .set(igb_headers)
+        .send({
+          scanData: {
+            type: 'hostile',
+            key: hostile.key,
+            id: hostile.characterId,
+            name: hostile.characterName,
+            shipType: 'Archon'
+          }
+        })
+        .expect(200)
+        .end(function(err, res) {
+          if (err) return done(err);
+          res.body.success.should.be.ok;
+          done();
+        });
+
+    });
+
+    it('when checking fleet status', function(done) {
+      this.sess
+        .get('/api/fleet/status')
+        .set(igb_headers)
+        .expect(200)
+        .end(function(err,res) {
+          if (err) return done(err);
+
+          res.body.success.should.be.ok;
+          res.body.should.have.property('events').with.lengthOf(6);
+          res.body.events[0].should.have.property('type', 'statusSelf');
+          res.body.events[1].should.have.property('type', 'statusFleet');
+          res.body.events[2].should.have.property('type', 'statusEvents');
+          res.body.events[3].should.have.property('type', 'statusMembers');
+          res.body.events[4].should.have.property('type', 'statusHostiles');
+          res.body.events[5].should.have.property('type', 'statusScans');
+
+          res.body.events[4].should.have.property('data').with.lengthOf(1)
+          res.body.events[4].data[0].should.have.property('shipType', 'Archon');
+          res.body.events[4].data[0].should.have.property('shipTypeId', '23757');
           done();
         });
     });
@@ -128,10 +184,14 @@ describe('Fleet API: Scan', function() {
         .end(function(err, res) {
           if (err) return done(err);
           res.body.success.should.be.ok;
+
           res.body.should.have.property('events').with.lengthOf(2)
-          res.body.events[1].should.have.property('type', 'scanPosted');
-          res.body.events[1].data.should.have.property('systemName', igb_headers.EVE_SOLARSYSTEMNAME);
-          res.body.events[1].data.should.have.property('systemId', igb_headers.EVE_SOLARSYSTEMID);
+          res.body.events[0].should.have.property('type', 'reportHostile');
+          res.body.events[0].data.should.not.have.property('shipType');
+          res.body.events[0].data.should.not.have.property('shipTypeId');
+          res.body.events[1].should.have.property('type', 'updateHostile');
+          res.body.events[1].data.should.have.property('shipType', 'Archon');
+          res.body.events[1].data.should.have.property('shipTypeId', '23757');
 
           done();
         });
