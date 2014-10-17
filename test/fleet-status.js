@@ -67,7 +67,7 @@ describe('Fleet API: Status', function() {
         .expect(200, done)
     });
 
-    it('and then checking it\'s status', function(done) {
+    it('when checking fleet status', function(done) {
       this.sess
         .get('/api/fleet/status')
         .set(igb_headers)
