@@ -79,7 +79,7 @@ var EventHandler = {
 		} else if (event.type === 'memberLeft') {
 			var member = event.data;
 			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
-				+ member.characterId + ');">' + member.characterName + '</a> left the Standing FLeet';
+				+ member.characterId + ');">' + member.characterName + '</a> left the Standing Fleet';
 			event.blink = 'members';
 			event.alert = true;
 

@@ -94,7 +94,6 @@ describe('Fleet API: Leave', function() {
         .end(function(err, res) {
           if (err) return done(err);
           res.body.success.should.be.ok;
-          res.body.should.have.property('events').with.lengthOf(0);
 
           done();
         })
@@ -118,6 +117,56 @@ describe('Fleet API: Leave', function() {
           done();
         });
 
+    });
+
+  });
+
+  describe('should get properly clean up sessions after leaving', function() {
+    before(function(done) {
+      this.sess = new session();
+
+      Q.all([
+        db.models.Member.remove().execQ(),
+        db.models.Session.remove().execQ()
+      ])
+        .fin(done);
+    });
+    after(function() { this.sess.destroy(); });
+
+    it('when creating a fleet', function(done) {
+      this.sess
+        .post('/api/fleet/create')
+        .set(igb_headers)
+        .expect(200, done)
+    });
+
+    it('when leaving a fleet', function(done) {
+      this.sess
+        .get('/api/fleet/leave')
+        .set(igb_headers)
+        .expect(200)
+        .end(function(err, res) {
+          if (err) return done(err);
+          res.body.success.should.be.ok;
+
+          done();
+        })
+    });
+
+    it('when checking status of a fleet', function(done) {
+      this.sess
+        .get('/api/fleet/status')
+        .set(igb_headers)
+        .expect(200)
+        .end(function(err, res) {
+          if (err) return done(err);
+          res.body.success.should.be.ok;
+          res.body.should.have.property('events').with.lengthOf(1);
+          res.body.events[0].should.have.property('type', 'statusSelf');
+          res.body.events[0].should.have.property('fleetKey', 'none');
+
+          done();
+        })
     });
 
   });
