@@ -8,7 +8,6 @@ var gulp = require('gulp')
   , wrap = require('gulp-wrap')
   , declare = require('gulp-declare')
   , gutil = require('gulp-util')
-  , nwbuilder = require('node-webkit-builder')
 
 gulp.task('prepare', function() {
   gulp.src('app/**/*.css')
@@ -86,6 +85,8 @@ gulp.task('watch', function () {
 });
 
 gulp.task('build', function() {
+  var nwbuilder = require('node-webkit-builder')
+
   var nw = new nwbuilder({
     files: './client/**/**',
     platforms: ['win','osx']
