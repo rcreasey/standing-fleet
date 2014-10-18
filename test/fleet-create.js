@@ -8,7 +8,7 @@ var server = require('../server')
   , Q = require('q')
   , session = require('supertest-session')({app: server.app})
 
-var Fleet = require('../lib/models/fleet')
+var Fleet = require('../server/models/fleet')
 
 describe('Fleet API: Create', function() {
   var url = 'http://0.0.0.0:5000/api';
@@ -148,7 +148,7 @@ describe('Fleet API: Create', function() {
             done();
           });
         });
-        
+
       });
 
     });

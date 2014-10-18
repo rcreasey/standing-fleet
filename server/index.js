@@ -14,15 +14,15 @@ var express = require('express')
   , passport = require('passport')
 
 var settings = require(__dirname + '/config/settings')
-  , checks = require(__dirname + '/lib/middleware/checks')
-  , standings = require(__dirname + '/lib/services/standings')
-  , consuela = require(__dirname + '/lib/services/consuela')
+  , checks = require(__dirname + '/middleware/checks')
+  , standings = require(__dirname + '/services/standings')
+  , consuela = require(__dirname + '/services/consuela')
 
-var database = require(__dirname + '/lib/initializers/database')
-  , strategy = require(__dirname + '/lib/initializers/passport')
+var database = require(__dirname + '/initializers/database')
+  , strategy = require(__dirname + '/initializers/passport')
 
-var routes = require(__dirname + '/lib/routes/index')
-  , fleet  = require(__dirname + '/lib/routes/fleet')
+var routes = require(__dirname + '/routes/index')
+  , fleet  = require(__dirname + '/routes/fleet')
 
 var app = express();
 
@@ -41,13 +41,13 @@ app.use(checks.static_rewrite);
 
 app.enable('trust proxy');
 
-app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(__dirname + '/../public/favicon.ico'));
 if (app.get('env') !== 'test') app.use(logger('dev'));
 app.use(cookieParser());
 
-app.set('views', path.join(__dirname,'lib','views'));
+app.set('views', path.join(__dirname,'views'));
 app.set('view engine', 'jade');
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname,'..','public')));
 
 app.use(require('express-session')({
   key: 'session',

@@ -1,6 +1,6 @@
 var header_parser = require('./header-parser')
   , response = require(__dirname + '/../response')
-  , settings = require(__dirname + '/../../config/settings')
+  , settings = require(__dirname + '/../config/settings')
   , checks = require(__dirname + '/../middleware/checks')
   , Member = require(__dirname + '/../models/member')
 

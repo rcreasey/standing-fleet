@@ -1,7 +1,7 @@
 var mongoose = require('mongoose-q')()
   , Schema = mongoose.Schema
-  , key_generator = require(__dirname + '/../util/key-generator')
   , moment = require('moment')
+  , key_generator = require(__dirname + '/../util/key-generator')
 
 var FleetSchema  = new Schema({
   ts: { type: Number, default: function() { return moment().unix(); } },

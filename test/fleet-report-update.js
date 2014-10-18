@@ -10,10 +10,10 @@ var server = require('../server')
   , moment = require('moment')
   , _ = require('lodash')
 
-var Fleet = require('../lib/models/fleet')
-  , Member = require('../lib/models/member')
-  , Event = require('../lib/models/event')
-  , Hostile = require('../lib/models/hostile')
+var Fleet = require('../server/models/fleet')
+  , Member = require('../server/models/member')
+  , Event = require('../server/models/event')
+  , Hostile = require('../server/models/hostile')
 
 describe('Fleet API: Report Update', function() {
   var url = 'http://0.0.0.0:5000';

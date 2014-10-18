@@ -1,8 +1,8 @@
 var mongoose = require('mongoose-q')()
   , Schema = mongoose.Schema
   , moment = require('moment')
-  , settings = require(__dirname + '/../../config/settings')
   , key_generator = require(__dirname + '/../util/key-generator')
+  , settings = require(__dirname + '/../config/settings')
 
 var MemberSchema  = new Schema({
   ts: { type: Number, default: function() { return moment().unix(); } },

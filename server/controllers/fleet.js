@@ -1,5 +1,5 @@
 var response = require(__dirname + '/../response')
-  , settings = require(__dirname + '/../../config/settings')
+  , settings = require(__dirname + '/../config/settings')
   , checks = require(__dirname + '/../middleware/checks')
   , header_parser = require(__dirname + '/../middleware/header-parser')
   , Fleet = require(__dirname + '/../models/fleet')

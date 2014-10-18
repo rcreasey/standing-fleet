@@ -10,9 +10,9 @@ var server = require('../server')
   , moment = require('moment')
   , _ = require('lodash')
 
-var Fleet = require('../lib/models/fleet')
-  , Member = require('../lib/models/member')
-  , Event = require('../lib/models/event')
+var Fleet = require('../server/models/fleet')
+  , Member = require('../server/models/member')
+  , Event = require('../server/models/event')
 
 describe('Fleet API: Poll', function() {
   var url = 'http://0.0.0.0:5000/api';

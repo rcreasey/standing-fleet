@@ -4,6 +4,8 @@ var request = require('request')
 
 exports.update = function(whitelist) {
 
+  if (process.env.NODE_ENV === 'test') return;
+
   request(whitelist.url, function(error, response, body) {
     if (!error && response.statusCode == 200) {
       xml2js.parseString(body, function (parse_error, standings) {
@@ -33,4 +35,5 @@ exports.update = function(whitelist) {
     }
   });
 
+  return;
 };

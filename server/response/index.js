@@ -8,9 +8,7 @@ exports.success = function(res, events) {
     success: true,
   };
 
-  if (events) {
-    response.events = events;
-  }
+  if (events) response.events = events;
 
   res.send(response);
 };

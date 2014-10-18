@@ -1,7 +1,7 @@
 var Q = require('q')
   , moment = require('moment')
 
-var settings = require(__dirname + '/../../config/settings')
+var settings = require(__dirname + '/../config/settings')
   , Fleet = require(__dirname + '/../models/fleet')
   , Event = require(__dirname + '/../models/event')
   , Member = require(__dirname + '/../models/member')

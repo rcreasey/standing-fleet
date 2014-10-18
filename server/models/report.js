@@ -5,7 +5,7 @@ var mongoose = require('mongoose-q')()
   , chunk = require('chunk')
   , Q = require('q')
   , moment = require('moment')
-  , settings = require(__dirname + '/../../config/settings')
+  , settings = require(__dirname + '/../config/settings')
 
 var Hostile = require('./hostile')
 

@@ -8,9 +8,9 @@ var server = require('../server')
   , db = mongoose.connection
   , session = require('supertest-session')({app: server.app})
 
-var Fleet = require('../lib/models/fleet')
-  , Member = require('../lib/models/member')
-  , Event = require('../lib/models/event')
+var Fleet = require('../server/models/fleet')
+  , Member = require('../server/models/member')
+  , Event = require('../server/models/event')
 
 describe('Fleet API: Status', function() {
   var url = 'http://0.0.0.0:5000/api';
