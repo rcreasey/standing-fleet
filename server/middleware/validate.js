@@ -16,26 +16,16 @@ var moment = require('moment')
  */
 
 var headers = function (req, res, next) {
-  var fleet = header_parser(req);
+  var fleet = (req.session.linked) ? req.session.linked : header_parser(req);
 
-  if (fleet.trusted && fleet.trusted.toLowerCase() === 'no') {
-    var message = 'To use Standing Fleet, you need to enable trust for this domain. Please enable trust and refresh.';
-		return response.error(res, 'trust', message);
-  }
-
-  if ( !fleet.trusted
-    || !fleet.characterName
-    || !fleet.characterId
-    || !fleet.systemName
-    || !fleet.systemId) {
-    var message = 'You do not seem to be running the IGB, or your request was corrupted.';
-    return response.error(res, 'request', message);
+  if (fleet.trusted && fleet.trusted.toLowerCase() === 'no') return response.error(res, 'trust', 'To use Standing Fleet, you need to enable trust for this domain. Please enable trust and refresh.');
+  if (!checks.igb_request(fleet)) {
+    return response.error(res, 'request', 'You do not seem to be running the IGB, or your request was corrupted.');
   }
 
   req.session.fleet = fleet;
   next();
 };
-
 module.exports.headers = headers;
 
 var session = function(req, res, next) {
@@ -51,7 +41,6 @@ var session = function(req, res, next) {
     })
     .done();
 };
-
 module.exports.session = session;
 
 var poll = function(req, res, next) {
@@ -63,5 +52,11 @@ var poll = function(req, res, next) {
   req.session.lastPollTs = moment().unix();
   return next();
 };
-
 module.exports.poll = poll;
+
+var igb = function(req, res, next) {
+  if (!checks.igb_request( header_parser(req) )) return res.redirect('/login');
+
+  return next();
+};
+module.exports.igb = igb;

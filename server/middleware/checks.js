@@ -1,6 +1,22 @@
 var rawbody = require('raw-body')
   , response = require(__dirname + '/../response')
 
+exports.igb_request = function(fleet) {
+  if ( !fleet.trusted
+    || !fleet.characterName
+    || !fleet.characterId
+    || !fleet.systemName
+    || !fleet.systemId) {
+      return false;
+  } else {
+    return true;
+  }
+};
+
+exports.for_existing_fleet = function(req) {
+  return !!(req.session.fleetKey || req.session.memberKey);
+};
+
 exports.redirect_if_authenticated = function(req, res, next) {
   if (req.isAuthenticated()) {
     res.redirect('/link')
@@ -23,10 +39,6 @@ exports.request_size = function (req, res, next) {
 
 		next();
 	});
-};
-
-exports.for_existing_fleet = function(req) {
-  return !!(req.session.fleetKey || req.session.memberKey);
 };
 
 exports.static_rewrite = function (req, res, next) {

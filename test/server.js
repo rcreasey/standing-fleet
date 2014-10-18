@@ -8,6 +8,7 @@ var _ = require('lodash');
 
 describe('Server', function() {
   var url = 'http://0.0.0.0:5000';
+  var igb_headers = require('./fixtures/tarei-ju-.json');
 
   describe('Assets', function() {
     it('should serve images', function(done) {
@@ -39,6 +40,7 @@ describe('Server', function() {
     it('should handle static root view', function(done) {
       request(url)
         .get('/')
+        .set(igb_headers)
         .expect(200)
         .end(function(err, res) {
           if (err) return done(err);

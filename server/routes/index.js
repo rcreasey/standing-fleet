@@ -33,6 +33,7 @@ router.route('/:fleetKey/?')
       .get(application.index);
 
 router.route('/')
+      .get(validate.igb)
       .get(application.index);
 
 module.exports = router;

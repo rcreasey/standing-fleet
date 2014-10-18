@@ -131,7 +131,7 @@ exports.poll = function(req, res, next) {
     .then(function(member) {
       var events = [];
       var self = req.session.fleet;
-      var previous = _.clone(member._doc)
+      var previous = _.clone(member.toObject())
 
       member.shipType = self.shipType;
       member.shipTypeId = self.shipTypeId;
@@ -140,9 +140,20 @@ exports.poll = function(req, res, next) {
       member.regionId = self.regionId;
       member.isDocked = self.isDocked;
 
+
       if (member.isModified()) {
-        events.push(Event.prepare('memberUpdated', req.session.fleetKey, member));
-        member.saveQ();
+        if (req.session.linked) {
+          delete req.session.linked;
+
+          req.session.linked = member.toObject();
+          req.session.linked.trusted = 'Yes';
+          req.session.linked.isLinked = true;
+        } else {
+          events.push(Event.prepare('memberUpdated', req.session.fleetKey, member));
+          member.saveQ();
+        }
+
+        debugger;
 
         if (!previous.isDocked && !member.isDocked) {
           if (previous.shipType != 'Capsule' && member.shipType == 'Capsule') {
@@ -158,6 +169,7 @@ exports.poll = function(req, res, next) {
         }
 
         if (previous.systemId != member.systemId) {
+          debugger;
           if (!member.isLinked) {
             events.push(Event.prepare('updateSystemMap', req.session.fleetKey, {
               characterName: member.characterName,

@@ -10,6 +10,11 @@
     "start": "node_modules/.bin/nf start",
     "test": "foreman run mocha -e test/env"
   },
+  "config": {
+    "blanket": {
+      "pattern": "/server/"
+    }
+  },
   "engines": {
     "node": "0.10.x"
   },
@@ -40,6 +45,7 @@
     "xml2js": "0.4.4"
   },
   "devDependencies": {
+    "blanket": "^1.1.6",
     "gulp": "^3.8.7",
     "gulp-concat": "^2.4.1",
     "gulp-declare": "^0.3.0",
