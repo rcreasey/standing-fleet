@@ -15,17 +15,21 @@ var express = require('express')
 
 var settings = require(__dirname + '/config/settings')
   , checks = require(__dirname + '/lib/middleware/checks')
+  , standings = require(__dirname + '/lib/services/standings')
 
 var database = require(__dirname + '/lib/initializers/database')
   , strategy = require(__dirname + '/lib/initializers/passport')
 
 var routes = require(__dirname + '/lib/routes/index')
-  , fleet  = require(__dirname + '/lib/routes/fleet');
+  , fleet  = require(__dirname + '/lib/routes/fleet')
 
 var app = express();
 
 database.init();
 strategy.init();
+
+standings.update(settings.whitelist);
+app.set('whitelist', settings.whitelist);
 
 app.use(compression())
 app.use(bodyParser.json());
