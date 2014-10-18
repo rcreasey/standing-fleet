@@ -1,4 +1,4 @@
-// require('newrelic');
+require('newrelic');
 
 var express = require('express')
   , debug = require('debug')('server')
@@ -16,6 +16,7 @@ var express = require('express')
 var settings = require(__dirname + '/config/settings')
   , checks = require(__dirname + '/lib/middleware/checks')
   , standings = require(__dirname + '/lib/services/standings')
+  , consuela = require(__dirname + '/lib/services/consuela')
 
 var database = require(__dirname + '/lib/initializers/database')
   , strategy = require(__dirname + '/lib/initializers/passport')
@@ -103,6 +104,7 @@ function start() {
   });
 }
 
+consuela.start_cleaning();
 start();
 
 exports.app = app;
