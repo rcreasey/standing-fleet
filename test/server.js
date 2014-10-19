@@ -34,6 +34,12 @@ describe('Server', function() {
         .get('/js/lib.js')
         .expect(200, done);
     });
+
+    it('should properly serve 404 for missing static resources', function(done) {
+      request(url)
+        .get('/images/dickbowls.jpg')
+        .expect(404, done);
+    })
   });
 
   describe('Views', function() {
