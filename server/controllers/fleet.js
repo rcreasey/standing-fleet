@@ -127,8 +127,8 @@ exports.poll = function(req, res, next) {
     return response.error(res, 'state', 'Error fetching fleet poll.');
   }
 
-  Member.findOneQ({key: req.session.memberKey})
-    .then(function(member) {
+  var tasks = [
+    Member.findOne({key: req.session.memberKey}).execQ().then(function(member) {
       var events = [];
       var self = req.session.fleet;
       var previous = _.clone(member.toObject())
@@ -139,7 +139,6 @@ exports.poll = function(req, res, next) {
       member.systemId = self.systemId;
       member.regionId = self.regionId;
       member.isDocked = self.isDocked;
-
 
       if (member.isModified()) {
         if (req.session.linked) {
@@ -182,25 +181,19 @@ exports.poll = function(req, res, next) {
             event.saveQ();
           }
         }
-
       }
 
       return events;
+    }),
+    Event.find({fleetKey: req.session.fleetKey, ts: { $lte: moment().unix(), $gte: +req.params.lastPollTs }})
+      .sort({date: 'descending'}).execQ().then(function(events) {
+      return events;
     })
+  ];
+
+  Q.all(tasks)
     .then(function(events) {
-
-      Event.find({fleetKey: req.session.fleetKey, ts: { $lte: moment().unix(), $gte: +req.params.lastPollTs }})
-        .sort({date: 'descending'})
-        .execQ()
-        .then(function(recent_events) {
-          return response.success(res, _.union(events, recent_events));
-        })
-        .catch(function(error) {
-          console.log(error)
-          return response.error(res, 'state', 'Error fetching fleet poll events.');
-        })
-        .done();
-
+      return response.success(res, _.flatten(events, true));
     })
     .catch(function(error) {
       console.log(error)

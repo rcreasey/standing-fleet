@@ -27,8 +27,7 @@ describe('Application: Link', function() {
       .expect(302)
       .end(function(err, res) {
         if (err) return done(err);
-
-        res.text.should.match(/Goonfleet ESA Login/)
+        res.headers.location.should.match(/\/login/);
         done();
       });
   });
