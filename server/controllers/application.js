@@ -65,5 +65,5 @@ exports.unlink = function(req, res, next) {
     delete req.session.lastStatusTs;
   }
 
-  res.redirect('/link');
+  return next();
 }

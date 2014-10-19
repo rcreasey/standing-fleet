@@ -44,7 +44,7 @@ describe('Server', function() {
         .expect(200)
         .end(function(err, res) {
           if (err) return done(err);
-          res.text.match(/<title>Standing Fleet<\/title>/)
+          res.text.should.match(/<title>Standing Fleet<\/title>/)
           done();
         });
     });
@@ -55,7 +55,7 @@ describe('Server', function() {
         .expect(200)
         .end(function(err, res) {
           if (err) return done(err);
-          res.text.match(/Goonfleet ESA Login/)
+          res.text.should.match(/Goonfleet ESA Login/)
           done();
         });
     });

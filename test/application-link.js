@@ -16,7 +16,7 @@ var Fleet = require('../server/models/fleet')
   , Event = require('../server/models/event')
   , Hostile = require('../server/models/hostile')
 
-describe('WIP Application: Link', function() {
+describe('Application: Link', function() {
   var url = 'http://0.0.0.0:5000';
   var igb_headers = require('./fixtures/tarei-ju-.json');
   var updated_igb_headers = require('./fixtures/tarei-s-d.json');
@@ -28,7 +28,7 @@ describe('WIP Application: Link', function() {
       .end(function(err, res) {
         if (err) return done(err);
 
-        res.text.match(/Goonfleet ESA Login/)
+        res.text.should.match(/Goonfleet ESA Login/)
         done();
       });
   });
@@ -53,8 +53,8 @@ describe('WIP Application: Link', function() {
       .expect(200)
       .end(function(err, res) {
         if (err) return done(err);
-        res.text.match(/Link Session To Pilot/)
-        res.text.match(/Hello, tarei/)
+        res.text.should.match(/Link Session To Pilot/)
+        res.text.should.match(/Hello, tarei/)
 
         done();
       });
@@ -112,8 +112,8 @@ describe('WIP Application: Link', function() {
           .expect(200)
           .end(function(err, res) {
             if (err) return done(err);
-            res.text.match(/Link Session To Pilot/)
-            res.text.match(/Hello, tarei/)
+            res.text.should.match(/Link Session To Pilot/)
+            res.text.should.match(/Hello, tarei/)
 
             done();
           });
@@ -127,9 +127,9 @@ describe('WIP Application: Link', function() {
           .expect(200)
           .end(function(err, res) {
             if (err) return done(err);
-            res.text.match(/Link Session To Pilot/);
-            res.text.match(/Hello, tarei/);
-            res.text.match(pilot_key);
+            res.text.should.match(/Link Session To Pilot/);
+            res.text.should.match(/Hello, tarei/);
+            res.text.should.match(pilot_key);
 
             done();
           });
@@ -189,6 +189,97 @@ describe('WIP Application: Link', function() {
             done();
           });
       });
+
+  });
+
+  describe('should successfully unlink a pilot', function(done) {
+      before(function(done) {
+        this.sess_a = new session();
+        this.sess_b = new session();
+        passportStub.install(server.app)
+
+        Q.all([
+          db.models.Fleet.remove().execQ(),
+          db.models.Member.remove().execQ(),
+          db.models.Event.remove().execQ(),
+          db.models.Session.remove().execQ()
+        ])
+          .fin(done);
+
+      });
+      after(function() {
+        this.sess_a.destroy();
+        this.sess_b.destroy();
+      });
+
+      var pilot_key;
+
+      it('when creating a fleet', function(done) {
+        this.sess_a
+          .post('/api/fleet/create')
+          .set(igb_headers)
+          .expect(200, done)
+      });
+
+      it('when checking status of a fleet', function(done) {
+        this.sess_a
+          .get('/api/fleet/status')
+          .set(igb_headers)
+          .expect(200)
+          .end(function(err, res) {
+            if (err) return done(err);
+            res.body.success.should.be.ok;
+            pilot_key = res.body.events[0].data.key;
+
+            done();
+          });
+      });
+
+      it('when logging in to link a pilot', function(done) {
+        passportStub.login({username: 'tarei'});
+
+        this.sess_b
+          .get('/link')
+          .expect(200)
+          .end(function(err, res) {
+            if (err) return done(err);
+            res.text.should.match(/Link Session To Pilot/)
+            res.text.should.match(/Hello, tarei/)
+
+            done();
+          });
+
+      });
+
+      it('when linking to a pilot', function(done) {
+        this.sess_b
+          .post('/link')
+          .send({key: pilot_key})
+          .expect(200)
+          .end(function(err, res) {
+            if (err) return done(err);
+            res.text.should.match(/Link Session To Pilot/);
+            res.text.should.match(/Hello, tarei/);
+            res.text.should.match(pilot_key);
+
+            done();
+          });
+
+      });
+
+      it('when unlinking to a pilot', function(done) {
+        this.sess_b
+          .get('/unlink')
+          .expect(200)
+          .end(function(err, res) {
+            if (err) return done(err);
+            res.text.should.match(/Link Session To Pilot/)
+            res.text.should.match(/Hello, tarei/)
+            res.text.should.not.match(pilot_key);
+
+            done();
+          });
+      })
 
   });
 
