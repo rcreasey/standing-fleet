@@ -6,6 +6,7 @@ exports.index = function(req, res, next) {
 };
 
 exports.login = function(req, res, next) {
+  if (req.isAuthenticated()) return res.redirect('/link');
   res.render('login', { user: req.user, error: req.flash('error') });
 };
 
