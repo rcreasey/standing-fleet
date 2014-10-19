@@ -1,0 +1,5 @@
+--require blanket
+--require should
+--reporter spec
+--ui bdd
+--timeout 15000

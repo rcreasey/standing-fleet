@@ -1,5 +1,9 @@
 <div class="event {{type}}" data-key="{{key}}">
+  {{#if type}}
   <img class="icon" src="/images/icon-{{type}}.png" />
+  {{else}}
+  <i class="fa fa-exclamation-triangle"></i>
+  {{/if}}
   <span class="text">{{{text}}}</span>
   <div class="right">
     {{#if respondable}}

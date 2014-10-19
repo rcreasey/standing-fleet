@@ -33,7 +33,7 @@ a:hover { color: #fff0be }
 /* Fix 'height: 100%;' */
 div#page, div#content-wrapper { position: relative; height: 100%; width: 100%; box-sizing: border-box; }
 
-#bottom-bar, #top-bar { width: 100%; }
+#bottom-bar, #top-bar { width: 100%; -webkit-app-region: drag; }
 
 #top-menu, #top-bar { top: 0 }
 #bottom-bar, #bottom-menu { bottom: 0 }
@@ -105,7 +105,15 @@ div#page, div#content-wrapper { position: relative; height: 100%; width: 100%; b
 	bottom: 2.5rem;
 	right: 0;
 	width: 70%;
-	max-width: 450px;
+	max-width: 550px;
+}
+
+#error {
+	z-index: 10;
+	position: fixed;
+	bottom: 2.5rem;
+	right: 0;
+	width: 100%;
 }
 
 .btn {
@@ -447,7 +455,7 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
  */
 
 .event {
-	color: #bbb;
+	color: #ccc;
 	clear: both;
 	border-top: 0.16rem solid #555;
 	background-color: #333;
@@ -458,6 +466,13 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	padding: 0.2rem 0.5rem;
 }
 
+/*.event i {
+	line-height: 2rem;
+	float: left;
+	margin-left: 0.5rem;
+}*/
+
+.event i,
 .event img.icon {
 	position: absolute;
 	top: 0.7rem;
@@ -626,6 +641,7 @@ a.button:hover,
 	margin: 0 auto;
 }
 
+code.error,
 .panel .error {
 	display: block;
 	padding: 1rem;

@@ -7,41 +7,63 @@
   "license": "MIT",
   "repository": "git@github.com:rcreasey/standing-fleet.git",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "start": "node_modules/.bin/nf start",
+    "test": "foreman run mocha -e test/env"
+  },
+  "config": {
+    "blanket": {
+      "pattern": "/server/"
+    }
   },
   "engines": {
     "node": "0.10.x"
   },
   "dependencies": {
-    "async": "0.2.10",
+    "body-parser": "~1.0.0",
     "chunk": "0.0.1",
+    "compression": "^1.0.11",
     "connect-flash": "^0.1.1",
-    "express": "3.10.x",
-    "gulp": "^3.8.7",
-    "gulp-concat": "^2.3.4",
-    "gulp-declare": "^0.3.0",
-    "gulp-handlebars": "^2.2.0",
-    "gulp-minify-css": "0.3.7",
-    "gulp-order": "^1.1.1",
-    "gulp-rename": "1.2.0",
-    "gulp-uglify": "0.3.1",
-    "gulp-util": "^3.0.1",
-    "gulp-wrap": "^0.3.0",
+    "cookie-parser": "~1.0.1",
+    "debug": "~0.7.4",
+    "express": "4.2.x",
+    "express-session": "^1.8.2",
     "jade": "^1.5.0",
     "lodash": "2.4.1",
-    "main-bower-files": "^2.0.0",
-    "mongodb": "1.3.23",
+    "moment": "^2.8.3",
+    "mongoose": "^3.8.16",
+    "mongoose-q": "0.0.13",
+    "mongoose-session": "0.0.1",
+    "morgan": "~1.0.0",
     "neow": "1.0.0",
-    "newrelic": "1.8.0",
+    "newrelic": "^1.11.2",
     "passport": "^0.2.0",
     "pkginfo": "^0.3.0",
     "q": "1.0.1",
     "raw-body": "~1.1.3",
     "request": "2.37.0",
-    "simple-ioc": "2.4.3",
+    "serve-favicon": "^2.1.5",
     "xml2js": "0.4.4"
   },
   "devDependencies": {
-    "gulp-watch": "0.6.9"
+    "blanket": "^1.1.6",
+    "gulp": "^3.8.7",
+    "gulp-concat": "^2.4.1",
+    "gulp-declare": "^0.3.0",
+    "gulp-handlebars": "^2.2.0",
+    "gulp-minify-css": "^0.3.10",
+    "gulp-order": "^1.1.1",
+    "gulp-rename": "1.2.0",
+    "gulp-uglify": "^1.0.1",
+    "gulp-util": "^3.0.0",
+    "gulp-watch": "0.6.9",
+    "gulp-wrap": "^0.3.0",
+    "main-bower-files": "^2.0.0",
+    "mocha": "^1.21.4",
+    "passport-stub": "^1.0.1",
+    "should": "^4.0.4",
+    "superagent": "^0.20.0",
+    "supertest": "^0.14.0",
+    "supertest-session": "0.0.5",
+    "winston": "^0.8.1"
   }
 }

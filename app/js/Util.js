@@ -25,11 +25,8 @@ var Util = {
 		return $('<div/>').append(returnElement).html();
 	},
 
-	getTime: function (ts) {
-		var date = ts ? new Date(ts) : new Date();
-		date = new Date(date.getTime() + (date.getTimezoneOffset() * 60000));
-
-		return ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2);
+	getTime: function () {
+		return moment().utc().format('HH:mm:ss');
 	},
 
 	escapeHTML: function (string) {
@@ -42,16 +39,16 @@ var Util = {
 
 	getUrlKey: function () {
 		var url = window.location.href,
-			match = url.match(/[A-z0-9]{16}/);
+			match = url.match(/[A-z0-9]{17}/);
 
 		return match ? match[0] : false;
 	},
 
-	redirectToKeyUrl: function (armadaKey) {
+	redirectToKeyUrl: function (fleetKey) {
 		window.location = location.protocol
 			+ '//' + location.hostname
 			+ (location.port ? ':' + location.port : '')
-			+ '/' + armadaKey + '/';
+			+ '/' + fleetKey + '/';
 	},
 
 	redirectToBasePath: function () {
@@ -68,11 +65,11 @@ var Util = {
 			+ '/login/';
 	},
 
-	redirectIfNecessary: function (armadaKey, callback) {
-		if (!!armadaKey !== !!Util.getUrlKey() || armadaKey !== Util.getUrlKey()) {
+	redirectIfNecessary: function (fleetKey, callback) {
+		if (!!fleetKey !== !!Util.getUrlKey() || fleetKey !== Util.getUrlKey()) {
 			UIPanels.showLoadingPanel('Redirecting to Standing Fleet URL...', function () {
-				setTimeout($.proxy(Util.redirectToKeyUrl, null, armadaKey),
-					Data.config.pollInterval);
+				setTimeout($.proxy(Util.redirectToKeyUrl, null, fleetKey), 2);
+					// Data.config.pollInterval);
 			});
 		} else {
 			callback();

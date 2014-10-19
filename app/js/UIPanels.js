@@ -15,7 +15,7 @@ var UIPanels = {
 	},
 
 	showMenuPanel: function(callback) {
-		var fleet_link = Data.config.domain + Data.state.armada.key + '/';
+		var fleet_link = Data.config.domain + Data.state.fleet.key + '/';
 
 		var panel = {
 			type: 'options',
@@ -24,16 +24,16 @@ var UIPanels = {
 			footer: '&copy; 2014 Goonswarm Federation',
 			closeable: true,
 			formitems: [
-				{button: {legend: 'Fleet Actions', class: 'reload-armada no-margin', text: 'Reload Standing Fleet', onClick: 'location.reload()'}},
-				{button: {class: 'leave-armada', text: 'Leave Standing Fleet', onClick: 'leaveArmada()'}},
+				{button: {legend: 'Fleet Actions', class: 'reload-fleet no-margin', text: 'Reload Standing Fleet', onClick: 'location.reload()'}},
+				{button: {class: 'leave-fleet', text: 'Leave Standing Fleet', onClick: 'leaveFleet()'}},
 				{input:  {legend: 'Pilot Key', label: 'Pilot Key', class: 'info-string', value: Data.state.self.key, readonly: true}},
-				{input:  {legend: 'Fleet Key', label: 'Fleet Key', class: 'info-string', value: Data.state.armada.key, readonly: true}},
+				{input:  {legend: 'Fleet Key', label: 'Fleet Key', class: 'info-string', value: Data.state.fleet.key, readonly: true}},
 				{input:  {legend: 'Fleet URL', label: 'Fleet URL', class: 'info-string', value: fleet_link, readonly: true}}
 			]
 		};
 
-		if (Data.state.armada.password) panel.formitems.push( {input:  {legend: 'Fleet Password', label: 'Fleet Password', class: 'info-string',
-																																		value: Data.state.armada.password, readonly: true}} );
+		if (Data.state.fleet.password) panel.formitems.push( {input:  {legend: 'Fleet Password', label: 'Fleet Password', class: 'info-string',
+																																		value: Data.state.fleet.password, readonly: true}} );
 
 		UIPanels.showPanel(panel, callback);
 	},
@@ -45,7 +45,7 @@ var UIPanels = {
 			formitems: [
 				{button: {class: 'submit-create', text: 'Create Fleet', onClick: 'UIPanels.showCreatePanel()'}},
 				{submit: {class: 'submit-join', text: 'Join Fleet', onClick: 'UIPanels.showJoinPanel()'}},
-				{button: {class: 'leave-armada', text: 'Leave Standing Fleet', onClick: 'leaveArmada()'}},
+				{button: {class: 'leave-fleet', text: 'Leave Standing Fleet', onClick: 'leaveFleet()'}},
 			],
 			error: error
 		};
@@ -87,13 +87,12 @@ var UIPanels = {
 		var panel = {
 			type: 'password',
 			logo: true,
-			text: 'Authorization required.',
+			error: {message: 'Authorization required.'},
 			formitems: [
 				{input:  {label: 'Fleet Password', id: 'join-fleet-password', class: 'submit-key'}},
 				{button: {class: 'submit-key', text: 'Join Fleet', onClick: 'submitPasswordButtonClick(this)'}},
 				{submit: {class: 'submit-join', text: '<i class="fa fa-arrow-circle-left"></i> Cancel', onClick: 'UIPanels.redirectToBasePath()'}}
 			],
-	 		error: error
 	 	};
 
 	 	UIPanels.showPanel(panel, callback);
@@ -105,12 +104,12 @@ var UIPanels = {
 		var panel = {
 			type: 'options',
 			image: 'panel-options.png',
-			title: hostile.name,
+			title: hostile.characterName,
 			text: 'Confirm details of hostile pilot:',
 			formitems: [
 				{input:  {hidden: true, id: 'hostile-key', value: hostile.key}},
-				{input:  {hidden: true, id: 'hostile-id', value: hostile.id}},
-				{input:  {hidden: true, id: 'hostile-name', value: hostile.name}},
+				{input:  {hidden: true, id: 'hostile-id', value: hostile.characterId}},
+				{input:  {hidden: true, id: 'hostile-name', value: hostile.characterName}},
 				{input:  {label: 'Ship Type', id: 'hostile-ship-type', value: hostile.shipType} },
 				{submit: {text: 'Update Details', onClick: 'submitHostileDetailsClick(this)'}}
 			],
@@ -196,7 +195,7 @@ var UIPanels = {
 				.fadeIn(Data.config.uiSpeed, function () {
 					$(this).find('.textinput').focus().on('keydown', function (event) {
 						if (event.keyCode == 13) {
-							$(this).siblings('.submit-join, .submit-scan').click();
+							$(this).siblings('.submit').children('a').click();
 							return false;
 						}
 					});
@@ -207,9 +206,17 @@ var UIPanels = {
 
 			compiledPanel.appendTo(Data.ui.dim);
 			UI.dim(function () {
+				// text input fields
 				compiledPanel.find('.textinput').focus().on('keydown', function (event) {
 					if (event.keyCode == 13) {
-						$(this).siblings('.submit-join, .submit-scan').click();
+						$(this).siblings('.submit').children('a').click();
+						return false;
+					}
+				});
+				// typeahead fields
+				compiledPanel.find('.tt-input').focus().on('keydown', function (event) {
+					if (event.keyCode == 13) {
+						$(this).parentsUntil('.group').parent().siblings('.submit').children('a').click();
 						return false;
 					}
 				});

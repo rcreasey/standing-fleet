@@ -6,31 +6,33 @@ var Data = {
 	scans: [],
 
 	config: {
+		data_client: 'http://127.0.0.1:44444/',
 		domain: 'https://standing-fleet.herokuapp.com/',
-		apiUrl: '/api',
+		apiUrl: '/api/fleet',
 		alertStay: 5000,
-		pollInterval: 10000,
-		maxEvents: 20,
+		pollInterval: 7000,
+		maxEvents: 50,
 		maxScans: 8,
 		uiSpeed: 400,
 		log: 'console'
 	},
 
 	state: {
-		armada: {
+		fleet: {
 			password: '',
 			name: '',
 			key: ''
 		},
 		self: {
-			name: '',
-			id: '',
+			characterName: '',
+			characterId: '',
 			key: '',
 			systemId: ''
 		},
 		alertCount: 0,
+		data_client: null,
 		dimmed: false,
-		lastPollTs : Date.now(),
+		lastPollTs : moment().unix(),
 		memberSortOrder: {
 			property: 'name',
 			order: 'asc'

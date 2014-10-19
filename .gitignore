@@ -1,5 +1,8 @@
 .DS_Store
 node_modules
+cache
+build
 vendor
 .env
 *.log
+coverage.html

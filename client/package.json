@@ -1,0 +1,25 @@
+{
+  "name": "standing-fleet-client",
+  "description": "Intelligence visualized",
+  "repository": "git@github.com:rcreasey/standing-fleet.git",
+  "version": "0.0.1",
+  "main": "index.html",
+  "window": {
+    "show": false,
+    "toolbar": true,
+    "frame": true,
+    "position": "center",
+    "width": 360,
+    "height": 300,
+    "min_width": 220,
+    "min_height": 220
+  },
+  "dependencies": {
+    "faye": "^1.0.3",
+    "moment": "^2.8.3",
+    "tail": "^0.4.0"
+  },
+  "devDependencies": {
+    "node-webkit-builder": "^0.1.3"
+  }
+}

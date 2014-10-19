@@ -6,7 +6,7 @@ var EventHandler = {
 		'statusMembers',
 		'statusEvents',
 		'statusSelf',
-		'statusArmada',
+		'statusFleet',
 		'memberAccepted',
 		'memberUpdated'
 	],
@@ -38,63 +38,62 @@ var EventHandler = {
 			var reported = event.data;
 			if ( reported.length === 1 ) {
 				var hostile = reported[0];
-				event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
-					+ hostile.id + ');">' + hostile.name + '</a> has been reported in '
-					+ '<a href="javascript:CCPEVE.showInfo(5, ' + hostile.systemId + ');">'
-					+ hostile.systemName + '</a>';
+				if (hostile) event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
+						+ hostile.characterId + ');">' + hostile.characterName + '</a> has been reported in '
+						+ '<a href="javascript:CCPEVE.showInfo(5, ' + hostile.systemId + ');">'
+						+ hostile.systemName + '</a>';
 			} else {
 				event.text = reported.length + ' hostiles have been reported in '
 					+ '<a href="javascript:CCPEVE.showInfo(5, ' + reported[0].systemId + ');">'
 					+ reported[0].systemName + '</a>';
 			}
-			event.text += ' by ' + '<a href="javascript:CCPEVE.showInfo(1377, '
-								 + reported[0].reporterId + ');">' + reported[0].reporterName + '</a>';
+			if (reported[0]) event.text += ' by ' + '<a href="javascript:CCPEVE.showInfo(1377, '
+					+ reported[0].reporterId + ');">' + reported[0].reporterName + '</a>';
 			event.blink = 'hostiles';
 			event.alert = true;
 
 		} else if (event.type === 'reportClear') {
 			var reported = event.data;
 			event.text = '<a href="javascript:CCPEVE.showInfo(5, ' + reported.systemId + ');">'
-					+ reported.systemName + '</a> was reported clear';
+									 + reported.systemName + '</a> was reported clear';
 			event.text += ' by ' + '<a href="javascript:CCPEVE.showInfo(1377, '
-								+ reported.reporterId + ');">' + reported.reporterName + '</a>';
+								  	+ reported.reporterId + ');">' + reported.reporterName + '</a>';
 			event.blink = 'hostiles';
 			event.alert = true;
 
 		} else if (event.type === 'updateHostile') {
 			var hostile = event.data;
-			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
-				+ hostile.id + ');">' + hostile.name + '</a> has been identified in a '
-				+ '<a href="javascript:CCPEVE.showInfo(' + hostile.shipTypeId + ');">' + hostile.shipType + '</a> in '
-				+ '<a href="javascript:CCPEVE.showInfo(5, ' + hostile.systemId + ');">' + hostile.systemName + '</a>';
+			if (hostile) event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
+					+ hostile.characterId + ');">' + hostile.characterName + '</a> has been identified in a '
+					+ '<a href="javascript:CCPEVE.showInfo(' + hostile.shipTypeId + ');">' + hostile.shipType + '</a> in '
+					+ '<a href="javascript:CCPEVE.showInfo(5, ' + hostile.systemId + ');">' + hostile.systemName + '</a>';
 			event.blink = 'hostiles';
 			event.alert = true;
-
 		} else if (event.type === 'memberJoined') {
 			var member = event.data;
 			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
-				+ member.id + ');">' + member.name + '</a> joined the Standing Fleet';
+				+ member.characterId + ');">' + member.characterName + '</a> joined the Standing Fleet';
 			event.blink = 'members';
 			event.alert = true;
 
 		} else if (event.type === 'memberLeft') {
 			var member = event.data;
 			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
-				+ member.id + ');">' + member.name + '</a> left the Standing FLeet';
+				+ member.characterId + ');">' + member.characterName + '</a> left the Standing Fleet';
 			event.blink = 'members';
 			event.alert = true;
 
 		} else if (event.type === 'memberTimedOut') {
 			var member = event.data;
 			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
-				+ member.id + ');">' + member.name + '</a> timed out';
+				+ member.characterId + ');">' + member.characterName + '</a> timed out';
 			event.blink = 'members';
 			event.alert = true;
 
 		} else if (event.type === 'hostileTimedOut') {
 			var hostile = event.data;
 			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
-				+ hostile.id + ');">' + hostile.name + '</a> faded in '
+				+ hostile.characterId + ');">' + hostile.characterName + '</a> faded in '
 				+ '<a href="javascript:CCPEVE.showInfo(5, ' + hostile.systemId + ');">'
 				+ hostile.systemName + '</a>';
 			event.blink = 'hostiles';
@@ -103,22 +102,22 @@ var EventHandler = {
 		} else if (event.type === 'scanPosted') {
 			var scan = event.data;
 			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
-				+ scan.reporterId + ');">' + scan.reporter + '</a> shared scan results from '
+				+ scan.reporterId + ');">' + scan.reporterName + '</a> shared scan results from '
 				+ '<a href="javascript:CCPEVE.showInfo(5, ' + scan.systemId + ');">'
 				+ scan.systemName + '</a>';
 			event.blink = 'scans';
 			event.alert = true;
 
-		} else if (event.type === 'armadaCreated') {
+		} else if (event.type === 'fleetCreated') {
 			var creator = event.data;
 			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
-				+ creator.id + ');">' + creator.name + '</a> created this fleet ';
+				+ creator.characterId + ');">' + creator.characterName + '</a> created this fleet ';
 			event.alert = true;
 
 		} else if (event.type === 'shipLost') {
 			var member = event.data;
 			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
-				+ member.id + ');">' + member.name + '</a> lost a '
+				+ member.characterId + ');">' + member.characterName + '</a> lost a '
 				+ '<a href="javascript:CCPEVE.showInfo('
 				+ member.shipTypeId + ');">' + member.shipTypeName + '</a>';
 			event.alert = true;
@@ -126,7 +125,7 @@ var EventHandler = {
 		} else if (event.type === 'updateSystemMap' ) {
 			var target = event.data;
 			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
-				+ target.id + ');">' + target.name + '</a> has moved into '
+				+ target.characterId + ');">' + target.characterName + '</a> has moved into '
 				+ '<a href="javascript:CCPEVE.showInfo(5, ' + target.systemId + ');">'
 				+ target.systemName + '</a>';
 			event.alert = true;
@@ -134,14 +133,14 @@ var EventHandler = {
 	},
 
 	memberJoined: function (member) {
-		MemberList.removeMember(member.id);
+		MemberList.removeMember(member.characterId);
 		MemberList.addMember(member);
 		MemberList.sortAndRenderAll();
 		SystemMap.refreshSystems();
 	},
 
 	memberTimedOut: function (member) {
-		MemberList.removeMember(member.id);
+		MemberList.removeMember(member.characterId);
 		MemberList.sortAndRenderAll();
 		SystemMap.refreshSystems();
 	},
@@ -153,7 +152,7 @@ var EventHandler = {
 	},
 
 	memberLeft: function (member) {
-		MemberList.removeMember(member.id)
+		MemberList.removeMember(member.characterId)
 		MemberList.sortAndRenderAll();
 		SystemMap.refreshSystems();
 	},
@@ -165,7 +164,7 @@ var EventHandler = {
 	},
 
 	hostileTimedOut: function (hostile) {
-		HostileList.removeMember(hostile.id);
+		HostileList.removeMember(hostile.characterId);
 		HostileList.sortAndRenderAll();
 		SystemMap.refreshSystems();
 	},
@@ -183,8 +182,8 @@ var EventHandler = {
 	},
 
 	statusSelf: function (self) {
-		Data.state.self.name = self.name;
-		Data.state.self.id = self.id;
+		Data.state.self.characterName = self.characterName;
+		Data.state.self.characterId = self.characterId;
 		Data.state.self.key = self.key;
 		if (self.systemId) this.statusSelfSystem(self);
 	},
@@ -196,10 +195,10 @@ var EventHandler = {
 		}
 	},
 
-	statusArmada: function (armada) {
-		Data.state.armada.name = armada.name;
-		Data.state.armada.key = armada.key;
-		Data.state.armada.password = armada.password;
+	statusFleet: function (fleet) {
+		Data.state.fleet.name = fleet.name;
+		Data.state.fleet.key = fleet.key;
+		Data.state.fleet.password = fleet.password;
 
 		SystemMap.init();
 	},
@@ -228,13 +227,13 @@ var EventHandler = {
 	},
 
 	updateSystemMap: function (target) {
-    if(Data.state.self.id === target.id) {
-      if(Data.state.self.regionId !== Data.systems[target.systemId].regionID) {
-        this.statusSelfSystem(target);
+    if(Data.state.self.characterId == target.characterId) {
+			this.statusSelfSystem(target);
+
+      if(Data.state.self.regionId != Data.systems[target.systemId].regionID) {
         SystemMap.redraw();
       }
       else {
-        this.statusSelfSystem(target);
         SystemMap.updateCurrent();
         SystemMap.refreshSystems();
       }

@@ -13,9 +13,10 @@ gulp.task('prepare', function() {
   gulp.src('app/**/*.css')
     .pipe(gutil.env.type === 'production' ? minifycss() : gutil.noop())
     .pipe(concat('css/style.css'))
-    .pipe(gulp.dest('public'));
+    .pipe(gulp.dest('public'))
+    .pipe(gulp.dest('client'));
 
-  gulp.src('app/**/*.js')
+  gulp.src('app/js/*.js')
     .pipe(order([
       'js/Util.js',
       'js/UI.js',
@@ -32,12 +33,24 @@ gulp.task('prepare', function() {
     ]))
     .pipe(concat('js/app.js'))
     .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
-    .pipe(gulp.dest('public'));
+    .pipe(gulp.dest('public'))
+
+  gulp.src('app/js/client/*.js')
+    .pipe(order([
+      'js/client/Util.js',
+      'js/client/UI.js',
+      'js/client/UIPanels.js',
+      'js/client/Data.js',
+      'js/client/Main.js'
+    ]))
+    .pipe(concat('js/client.js'))
+    .pipe(gulp.dest('client'));
 
   gulp.src(mainBowerFiles())
     .pipe(concat('js/lib.js'))
     .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
-    .pipe(gulp.dest('public'));
+    .pipe(gulp.dest('public'))
+    .pipe(gulp.dest('client'));
 
   gulp.src('app/templates/*.hbs')
     .pipe(handlebars())
@@ -48,7 +61,8 @@ gulp.task('prepare', function() {
     }))
     .pipe(concat('js/templates.js'))
     .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
-    .pipe(gulp.dest('public'));
+    .pipe(gulp.dest('public'))
+    .pipe(gulp.dest('client'));
 });
 
 gulp.task('default', function() {
@@ -69,3 +83,18 @@ gulp.task('heroku:production', function() {
 gulp.task('watch', function () {
    gulp.watch('app/**', ['default']);
 });
+
+gulp.task('build', function() {
+  var nwbuilder = require('node-webkit-builder')
+
+  var nw = new nwbuilder({
+    files: './client/**/**',
+    platforms: ['win','osx']
+  });
+
+  nw.build().then(function () {
+    console.log('all done!');
+  }).catch(function (error) {
+    console.error(error);
+  });
+})

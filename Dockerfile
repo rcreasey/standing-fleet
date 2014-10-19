@@ -9,10 +9,8 @@ RUN npm install
 ENV PORT 5000
 ENV COOKIE_SECRET cookiesekrets
 ENV SESSION_SECRET sessionsekrets
-ENV STORAGE_MODE memory
 
 EXPOSE 5000
 
 CMD ["$PORT"]
 ENTRYPOINT ["node", "server.js"]
-

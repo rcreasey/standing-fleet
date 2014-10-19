@@ -1,6 +1,16 @@
 $(function () {
 	UI.registerEventHandlers();
 	initialize();
+
+	try {
+		Data.state.data_client = new Faye.Client(Data.config.data_client);
+		Data.state.data_client.subscribe('/events', function(event) {
+			EventList.addEvent(event);
+		});
+	} catch(err) {
+		console.log('Unable to connect to local data client...')
+	}
+
 });
 
 function initialize() {
@@ -35,16 +45,16 @@ function initialize() {
 
 			EventHandler.dispatchEvents(data.events);
 
-			if (Data.state.armada.key) {
+			if (Data.state.fleet.key) {
 				EventList.addEvent({ type: 'youJoined', text: 'You opened this standing fleet', alert: false });
 
-				Util.redirectIfNecessary(Data.state.armada.key, function () {
+				Util.redirectIfNecessary(Data.state.fleet.key, function () {
 					UIPanels.hidePanel(pollLoop);
 				});
 
 			} else {
 				if (Util.getUrlKey()) {
-					joinArmada(Util.getUrlKey());
+					joinFleet(Util.getUrlKey());
 				} else {
 					UIPanels.showStartPanel();
 				}
@@ -54,13 +64,13 @@ function initialize() {
 }
 
 function createFleetButtonClick(button) {
-	var armadaPassword = $('#create-fleet-password').val();
-	createArmada(armadaPassword);
+	var fleetPassword = $('#create-fleet-password').val();
+	createFleet(fleetPassword);
 }
 
-function createArmada(armadaPassword) {
-	UIPanels.showLoadingPanel('Creating new armada...', function () {
-		Server.createArmada(armadaPassword, function(error, data) {
+function createFleet(fleetPassword) {
+	UIPanels.showLoadingPanel('Creating new fleet...', function () {
+		Server.createFleet(fleetPassword, function(error, data) {
 			if (error) {
 				UIPanels.showCreatePanel(error);
 				return;
@@ -72,14 +82,14 @@ function createArmada(armadaPassword) {
 }
 
 function joinFleetButtonClick(button) {
-	var armadaKey = $('#join-fleet-key').val();
-	joinArmada(armadaKey);
+	var fleetKey = $('#join-fleet-key').val();
+	joinFleet(fleetKey);
 }
 
-function joinArmada(armadaKey) {
+function joinFleet(fleetKey) {
 	UIPanels.showLoadingPanel('Searching for fleet...', function () {
-		Server.joinArmada(armadaKey, function(error, data) {
-			Data.state.armada.key = armadaKey;
+		Server.joinFleet(fleetKey, function(error, data) {
+			Data.state.fleet.key = fleetKey;
 			if (error) {
 				if (error.type === 'password') UIPanels.showPasswordPanel();
 				else UIPanels.showJoinPanel(error);
@@ -92,16 +102,16 @@ function joinArmada(armadaKey) {
 }
 
 function submitPasswordButtonClick(button) {
-	var armadaPassword = $('#join-fleet-password').val();
-	submitPassword(armadaPassword);
+	var fleetPassword = $('#join-fleet-password').val();
+	submitPassword(fleetPassword);
 }
 
-function submitPassword(armadaPassword) {
-	var armadaKey = Util.getUrlKey();
-	if (!armadaKey) armadaKey = Data.state.armada.key;
+function submitPassword(fleetPassword) {
+	var fleetKey = Util.getUrlKey();
+	if (!fleetKey) fleetKey = Data.state.fleet.key;
 
 	UIPanels.showLoadingPanel('Authenticating...', function () {
-		Server.joinArmadaWithPassword(armadaKey, armadaPassword, function (error, data) {
+		Server.joinFleetWithPassword(fleetKey, fleetPassword, function (error, data) {
 			if (error) {
 				if (error.type === 'password') UIPanels.showPasswordPanel(error);
 				else UIPanels.showJoinPanel(error);
@@ -187,7 +197,7 @@ function submitHostileDetailsClick(button) {
 
 function submitHostileDetails(key, id, name, shipType, shipName) {
 	UIPanels.showLoadingPanel('Uploading status...', function () {
-		var details = {type: 'hostile', key: key, id: id, name: name, shipType: shipType, shipName: shipName};
+		var details = {type: 'hostile', key: key, characterId: id, characterName: name, shipType: shipType, shipName: shipName};
 
 		Server.postDetails(details, function(error, data) {
 			UIPanels.hidePanel(function () {
@@ -198,16 +208,16 @@ function submitHostileDetails(key, id, name, shipType, shipName) {
 
 				EventList.addEvent({ type: 'info', class: status.text,
 														text: 'Details were reported on <strong>' +
-																	'<a href="javascript:CCPEVE.showInfo(1377, ' + details.id + ')">' +
-																	details.name + '</a> by you.' });
+																	'<a href="javascript:CCPEVE.showInfo(1377, ' + details.characterId + ')">' +
+																	details.characterName + '</a> by you.' });
 			});
 		});
 	});
 }
 
-function leaveArmada() {
+function leaveFleet() {
 	UIPanels.showLoadingPanel('Leaving Standing Fleet...', function () {
-		Server.leaveArmada(function(error, data) {
+		Server.leaveFleet(function(error, data) {
 			if (error) {
 				handleError(error);
 				UIPanels.hidePanel();
@@ -239,7 +249,10 @@ function stopPolling() {
 
 function handleError (error) {
 	log(error.message);
-	if (error.stopPoll) Data.poll = false;
+	if (error.stopPoll) {
+		Data.poll = false;
+		stopPolling();
+	}
 	if (error.message) UI.showAlert({
 		type: 'error',
 		text: error.message
@@ -256,7 +269,7 @@ function log(message) {
 		});
 
 	} else if (Data.config.log === 'console') {
-		console.log('[' + Date.now() + '] - ' + message)
+		console.log('[' + moment().unix() + '] - ' + message)
 	}
 }
 

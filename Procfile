@@ -1,2 +1,2 @@
-web: node . $PORT
+web: node server $PORT
 gulp: gulp watch

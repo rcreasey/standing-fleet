@@ -1,0 +1,44 @@
+{
+  "scanData": {
+    "classes": [
+      { "shipClass": "frigate",
+        "count": "1",
+        "details": [
+          { "distance": "7 729 m",
+            "shipClass": "Magnate",
+            "shipName": "Gerius Semah Magnate"
+          }
+        ]
+      },
+      { "shipClass": "freighter",
+        "count": "1",
+        "details": [
+          { "distance": "11 km",
+            "shipClass": "Fenrir",
+            "shipName": "KOPbITO"
+          }
+        ]
+      }
+    ],
+    "types": [
+      { "shipType": "Magnate",
+        "count": "1",
+        "details": [
+          { "distance": "7 729 m",
+            "shipClass": "Magnate",
+            "shipName": "Gerius Semah Magnate"
+          }
+        ]
+      },
+      { "shipType": "Fenrir",
+        "count": "1",
+        "details": [
+          { "distance": "11 km",
+            "shipClass": "Fenrir",
+            "shipName": "KOPbITO"
+          }
+        ]
+      }
+    ]
+  }
+}
