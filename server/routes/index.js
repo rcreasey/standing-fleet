@@ -6,36 +6,35 @@ var express = require('express')
   , application = require(__dirname + '/../controllers/application')
 
 router.route('/login')
-      .get(validate.is_authenticated)
-      .get(application.login );
+  .get(application.login);
 
 router.route('/login')
-      .post(passport.authenticate('atlassian-crowd',
-              { failureRedirect:'/login', failureFlash:"Invalid username or password." }))
-      .post(application.authenticate);
+  .post(passport.authenticate('atlassian-crowd',
+  { failureRedirect:'/login', failureFlash:"Invalid username or password." }))
+  .post(application.authenticate);
 
 router.route('/logout')
-      .get(application.logout);
+  .get(application.logout);
 
 router.route('/link')
-      .get(validate.is_authenticated)
-      .get(application.link);
+  .get(validate.is_authenticated)
+  .get(application.link);
 
 router.route('/link')
-      .post(validate.is_authenticated)
-      .post(application.link_pilot)
-      .post(application.link);
+  .post(validate.is_authenticated)
+  .post(application.link_pilot)
+  .post(application.link);
 
 router.route('/unlink')
-      .get(validate.is_authenticated)
-      .get(application.unlink)
-      .get(application.link);
+  .get(validate.is_authenticated)
+  .get(application.unlink)
+  .get(application.link);
 
 router.route('/:fleetKey/?')
-      .get(application.index);
+  .get(application.index);
 
 router.route('/')
-      .get(validate.igb)
-      .get(application.index);
+  .get(validate.igb)
+  .get(application.index);
 
 module.exports = router;

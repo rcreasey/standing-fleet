@@ -66,3 +66,11 @@ var is_authenticated = function(req, res, next) {
   return res.redirect('/login');
 };
 module.exports.is_authenticated = is_authenticated;
+
+var redirect_if_authenticated = function(location) {
+  return function(req, res, next) {
+    if (req.isAuthenticated()) return res.redirect(location);
+    return next();
+  }
+};
+module.exports.redirect_if_authenticated = redirect_if_authenticated;
