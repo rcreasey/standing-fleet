@@ -106,19 +106,6 @@ describe('Server', function() {
       });
     });
 
-    describe('Check Authentication', function() {
-      it('should redirect to login for non-authenticated requests', function(done) {
-        request(url)
-          .get('/link')
-          .expect(302)
-          .end(function(err, res) {
-            if (err) return done(err);
-            res.headers.location.should.match(/\/login/);
-            done();
-          });
-
-      });
-    });
   });
 
 });

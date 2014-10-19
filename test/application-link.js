@@ -9,6 +9,7 @@ var server = require('../server')
   , session = require('supertest-session')({app: server.app})
   , moment = require('moment')
   , _ = require('lodash')
+  , passportStub = require('passport-stub')
 
 var Fleet = require('../server/models/fleet')
   , Member = require('../server/models/member')
@@ -18,6 +19,7 @@ var Fleet = require('../server/models/fleet')
 describe('WIP Application: Link', function() {
   var url = 'http://0.0.0.0:5000';
   var igb_headers = require('./fixtures/tarei-ju-.json');
+  var updated_igb_headers = require('./fixtures/tarei-s-d.json');
 
   it('should redirect to /login for unlinked non-igb requests to /', function(done) {
     request(url)
@@ -26,103 +28,162 @@ describe('WIP Application: Link', function() {
       .end(function(err, res) {
         if (err) return done(err);
 
-        console.log(res.body);
         res.text.match(/Goonfleet ESA Login/)
         done();
       });
   });
 
-  // describe('should get reportHostile events', function() {
-  //   before(function() { this.sess = new session(); });
-  //   after(function() { this.sess.destroy(); });
-  //
-  //   var fleet_key;
-  //
-  //   it('when creating a fleet', function(done) {
-  //     this.sess
-  //       .post('/api/fleet/create')
-  //       .set(igb_headers)
-  //       .expect(200, done)
-  //   });
-  //
-  //   it('when checking status of a fleet', function(done) {
-  //     this.sess
-  //       .get('/api/fleet/status')
-  //       .set(igb_headers)
-  //       .expect(200)
-  //       .end(function(err, res) {
-  //         if (err) return done(err);
-  //         res.body.success.should.be.ok;
-  //         fleet_key = res.body.fleetKey;
-  //         done();
-  //       });
-  //   });
-  //
-  //   it('when submitting a report', function(done) {
-  //     this.sess
-  //       .post('/api/fleet/status')
-  //       .set(igb_headers)
-  //       .send({
-  //         scanData: {
-  //           systemId: igb_headers.EVE_SOLARSYSTEMID,
-  //           systemName: igb_headers.EVE_SOLARSYSTEMNAME,
-  //           reporterId: igb_headers.EVE_CHARID,
-  //           reporterName: igb_headers.EVE_CHARNAME,
-  //           text: 'validate',
-  //           data: ['SirMolle', igb_headers.EVE_CHARNAME]
-  //         }
-  //       })
-  //       .expect(200)
-  //       .end(function(err, res) {
-  //         if (err) return done(err);
-  //         res.body.success.should.be.ok;
-  //         done();
-  //       });
-  //
-  //   });
-  //
-  //   it('when checking fleet status', function(done) {
-  //     this.sess
-  //       .get('/api/fleet/status')
-  //       .set(igb_headers)
-  //       .expect(200)
-  //       .end(function(err,res) {
-  //         if (err) return done(err);
-  //
-  //         res.body.success.should.be.ok;
-  //         res.body.should.have.property('events').with.lengthOf(6);
-  //         res.body.events[0].should.have.property('type', 'statusSelf');
-  //         res.body.events[1].should.have.property('type', 'statusFleet');
-  //         res.body.events[2].should.have.property('type', 'statusEvents');
-  //         res.body.events[3].should.have.property('type', 'statusMembers');
-  //         res.body.events[4].should.have.property('type', 'statusHostiles');
-  //         res.body.events[5].should.have.property('type', 'statusScans');
-  //
-  //         res.body.events[4].should.have.property('data').with.lengthOf(1)
-  //
-  //         done();
-  //       });
-  //   });
-  //
-  //   it('when polling a fleet', function(done) {
-  //     this.sess
-  //       .get('/api/fleet/poll/' + moment().unix())
-  //       .set(igb_headers)
-  //       .expect(200)
-  //       .end(function(err, res) {
-  //         if (err) return done(err);
-  //         res.body.success.should.be.ok;
-  //
-  //         res.body.should.have.property('events').with.lengthOf(1)
-  //         res.body.events[0].should.have.property('type', 'reportHostile');
-  //         res.body.events[0].data[0].should.have.property('systemName', igb_headers.EVE_SOLARSYSTEMNAME);
-  //         res.body.events[0].data[0].should.have.property('systemId', igb_headers.EVE_SOLARSYSTEMID);
-  //
-  //         done();
-  //       });
-  //
-  //   });
-  //
-  // });
+  it('should redirect to /login for non-authenticated requests to /link', function(done) {
+    request(url)
+      .get('/link')
+      .expect(302)
+      .end(function(err, res) {
+        if (err) return done(err);
+        res.headers.location.should.match(/\/login/);
+        done();
+      });
+  });
+
+  it('should display /link for authenticated users', function(done) {
+    passportStub.install(server.app)
+    passportStub.login({username: 'tarei'});
+
+    request(server.app)
+      .get('/link')
+      .expect(200)
+      .end(function(err, res) {
+        if (err) return done(err);
+        res.text.match(/Link Session To Pilot/)
+        res.text.match(/Hello, tarei/)
+
+        done();
+      });
+
+  });
+
+  describe('should successfully link a pilot', function(done) {
+      before(function(done) {
+        this.sess_a = new session();
+        this.sess_b = new session();
+        passportStub.install(server.app)
+
+        Q.all([
+          db.models.Fleet.remove().execQ(),
+          db.models.Member.remove().execQ(),
+          db.models.Event.remove().execQ(),
+          db.models.Session.remove().execQ()
+        ])
+          .fin(done);
+
+      });
+      after(function() {
+        this.sess_a.destroy();
+        this.sess_b.destroy();
+      });
+
+      var pilot_key;
+
+      it('when creating a fleet', function(done) {
+        this.sess_a
+          .post('/api/fleet/create')
+          .set(igb_headers)
+          .expect(200, done)
+      });
+
+      it('when checking status of a fleet', function(done) {
+        this.sess_a
+          .get('/api/fleet/status')
+          .set(igb_headers)
+          .expect(200)
+          .end(function(err, res) {
+            if (err) return done(err);
+            res.body.success.should.be.ok;
+            pilot_key = res.body.key;
+            done();
+          });
+      });
+
+      it('when logging in to link a pilot', function(done) {
+        passportStub.login({username: 'tarei'});
+
+        this.sess_b
+          .get('/link')
+          .expect(200)
+          .end(function(err, res) {
+            if (err) return done(err);
+            res.text.match(/Link Session To Pilot/)
+            res.text.match(/Hello, tarei/)
+
+            done();
+          });
+
+      });
+
+      it('when linking to a pilot', function(done) {
+        this.sess_b
+          .post('/link')
+          .send({key: pilot_key})
+          .expect(302)
+          .end(function(err, res) {
+            if (err) return done(err);
+              res.text.match(/Link Session To Pilot/);
+              res.text.match(/Hello, tarei/);
+              res.text.match(pilot_key);
+              debugger;
+              done();
+          });
+
+      });
+
+      it('when one session is polling a fleet', function(done) {
+        this.sess_a
+          .get('/api/fleet/poll/' + moment().unix())
+          .set(igb_headers)
+          .expect(200)
+          .end(function(err, res) {
+            if (err) return done(err);
+            res.body.success.should.be.ok;
+            done();
+          });
+      });
+
+      it('when the other session is polling a fleet', function(done) {
+        this.sess_b
+          .get('/api/fleet/poll/' + moment().unix())
+          .expect(200)
+          .end(function(err, res) {
+            if (err) return done(err);
+            console.log(res.body)
+            res.body.success.should.be.ok;
+            done();
+          });
+      });
+
+      it('when original session moves systems and is polling a fleet', function(done) {
+        this.sess_a
+          .get('/api/fleet/poll/' + moment().unix())
+          .set(updated_igb_headers)
+          .expect(200)
+          .end(function(err, res) {
+            if (err) return done(err);
+            console.log(res.body)
+            res.body.success.should.be.ok;
+            done();
+          });
+      });
+
+      it('when the linked session is polling a fleet and gets memberUpdated', function(done) {
+        this.sess_b
+          .get('/api/fleet/poll/' + moment().unix())
+          .expect(200)
+          .end(function(err, res) {
+            if (err) return done(err);
+            console.log(res.body)
+            res.body.success.should.be.ok;
+            done();
+          });
+      });
+
+  });
 
 });

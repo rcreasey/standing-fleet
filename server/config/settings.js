@@ -12,7 +12,7 @@ module.exports = function () {
 		memberTtl: 600,
 		fleetTtl: 86400,
 
-		minPollInterval: 7,
+		minPollInterval: 0,
 		cleanInterval: 300000,
 
 		requestSizeLimit: '80kb',

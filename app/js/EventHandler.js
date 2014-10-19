@@ -228,12 +228,12 @@ var EventHandler = {
 
 	updateSystemMap: function (target) {
     if(Data.state.self.characterId == target.characterId) {
+			this.statusSelfSystem(target);
+
       if(Data.state.self.regionId != Data.systems[target.systemId].regionID) {
-        this.statusSelfSystem(target);
         SystemMap.redraw();
       }
       else {
-        this.statusSelfSystem(target);
         SystemMap.updateCurrent();
         SystemMap.refreshSystems();
       }

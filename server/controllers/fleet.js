@@ -148,12 +148,13 @@ exports.poll = function(req, res, next) {
           req.session.linked = member.toObject();
           req.session.linked.trusted = 'Yes';
           req.session.linked.isLinked = true;
+          member.isLinked = true;
         } else {
-          events.push(Event.prepare('memberUpdated', req.session.fleetKey, member));
+          var event = Event.prepare('memberUpdated', req.session.fleetKey, member);
+          events.push(event);
+          event.saveQ();
           member.saveQ();
         }
-
-        debugger;
 
         if (!previous.isDocked && !member.isDocked) {
           if (previous.shipType != 'Capsule' && member.shipType == 'Capsule') {
@@ -169,14 +170,16 @@ exports.poll = function(req, res, next) {
         }
 
         if (previous.systemId != member.systemId) {
-          debugger;
           if (!member.isLinked) {
-            events.push(Event.prepare('updateSystemMap', req.session.fleetKey, {
-              characterName: member.characterName,
-              characterId: member.characterId,
-              systemName: member.systemName,
-              systemId: member.systemId
-            }));
+            var event = Event.prepare('updateSystemMap', req.session.fleetKey,
+                        {
+                          characterName: member.characterName,
+                          characterId: member.characterId,
+                          systemName: member.systemName,
+                          systemId: member.systemId
+                        })
+            events.push(event);
+            event.saveQ();
           }
         }
 
