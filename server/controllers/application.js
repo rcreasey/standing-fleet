@@ -27,10 +27,10 @@ exports.link_pilot = function(req, res, next) {
 
   var member_key = req.body.key;
 
-  debugger
   Member.findOneQ({key: member_key})
     .then(function(member) {
-      if (member) {
+
+      if (member != null) {
         req.flash('success', 'Linking pilot ' + member.characterName);
 
         member.link_to_session(req.session);
@@ -40,16 +40,17 @@ exports.link_pilot = function(req, res, next) {
 
         return member;
       } else {
-        throw member_key;
+        throw 'Invalid Pilot Key \'' + member_key + '\'';
       }
 
     })
     .catch(function(error) {
+      debugger
       console.log(error)
-      req.flash('error', 'Invalid Pilot Key \'' + error + '\'');
+      req.flash('error', error);
     })
     .done(function() {
-      return res.redirect('/link');
+      return next();
     });
 
 };

@@ -60,3 +60,9 @@ var igb = function(req, res, next) {
   return next();
 };
 module.exports.igb = igb;
+
+var is_authenticated = function(req, res, next) {
+  if (req.isAuthenticated()) return next();
+  return res.redirect('/login');
+};
+module.exports.is_authenticated = is_authenticated;

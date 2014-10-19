@@ -37,6 +37,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(checks.ssl_headers);
+app.use(checks.redirect_to_https);
 app.use(checks.static_rewrite);
 
 app.enable('trust proxy');

@@ -6,7 +6,7 @@ var express = require('express')
   , application = require(__dirname + '/../controllers/application')
 
 router.route('/login')
-      .get(checks.redirect_if_authenticated)
+      .get(validate.is_authenticated)
       .get(application.login );
 
 router.route('/login')
@@ -18,15 +18,16 @@ router.route('/logout')
       .get(application.logout);
 
 router.route('/link')
-      .get(checks.if_authenticated)
+      .get(validate.is_authenticated)
       .get(application.link);
 
 router.route('/link')
-      .post(checks.if_authenticated)
-      .post(application.link_pilot);
+      .post(validate.is_authenticated)
+      .post(application.link_pilot)
+      .post(application.link);
 
 router.route('/unlink')
-      .get(checks.if_authenticated)
+      .get(validate.is_authenticated)
       .get(application.unlink);
 
 router.route('/:fleetKey/?')

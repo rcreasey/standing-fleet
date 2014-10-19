@@ -98,7 +98,8 @@ describe('WIP Application: Link', function() {
           .end(function(err, res) {
             if (err) return done(err);
             res.body.success.should.be.ok;
-            pilot_key = res.body.key;
+            pilot_key = res.body.events[0].data.key;
+
             done();
           });
       });
@@ -123,14 +124,14 @@ describe('WIP Application: Link', function() {
         this.sess_b
           .post('/link')
           .send({key: pilot_key})
-          .expect(302)
+          .expect(200)
           .end(function(err, res) {
             if (err) return done(err);
-              res.text.match(/Link Session To Pilot/);
-              res.text.match(/Hello, tarei/);
-              res.text.match(pilot_key);
-              debugger;
-              done();
+            res.text.match(/Link Session To Pilot/);
+            res.text.match(/Hello, tarei/);
+            res.text.match(pilot_key);
+
+            done();
           });
 
       });
@@ -153,7 +154,6 @@ describe('WIP Application: Link', function() {
           .expect(200)
           .end(function(err, res) {
             if (err) return done(err);
-            console.log(res.body)
             res.body.success.should.be.ok;
             done();
           });
@@ -166,8 +166,11 @@ describe('WIP Application: Link', function() {
           .expect(200)
           .end(function(err, res) {
             if (err) return done(err);
-            console.log(res.body)
             res.body.success.should.be.ok;
+            res.body.should.have.property('events').with.lengthOf(2);
+            // res.body.events[0].should.have.property('type', 'memberUpdated');
+            // res.body.events[1].should.have.property('type', 'updateSystemMap');
+
             done();
           });
       });
@@ -178,8 +181,11 @@ describe('WIP Application: Link', function() {
           .expect(200)
           .end(function(err, res) {
             if (err) return done(err);
-            console.log(res.body)
             res.body.success.should.be.ok;
+            res.body.should.have.property('events').with.lengthOf(2);
+            // res.body.events[0].should.have.property('type', 'memberUpdated');
+            // res.body.events[1].should.have.property('type', 'updateSystemMap');
+
             done();
           });
       });
