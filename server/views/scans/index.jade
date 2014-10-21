@@ -1,0 +1,60 @@
+extends ../layout/default
+
+block content
+
+  - if (error)
+    h2 #{error}
+  - else
+    .public_scan
+      h2
+        a(href="http://evemaps.dotlan.net/range/Erebus,5/#{system.name}", target="_blank") #{system.name}
+        span.separator //
+        div.region #{region.name}
+      div.timestamp #{timestamp}
+      h3 Scan Details
+      script.
+        function scanFilter(button, filter) {
+          var results = $(button).closest('.public_scan').find('.type-classes .result')
+          $(button).closest('ul').find('.btn').removeClass('active');
+          results.removeClass('selected');
+        
+          $(button).addClass('active');
+          $.each(results, function(i, result) {
+            if ($(result).find('.details-container .distance:contains("-")').length) {
+              if (filter === 'offgrid') $(result).addClass('selected');
+            } else {
+              if (filter === 'grid') $(result).addClass('selected');
+            }
+          })
+        }
+      ul.actions
+        li
+          a.btn(onclick="scanFilter(this, 'grid')") On Grid
+          a.btn(onclick="scanFilter(this, 'offgrid')") Off Grid
+
+      .scan-classes
+        - each s in scan.shipClasses
+          .result
+            span.ship-class
+              | #{s.count}x 
+              b #{s.shipClass}
+
+      .type-classes
+        - each t in scan.shipTypes
+          .result
+            span.ship-type(onclick="ScanList.toggleCollapse(this)")
+              | #{t.count}x 
+              b #{t.shipType}
+
+              - each detail in t.details
+                .details-container.collapsable
+                  span.ship-name #{detail.shipName}
+                  span.distance #{detail.distance}
+      
+      .footer &copy; Scanned by Standing Fleet 
+          
+  script(type='text/javascript', src='/js/lib.js')
+  script.
+    $(function () {
+      $('.public_scan').slimScroll({height: 'auto',	color: '#ffcc2a', alwaysVisible: false});  
+    });

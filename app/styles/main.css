@@ -696,6 +696,10 @@ code.error,
 	clear: both;
 }
 
+.public_scan {
+	font-size: 1.25rem;
+}
+
 .scan table {
 width: 100%;
 table-layout: fixed
@@ -710,6 +714,7 @@ height: 2.4rem;
 border-top: 0.16rem solid #333;
 }
 
+.scan td.actions { padding-left: 0.6rem; width: 2rem; }
 .scan .system, .scan .reported-by { padding-left: 0.6rem; text-align: left; }
 .scan .system, .scan .reported-at { width: 5rem; }
 .scan .description {
@@ -739,16 +744,23 @@ border-top: 0.16rem solid #333;
 	margin: 0.5rem 1rem;
 }
 
+.public_scan a.btn,
 .scan .results-container .btn {
 	background-color: #333;
-	font-size: 10px;
+	font-size: 1rem;
 	font-weight: normal;
 	margin-right: 3px;
+	margin-bottom: 1rem;
 	padding: 3px 6px;
-	float: left;
 	display: inline-block;
 }
 
+ .scan .results-container .btn {
+	float: left;
+}
+
+.public_scan a.btn.active,
+.public_scan a.btn:hover,
 .scan .results-container .btn.active,
 .scan .results-container .btn:hover {
 	color: #ffcc2a;
@@ -768,6 +780,7 @@ border-top: 0.16rem solid #333;
 	margin-bottom: 1rem;
 }
 
+.public_scan .result,
 .scan .result {
 	background-color: #222;
 	padding: 0.2rem 0.3rem;
@@ -778,6 +791,7 @@ border-top: 0.16rem solid #333;
 	color: #888;
 	text-transform: capitalize;
 }
+.public_scan .result.selected,
 .scan .result.selected {
 	background-color: #ffcc2a;
 	color: #000;
@@ -788,6 +802,7 @@ border-top: 0.16rem solid #333;
 .scan .result .ship-class {
 	display: block;
 }
+
 
 .scan .result .details-container {
 	position: relative;
@@ -810,11 +825,93 @@ border-top: 0.16rem solid #333;
 	white-space: nowrap;
 }
 
+.public_scan .result .details-container .distance,
 .scan .result .details-container .distance {
 	display: block;
 	position: absolute;
 	top: 0.2rem;
 	right: 1rem;
+}
+
+.public_scan {
+	background: linear-gradient(#333, #222 1%);
+	margin: 0 auto;
+	padding: 10px;
+	text-align: left;
+	width: 700px;
+}
+
+.public_scan h2,
+.public_scan h3,
+.public_scan h4 {
+	color: #ffcc2a;
+	font-family: 'Lato', sans-serif !important;
+	font-weight: 700;
+	line-height: 25px;
+	padding: 0.5rem 0.4rem;
+	text-transform: uppercase;
+	text-shadow: 0 0 0.2em #ffcc2a;
+}
+
+.public_scan h2 {
+	font-size: 28px;
+	display: inline;
+}
+
+.public_scan span.separator {
+	color: #999;
+	font-size: 14px;
+	text-shadow: none;
+	display: inline;
+	margin: 0 1rem;
+}
+
+.public_scan div.region {
+	font-size: 14px;
+	display: inline;
+}
+
+.public_scan div.timestamp {
+	float: right;
+	font-family: 'Droid Sans', sans-serif;
+	font-size: 18px;
+}
+
+.public_scan h3 {
+	font-family: 'Droid Sans', sans-serif;
+	font-size: 18px;
+	text-transform: none;
+	text-shadow: none;
+}
+
+.public_scan .scan-classes {
+	float: left;
+	width: 47%;
+	margin-bottom: 1rem;
+}
+
+.public_scan .type-classes {
+	float: right;
+	width: 48%;
+	margin-right: 1rem;
+	
+}
+
+.public_scan .result i {
+	float: right
+}
+
+.public_scan .result .details-container {
+	position: relative;
+	padding: 0.2rem 0.3rem 0.2rem 2rem;
+	border-bottom: 1px solid #222;
+	color: #888;
+	background: #333;
+}
+
+.public_scan .footer {
+	clear: both;
+	color: #222;
 }
 
 /*/

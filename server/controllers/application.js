@@ -46,7 +46,6 @@ exports.link_pilot = function(req, res, next) {
 
     })
     .catch(function(error) {
-      debugger
       console.log(error)
       req.flash('error', error);
     })

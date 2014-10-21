@@ -23,6 +23,8 @@ var database = require(__dirname + '/initializers/database')
 
 var routes = require(__dirname + '/routes/index')
   , fleet  = require(__dirname + '/routes/fleet')
+  , map    = require(__dirname + '/routes/map')
+  , scans  = require(__dirname + '/routes/scans')
 
 var app = express();
 
@@ -31,6 +33,7 @@ strategy.init();
 
 standings.update(settings.whitelist);
 app.set('whitelist', settings.whitelist);
+app.set('map', settings.map);
 
 app.use(compression())
 app.use(bodyParser.json());
@@ -66,6 +69,8 @@ app.use(passport.session());
 
 app.use('/', routes);
 app.use('/api', fleet);
+app.use('/scans', scans);
+app.use('/map', map);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

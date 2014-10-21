@@ -137,7 +137,7 @@ exports.poll = function(req, res, next) {
       member.shipTypeId = self.shipTypeId;
       member.systemName = self.systemName;
       member.systemId = self.systemId;
-      member.regionId = self.regionId;
+      member.regionName = self.regionName;
       member.isDocked = self.isDocked;
 
       if (member.isModified()) {
