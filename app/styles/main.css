@@ -755,6 +755,10 @@ border-top: 0.16rem solid #333;
 	display: inline-block;
 }
 
+ .scan .results-container .btn {
+	float: left;
+}
+
 .public_scan a.btn.active,
 .public_scan a.btn:hover,
 .scan .results-container .btn.active,
