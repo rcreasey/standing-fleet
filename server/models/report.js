@@ -48,30 +48,42 @@ ReportSchema.methods.parse_standings = function parse_standings(whitelist) {
   if (this.hostiles.length > 0) return response.reject('Report hostiles already exist');
   var hostiles = [];
   var client = new neow.EveClient();
-
-  _.forEach(chunk(this.data, 100), function(pilots) {
+  
+  Q.all(_.map(chunk(this.data, 100), function(pilots) {
+    var pilot_list = pilots.join(',');
+    var batch = Q.defer();
     client.fetch('eve:CharacterId', {names: pilots.join(',')})
       .then(function(results) {
         return client.fetch('eve:CharacterAffiliation', {ids: _.map(results.characters, function(c) { return c.characterID; }).join(",")});
       })
       .then(function(results) {
-
-        _.forEach(results.characters, function(character) {
-          if (is_whitelisted(whitelist, character)) return;
-          if (character.characterID == 0) return;
-          if (character.characterName == '') return;
-
-          hostiles.push( Hostile.prepare(this.fleetKey, this.reporterId, this.reporterName, character) );
+        
+        resolved = _.map(results.characters, function(character) {
+          if (is_whitelisted(whitelist, character)) return false;
+          if (character.characterID == 0) return false;
+          if (character.characterName == '') return false;
+          
+          return Hostile.prepare(this.fleetKey, this.reporterId, this.reporterName, character)
         });
-
-        response.resolve(hostiles);
+        
+        batch.resolve(_.where(resolved));
       })
       .catch(function(error) {
-        console.log(error)
-        response.reject('CCP API data corrupt')
+        batch.reject(error + ': ' + pilot_list);
       })
       .done();
-  });
+      
+      return batch.promise;
+    })
+  )
+  .then(function(results) {
+    response.resolve(_.flatten(results)); 
+  })
+  .catch(function(error) {
+    console.log(error)
+    response.reject('CCP API data corrupt:' + error)
+  })
+  .done()
 
   return response.promise;
 };

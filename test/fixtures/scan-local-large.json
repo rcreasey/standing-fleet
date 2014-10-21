@@ -1,0 +1,402 @@
+{
+  "90162161": {
+    "characterID": "90162161",
+    "characterName": "WingDragonZero",
+    "corporationID": "957816416",
+    "corporationName": "Freelance Economics Astrological resources",
+    "allianceID": "131511956",
+    "allianceName": "Tactical Narcotics Team",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "90470770": {
+    "characterID": "90470770",
+    "characterName": "valadar Siro",
+    "corporationID": "98152710",
+    "corporationName": "We are not bad. Just unlucky",
+    "allianceID": "1354830081",
+    "allianceName": "Goonswarm Federation",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "90651016": {
+    "characterID": "90651016",
+    "characterName": "Sweep 1400",
+    "corporationID": "98046633",
+    "corporationName": "Raging Ducks",
+    "allianceID": "1354830081",
+    "allianceName": "Goonswarm Federation",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "91665620": {
+    "characterID": "91665620",
+    "characterName": "WIll Motsu",
+    "corporationID": "98170328",
+    "corporationName": "Osmosis Inc",
+    "allianceID": "99004425",
+    "allianceName": "The Bastion",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "91783654": {
+    "characterID": "91783654",
+    "characterName": "Tristan DeGrace",
+    "corporationID": "98320709",
+    "corporationName": "WHITE FLAG.",
+    "allianceID": "99004425",
+    "allianceName": "The Bastion",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "91859750": {
+    "characterID": "91859750",
+    "characterName": "Valkira Catose",
+    "corporationID": "667531913",
+    "corporationName": "GoonWaffe",
+    "allianceID": "1354830081",
+    "allianceName": "Goonswarm Federation",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "91960220": {
+    "characterID": "91960220",
+    "characterName": "sumnar gustafson",
+    "corporationID": "98138783",
+    "corporationName": "Lucid Dreamers",
+    "allianceID": "150097440",
+    "allianceName": "Get Off My Lawn",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "93041662": {
+    "characterID": "93041662",
+    "characterName": "Torval Aldazar",
+    "corporationID": "804504419",
+    "corporationName": "Dark-Rising",
+    "allianceID": "151380924",
+    "allianceName": "Executive Outcomes",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "93157434": {
+    "characterID": "93157434",
+    "characterName": "Tabyll Altol",
+    "corporationID": "98237313",
+    "corporationName": "Breaking.Bad",
+    "allianceID": "1695357456",
+    "allianceName": "Circle-Of-Two",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "93160144": {
+    "characterID": "93160144",
+    "characterName": "SuitUp Barney\"s",
+    "corporationID": "993588758",
+    "corporationName": "nXo",
+    "allianceID": "1695357456",
+    "allianceName": "Circle-Of-Two",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "93273854": {
+    "characterID": "93273854",
+    "characterName": "Tineoidea Asanari",
+    "corporationID": "98090360",
+    "corporationName": "Heeresversuchsanstalt",
+    "allianceID": "99004425",
+    "allianceName": "The Bastion",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "93315636": {
+    "characterID": "93315636",
+    "characterName": "Za Grim",
+    "corporationID": "649254410",
+    "corporationName": "ICE is Coming to EVE",
+    "allianceID": "1354830081",
+    "allianceName": "Goonswarm Federation",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "93442679": {
+    "characterID": "93442679",
+    "characterName": "VFK Beacon",
+    "corporationID": "211551078",
+    "corporationName": "Eternity INC.",
+    "allianceID": "1354830081",
+    "allianceName": "Goonswarm Federation",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "93897644": {
+    "characterID": "93897644",
+    "characterName": "Spookzor 4-Eyes",
+    "corporationID": "98118130",
+    "corporationName": "Silver Guardians",
+    "allianceID": "1006830534",
+    "allianceName": "Fidelas Constans",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "94073005": {
+    "characterID": "94073005",
+    "characterName": "Spyridon X",
+    "corporationID": "1167014990",
+    "corporationName": "Zebra Corp",
+    "allianceID": "99004425",
+    "allianceName": "The Bastion",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "121503814": {
+    "characterID": "121503814",
+    "characterName": "Thalen Draganos",
+    "corporationID": "98008630",
+    "corporationName": "Thunderwaffe",
+    "allianceID": "1354830081",
+    "allianceName": "Goonswarm Federation",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "142180392": {
+    "characterID": "142180392",
+    "characterName": "Thoric Frosthammer",
+    "corporationID": "98062972",
+    "corporationName": "Lost Society",
+    "allianceID": "150097440",
+    "allianceName": "Get Off My Lawn",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "179727875": {
+    "characterID": "179727875",
+    "characterName": "Taziar",
+    "corporationID": "98102485",
+    "corporationName": "Space Exploitation Inc",
+    "allianceID": "99004425",
+    "allianceName": "The Bastion",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "393936253": {
+    "characterID": "393936253",
+    "characterName": "ZX6R WARRIOR",
+    "corporationID": "98051175",
+    "corporationName": "Black Anvil Industries",
+    "allianceID": "679584932",
+    "allianceName": "SpaceMonkey\"s Alliance",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "421300056": {
+    "characterID": "421300056",
+    "characterName": "Vaitage",
+    "corporationID": "98148549",
+    "corporationName": "Capital Fusion.",
+    "allianceID": "1695357456",
+    "allianceName": "Circle-Of-Two",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "423257189": {
+    "characterID": "423257189",
+    "characterName": "Thrasophius",
+    "corporationID": "667531913",
+    "corporationName": "GoonWaffe",
+    "allianceID": "1354830081",
+    "allianceName": "Goonswarm Federation",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "441158824": {
+    "characterID": "441158824",
+    "characterName": "unaco",
+    "corporationID": "98014570",
+    "corporationName": "Masters of Zen",
+    "allianceID": "1695357456",
+    "allianceName": "Circle-Of-Two",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "539163410": {
+    "characterID": "539163410",
+    "characterName": "TEX AVERYY",
+    "corporationID": "377785485",
+    "corporationName": "ZERO T0LERANCE",
+    "allianceID": "741557221",
+    "allianceName": "RAZOR Alliance",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "707940746": {
+    "characterID": "707940746",
+    "characterName": "Xel\"Tharuc",
+    "corporationID": "98030632",
+    "corporationName": "Empyrean Guard",
+    "allianceID": "131511956",
+    "allianceName": "Tactical Narcotics Team",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "713872470": {
+    "characterID": "713872470",
+    "characterName": "Tash Murka",
+    "corporationID": "1167014990",
+    "corporationName": "Zebra Corp",
+    "allianceID": "99004425",
+    "allianceName": "The Bastion",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "733845198": {
+    "characterID": "733845198",
+    "characterName": "Tainted Psyche",
+    "corporationID": "786820753",
+    "corporationName": "Balanced Unity",
+    "allianceID": "1220174199",
+    "allianceName": "Fatal Ascension",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "746868930": {
+    "characterID": "746868930",
+    "characterName": "trilistok",
+    "corporationID": "272675225",
+    "corporationName": "Monkey Attack Squad",
+    "allianceID": "1354830081",
+    "allianceName": "Goonswarm Federation",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "749710097": {
+    "characterID": "749710097",
+    "characterName": "Ultimate Gunpower",
+    "corporationID": "211551078",
+    "corporationName": "Eternity INC.",
+    "allianceID": "1354830081",
+    "allianceName": "Goonswarm Federation",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "766447150": {
+    "characterID": "766447150",
+    "characterName": "Tension MAN",
+    "corporationID": "1795177903",
+    "corporationName": "RGSU",
+    "allianceID": "1354830081",
+    "allianceName": "Goonswarm Federation",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "822769535": {
+    "characterID": "822769535",
+    "characterName": "Tormier",
+    "corporationID": "1831489789",
+    "corporationName": "Easy Co.",
+    "allianceID": "1220174199",
+    "allianceName": "Fatal Ascension",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "923669626": {
+    "characterID": "923669626",
+    "characterName": "Viljar",
+    "corporationID": "98001512",
+    "corporationName": "Someone Else\"s Problem",
+    "allianceID": "1695357456",
+    "allianceName": "Circle-Of-Two",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "940643018": {
+    "characterID": "940643018",
+    "characterName": "Wodanaz",
+    "corporationID": "523373135",
+    "corporationName": "House of Praetor",
+    "allianceID": "1006830534",
+    "allianceName": "Fidelas Constans",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "954758380": {
+    "characterID": "954758380",
+    "characterName": "xghozt",
+    "corporationID": "1000166",
+    "corporationName": "Imperial Academy",
+    "allianceID": "0",
+    "allianceName": "",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "959790972": {
+    "characterID": "959790972",
+    "characterName": "Vivae",
+    "corporationID": "624410653",
+    "corporationName": "Les chevaliers de l\"ordre",
+    "allianceID": "1354830081",
+    "allianceName": "Goonswarm Federation",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "1024714186": {
+    "characterID": "1024714186",
+    "characterName": "Suie Paparude",
+    "corporationID": "724997872",
+    "corporationName": "EVE-RO",
+    "allianceID": "1006830534",
+    "allianceName": "Fidelas Constans",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "1055422412": {
+    "characterID": "1055422412",
+    "characterName": "wierdjunson",
+    "corporationID": "725842137",
+    "corporationName": "Magellanic Itg",
+    "allianceID": "1354830081",
+    "allianceName": "Goonswarm Federation",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "1088597811": {
+    "characterID": "1088597811",
+    "characterName": "Twiddlles",
+    "corporationID": "98138897",
+    "corporationName": "The Dutch East India Company",
+    "allianceID": "1006830534",
+    "allianceName": "Fidelas Constans",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "1192707201": {
+    "characterID": "1192707201",
+    "characterName": "Yavin Four",
+    "corporationID": "98024186",
+    "corporationName": "Trojan Legion",
+    "allianceID": "1006830534",
+    "allianceName": "Fidelas Constans",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "1648175002": {
+    "characterID": "1648175002",
+    "characterName": "THE PROPHIT",
+    "corporationID": "215154456",
+    "corporationName": "Zervas Aeronautics",
+    "allianceID": "99004425",
+    "allianceName": "The Bastion",
+    "factionID": "0",
+    "factionName": ""
+  },
+  "1665407173": {
+    "characterID": "1665407173",
+    "characterName": "Wilkco",
+    "corporationID": "1135150534",
+    "corporationName": "Airkio Mining Corp",
+    "allianceID": "99004425",
+    "allianceName": "The Bastion",
+    "factionID": "0",
+    "factionName": ""
+  }
+}

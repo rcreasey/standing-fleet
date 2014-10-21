@@ -257,38 +257,54 @@ exports.report = function(req, res, next) {
         return response.error(res, 'report', 'Error reporting system clear');
       })
       .done();
-  } else {
+  } else {    
     report.parse_standings(req.app.settings.whitelist)
       .then(function(hostiles) {
-
-        _.forEach(hostiles, function(hostile) {
+        
+        Q.all(_.map(hostiles, function(hostile) {
+          var batch = Q.defer();
+          
           Hostile.findOneQ({fleetKey: report.fleetKey, characterId: hostile.characterId})
             .then(function(result) {
               if (result !== null) hostile = result;
-              hostile.report_update(report.fleetKey, report);
+              hostile.report_update(report.fleetKey, report);              
               report.hostiles.push(hostile);
               hostile.saveQ();
+              
+              batch.resolve(hostile.toObject());
             })
             .catch(function(error) {
-              console.log(error)
-              return response.error(res, 'report', 'Error updating hostile');
+              batch.reject(error)
             })
-            .done(function() {
-              event = Event.prepare('reportHostile', report.fleetKey, report.hostiles);
-              event.saveQ();
-              report.saveQ();
-            });
+            .done();
+          
+            return batch.promise;
+          })
+        )
+        .then(function(updated) {          
+          report.hostiles = updated;
+          report.saveQ();
+          
+          event = Event.prepare('reportHostile', report.fleetKey, updated);
+          event.saveQ();
 
-        });
+          return response.success(res);
+        })
+        .catch(function(error) {
+          console.log(error)
+          throw 'Error updating hostile: ' + error;
+        })
+        .done()
 
-        return response.success(res);
+        
+
 
       })
       .catch(function(error) {
         console.log(error)
         return response.error(res, 'report', 'Error reporting status: ' + error);
       })
-      .done();
+      .done()
   }
 };
 
