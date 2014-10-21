@@ -4,16 +4,13 @@ var mongoose = require('mongoose-q')()
   , key_generator = require(__dirname + '/../util/key-generator')
 
 var ScanSchema  = new Schema({
-  ts: { type: Number, default: function() { return moment().unix(); }, expires: '1h' },
+  ts: { type: Number, index: true, default: function() { return moment().unix(); }, expires: '1h' },
   key: { type: String, index: true, default: function() { return key_generator.getKey(); } },
   fleetKey: { type: String, index: true },
-
   reporterId: Number,
   reporterName: String,
-
   systemId: Number,
   systemName: String,
-
   shipTypes: [ Schema.Types.Mixed ],
   shipClasses: [ Schema.Types.Mixed ]
 });

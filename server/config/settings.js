@@ -28,6 +28,7 @@ module.exports = function () {
 
 	settings.root = require('path').normalize(__dirname + '/..');
 	settings.ships = require(__dirname + '/../../public/data/ships.json')
+	settings.map = require(__dirname + '/../../public/data/map.json')
 
 	return settings;
 }();

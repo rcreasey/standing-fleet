@@ -5,13 +5,14 @@ var mongoose = require('mongoose-q')()
   , settings = require(__dirname + '/../config/settings')
 
 var MemberSchema  = new Schema({
-  ts: { type: Number, default: function() { return moment().unix(); } },
+  ts: { type: Number, index: true, default: function() { return moment().unix(); } },
   key: { type: String, index: true, default: function() { return key_generator.getKey(); } },
   fleetKey: { type: String, index: true },
   characterId: Number,
   characterName: String,
   shipType: String,
   shipTypeId: Number,
+  regionName: String,
   systemName: String,
   systemId: Number,
   isDocked: Boolean,
@@ -36,6 +37,7 @@ MemberSchema.statics.prepare = function prepare(key, fleet) {
     shipType: fleet.shipType,
     shipTypeId: fleet.shipTypeId,
     shipName: fleet.shipName,
+    regionName: fleet.regionName,
     systemName: fleet.systemName,
     systemId: fleet.systemId,
     isDocked: fleet.isDocked

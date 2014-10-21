@@ -98,3 +98,34 @@ gulp.task('build', function() {
     console.error(error);
   });
 })
+
+gulp.task('db:seed', function(done) {
+  var mongoose = require('mongoose')
+    , _ = require('lodash')
+    , System = require('./server/models/system')
+    , Region = require('./server/models/region')
+    , Jump = require('./server/models/jump')
+    , map_data = require('./public/data/map.json')
+
+  var db = mongoose.connect(process.env.MONGODB_URL);
+  mongoose.set('debug', true);
+
+  db.models.System.remove().execQ();
+  db.models.Region.remove().execQ();
+  db.models.Jump.remove().execQ();
+  _.forEach(map_data.Regions, function(data) {
+    var region = new Region(data);
+    region.save();
+  });
+
+  _.forEach(map_data.Systems, function(data) {
+    var system = new System(data);
+    system.save();
+  });
+
+  _.forEach(map_data.Gates, function(data) {
+    var jump = new Jump(data);
+    jump.save();
+  });
+
+});

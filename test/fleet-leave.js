@@ -4,7 +4,6 @@ var server = require('../server')
   , request = require('supertest')
   , mongoose = require('mongoose-q')()
   , winston = require('winston')
-  , sinon = require('sinon')
   , Q = require('q')
   , db = mongoose.connection
   , session = require('supertest-session')({app: server.app})

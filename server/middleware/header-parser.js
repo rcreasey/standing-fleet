@@ -8,6 +8,7 @@ module.exports = function(req, res, next) {
     shipTypeId: req.get('EVE_SHIPTYPEID'),
     shipName: req.get('EVE_SHIPNAME'),
 
+    regionName: req.get('EVE_REGIONNAME'),
     systemName: req.get('EVE_SOLARSYSTEMNAME'),
     systemId: req.get('EVE_SOLARSYSTEMID'),
 
