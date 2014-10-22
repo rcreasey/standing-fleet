@@ -4,9 +4,9 @@ var mongoose = require('mongoose-q')()
   , key_generator = require(__dirname + '/../util/key-generator')
 
 var ScanSchema  = new Schema({
-  ts: { type: Number, index: true, default: function() { return moment().unix(); }, expires: '1h' },
-  key: { type: String, index: true, default: function() { return key_generator.getKey(); } },
-  fleetKey: { type: String, index: true },
+  ts: { type: Number, default: function() { return moment().unix(); }, expires: '1h' },
+  key: { type: String, default: function() { return key_generator.getKey(); } },
+  fleetKey: { type: String },
   reporterId: Number,
   reporterName: String,
   systemId: Number,
@@ -14,6 +14,8 @@ var ScanSchema  = new Schema({
   shipTypes: [ Schema.Types.Mixed ],
   shipClasses: [ Schema.Types.Mixed ]
 });
+
+ScanSchema.index({ ts: 1, key: 1, fleetKey: 1 }, { expireAfterSeconds: 3600 });
 
 ScanSchema.statics.prepare = function prepare(fleetKey, reporter, scan) {
   return new this({

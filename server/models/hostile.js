@@ -4,9 +4,9 @@ var mongoose = require('mongoose-q')()
   , key_generator = require(__dirname + '/../util/key-generator')
 
 var HostileSchema  = new Schema({
-  ts: { type: Number, index: true, default: function() { return moment().unix(); } },
-  key: { type: String, index: true, default: function() { return key_generator.getKey(); } },
-  fleetKey: { type: String, index: true },
+  ts: { type: Number, default: function() { return moment().unix(); } },
+  key: { type: String, default: function() { return key_generator.getKey(); } },
+  fleetKey: { type: String },
   characterId: Number,
   characterName: String,
   corporationId: Number,
@@ -22,6 +22,8 @@ var HostileSchema  = new Schema({
   reporterName: String,
   is_docked: { type: Boolean, default: false }
 });
+
+HostileSchema.index({ ts: 1, key: 1, fleetKey: 1 });
 
 HostileSchema.statics.prepare = function prepare(fleetKey, reporterId, reporterName, character) {
   return new this({

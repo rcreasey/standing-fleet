@@ -4,12 +4,14 @@ var mongoose = require('mongoose-q')()
   , moment = require('moment')
 
 var EventSchema  = new Schema({
-  ts: { type: Number, index: true, default: function() { return moment().unix(); }, expires: '15m' },
-  key: { type: String, index: true, default: function() { return key_generator.getKey(); } },
-  fleetKey: { type: String, index: true },
+  ts: { type: Number, default: function() { return moment().unix(); } },
+  key: { type: String, default: function() { return key_generator.getKey(); } },
+  fleetKey: { type: String },
   type: String,
   data: Schema.Types.Mixed
 });
+
+EventSchema.index({ ts: 1, key: 1, fleetKey: 1 }, { expireAfterSeconds: 900 });
 
 EventSchema.statics.prepare = function prepare(type, fleetKey, data) {
   return new this({

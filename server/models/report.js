@@ -10,8 +10,8 @@ var mongoose = require('mongoose-q')()
 var Hostile = require('./hostile')
 
 var ReportSchema  = new Schema({
-  ts: { type: Number, index: true, default: function() { return moment().unix(); }, expires: '15m' },
-  fleetKey: { type: String, index: true },
+  ts: { type: Number, default: function() { return moment().unix(); } },
+  fleetKey: { type: String },
   reporterId: Number,
   reporterName: String,
   systemId: Number,
@@ -20,6 +20,8 @@ var ReportSchema  = new Schema({
   data: [ Schema.Types.Mixed ],
   hostiles: [ Schema.Types.Mixed ],
 });
+
+ReportSchema.index({ ts: 1, fleetKey: 1 }, { expireAfterSeconds: 900 });
 
 ReportSchema.statics.prepare = function prepare(fleetKey, report) {
   return new this({

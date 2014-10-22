@@ -296,9 +296,6 @@ exports.report = function(req, res, next) {
         })
         .done()
 
-        
-
-
       })
       .catch(function(error) {
         console.log(error)

@@ -1,5 +1,6 @@
 var Q = require('q')
   , moment = require('moment')
+  , _ = require('lodash')
 
 var settings = require(__dirname + '/../config/settings')
   , Fleet = require(__dirname + '/../models/fleet')
@@ -31,6 +32,7 @@ var clean_members = function() {
   Member.findQ({ts: { $lte: moment().unix() - +settings.memberTtl }})
     .then(function(members) {
       _.forEach(members, function(member) {
+        console.log(member.characterName + ' timed out');
         var event = Event.prepare('memberTimedOut', member.fleetKey, member);
         event.saveQ();
         member.removeQ();
@@ -39,9 +41,10 @@ var clean_members = function() {
 };
 
 var clean_hostiles = function() {
-  Hostile.findQ({ts: { $lte: moment().unix() - +settings.hostileTtl }})
-    .then(function(hostiles) {
+  Hostile.findQ({ts: { $lte: moment().unix() - 30 }})
+    .then(function(hostiles) {      
       _.forEach(hostiles, function(hostile) {
+        console.log(hostile.characterName + ' timed out');
         var event = Event.prepare('hostileTimedOut', hostile.fleetKey, hostile);
         event.saveQ();
         hostile.removeQ();

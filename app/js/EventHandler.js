@@ -164,7 +164,7 @@ var EventHandler = {
 	},
 
 	hostileTimedOut: function (hostile) {
-		HostileList.removeMember(hostile.characterId);
+		HostileList.removeHostile(hostile.characterId);
 		HostileList.sortAndRenderAll();
 		SystemMap.refreshSystems();
 	},

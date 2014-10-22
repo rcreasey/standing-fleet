@@ -2,12 +2,14 @@ var mongoose = require('mongoose-q')()
   , Schema = mongoose.Schema
 
 var SystemSchema  = new Schema({
-  id: { type: Number, index: true },
+  id: { type: Number },
   constellationID: Number,
-  regionID: { type: Number, index: true },
+  regionID: { type: Number },
   name: String,
   x: Number,
   y: Number
 });
+
+SystemSchema.index({ id: 1, regionID: 1 });
 
 module.exports = mongoose.model('System', SystemSchema);

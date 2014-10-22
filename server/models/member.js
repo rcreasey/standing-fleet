@@ -5,9 +5,9 @@ var mongoose = require('mongoose-q')()
   , settings = require(__dirname + '/../config/settings')
 
 var MemberSchema  = new Schema({
-  ts: { type: Number, index: true, default: function() { return moment().unix(); } },
-  key: { type: String, index: true, default: function() { return key_generator.getKey(); } },
-  fleetKey: { type: String, index: true },
+  ts: { type: Number, default: function() { return moment().unix(); } },
+  key: { type: String, default: function() { return key_generator.getKey(); } },
+  fleetKey: { type: String },
   characterId: Number,
   characterName: String,
   shipType: String,
@@ -18,6 +18,8 @@ var MemberSchema  = new Schema({
   isDocked: Boolean,
   isLinked: { type: Boolean, default: false }
 });
+
+MemberSchema.index({ ts: 1, key: 1, fleetKey: 1 });
 
 MemberSchema.methods.link_to_session = function link_to_session(session, next) {
   session.fleetKey = this.fleetKey;

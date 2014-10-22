@@ -2,8 +2,8 @@ var mongoose = require('mongoose-q')()
   , Schema = mongoose.Schema
 
 var RegionSchema  = new Schema({
-  id: { type: Number, index: true },
-  name: { type: String, index: true },
+  id: { type: Number },
+  name: { type: String },
   bounds: {
     left: Number,
     top: Number,
@@ -11,5 +11,7 @@ var RegionSchema  = new Schema({
     right: Number
   }
 });
+
+RegionSchema.index({ id: 1, name: 1 });
 
 module.exports = mongoose.model('Region', RegionSchema);
