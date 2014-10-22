@@ -40,6 +40,7 @@ HostileSchema.statics.prepare = function prepare(fleetKey, reporterId, reporterN
 };
 
 HostileSchema.methods.report_update = function report_update(fleetKey, report) {
+  this.ts = moment().unix();
   this.fleetKey = fleetKey;
   this.reporterId = report.reporterId;
   this.reporterName = report.reporterName;

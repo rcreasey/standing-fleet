@@ -32,7 +32,6 @@ var clean_members = function() {
   Member.findQ({ts: { $lte: moment().unix() - +settings.memberTtl }})
     .then(function(members) {
       _.forEach(members, function(member) {
-        console.log(member.characterName + ' timed out');
         var event = Event.prepare('memberTimedOut', member.fleetKey, member);
         event.saveQ();
         member.removeQ();
@@ -44,7 +43,6 @@ var clean_hostiles = function() {
   Hostile.findQ({ts: { $lte: moment().unix() - +settings.hostileTtl }})
     .then(function(hostiles) {      
       _.forEach(hostiles, function(hostile) {
-        console.log(hostile.characterName + ' timed out');
         var event = Event.prepare('hostileTimedOut', hostile.fleetKey, hostile);
         event.saveQ();
         hostile.removeQ();
@@ -54,7 +52,7 @@ var clean_hostiles = function() {
 
 var clean_loop = function() {
   clean_timer = setTimeout(function() {
-    console.log('Consuela cleaning');
+    console.log('Consuela: Cleaning');
 
     clean_fleets();
     clean_members();

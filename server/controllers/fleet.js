@@ -133,6 +133,7 @@ exports.poll = function(req, res, next) {
       var self = req.session.fleet;
       var previous = _.clone(member.toObject())
 
+      member.ts = moment().unix();
       member.shipType = self.shipType;
       member.shipTypeId = self.shipTypeId;
       member.systemName = self.systemName;
