@@ -23,7 +23,7 @@ exports.join = function(req, res, next){
       }
 
       var member = Member.prepare(fleet.key, req.session.fleet);
-      var event = Event.prepare('memberJoined', fleet.key, member);
+      var event = Event.prepare('memberJoined', fleet.key, member.toObject());
 
       member.saveQ()
         .then(function(member) {
@@ -58,7 +58,7 @@ exports.leave = function(req, res, next){
 
   Member.findOneQ({key: key})
     .then(function(member) {
-      var event = Event.prepare('memberLeft', member.fleetKey, member)
+      var event = Event.prepare('memberLeft', member.fleetKey, member.toObject())
       event.saveQ();
       member.removeQ();
 
@@ -75,7 +75,7 @@ exports.leave = function(req, res, next){
 exports.status = function(req, res, next) {
   if (!req.session.fleetKey || !req.session.memberKey) {
     var self = Member.prepare('none', header_parser(req))
-    var event = Event.prepare('statusSelf', 'none', self)
+    var event = Event.prepare('statusSelf', 'none', self.toObject())
 
     return response.success(res, [ event ]);
   }
@@ -83,23 +83,23 @@ exports.status = function(req, res, next) {
   Member.findOneQ({key: req.session.memberKey})
     .then(function(member) {
       var events = [];
-      events.push( Event.prepare('statusSelf', member.fleetKey, member) );
+      events.push( Event.prepare('statusSelf', member.fleetKey, member.toObject()) );
 
       var tasks = [
         Fleet.findOne({key: member.fleetKey}).execQ().then(function(fleet) {
-          return Event.prepare('statusFleet', member.fleetKey, fleet);
+          return Event.prepare('statusFleet', member.fleetKey, fleet.toObject());
         }),
         Event.find({fleetKey: member.fleetKey}).execQ().then(function(events) {
-          return Event.prepare('statusEvents', member.fleetKey, events);
+          return Event.prepare('statusEvents', member.fleetKey, _.map(events, function(event) { return event.toObject(); }));
         }),
         Member.find({fleetKey: member.fleetKey}).execQ().then(function(members) {
-          return Event.prepare('statusMembers', member.fleetKey, members);
+          return Event.prepare('statusMembers', member.fleetKey, _.map(members, function(member) { return member.toObject(); }));
         }),
         Hostile.find({fleetKey: member.fleetKey}).execQ().then(function(hostiles) {
-          return Event.prepare('statusHostiles', member.fleetKey, hostiles);
+          return Event.prepare('statusHostiles', member.fleetKey, _.map(hostiles, function(hostile) { return hostile.toObject(); }));
         }),
         Scan.find({fleetKey: member.fleetKey}).execQ().then(function(scans) {
-          return Event.prepare('statusScans', member.fleetKey, scans);
+          return Event.prepare('statusScans', member.fleetKey, _.map(scans, function(scan) { return scan.toObject(); }));
         })
       ];
 
@@ -133,7 +133,6 @@ exports.poll = function(req, res, next) {
       var self = req.session.fleet;
       var previous = _.clone(member.toObject())
 
-      member.ts = moment().unix();
       member.shipType = self.shipType;
       member.shipTypeId = self.shipTypeId;
       member.systemName = self.systemName;
@@ -150,10 +149,10 @@ exports.poll = function(req, res, next) {
           req.session.linked.isLinked = true;
           member.isLinked = true;
         } else {
-          var event = Event.prepare('memberUpdated', req.session.fleetKey, member);
+          var event = Event.prepare('memberUpdated', req.session.fleetKey, member.toObject());
           events.push(event);
           event.saveQ();
-          member.saveQ();
+
         }
 
         if (!previous.isDocked && !member.isDocked) {
@@ -184,6 +183,11 @@ exports.poll = function(req, res, next) {
         }
       }
 
+      if ( !req.session.linked ) {
+        member.ts = moment().unix();
+        member.saveQ();        
+      }
+      
       return events;
     }),
     Event.find({fleetKey: req.session.fleetKey, ts: { $lte: moment().unix(), $gte: +req.params.lastPollTs }})
@@ -231,7 +235,7 @@ exports.create = function(req, res, next) {
     })
     .then(function(result) {
       member.link_to_session(req.session);
-      response.success(res, Event.prepare('fleetCreated', 'none', fleet));
+      response.success(res, Event.prepare('fleetCreated', 'none', fleet.toObject()));
     })
     .catch(function(error) {
       console.log(error)
@@ -248,7 +252,7 @@ exports.report = function(req, res, next) {
   if (report.text === 'clear') {
     Hostile.removeQ({systemId: report.systemId})
       .then(function(hostile) {
-        var event = Event.prepare('reportClear', report.fleetKey, report);
+        var event = Event.prepare('reportClear', report.fleetKey, report.toObject());
         event.saveQ();
 
         return response.success(res, event);
@@ -315,7 +319,7 @@ exports.add_scan = function(req, res, next) {
       if (!scan.shipTypes.length) return response.error(res, 'report', 'Invalid scan data.');
       if (!scan.shipClasses.length) return response.error(res, 'report', 'Invalid scan data.');
 
-      var event = Event.prepare('scanPosted', reporter.fleetKey, scan);
+      var event = Event.prepare('scanPosted', reporter.fleetKey, scan.toObject());
       scan.saveQ();
       event.saveQ();
 
@@ -345,7 +349,7 @@ exports.update_hostile = function(req, res, next) {
         hostile.reporterId = req.session.fleet.characterId;
         hostile.reporterName = req.session.fleet.characterName;
 
-        var event = Event.prepare('updateHostile', req.session.fleetKey, hostile);
+        var event = Event.prepare('updateHostile', req.session.fleetKey, hostile.toObject());
 
         hostile.saveQ();
         event.saveQ();

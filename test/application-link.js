@@ -128,7 +128,8 @@ describe('Application: Link', function() {
             if (err) return done(err);
             res.text.should.match(/Link Session To Pilot/);
             res.text.should.match(/Hello, tarei/);
-            res.text.should.match(pilot_key);
+            var pilot_key_regex = new RegExp(pilot_key, 'g');
+            res.text.should.match(pilot_key_regex);
 
             done();
           });
@@ -167,8 +168,8 @@ describe('Application: Link', function() {
             if (err) return done(err);
             res.body.success.should.be.ok;
             res.body.should.have.property('events').with.lengthOf(2);
-            // res.body.events[0].should.have.property('type', 'memberUpdated');
-            // res.body.events[1].should.have.property('type', 'updateSystemMap');
+            res.body.events[0].should.have.property('type', 'memberUpdated');
+            res.body.events[1].should.have.property('type', 'updateSystemMap');
 
             done();
           });
@@ -182,8 +183,8 @@ describe('Application: Link', function() {
             if (err) return done(err);
             res.body.success.should.be.ok;
             res.body.should.have.property('events').with.lengthOf(2);
-            // res.body.events[0].should.have.property('type', 'memberUpdated');
-            // res.body.events[1].should.have.property('type', 'updateSystemMap');
+            res.body.events[0].should.have.property('type', 'memberUpdated');
+            res.body.events[1].should.have.property('type', 'updateSystemMap');
 
             done();
           });
@@ -259,7 +260,8 @@ describe('Application: Link', function() {
             if (err) return done(err);
             res.text.should.match(/Link Session To Pilot/);
             res.text.should.match(/Hello, tarei/);
-            res.text.should.match(pilot_key);
+            var pilot_key_regex = new RegExp(pilot_key, 'g');
+            res.text.should.match(pilot_key_regex);
 
             done();
           });
@@ -274,8 +276,9 @@ describe('Application: Link', function() {
             if (err) return done(err);
             res.text.should.match(/Link Session To Pilot/)
             res.text.should.match(/Hello, tarei/)
-            res.text.should.not.match(pilot_key);
-
+            var pilot_key_regex = new RegExp(pilot_key, 'g');
+            res.text.should.not.match(pilot_key_regex);
+            
             done();
           });
       })

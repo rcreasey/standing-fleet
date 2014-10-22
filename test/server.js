@@ -58,7 +58,7 @@ describe('Server', function() {
     it('should handle static login view', function(done) {
       request(url)
         .get('/login')
-        .expect(200)
+        .expect(302)
         .end(function(err, res) {
           if (err) return done(err);
           res.text.should.match(/Goonfleet ESA Login/)

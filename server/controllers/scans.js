@@ -14,16 +14,25 @@ exports.show = function(req, res, next) {
       return scan.toObject();
     })
     .then(function(scan) {
+      debugger
       System.findOneQ({id: scan.systemId})
         .then(function(system) {
+          if (!system) throw 'Error looking up system'
           return [ scan, system.toObject() ];
         })
         .spread(function(scan, system) {
+          debugger
           Region.findOneQ({id: system.regionID})
             .then(function(region) {
+              if (!region) throw 'Error looking up region'
               return res.render('scans', {timestamp: moment.unix(scan.ts).format('lll'), scan: scan, region: region, system: system});
             })
         })
+        .catch(function(error) {
+          console.log(error)
+          return res.render('scans', {error: 'Invalid Scan ID'});
+        })
+        .done();
     })
     .catch(function(error) {
       console.log(error)
