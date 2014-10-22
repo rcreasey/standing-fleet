@@ -41,7 +41,7 @@ var clean_members = function() {
 };
 
 var clean_hostiles = function() {
-  Hostile.findQ({ts: { $lte: moment().unix() - 30 }})
+  Hostile.findQ({ts: { $lte: moment().unix() - +settings.hostileTtl }})
     .then(function(hostiles) {      
       _.forEach(hostiles, function(hostile) {
         console.log(hostile.characterName + ' timed out');
