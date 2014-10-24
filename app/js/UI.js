@@ -115,3 +115,8 @@ var UI = {
 		return msgs[Math.floor(Math.random()*msgs.length)] + "...";
 	}
 }
+
+Handlebars.registerHelper('ui_icon', function(icon) {
+  if (icon == 'settings') return 'cog'
+  return 'question'  
+});

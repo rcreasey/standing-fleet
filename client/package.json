@@ -9,15 +9,16 @@
     "toolbar": true,
     "frame": true,
     "position": "center",
-    "width": 360,
-    "height": 300,
-    "min_width": 220,
-    "min_height": 220
+    "width": 375,
+    "height": 445,
+    "min_width": 375,
+    "min_height": 445
   },
   "dependencies": {
+    "elementtree": "^0.1.6",
     "faye": "^1.0.3",
-    "moment": "^2.8.3",
-    "tail": "^0.4.0"
+    "file-tail": "^0.3.0",
+    "moment": "^2.8.3"
   },
   "devDependencies": {
     "node-webkit-builder": "^0.1.3"
