@@ -514,10 +514,12 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 .event.scanShared {	background-color:#332; border-bottom: 0.2rem solid #110; border-top: 0.16rem solid #553; }
 .event.reportShared {	background-color:#332; border-bottom: 0.2rem solid #110; border-top: 0.16rem solid #553; }
 .event.error { background-color:#411; border-bottom: 0.2rem solid #200; border-top: 0.16rem solid #633; }
-.event.reportHostile { background-color:#411; border-bottom: 0.2rem solid #200; border-top: 0.16rem solid #633; }
 .event.hostileTimedOut { background-color:#AF5B00; border-bottom: 0.2rem solid #291E0E; border-top: 0.16rem solid #BD8942; }
 .event.updateHostile { background-color:#885000; border-bottom: 0.2rem solid #291E0E; border-top: 0.16rem solid #BD8942; }
+.event.sourcedClear,
 .event.reportClear { background-color:#366436; border-bottom: 0.2rem solid #222; border-top: 0.16rem solid #5cb85c; }
+.event.sourcedHostile,
+.event.reportHostile { background-color:#411; border-bottom: 0.2rem solid #200; border-top: 0.16rem solid #633; }
 
   /*/
  / /  PANEL

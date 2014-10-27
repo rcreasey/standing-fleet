@@ -7,8 +7,9 @@ $(function () {
 		Data.state.data_client.subscribe('/events', function(event) {
 			EventList.addEvent(event);
 		});
+		log('Connected to local data client...');
 	} catch(err) {
-		console.log('Unable to connect to local data client...')
+		log('Unable to connect to local data client...');
 	}
 
 });

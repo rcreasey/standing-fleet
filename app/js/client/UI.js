@@ -112,10 +112,10 @@ Handlebars.registerHelper('ui_icon', function(icon) {
   return 'question'  
 });
 
-Handlebars.registerHelper('reported', function(pilots, systems) {
+Handlebars.registerHelper('reported', function(pilots) {
   if (Object.keys(pilots).length > 1) {
-    return Object.keys(pilots).length + ' hostiles reported in ' + systems[0];
+    return Object.keys(pilots).length + ' hostiles ';
   } else {
-    return Object.keys(pilots)[0] + ' reported in ' + systems[0];
+    return Object.keys(pilots)[0];
   } 
 });
