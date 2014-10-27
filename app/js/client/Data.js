@@ -17,7 +17,7 @@ var Data = {
     poll: {
       loop: 15000,
       clipboard: false,
-      logs: false
+      logs: true
     },
     datasources: {
       local: null,
@@ -80,6 +80,7 @@ var Data = {
     return {
       alert: Templates.alert,
       event: Templates.event,
+      report: Templates.report,
       panel: Templates.panel
     }
   },

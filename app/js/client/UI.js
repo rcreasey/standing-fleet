@@ -26,7 +26,10 @@ var UI = {
   
   togglePolling: function (checkbox, source) {
     if (source == 'clipboard') Data.state.poll.clipboard = checkbox.checked;
-    if (source == 'logs') Data.state.poll.logs = checkbox.checked;
+    if (source == 'logs') {
+      Data.state.poll.logs = checkbox.checked;
+      resetLogPolling();
+    }
   },
   
   toggleChannel: function(checkbox, channel) {
@@ -107,4 +110,12 @@ var UI = {
 Handlebars.registerHelper('ui_icon', function(icon) {
   if (icon == 'settings') return 'cog'
   return 'question'  
+});
+
+Handlebars.registerHelper('reported', function(pilots, systems) {
+  if (Object.keys(pilots).length > 1) {
+    return Object.keys(pilots).length + ' hostiles reported in ' + systems[0];
+  } else {
+    return Object.keys(pilots)[0] + ' reported in ' + systems[0];
+  } 
 });

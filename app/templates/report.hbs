@@ -1,0 +1,16 @@
+<div class="event {{type}}" data-key="{{key}}">
+  {{#if clear}}
+  <i class="fa fa-check"></i>
+  <span class="text">
+    {{systems}} reported clear by {{reporterName}}
+  </span>  
+  {{else}}
+  <i class="fa fa-crosshairs"></i>
+  <span class="text">
+    {{reported pilots systems}} by {{reporterName}}
+  </span>  
+  {{/if}}
+  <div class="right">
+    <span class="time">{{time}}</span>
+  </div>
+</div>
