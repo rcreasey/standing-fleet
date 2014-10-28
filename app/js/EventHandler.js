@@ -122,13 +122,27 @@ var EventHandler = {
 				+ member.shipTypeId + ');">' + member.shipTypeName + '</a>';
 			event.alert = true;
 
-		} else if (event.type === 'updateSystemMap' ) {
+		} else if (event.type === 'updateSystemMap') {
 			var target = event.data;
 			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
 				+ target.characterId + ');">' + target.characterName + '</a> has moved into '
 				+ '<a href="javascript:CCPEVE.showInfo(5, ' + target.systemId + ');">'
 				+ target.systemName + '</a>';
 			event.alert = true;
+		} else if (event.type === 'sourcedClear') {
+			var report = event.data;
+			event.text = 'Intel channel reported '
+				+ '<a href="javascript:CCPEVE.showInfo(5, ' + report.systemId + ');">' + report.systemName + '</a> '
+				+ 'as clear by '
+				+ '<a href="javascript:CCPEVE.showInfo(1377, ' + report.reporterId + ');">' + report.reporterName;
+
+		} else if (event.type === 'sourcedHostile') {
+			var report = event.data;
+			event.text = 'Intel channel reported '
+				+ '<a href="javascript:CCPEVE.showInfo(5, ' + report.systemId + ');">' + report.systemName + '</a> '
+				+ 'hostile by '
+				+ '<a href="javascript:CCPEVE.showInfo(1377, ' + report.reporterId + ');">' + report.reporterName;
+				
 		}
 	},
 
@@ -179,6 +193,29 @@ var EventHandler = {
 		HostileList.clearBySystem(system.systemId);
 		HostileList.sortAndRenderAll();
 		SystemMap.refreshSystems();
+	},
+	
+	sourcedClear: function (report)  {
+		submitSourcedStatus({
+			text: 'clear',
+			systemId: report.systemId,
+			systemName: report.systemName,
+			reporterId: report.reporterId,
+			reporterName: report.reporterName,
+			data: [report.reporterName]
+		});
+
+	},
+	
+	sourcedHostile: function (report) {
+		submitSourcedStatus({
+			text: 'hostile',
+			systemId: report.systemId,
+			systemName: report.systemName,
+			reporterId: report.reporterId,
+			reporterName: report.reporterName,
+			data: Object.keys(report.pilots)
+		});
 	},
 
 	statusSelf: function (self) {

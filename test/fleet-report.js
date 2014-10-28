@@ -87,14 +87,12 @@ describe('Fleet API: Report', function() {
         .post('/api/fleet/status')
         .set(igb_headers)
         .send({
-          scanData: {
-            systemId: igb_headers.EVE_SOLARSYSTEMID,
-            systemName: igb_headers.EVE_SOLARSYSTEMNAME,
-            reporterId: igb_headers.EVE_CHARID,
-            reporterName: igb_headers.EVE_CHARNAME,
-            text: 'validate',
-            data: ['SirMolle', igb_headers.EVE_CHARNAME]
-          }
+          systemId: igb_headers.EVE_SOLARSYSTEMID,
+          systemName: igb_headers.EVE_SOLARSYSTEMNAME,
+          reporterId: igb_headers.EVE_CHARID,
+          reporterName: igb_headers.EVE_CHARNAME,
+          text: 'validate',
+          data: ['SirMolle', igb_headers.EVE_CHARNAME]
         })
         .expect(200)
         .end(function(err, res) {
@@ -181,14 +179,12 @@ describe('Fleet API: Report', function() {
         .post('/api/fleet/status')
         .set(igb_headers)
         .send({
-          scanData: {
-            systemId: igb_headers.EVE_SOLARSYSTEMID,
-            systemName: igb_headers.EVE_SOLARSYSTEMNAME,
-            reporterId: igb_headers.EVE_CHARID,
-            reporterName: igb_headers.EVE_CHARNAME,
-            text: 'clear',
-            data: [ igb_headers.EVE_CHARNAME ]
-          }
+          systemId: igb_headers.EVE_SOLARSYSTEMID,
+          systemName: igb_headers.EVE_SOLARSYSTEMNAME,
+          reporterId: igb_headers.EVE_CHARID,
+          reporterName: igb_headers.EVE_CHARNAME,
+          text: 'clear',
+          data: [ igb_headers.EVE_CHARNAME ]
         })
         .expect(200)
         .end(function(err, res) {

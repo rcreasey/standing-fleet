@@ -5,7 +5,7 @@ $(function () {
 	try {
 		Data.state.data_client = new Faye.Client(Data.config.data_client);
 		Data.state.data_client.subscribe('/events', function(event) {
-			EventList.addEvent(event);
+			EventHandler.dispatchEvents([event]);
 		});
 		log('Connected to local data client...');
 	} catch(err) {
@@ -184,6 +184,21 @@ function submitStatus(reported_status, pilots) {
 			});
 		});
 	});
+}
+
+function submitSourcedStatus(status) {
+	Server.postStatus(status, function(error, data) {
+		if (error) {
+			handleError(error);
+			return;
+		}
+		
+		EventList.addEvent({ type: 'info', class: status.text,
+												text: 'Status was reported on <strong>' +
+															'<a href="javascript:CCPEVE.showInfo(5, ' + status.systemId + ')">' +
+															status.systemName + '</a> from your desktop client.' });
+	});
+	
 }
 
 function submitHostileDetailsClick(button) {

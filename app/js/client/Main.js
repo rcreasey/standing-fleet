@@ -50,7 +50,7 @@ function pollClipboard() {
       var clipboard = document.getElementById('clipboard')
       var event = {'time': Util.getTime(), 'type': 'sourcedClipboard', 'text': cb.get('text')};
 
-      var renderedEvent = $(Templates.event(event));
+      var renderedEvent = $(Templates.event(event.data));
       Data.ui.clipboard_list.prepend(renderedEvent);
       Data.state.datasources.local.getClient().publish('/events', event);
 
@@ -78,8 +78,8 @@ function pollLogs() {
   }
   
   var filename_match = '(' + channels.join('|') + ')_';
-  // filename_match += moment.format('YYYYMMDD');
-  filename_match += '20130627';
+  filename_match += moment().format('YYYYMMDD');
+  // filename_match += '20130627';
   filename_match += '_\\d+.txt';
 
   fs.readdir(log_dir, function(err, list) {
@@ -93,7 +93,7 @@ function pollLogs() {
           processLine(line, function(event) {
             if (!event) return;
         
-            var renderedEvent = $(Templates.report(event))
+            var renderedEvent = $(Templates.report(event.data))
             Data.ui.logs_list.prepend(renderedEvent);
             Data.state.datasources.local.getClient().publish('/events', event);
           });
@@ -294,9 +294,9 @@ var processLine = function processLine(line, next) {
         requestList.push(deadCharacter);
  
         var getCharIDsComplete = function getCharIDsComplete() {
-          next({time: Util.getTime(), type: 'sourcedKillmail', raw: line, 
-                reporterId: characters[sender.toUpperCase()], reporterName: sender, 
-                pilots: {deadCharacter: characters[deadCharacter.toUpperCase()]}, lostShip: lostShip});
+          next({time: Util.getTime(), raw: line, type: 'sourcedKillmail',
+                data: { type: 'sourcedKillmail', reporterId: characters[sender.toUpperCase()], reporterName: sender, 
+                pilots: {deadCharacter: characters[deadCharacter.toUpperCase()]}, lostShip: lostShip}});
         };
         if(requestList.length > 0) {
           getCharIDs(requestList, getCharIDsComplete);
@@ -342,18 +342,18 @@ var processLine = function processLine(line, next) {
             var getCharIDsComplete = function getCharIDsComplete() {
               requestList.filter(function(c){return c !== sender && characters[c.toUpperCase()] != null;})
                 .forEach(function(c){resolvedCharacters[c] = characters[c.toUpperCase()]});
-              next({time: Util.getTime(), type: type, raw: line, clear: clear,
+              next({time: Util.getTime(), type: type, raw: line, data: {clear: clear, type: type,
                 reporterId: characters[sender.toUpperCase()], reporterName: sender,
                 systemName: system.systemName, systemId: system.systemId,
-                pilots: resolvedCharacters});
+                pilots: resolvedCharacters}});
             };
             getCharIDs(requestList, getCharIDsComplete);
           }
           else {
-            next({time: Util.getTime(), type: type, raw: line, clear: clear,
+            next({time: Util.getTime(), type: type, raw: line, data: {clear: clear, type: type,
                   reporterId: characters[sender.toUpperCase()], reporterName: sender,
                   systemName: system.systemName, systemId: system.systemId,
-                  pilots: resolvedCharacters});
+                  pilots: resolvedCharacters}});
           }
         }
         else {
