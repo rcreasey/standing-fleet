@@ -78,8 +78,8 @@ function pollLogs() {
   }
   
   var filename_match = '(' + channels.join('|') + ')_';
-  filename_match += moment().format('YYYYMMDD');
-  // filename_match += '20130627';
+  // filename_match += moment().format('YYYYMMDD');
+  filename_match += '20130627';
   filename_match += '_\\d+.txt';
 
   fs.readdir(log_dir, function(err, list) {
@@ -87,7 +87,9 @@ function pollLogs() {
     var regex = new RegExp(filename_match);
     list.forEach( function(file) {
       if (regex.test(file)) {
-        log('Watching ' + file);
+        var renderedEvent = $(Templates.event({'time': Util.getTime(), 'type': 'watchLog', 'text': 'Watching ' + file }));
+        Data.ui.logs_list.prepend(renderedEvent);
+
         t = new tail.startTailing(path.join(log_dir, file))
         t.on('line', function(line) {
           processLine(line, function(event) {
