@@ -81,8 +81,8 @@ function pollLogs() {
   }
   
   var filename_match = '(' + channels.join('|') + ')_';
-  // filename_match += moment().format('YYYYMMDD');
-  filename_match += '20130627';
+  filename_match += moment().format('YYYYMMDD');
+  // filename_match += '20130627';
   filename_match += '_\\d+.txt';
 
   fs.readdir(log_dir, function(err, list) {
