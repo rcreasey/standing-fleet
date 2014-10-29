@@ -1,6 +1,7 @@
 <div class="panel {{type}}">
   <div class="header">
-    {{#if closeable}}<img class="close" src="/images/icon-close.png" alt="Close panel" onClick="UIPanels.hidePanel()" />{{/if}}
+    {{#if closeable}}<i class="close fa fa-times fa-2x" onClick="UIPanels.hidePanel()"></i>{{/if}}
+    {{#if icon}}<i class="fa fa-{{ui_icon icon}} fa-3x"></i>{{/if}}
     {{#if image}}<img src="/images/{{image}}" alt="Panel image" />{{/if}}
     {{#if logo}}<img id="logo" src="/images/panel-logo.png" alt="Standing Fleet" />{{/if}}
     {{#if title}}<div class="text title">{{{title}}}</div>{{/if}}
@@ -36,10 +37,31 @@
         <a {{#if button.link}}href="{{{button.link}}}"{{/if}} target="_blank" class="button {{{button.class}}}" onClick="{{{button.onClick}}}">{{{button.text}}}</a>
       </div>
       {{/if}}
+      {{#if checkbox}}
+      <div class="group">
+        <input type="checkbox" {{#if checkbox.checked}}checked{{/if}} {{#if checkbox.onclick}}onclick="{{checkbox.onclick}}"{{/if}}>
+        <span class="label">{{checkbox.legend}}</span>
+      </div>      
+      {{/if}}
       {{#if submit}}
       <div class="submit">
         <a {{#if submit.link}}href="{{{submit.link}}}"{{/if}} target="_blank" class="button" onClick="{{{submit.onClick}}}">{{{submit.text}}}</a>
       </div>
+      {{/if}}
+      {{#if group}}
+        <div class="group">
+          {{#if group.legend}}<span class="legend">{{group.legend}}</span>{{/if}}
+          <div class="group-items">
+            {{#each group.formitems}}
+              {{#if checkbox}}
+              <div class="item">
+                <input type="checkbox" {{#if checkbox.checked}}checked{{/if}} {{#if checkbox.onclick}}onclick="{{checkbox.onclick}}"{{/if}}>
+                <span class="label">{{checkbox.legend}}</span>
+              </div>      
+              {{/if}}
+            {{/each}}
+          </div>
+        </div>
       {{/if}}
     {{/each}}
     </div>

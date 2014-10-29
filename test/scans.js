@@ -89,7 +89,7 @@ describe('Scans', function() {
         .expect(200)
         .end(function(err,res) {
           if (err) return done(err);
-          var ship_class = new RegExp(scan_data.scanData.classes[0].details[0].shipClass, 'g');
+          var ship_class = new RegExp(scan_data.classes[0].details[0].shipClass, 'g');
           res.text.should.match(ship_class);
 
           done();

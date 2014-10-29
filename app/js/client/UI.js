@@ -23,10 +23,22 @@ var UI = {
     Data.ui.bottomMenu_spinner
       .fadeOut(Data.config.uiSpeed*4);
   },
+  
+  togglePolling: function (checkbox, source) {
+    if (source == 'clipboard') Data.state.poll.clipboard = checkbox.checked;
+    if (source == 'logs') {
+      Data.state.poll.logs = checkbox.checked;
+      resetLogPolling();
+    }
+  },
+  
+  toggleChannel: function(checkbox, channel) {
+    Data.state.datasources.logs.channels[ channel ] = checkbox.checked;
+  },
 
   registerEventHandlers: function () {
-    Data.ui.topMenu_clipboard.on('click', $.proxy(UI.tabClick, null, "clipboard"));
-    Data.ui.topMenu_logs.on('click', $.proxy(UI.tabClick, null, "logs"));
+    Data.ui.topMenu_clipboard.on('click', $.proxy(UI.tabClick, null, 'clipboard'));
+    Data.ui.topMenu_logs.on('click', $.proxy(UI.tabClick, null, 'logs'));
     Data.ui.bottomMenu_menu.on('click', $.proxy(UIPanels.showMenuPanel, null, false));
     UI.update_scrollables();
   },
@@ -94,3 +106,16 @@ var UI = {
     return msgs[Math.floor(Math.random()*msgs.length)] + "...";
   }
 }
+
+Handlebars.registerHelper('ui_icon', function(icon) {
+  if (icon == 'settings') return 'cog'
+  return 'question'  
+});
+
+Handlebars.registerHelper('reported', function(pilots) {
+  if (Object.keys(pilots).length > 1) {
+    return Object.keys(pilots).length + ' hostiles ';
+  } else {
+    return Object.keys(pilots)[0];
+  } 
+});

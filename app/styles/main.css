@@ -99,6 +99,10 @@ div#page, div#content-wrapper { position: relative; height: 100%; width: 100%; b
 	padding-top: 2.5rem
 }
 
+#dim.client {
+	background-image: none;
+}
+
 #alert-container {
 	z-index: 1;
 	position: fixed;
@@ -241,6 +245,10 @@ input.info-string {
 	font-family: monospace !important;
 	font-size: 1.5rem !important;
 	text-align: center !important;
+	width: 100% !important;
+}
+
+input.log-path {
 	width: 100% !important;
 }
 
@@ -506,10 +514,12 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 .event.scanShared {	background-color:#332; border-bottom: 0.2rem solid #110; border-top: 0.16rem solid #553; }
 .event.reportShared {	background-color:#332; border-bottom: 0.2rem solid #110; border-top: 0.16rem solid #553; }
 .event.error { background-color:#411; border-bottom: 0.2rem solid #200; border-top: 0.16rem solid #633; }
-.event.reportHostile { background-color:#411; border-bottom: 0.2rem solid #200; border-top: 0.16rem solid #633; }
 .event.hostileTimedOut { background-color:#AF5B00; border-bottom: 0.2rem solid #291E0E; border-top: 0.16rem solid #BD8942; }
 .event.updateHostile { background-color:#885000; border-bottom: 0.2rem solid #291E0E; border-top: 0.16rem solid #BD8942; }
+.event.sourcedClear,
 .event.reportClear { background-color:#366436; border-bottom: 0.2rem solid #222; border-top: 0.16rem solid #5cb85c; }
+.event.sourcedHostile,
+.event.reportHostile { background-color:#411; border-bottom: 0.2rem solid #200; border-top: 0.16rem solid #633; }
 
   /*/
  / /  PANEL
@@ -539,6 +549,7 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	padding: 0rem 2.4rem;
 }
 
+.panel i,
 .panel img {
 	display: inline-block;
 	float: left;
@@ -558,8 +569,6 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 
 .panel .close {
 	float: right;
-	width: 1rem;
-	height: 1rem;
 	padding: 0;
 	cursor: pointer;
 }
@@ -607,9 +616,17 @@ a.button:hover,
 	background-color: #111;
 	width: 14.1rem;
 	color: #ccc;
+	background-color: #333;
 	font-weight: normal;
 	text-align: left;
-	border: 0.16rem solid #111
+	border-top: 0.16rem solid #444;
+	border-right: 0.16rem solid #999;
+	border-bottom: 0.16rem solid #999;
+	border-left: 0.16rem solid #444;
+}
+
+.panel input[type='checkbox'] {
+	width: auto;
 }
 
 .panel form input[placeholder] {
@@ -632,6 +649,16 @@ a.button:hover,
 	min-height: 10rem;
 }
 
+.panel .group-items {
+	display: block;
+}
+
+.panel .group-items .item {
+	display: inline-block;
+	width: 45%;
+}
+
+.panel .label,
 .panel .legend {
 	color: #ffcc2a;
 	font-family: 'Droid Sans', sans-serif;
@@ -639,6 +666,12 @@ a.button:hover,
 	display: block;
 	padding: 0.2rem;
 	margin: 0 auto;
+}
+
+.panel .label {
+	display: inline-block;
+	min-width: 11rem;
+	text-align: left;
 }
 
 code.error,
