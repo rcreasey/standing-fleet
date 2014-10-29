@@ -143,6 +143,8 @@ var EventHandler = {
 				+ 'hostile by '
 				+ '<a href="javascript:CCPEVE.showInfo(1377, ' + report.reporterId + ');">' + report.reporterName;
 				
+		} else if (event.type === 'sourcedClipboard') {
+			event.text = 'Parsing clipboard text from client.'
 		}
 	},
 
@@ -216,6 +218,17 @@ var EventHandler = {
 			reporterName: report.reporterName,
 			data: Object.keys(report.pilots)
 		});
+	},
+	
+	sourcedClipboard: function (report) {
+		submitSourcedStatus({
+			text: 'validate',
+			systemId: Data.state.self.systemId,
+			systemName: Data.systems[Data.state.self.systemId].name,
+			reporterId: Data.state.self.characterId,
+			reporterName: Data.state.self.characterName,
+			data: ScanList.parseLocal(report)
+		})
 	},
 
 	statusSelf: function (self) {

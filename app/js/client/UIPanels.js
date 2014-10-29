@@ -23,7 +23,7 @@ var UIPanels = {
       closeable: true,
       formitems: [
         {checkbox: {legend: 'Clipboard Polling', checked: Data.state.poll.clipboard, onclick: 'UI.togglePolling(this, "clipboard");' }},
-        {checkbox: {legend: 'Log Polling', checked: Data.state.poll.log, onclick: 'UI.togglePolling(this, "logs");' }}
+        {checkbox: {legend: 'Log Polling', checked: Data.state.poll.logs, onclick: 'UI.togglePolling(this, "logs");' }}
       ]
     };
     
