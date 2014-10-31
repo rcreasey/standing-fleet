@@ -21,6 +21,11 @@ html {
 	overflow: hidden;
 }
 
+html.scans,
+html.docs {
+	overflow: visible;
+}
+
 body { position: absolute; height:100%; width:100%; }
 
 a, a:visited { color: #ffcc2a; text-decoration: none }
