@@ -1,0 +1,78 @@
+extends ../layout/default
+
+block content
+  script.
+    document.documentElement.classList.add('docs');
+    
+  #docs
+    h2 What Is This Site?
+    p Standing Fleet crowd sources the intel for a given region by taking two kinds of inputs: copy/paste of local and copy/paste of d-scan.
+
+    p For reporting status of a system, one does the following:
+    ol
+      li Click on the list of names in local.
+      li Ctrl-A + Ctrl-C
+      li 
+        | Click on 'Report Local' on the bottom menu bar.
+        img(src='http://i.imgur.com/gYDaBcK.png')
+      li
+        | Paste results.
+        img(src='http://i.imgur.com/5abNcPv.png')
+
+    p No more carefully picking names out of the list and dragging them to the intel channel.  No more worrying about whether or not the person you're reporting is blue or not.  Standing fleet will parse these pilots (and whitelist blue pilots) and mark them hostile based on their standings to standings.goonfleet.com. Notice that I copy pasted a 30+ list of local, but it's only saying that 7 of them are hostile based on their standings lookup:
+    img(src='http://i.imgur.com/ugNrkRa.png')
+      
+    
+//- 
+//- Updating Hostile Details
+//- For the most part, people largely care about whether or not a system is hostile and less about what kind of ships the hostiles are in.  Although, sometimes that's important.  If you happen to know the ship type of a hostile, you can click on the Hostiles List and then click on the 'Non Visual' link to bring up the details window for that hostile.  Fill out the form and click submit.   
+//- ZrlcdiV.png
+//- 
+//- A few seconds later, your bros know what kind of ship that guy is in:
+//- Xy9Yc4w.png
+//- 
+//- Hostiles will be auto-expired in 15 minutes, or will be updated if they are reported in another system.  Yes, their ship details will automatically preserved.
+//- 
+//- Directional Scans
+//- Another thing that Standing Fleet can keep track of is directional scans.  To submit a directional scan, simply do the following:
+//- Open up your directional scan window and scan 360 with full resolution.
+//- Ctrl-A + Ctrl-C
+//- Click 'Report Scan' on the bottom menu bar.
+//- aTzkjyT.png
+//- 
+//- Paste results
+//- 04r2NF2.png
+//- 
+//- Results are automatically submitted to your fleetmates and organized by ship type:
+//- axUuyk6.png
+//- 
+//- Out of Game Linking
+//- So you've probably been reading all of this and thinking, that's really great Tarei.  Too bad I'll never use it because I already have too many windows open on my client and one more for the IGB is a bridge too far.  Ok, so fire up chrome (or firefox if you're one of /those people/) and plunk in:
+//- 
+//- https://standing-fleet.herokuapp.com/
+//- 
+//- You're now going to get a different login form than you did in game.  This time, fill out the form with your Goon ESA (https://goonfleet.com/esa/) credentials.  Use the ones you use for the wiki (ie: keep spaces in your usernames, don't convert them to underscores).
+//- yEoNc6Y.png
+//- 
+//- Now it's going to ask for your pilot key.  
+//- L2IGnxy.png
+//- 
+//- Remember where that's located?  That's right, it's back on the options menu.  Go copy and paste that sumbitch back here.
+//- MmCjvN8.png
+//- 
+//- Now you've linked your pilot and can click on the fleet link for that pilot out of game.
+//- A1i7oIR.png
+//- 
+//- Feel free to minimize the IGB Standing Fleet window now, but just make sure that you keep it open to keep the session open.
+//- 
+//- Things We're Planning
+//- One of the things we want to do is provide a stand-alone client that will watch the usual intel channels (ie: DEK.CFC, etc) and report those as well.  We're still hoping that in-app intel reports become the preferred way, but this will help close the gap.  Additionally, the stand-alone app will have a toggle-able clipboard watch mode, so that all you would have to do is ctrl-a + ctrl-c local.  It'll detect that it's a copypaste of local (and not your credit card pins) and post it automatically.  This would be particularly useful for people who could park alts at various regional chokepoints and macro ctrl-a + ctrl-c every 60 seconds.  Instant traffic cop.
+//- 
+//- Reportable information about systems that don't have to do with pilots.  For example, reporting that a system has a wormhole, or gatecamp information would be particularly useful.
+//- 
+//- We're also thinking about providing a way to hook into GTS to provide route and jump bridge guidance.  That's going to be a bit off, but still something we're thinking about doing.
+//- 
+//- In Closing
+//- I'm working on getting a bug tracker for this, but in the meantime, let's keep it in this thread.  Additionally, please let me know what works for you and what doesn't work for you.  Since this is based on crowd sourcing, it's only going to really work better when there are more people using this.  Even if it's just minimized the more people in fleet using this the better.
+//- 
+//- Any questions?
