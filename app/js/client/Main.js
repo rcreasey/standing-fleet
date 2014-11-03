@@ -9,7 +9,8 @@ var gui = require('nw.gui')
   , https = require('https')
   , request = require('request')
   , _ = require('lodash')
-  
+  , encoding = require('encoding')
+
 window.onload = function () {
   initializeClient();
 };
@@ -38,7 +39,7 @@ function initializeClient() {
   log('Begin Polling...');
   pollClipboard();
   pollLogs();
-  
+
   gui.Window.get().show();
 };
 
@@ -52,7 +53,7 @@ function pollClipboard() {
         var clipboard = document.getElementById('clipboard')
         var event = {time: Util.getTime(), type: 'sourcedClipboard', data: text};
         cb.clear();
-        
+
         var renderedEvent = $(Templates.event({time: event.time, text: event.data}));
         Data.ui.clipboard_list.prepend(renderedEvent);
         Data.state.datasources.local.getClient().publish('/events', event);
@@ -67,38 +68,47 @@ function pollClipboard() {
 
 function pollLogs() {
   if (!Data.state.poll.logs) return;
-  
+
   var log_dir = (/^win/.test(process.platform)) ? Data.state.datasources.logs.path.win : Data.state.datasources.logs.path.darwin;
   var channels = [];
-  
+
   for (channel in Data.state.datasources.logs.channels) {
-    if (Data.state.datasources.logs.channels[channel]) channels.push(channel)
+    if (Data.state.datasources.logs.channels[channel]) channels.push(channel);
   }
-  
+
   if (!channels.length) {
-    log('No logs to parse')
+    log('No logs to parse');
+    var renderedEvent = $(Templates.event({'time': Util.getTime(), type: 'error', text: 'No logs to parse.  Have you joined an intel channel today?' }));
+    Data.ui.logs_list.prepend(renderedEvent);
     return;
   }
-  
+
   var filename_match = '(' + channels.join('|') + ')_';
   // filename_match += moment().format('YYYYMMDD');
   filename_match += '20130627';
   filename_match += '_\\d+.txt';
 
   fs.readdir(log_dir, function(err, list) {
-    if(err) throw err;
+    if (err) {
+      var renderedEvent = $(Templates.event({'time': Util.getTime(), type: 'error', text: 'Unable to poll logs: ' + err }));
+      Data.ui.logs_list.prepend(renderedEvent);
+      return;
+    }
+
     var regex = new RegExp(filename_match);
     list.forEach( function(file) {
       if (regex.test(file)) {
-        var renderedEvent = $(Templates.event({'time': Util.getTime(), 'type': 'watchLog', 'text': 'Watching ' + file }));
+        var renderedEvent = $(Templates.event({'time': Util.getTime(), text: 'Watching ' + file }));
         Data.ui.logs_list.prepend(renderedEvent);
 
-        t = new tail.startTailing(path.join(log_dir, file))
+        t = new tail.startTailing(path.join(log_dir, file));
         t.on('line', function(line) {
+          if (line.length === 1) return;
+
           processLine(line, function(event) {
             if (!event) return;
-        
-            var renderedEvent = $(Templates.report(event.data))
+
+            var renderedEvent = $(Templates.report(event.data));
             Data.ui.logs_list.prepend(renderedEvent);
             Data.state.datasources.local.getClient().publish('/events', event);
           });
@@ -106,8 +116,15 @@ function pollLogs() {
 
         Data.state.datasources.logs.handles.push( t );
       }
-    }); 
+    });
   });
+
+  if (Data.state.datasources.logs.handles.length === 0) {
+    var renderedEvent = $(Templates.event({'time': Util.getTime(), type: 'error', text: 'No logs to parse.  Have you joined an intel channel today?' }));
+    Data.ui.logs_list.prepend(renderedEvent);
+    return;
+  }
+
 };
 
 function resetLogPolling() {
@@ -123,7 +140,7 @@ function resetLogPolling() {
 
 function log(message) {
   if (!Data.config.log) return;
-  
+
   if (Data.config.log === 'events') {
     EventList.addEvent({
       type: 'info',
@@ -139,7 +156,7 @@ var Dict = function() {
   "use strict";
   this._root = {};
 };
- 
+
 Dict.prototype = {
   /**
    * @param {string} word
@@ -160,7 +177,7 @@ Dict.prototype = {
   },
   compile: function compile() {
     var queue = [], entry, node, child, fall;
- 
+
     queue.push(this._root);
     while( queue.length > 0 ) {
       node = queue.shift();
@@ -174,7 +191,7 @@ Dict.prototype = {
         queue.push(node[key]);
       }
     }
- 
+
     this._root._fall = this._root;
     queue.push({char: null, node: this._root});
     while( queue.length > 0 ) {
@@ -267,40 +284,48 @@ request({url: Data.config.domain + '/data/map.json', json: true}, function (erro
   system_list = body.Systems;
 });
 
-var lineRegex = /\[ (\d{4}\.\d{2}\.\d{2} \d{2}:\d{2}:\d{2}) \] ([\w ]+) > (.*)/i;
+// var lineRegex = /\[ (\d{4}\.\d{2}\.\d{2} \d{2}:\d{2}:\d{2}) \] ([\w ]+) > (.*)/i;
+var lineRegex = /\[(.*)\](.*)\> ?(.*)/i;
 var killmailRegex = /Kill: (.*) \((.*)\)/i;
 var characters = Object.create(null);
 var charDict = new Dict();
- 
+
 var processLine = function processLine(line, next) {
+  Data.ui.logs_list.prepend($(Templates.event({time: Util.getTime(), text: 'line: ' + line})));
+
   if(line != undefined) {
-    var result = lineRegex.exec(line);
+
+    // wtf are these? ��
+    var buffer = encoding.convert(line, 'utf-16');
+    var result = lineRegex.exec(buffer.toString());
+    Data.ui.logs_list.prepend($(Templates.event({time: Util.getTime(), text: 'result: ' + result})));
+
     if(result) {
-      var timestamp = result[1];
-      var sender = result[2];
-      var text = result[3];
+      var timestamp = result[1].slice(2,-2);
+      var sender = result[2].slice(2,-2);
+      var text = result[3].slice(2);
       var requestList = [];
       var resolvedCharacters = {};
       var clear = false;
- 
+
       if( sender === 'EVE System') {
         next();
         return;
       }
- 
+
       if(characters[sender.toUpperCase()] === undefined) {
         requestList.push(sender);
       }
- 
+
       var killmailResult = killmailRegex.exec(line);
       if(killmailResult) {
         var deadCharacter = killmailResult[1];
         var lostShip = killmailResult[2];
         requestList.push(deadCharacter);
- 
+
         var getCharIDsComplete = function getCharIDsComplete() {
           next({time: Util.getTime(), raw: line, type: 'sourcedKillmail',
-                data: { type: 'sourcedKillmail', reporterId: characters[sender.toUpperCase()], reporterName: sender, 
+                data: { type: 'sourcedKillmail', reporterId: characters[sender.toUpperCase()], reporterName: sender,
                 pilots: {deadCharacter: characters[deadCharacter.toUpperCase()]}, lostShip: lostShip}});
         };
         if(requestList.length > 0) {
@@ -311,19 +336,22 @@ var processLine = function processLine(line, next) {
         }
       }
       else {
-        var split = text.split("  ");
+        // var split = text.split("  ");
+        var split = text.split(/\s/);
         var system;
+        Data.ui.logs_list.prepend($(Templates.event({time: Util.getTime(), text: 'split: ' + split})));
+
         split.forEach(function (element) {
-          var matched_system = _.find(system_list, function(s) { 
-            var r = new RegExp(s.name);
+          var matched_system = _.find(system_list, function(s) {
+            var r = new RegExp(s.name, 'i');
             return r.test(element);
           });
-          
+
           if(matched_system !== undefined) {
             system = {systemName: matched_system.name, systemId: matched_system.id, regionId: matched_system.regionID};
             if (element.toUpperCase() === system.systemName.toUpperCase()) return;
           }
- 
+
           if(characters[element.toUpperCase()] === undefined) {
             var searchResult = charDict.search(element).sort(function(a,b){return b.length - a.length}).shift();
             if( searchResult !== undefined && characters[searchResult.toUpperCase()] !== null ) {
@@ -340,8 +368,8 @@ var processLine = function processLine(line, next) {
             resolvedCharacters[element] = characters[element.toUpperCase()];
           }
         });
-        
-        if( system ) { 
+
+        if( system ) {
           var type = (clear) ? 'sourcedClear' : 'sourcedHostile';
           if( requestList.length > 0 ) {
             var getCharIDsComplete = function getCharIDsComplete() {

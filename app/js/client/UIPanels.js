@@ -1,3 +1,4 @@
+var path = require('path');
 var UIPanels = {
 
   substringMatcher: function(strs) {
