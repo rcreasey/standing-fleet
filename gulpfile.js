@@ -89,7 +89,7 @@ gulp.task('build', function() {
 
   var nw = new nwbuilder({
     files: './client/**/**',
-    platforms: ['win','osx']
+    platforms: ['win']
   });
 
   nw.build().then(function () {

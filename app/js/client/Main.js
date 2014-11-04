@@ -10,6 +10,7 @@ var gui = require('nw.gui')
   , request = require('request')
   , _ = require('lodash')
   , encoding = require('encoding')
+  // , stripcc = require('stripcc')
 
 window.onload = function () {
   initializeClient();
@@ -84,8 +85,8 @@ function pollLogs() {
   }
 
   var filename_match = '(' + channels.join('|') + ')_';
-  // filename_match += moment().format('YYYYMMDD');
-  filename_match += '20130627';
+  filename_match += moment().format('YYYYMMDD');
+  //filename_match += '20130627';
   filename_match += '_\\d+.txt';
 
   fs.readdir(log_dir, function(err, list) {
@@ -284,26 +285,22 @@ request({url: Data.config.domain + '/data/map.json', json: true}, function (erro
   system_list = body.Systems;
 });
 
-// var lineRegex = /\[ (\d{4}\.\d{2}\.\d{2} \d{2}:\d{2}:\d{2}) \] ([\w ]+) > (.*)/i;
-var lineRegex = /\[(.*)\](.*)\> ?(.*)/i;
+var lineRegex = /\[ (\d{4}\.\d{2}\.\d{2} \d{2}:\d{2}:\d{2}) \] ([\w ]+) > (.*)/i;
 var killmailRegex = /Kill: (.*) \((.*)\)/i;
 var characters = Object.create(null);
 var charDict = new Dict();
 
 var processLine = function processLine(line, next) {
-  Data.ui.logs_list.prepend($(Templates.event({time: Util.getTime(), text: 'line: ' + line})));
-
   if(line != undefined) {
 
     // wtf are these? ��
     var buffer = encoding.convert(line, 'utf-16');
-    var result = lineRegex.exec(buffer.toString());
-    Data.ui.logs_list.prepend($(Templates.event({time: Util.getTime(), text: 'result: ' + result})));
+    var result = lineRegex.exec(buffer.slice(7).toString().replace(/\0/g,''));
 
     if(result) {
-      var timestamp = result[1].slice(2,-2);
-      var sender = result[2].slice(2,-2);
-      var text = result[3].slice(2);
+      var timestamp = result[1];
+      var sender = result[2];
+      var text = result[3];
       var requestList = [];
       var resolvedCharacters = {};
       var clear = false;
@@ -336,10 +333,8 @@ var processLine = function processLine(line, next) {
         }
       }
       else {
-        // var split = text.split("  ");
-        var split = text.split(/\s/);
+        var split = text.split("  ");
         var system;
-        Data.ui.logs_list.prepend($(Templates.event({time: Util.getTime(), text: 'split: ' + split})));
 
         split.forEach(function (element) {
           var matched_system = _.find(system_list, function(s) {
