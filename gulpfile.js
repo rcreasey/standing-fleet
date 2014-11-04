@@ -42,6 +42,8 @@ gulp.task('prepare', function() {
       'js/client/UIPanels.js',
       'js/client/Data.js',
       'js/client/Parser.js',
+      'js/client/Clipboard.js',
+      'js/client/Logs.js',
       'js/client/Main.js'
     ]))
     .pipe(concat('js/client.js'))
