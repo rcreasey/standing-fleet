@@ -23,7 +23,7 @@ var UI = {
     Data.ui.bottomMenu_spinner
       .fadeOut(Data.config.uiSpeed*4);
   },
-  
+
   togglePolling: function (checkbox, source) {
     if (source == 'clipboard') Data.state.poll.clipboard = checkbox.checked;
     if (source == 'logs') {
@@ -31,7 +31,7 @@ var UI = {
       resetLogPolling();
     }
   },
-  
+
   toggleChannel: function(checkbox, channel) {
     Data.state.datasources.logs.channels[ channel ] = checkbox.checked;
   },
@@ -44,8 +44,8 @@ var UI = {
   },
 
   update_scrollables: function() {
-    Data.ui.clipboard_list.slimScroll({height: 'auto',	color: '#ffcc2a', alwaysVisible: true});
-    Data.ui.logs_list.slimScroll({height: 'auto',	color: '#ffcc2a', alwaysVisible: true});
+    Data.ui.clipboard_list.slimScroll({height: 'auto', color: '#ffcc2a', alwaysVisible: true});
+    Data.ui.logs_list.slimScroll({height: 'auto', color: '#ffcc2a', alwaysVisible: true});
   },
 
   showAlert: function (event) {
@@ -109,7 +109,7 @@ var UI = {
 
 Handlebars.registerHelper('ui_icon', function(icon) {
   if (icon == 'settings') return 'cog'
-  return 'question'  
+  return 'question'
 });
 
 Handlebars.registerHelper('reported', function(pilots) {
@@ -117,5 +117,5 @@ Handlebars.registerHelper('reported', function(pilots) {
     return Object.keys(pilots).length + ' hostiles ';
   } else {
     return Object.keys(pilots)[0];
-  } 
+  }
 });
