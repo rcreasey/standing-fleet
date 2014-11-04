@@ -6,7 +6,7 @@
   "main": "index.html",
   "window": {
     "show": false,
-    "toolbar": true,
+    "toolbar": false,
     "frame": true,
     "position": "center",
     "width": 375,
