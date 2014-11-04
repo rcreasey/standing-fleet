@@ -38,7 +38,7 @@ var Data = {
           "GEM.CFC": false,
           "IMM.CFC": false,
           "KAL.CFC": false,
-          "PBF.CFC": true,
+          "PBF.CFC": false,
           "QUE.CFC": false,
           "SYND.CFC": false,
           "tenal_int": false,

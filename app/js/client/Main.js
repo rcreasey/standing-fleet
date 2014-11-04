@@ -2,9 +2,6 @@ var gui = require('nw.gui')
   , http = require('http')
   , faye = require('faye')
   , moment = require('moment')
-  , fs = require('fs')
-  , path = require('path')
-  , tail = require('file-tail')
 
 window.onload = function () {
   initializeClient();

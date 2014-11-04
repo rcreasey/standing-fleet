@@ -557,6 +557,10 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	max-height: 2rem;
 }
 
+.panel .button i {
+	padding-top: 0.25rem;
+}
+
 .panel .text {
 	padding-bottom: 1.4rem;
 }
@@ -671,7 +675,7 @@ a.button:hover,
 
 .panel .label {
 	display: inline-block;
-	min-width: 11rem;
+	min-width: 9rem;
 	text-align: left;
 }
 
@@ -928,7 +932,7 @@ border-top: 0.16rem solid #333;
 	float: right;
 	width: 48%;
 	margin-right: 1rem;
-	
+
 }
 
 .public_scan .result i {
