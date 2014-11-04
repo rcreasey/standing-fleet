@@ -1,3 +1,7 @@
+var fs = require('fs')
+  , path = require('path')
+  , tail = require('file-tail')
+
 function pollLogs() {
   if (!Data.state.poll.logs) return;
 
