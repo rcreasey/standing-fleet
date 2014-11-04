@@ -19,7 +19,7 @@ var UIPanels = {
 
     var panel = {
       type: 'options',
-      image: 'panel-settings.png',
+      icon: 'settings',
       title: 'Standing Fleet Options',
       footer: '&copy; 2014 Goonswarm Federation',
       closeable: true,
@@ -103,7 +103,7 @@ var UIPanels = {
 
     var panel = {
       type: 'options',
-      image: 'panel-options.png',
+      icon: 'options',
       title: hostile.characterName,
       text: 'Confirm details of hostile pilot:',
       formitems: [
@@ -133,7 +133,7 @@ var UIPanels = {
   showStatusPanel: function (callback) {
     var panel = {
       type: 'hostiles',
-      image: 'panel-scan.png',
+      icon: 'reportHostile',
       title: Data.ui.currentSystem.text(),
       formitems: [
         {textinput:  {legend: 'Copy and paste pilots out of local below', id: 'status-data', class: 'status-data'}},
@@ -148,7 +148,7 @@ var UIPanels = {
   showScanPanel: function (callback) {
     var panel = {
       type: 'scan',
-      image: 'panel-scan.png',
+      icon: 'scan',
       title: Data.ui.currentSystem.text(),
       formitems: [
         {textinput:  {legend: 'Paste scan results below', id: 'scan-data', class: 'scan-data'}},
