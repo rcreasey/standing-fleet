@@ -69,26 +69,24 @@ var EventHandler = {
 					+ '<a href="javascript:CCPEVE.showInfo(5, ' + hostile.systemId + ');">' + hostile.systemName + '</a>';
 			event.blink = 'hostiles';
 			event.alert = true;
+
 		} else if (event.type === 'memberJoined') {
 			var member = event.data;
 			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
 				+ member.characterId + ');">' + member.characterName + '</a> joined the Standing Fleet';
 			event.blink = 'members';
-			event.alert = true;
 
 		} else if (event.type === 'memberLeft') {
 			var member = event.data;
 			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
 				+ member.characterId + ');">' + member.characterName + '</a> left the Standing Fleet';
 			event.blink = 'members';
-			event.alert = true;
 
 		} else if (event.type === 'memberTimedOut') {
 			var member = event.data;
 			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
 				+ member.characterId + ');">' + member.characterName + '</a> timed out';
 			event.blink = 'members';
-			event.alert = true;
 
 		} else if (event.type === 'hostileTimedOut') {
 			var hostile = event.data;
@@ -112,7 +110,6 @@ var EventHandler = {
 			var creator = event.data;
 			event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
 				+ creator.characterId + ');">' + creator.characterName + '</a> created this fleet ';
-			event.alert = true;
 
 		} else if (event.type === 'shipLost') {
 			var member = event.data;
@@ -128,7 +125,7 @@ var EventHandler = {
 				+ target.characterId + ');">' + target.characterName + '</a> has moved into '
 				+ '<a href="javascript:CCPEVE.showInfo(5, ' + target.systemId + ');">'
 				+ target.systemName + '</a>';
-			event.alert = true;
+
 		} else if (event.type === 'sourcedClear') {
 			var report = event.data;
 			event.text = 'Intel channel reported '
@@ -142,7 +139,7 @@ var EventHandler = {
 				+ '<a href="javascript:CCPEVE.showInfo(5, ' + report.systemId + ');">' + report.systemName + '</a> '
 				+ 'hostile by '
 				+ '<a href="javascript:CCPEVE.showInfo(1377, ' + report.reporterId + ');">' + report.reporterName;
-				
+			
 		} else if (event.type === 'sourcedClipboard') {
 			event.text = 'Parsing clipboard text from client.'
 		}
@@ -196,7 +193,7 @@ var EventHandler = {
 		HostileList.sortAndRenderAll();
 		SystemMap.refreshSystems();
 	},
-	
+
 	sourcedClear: function (report)  {
 		submitSourcedStatus({
 			text: 'clear',
@@ -208,7 +205,7 @@ var EventHandler = {
 		});
 
 	},
-	
+
 	sourcedHostile: function (report) {
 		submitSourcedStatus({
 			text: 'hostile',
@@ -219,7 +216,7 @@ var EventHandler = {
 			data: Object.keys(report.pilots)
 		});
 	},
-	
+
 	sourcedClipboard: function (report) {
 		submitSourcedStatus({
 			text: 'validate',
