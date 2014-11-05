@@ -23,7 +23,7 @@ var UI = {
     Data.ui.bottomMenu_spinner
       .fadeOut(Data.config.uiSpeed*4);
   },
-  
+
   togglePolling: function (checkbox, source) {
     if (source == 'clipboard') Data.state.poll.clipboard = checkbox.checked;
     if (source == 'logs') {
@@ -31,7 +31,7 @@ var UI = {
       resetLogPolling();
     }
   },
-  
+
   toggleChannel: function(checkbox, channel) {
     Data.state.datasources.logs.channels[ channel ] = checkbox.checked;
   },
@@ -44,8 +44,8 @@ var UI = {
   },
 
   update_scrollables: function() {
-    Data.ui.clipboard_list.slimScroll({height: 'auto',	color: '#ffcc2a', alwaysVisible: true});
-    Data.ui.logs_list.slimScroll({height: 'auto',	color: '#ffcc2a', alwaysVisible: true});
+    Data.ui.clipboard_list.slimScroll({height: 'auto', color: '#ffcc2a', alwaysVisible: true});
+    Data.ui.logs_list.slimScroll({height: 'auto', color: '#ffcc2a', alwaysVisible: true});
   },
 
   showAlert: function (event) {
@@ -108,8 +108,35 @@ var UI = {
 }
 
 Handlebars.registerHelper('ui_icon', function(icon) {
-  if (icon == 'settings') return 'cog'
-  return 'question'  
+  if (icon == 'alert') return 'bell';
+  if (icon == 'approve') return 'check';
+  if (icon == 'close') return 'close';
+  if (icon == 'deny') return 'thumbs-down';
+  if (icon == 'dscan') return 'wifi';
+  if (icon == 'error') return 'exclamation-triangle';
+  if (icon == 'fleet') return 'fighter-jet';
+  if (icon == 'fleetCreated') return 'fighter-jet';
+  if (icon == 'hostileTimeout') return 'clock-o';
+  if (icon == 'info') return 'question';
+  if (icon == 'member') return 'user';
+  if (icon == 'memberJoined') return 'user';
+  if (icon == 'memberLeft') return 'user';
+  if (icon == 'memberTimedOut') return 'clock-o';
+  if (icon == 'options') return 'cog';
+  if (icon == 'reportClear') return 'check';
+  if (icon == 'reportHostile') return 'crosshairs';
+  if (icon == 'scan') return 'wifi';
+  if (icon == 'scanPosted') return 'wifi';
+  if (icon == 'settings') return 'cog';
+  if (icon == 'shipLost') return 'bolt';
+  if (icon == 'sourcedClear') return 'check';
+  if (icon == 'sourcedClipboard') return 'clipboard';
+  if (icon == 'sourcedHostile') return 'crosshairs';
+  if (icon == 'updateHostile') return 'crosshairs';
+  if (icon == 'updateSystemMap') return 'sitemap';
+  if (icon == 'youJoined') return 'user';
+
+  return 'exclamation';
 });
 
 Handlebars.registerHelper('reported', function(pilots) {
@@ -117,5 +144,5 @@ Handlebars.registerHelper('reported', function(pilots) {
     return Object.keys(pilots).length + ' hostiles ';
   } else {
     return Object.keys(pilots)[0];
-  } 
+  }
 });

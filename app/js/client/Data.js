@@ -1,8 +1,8 @@
-var path = require('path')
+var path = require('path');
 
 var Data = {
   config: {
-    domain: 'https://standing-fleet.herokuapp.com/',
+    domain: 'http://standing-fleet.goonswarm.org/',
     apiUrl: '/api/fleet',
     alertStay: 5000,
     maxEvents: 20,
@@ -23,10 +23,9 @@ var Data = {
       local: null,
       logs: {
         handles: [],
-        path: { 
+        path: {
           win: path.join(process.env['USERPROFILE'] || '','Documents','EVE','logs','Chatlogs'),
           darwin: path.join(process.env['HOME'] || '','Library','Application Support','EVE Online','p_drive','User','My Documents','EVE','logs','Chatlogs')
-
         },
         channels: {
           "DEK.CFC": true,
@@ -39,7 +38,7 @@ var Data = {
           "GEM.CFC": false,
           "IMM.CFC": false,
           "KAL.CFC": false,
-          "PBF.CFC": true,
+          "PBF.CFC": false,
           "QUE.CFC": false,
           "SYND.CFC": false,
           "tenal_int": false,
@@ -73,7 +72,7 @@ var Data = {
       clipboard_list: $('#clipboard > .list'),
       logs: $('#logs'),
       logs_list: $('#logs > .list')
-    }
+    };
   },
 
   build_templates: function() {
@@ -82,6 +81,6 @@ var Data = {
       event: Templates.event,
       report: Templates.report,
       panel: Templates.panel
-    }
-  },
+    };
+  }
 };

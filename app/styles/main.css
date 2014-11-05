@@ -513,13 +513,14 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 .event.memberLeft {	background-color:#123; border-bottom: 0.2rem solid #012; border-top: 0.16rem solid #246; }
 .event.scanShared {	background-color:#332; border-bottom: 0.2rem solid #110; border-top: 0.16rem solid #553; }
 .event.reportShared {	background-color:#332; border-bottom: 0.2rem solid #110; border-top: 0.16rem solid #553; }
-.event.error { background-color:#411; border-bottom: 0.2rem solid #200; border-top: 0.16rem solid #633; }
 .event.hostileTimedOut { background-color:#AF5B00; border-bottom: 0.2rem solid #291E0E; border-top: 0.16rem solid #BD8942; }
 .event.updateHostile { background-color:#885000; border-bottom: 0.2rem solid #291E0E; border-top: 0.16rem solid #BD8942; }
 .event.sourcedClear,
 .event.reportClear { background-color:#366436; border-bottom: 0.2rem solid #222; border-top: 0.16rem solid #5cb85c; }
 .event.sourcedHostile,
 .event.reportHostile { background-color:#411; border-bottom: 0.2rem solid #200; border-top: 0.16rem solid #633; }
+
+.event.error { background-color:#411; border-bottom: 0.2rem solid #200; border-top: 0.16rem solid #633; }
 
   /*/
  / /  PANEL
@@ -554,6 +555,10 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	display: inline-block;
 	float: left;
 	max-height: 2rem;
+}
+
+.panel .button i {
+	padding-top: 0.25rem;
 }
 
 .panel .text {
@@ -670,7 +675,7 @@ a.button:hover,
 
 .panel .label {
 	display: inline-block;
-	min-width: 11rem;
+	min-width: 9rem;
 	text-align: left;
 }
 
@@ -927,7 +932,7 @@ border-top: 0.16rem solid #333;
 	float: right;
 	width: 48%;
 	margin-right: 1rem;
-	
+
 }
 
 .public_scan .result i {
