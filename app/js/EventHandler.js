@@ -147,7 +147,7 @@ var EventHandler = {
       }
     } catch(error) {
       log('Error parsing event: ' + error);
-      log(event);
+      console.log(event);
     }
   },
 
