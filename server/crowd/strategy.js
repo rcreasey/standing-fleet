@@ -204,7 +204,6 @@ Strategy.prototype.authenticate = function (req, options) {
           headers:{
             "Content-Type":"application/json",
             "Accept":"application/json",
-            "X-SF-Auth-Token":process.env.CROWD_AUTHTOKEN,
             "Authorization":applicationAuth
           }
         }, function (response) {
@@ -247,7 +246,6 @@ Strategy.prototype.authenticate = function (req, options) {
       "Content-Type":"application/json",
       "Accept":"application/json",
       "Content-Length":postData.length,
-      "X-SF-Auth-Token":process.env.CROWD_AUTHTOKEN,
       "Authorization":applicationAuth
     }
   }, function (response) {

@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "elementtree": "^0.1.6",
+    "encoding": "^0.1.10",
     "faye": "^1.0.3",
     "file-tail": "^0.3.0",
     "lodash": "^2.4.1",
