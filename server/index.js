@@ -25,6 +25,7 @@ var routes = require(__dirname + '/routes/index')
   , fleet  = require(__dirname + '/routes/fleet')
   , map    = require(__dirname + '/routes/map')
   , scans  = require(__dirname + '/routes/scans')
+  , docs  = require(__dirname + '/routes/docs')
 
 var app = express();
 
@@ -67,6 +68,7 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use('/docs', docs);
 app.use('/', routes);
 app.use('/api', fleet);
 app.use('/scans', scans);

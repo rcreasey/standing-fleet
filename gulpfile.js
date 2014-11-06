@@ -41,6 +41,9 @@ gulp.task('prepare', function() {
       'js/client/UI.js',
       'js/client/UIPanels.js',
       'js/client/Data.js',
+      'js/client/Parser.js',
+      'js/client/Clipboard.js',
+      'js/client/Logs.js',
       'js/client/Main.js'
     ]))
     .pipe(concat('js/client.js'))
@@ -89,7 +92,7 @@ gulp.task('build', function() {
 
   var nw = new nwbuilder({
     files: './client/**/**',
-    platforms: ['win','osx']
+    platforms: ['win']
   });
 
   nw.build().then(function () {

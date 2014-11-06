@@ -246,7 +246,7 @@ exports.create = function(req, res, next) {
 };
 
 exports.report = function(req, res, next) {
-  var report = Report.prepare(req.session.fleetKey, req.body.scanData);
+  var report = Report.prepare(req.session.fleetKey, req.body);
   if (!report.data.length) return response.error(res, 'report', 'Invalid report data.');
 
   if (report.text === 'clear') {
@@ -314,7 +314,7 @@ exports.add_scan = function(req, res, next) {
 
   Member.findOneQ({key: req.session.memberKey})
     .then(function(reporter) {
-      var scan = Scan.prepare(reporter.fleetKey, reporter, req.body.scanData);
+      var scan = Scan.prepare(reporter.fleetKey, reporter, req.body);
 
       if (!scan.shipTypes.length) return response.error(res, 'report', 'Invalid scan data.');
       if (!scan.shipClasses.length) return response.error(res, 'report', 'Invalid scan data.');
@@ -335,7 +335,7 @@ exports.add_scan = function(req, res, next) {
 
 exports.update_hostile = function(req, res, next) {
 
-  var scan_data = req.body.scanData;
+  var scan_data = req.body;
 
   if (!scan_data.shipType) return response.error(res, 'details', 'Invalid hostile details');
   if (!settings.ships[ scan_data.shipType ]) return response.error(res, 'details', 'Invalid ship type: ' + scan_data.shipType );
@@ -344,7 +344,7 @@ exports.update_hostile = function(req, res, next) {
     .then(function(hostile) {
 
       if (hostile !== null) {
-        hostile.shipType = req.body.scanData.shipType;
+        hostile.shipType = req.body.shipType;
         hostile.shipTypeId = settings.ships[ scan_data.shipType ].id;
         hostile.reporterId = req.session.fleet.characterId;
         hostile.reporterName = req.session.fleet.characterName;

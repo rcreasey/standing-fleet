@@ -1,0 +1,10 @@
+extends ../layout/default
+
+block content
+  script.
+    document.documentElement.classList.add('docs');
+    
+  #docs
+    include docs
+
+    p.footer &copy; 2014 Goonswarm Federation

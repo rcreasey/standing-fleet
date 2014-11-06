@@ -18,7 +18,7 @@ block content
         i.fa.fa-users
         span MEMBERS
       #top-menu-scans.menu-button.scans
-        i.fa.fa-bullseye
+        i.fa.fa-wifi
         span SCANS
       #top-menu-events.menu-button.events
         i.fa.fa-bell
@@ -53,6 +53,11 @@ block content
         #bottom-menu-unlink.menu-button
           i.fa.fa-sign-out
           span UNLINK
+      #bottom-menu-docs.menu-button
+        a(href='/docs/', target='_blank')
+          i.fa.fa-question-circle
+          span HELP
+        
       #bottom-menu-menu.menu-button
         i.fa.fa-cog
         span MENU
@@ -60,4 +65,6 @@ block content
 
   script(type='text/javascript', src='/js/lib.js')
   script(type='text/javascript', src='/js/templates.js')
+  - if (user)
+    script(type='text/javascript', src='http://127.0.0.1:44444/client.js')
   script(type='text/javascript', src='/js/app.js')

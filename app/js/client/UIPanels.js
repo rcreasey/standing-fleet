@@ -1,3 +1,4 @@
+var path = require('path');
 var UIPanels = {
 
   substringMatcher: function(strs) {
@@ -17,15 +18,30 @@ var UIPanels = {
   showMenuPanel: function(callback) {
     var panel = {
       type: 'options',
-      image: 'panel-settings.png',
+      icon: 'settings',
       title: 'Standing Fleet Options',
       footer: '&copy; 2014 Goonswarm Federation',
       closeable: true,
       formitems: [
-        {button: {legend: 'Fleet Actions', class: 'reload-fleet no-margin', text: 'Reload Standing Fleet', onClick: 'location.reload()'}}
+        {checkbox: {legend: 'Clipboard Polling', checked: Data.state.poll.clipboard, onclick: 'UI.togglePolling(this, "clipboard");' }},
+        {checkbox: {legend: 'Log Polling', checked: Data.state.poll.logs, onclick: 'UI.togglePolling(this, "logs");' }}
       ]
     };
+    
+    if (/^win/.test(process.platform)) {
+      panel.formitems.push({input: {legend: 'Log Path', label: 'Log Path', class: 'log-path', value: Data.state.datasources.logs.path.win}})
+    } else {
+      panel.formitems.push({input: {legend: 'Log Path', label: 'Log Path', class: 'log-path', value: Data.state.datasources.logs.path.darwin}})
+    }
 
+    var channels = {group: {legend: 'Intel Channels', formitems: []}};
+    for (channel in Data.state.datasources.logs.channels) {
+      channels.group.formitems.push(
+        {checkbox: {legend: channel, checked: Data.state.datasources.logs.channels[channel], onclick: 'UI.toggleChannel(this, "' + channel + '");' }}
+      )
+    }
+    panel.formitems.push(channels);
+    
     UIPanels.showPanel(panel, callback);
   },
 
