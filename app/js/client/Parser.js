@@ -188,8 +188,8 @@ var processLine = function processLine(line, next) {
         var system;
 
         split.forEach(function (element) {
-          var matched_system = _.find(system_list, function(s) {
-            var r = new RegExp(s.name, 'i');
+          var matched_system = _.findLast(system_list, function(s) {
+            var r = new RegExp('^' + s.name + '[a-z0-9\\-]{0,3}$', 'i');
             return r.test(element);
           });
 
@@ -219,7 +219,7 @@ var processLine = function processLine(line, next) {
           var type = (clear) ? 'sourcedClear' : 'sourcedHostile';
           if( requestList.length > 0 ) {
             var getCharIDsComplete = function getCharIDsComplete() {
-              if (!resolvedCharacters.length) return next();
+              // if (!Object.keys(resolvedCharacters).length) return next();
 
               requestList.filter(function(c){return c !== sender && characters[c.toUpperCase()] != null;})
                 .forEach(function(c){resolvedCharacters[c] = characters[c.toUpperCase()]});
@@ -232,7 +232,6 @@ var processLine = function processLine(line, next) {
             getCharIDs(requestList, getCharIDsComplete);
           }
           else {
-            if (!resolvedCharacters.length) return next();
             return next({time: Util.getTime(), type: type, raw: line, data: {clear: clear, type: type,
                   reporterId: characters[sender.toUpperCase()], reporterName: sender,
                   systemName: system.systemName, systemId: system.systemId,
