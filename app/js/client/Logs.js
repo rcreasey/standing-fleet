@@ -40,7 +40,7 @@ function pollLogs() {
         t.on('line', function(line) {
           if (line.length === 1) return;
 
-          Parser.processLine(line, function(event) {
+          processLine(line, function(event) {
             if (!event) return;
 
             var renderedEvent = $(Templates.report(event.data));
@@ -53,12 +53,6 @@ function pollLogs() {
       }
     });
   });
-
-  if (Data.state.datasources.logs.handles.length === 0) {
-    var renderedEvent = $(Templates.event({'time': Util.getTime(), type: 'error', text: 'No logs to parse.  Have you joined an intel channel today?' }));
-    Data.ui.logs_list.prepend(renderedEvent);
-    return;
-  }
 
 };
 
