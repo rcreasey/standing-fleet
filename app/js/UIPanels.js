@@ -47,7 +47,8 @@ var UIPanels = {
         {submit: {class: 'submit-join', text: 'Join Fleet', onClick: 'UIPanels.showJoinPanel()'}},
         {button: {class: 'leave-fleet', text: 'Leave Standing Fleet', onClick: 'leaveFleet()'}},
       ],
-      error: error
+      error: error,
+      footer: '<a href="/docs/">What is this site?</a><br />&copy 2014 Goonswarm Federation'
     };
 
     UIPanels.showPanel(panel, callback);
