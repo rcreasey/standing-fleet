@@ -8,7 +8,7 @@
   "repository": "git@github.com:rcreasey/standing-fleet.git",
   "scripts": {
     "postinstall": "./node_modules/.bin/bower install && ./node_modules/.bin/gulp",
-    "start": "node_modules/.bin/nf start",
+    "start": "./node_modules/.bin/nf start",
     "test": "foreman run mocha -e test/env"
   },
   "config": {
