@@ -56,8 +56,8 @@ app.use(express.static(path.join(__dirname,'..','public')));
 
 app.use(require('express-session')({
   key: 'session',
-  maxAge: moment().add(1, 'day')._d, expires: moment().add(1, 'day')._d,
-  cookie: { path: '/', httpOnly: true, maxAge: moment().add(1, 'day')._d, expires: moment().add(1, 'day')._d},
+  maxAge: moment().add(12, 'hours')._d, expires: moment().add(12, 'hours')._d,
+  cookie: { path: '/', httpOnly: true, maxAge: moment().add(12, 'hours')._d, expires: moment().add(12, 'hours')._d},
   resave: true,
   secret: settings.session_secret,
   saveUninitialized: true,
