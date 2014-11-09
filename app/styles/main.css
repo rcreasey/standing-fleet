@@ -1163,6 +1163,11 @@ border-top: 0.16rem solid #333;
 	color: #faa;
 }
 
+#link .error a,
+#login .error a {
+	display: block;
+}
+	
 
 .atlwdg-trigger {
 	z-index: 9001;

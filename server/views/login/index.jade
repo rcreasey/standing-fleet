@@ -15,4 +15,7 @@ block content
           button(type='submit', name='submit')
             i.fa.fa-arrow-right.fa-large
         if error != ''
-          span.error=error
+          span.error
+            = error 
+            a(href='https://goonfleet.com/esa/') Password problems?
+            
