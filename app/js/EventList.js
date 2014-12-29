@@ -38,8 +38,7 @@ var EventList = {
 
   handleEvent: function (event) {
     if (event.type === 'memberjoined') {
-      // foo
-
+      MemberList.sortAndRenderAll();
     } else if (event.type === 'memberleft') {
       MemberList.sortAndRenderAll();
     }

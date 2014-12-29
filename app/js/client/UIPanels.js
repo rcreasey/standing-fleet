@@ -27,11 +27,11 @@ var UIPanels = {
         {checkbox: {legend: 'Log Polling', checked: Data.state.poll.logs, onclick: 'UI.togglePolling(this, "logs");' }}
       ]
     };
-    
+
     if (/^win/.test(process.platform)) {
-      panel.formitems.push({input: {legend: 'Log Path', label: 'Log Path', class: 'log-path', value: Data.state.datasources.logs.path.win}})
+      panel.formitems.push({input: {legend: 'Log Path', label: 'Log Path', class: 'log-path', onblur: 'UI.updateLogPath(this);', value: Data.state.datasources.logs.path.win}})
     } else {
-      panel.formitems.push({input: {legend: 'Log Path', label: 'Log Path', class: 'log-path', value: Data.state.datasources.logs.path.darwin}})
+      panel.formitems.push({input: {legend: 'Log Path', label: 'Log Path', class: 'log-path', onblur: 'UI.updateLogPath(this);', value: Data.state.datasources.logs.path.darwin}})
     }
 
     var channels = {group: {legend: 'Intel Channels', formitems: []}};
@@ -41,7 +41,7 @@ var UIPanels = {
       )
     }
     panel.formitems.push(channels);
-    
+
     UIPanels.showPanel(panel, callback);
   },
 

@@ -5,13 +5,13 @@ var express = require('express')
   , path = require('path')
   , favicon = require('serve-favicon')
   , logger = require('morgan')
-  , moment = require('moment')
   , mongoose = require('mongoose-q')()
   , compression = require('compression')
   , cookieParser = require('cookie-parser')
   , bodyParser = require('body-parser')
   , flash = require('connect-flash')
   , passport = require('passport')
+  , session = require('express-session')
 
 var settings = require(__dirname + '/config/settings')
   , checks = require(__dirname + '/middleware/checks')
@@ -44,7 +44,7 @@ app.use(checks.ssl_headers);
 app.use(checks.redirect_to_https);
 app.use(checks.static_rewrite);
 
-app.enable('trust proxy');
+app.set('trust proxy', 1);
 
 app.use(favicon(__dirname + '/../public/favicon.ico'));
 if (app.get('env') !== 'test') app.use(logger('dev'));
@@ -54,15 +54,14 @@ app.set('views', path.join(__dirname,'views'));
 app.set('view engine', 'jade');
 app.use(express.static(path.join(__dirname,'..','public')));
 
-app.use(require('express-session')({
-  key: 'session',
-  maxAge: moment().add(1, 'day')._d, expires: moment().add(1, 'day')._d,
-  cookie: { path: '/', httpOnly: true, maxAge: moment().add(1, 'day')._d, expires: moment().add(1, 'day')._d},
-  resave: true,
+app.use(session({
+  name: 'standing-fleet',
   secret: settings.session_secret,
+  resave: true,
   saveUninitialized: true,
+  cookie: { secure: true },
   store: require('mongoose-session')(mongoose)
-}));
+}))
 
 app.use(flash());
 app.use(passport.initialize());

@@ -36,6 +36,14 @@ var UI = {
     Data.state.datasources.logs.channels[ channel ] = checkbox.checked;
   },
 
+  updateLogPath: function(input) {
+    if (/^win/.test(process.platform)) {
+      Data.state.datasources.logs.path.win = input.value;
+    } else {
+      Data.state.datasources.logs.path.osx = input.value;
+    }
+  },
+
   registerEventHandlers: function () {
     Data.ui.topMenu_clipboard.on('click', $.proxy(UI.tabClick, null, 'clipboard'));
     Data.ui.topMenu_logs.on('click', $.proxy(UI.tabClick, null, 'logs'));

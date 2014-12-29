@@ -61,7 +61,7 @@ var UIPanels = {
       formitems: [
         {input:  {label: 'Fleet Password', id: 'create-fleet-password', class: 'submit-key'}},
         {button: {class: 'submit-key', text: 'Create Fleet', onClick: 'createFleetButtonClick(this)'}},
-        {submit: {class: 'submit-join', text: '<i class="fa fa-arrow-circle-left"></i> Go Back', onClick: 'UIPanels.showJoinPanel()'}}
+        {submit: {class: 'submit-join', text: '<i class="fa fa-arrow-circle-left"></i> Go Back', onClick: 'UIPanels.showStartPanel()'}}
       ],
        error: error
      };

@@ -19,7 +19,7 @@
       {{#if input}}
       <div class="group">
         {{#if input.legend}}<span class="legend">{{{input.legend}}}</span>{{/if}}
-        <input {{#if input.id}}id="{{input.id}}" {{/if}}{{#if input.class}}class="{{input.class}}" {{/if}}value="{{{input.value}}}" type={{#if input.hidden}}"hidden"{{else}}"text"{{/if}} {{#if input.readonly}}readonly="true"{{/if}} {{#if input.label}}placeholder="{{{input.label}}}"{{/if}}/>
+        <input {{#if input.id}}id="{{input.id}}" {{/if}}{{#if input.class}}class="{{input.class}}" {{/if}}value="{{{input.value}}}" type={{#if input.hidden}}"hidden"{{else}}"text"{{/if}} {{#if input.readonly}}readonly="true"{{/if}} {{#if input.onblur}}onblur="{{input.onblur}}"{{/if}} {{#if input.label}}placeholder="{{{input.label}}}"{{/if}}/>
       </div>
       {{/if}}
       {{#if password}}
@@ -41,7 +41,7 @@
       <div class="group">
         <input type="checkbox" {{#if checkbox.checked}}checked{{/if}} {{#if checkbox.onclick}}onclick="{{checkbox.onclick}}"{{/if}}>
         <span class="label">{{checkbox.legend}}</span>
-      </div>      
+      </div>
       {{/if}}
       {{#if submit}}
       <div class="submit">
@@ -57,7 +57,7 @@
               <div class="item">
                 <input type="checkbox" {{#if checkbox.checked}}checked{{/if}} {{#if checkbox.onclick}}onclick="{{checkbox.onclick}}"{{/if}}>
                 <span class="label">{{checkbox.legend}}</span>
-              </div>      
+              </div>
               {{/if}}
             {{/each}}
           </div>

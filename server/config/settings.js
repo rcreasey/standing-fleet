@@ -1,7 +1,7 @@
 module.exports = function () {
 	var settings = {
 		db: process.env.MONGODB_URL,
-		domain: 'https://standing-fleet.herokuapp.com/',
+		domain: 'https://standing-fleet.apps.goonswarm.org/',
 
 		port: process.env.PORT || 5000,
 		cookie_secret: process.env.COOKIE_SECRET || 'dongues',

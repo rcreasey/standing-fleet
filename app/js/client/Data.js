@@ -2,7 +2,7 @@ var path = require('path');
 
 var Data = {
   config: {
-    domain: 'http://standing-fleet.goonswarm.org/',
+    domain: 'https://standing-fleet.apps.goonswarm.org/',
     apiUrl: '/api/fleet',
     alertStay: 5000,
     maxEvents: 20,

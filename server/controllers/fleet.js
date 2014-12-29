@@ -58,21 +58,26 @@ exports.leave = function(req, res, next){
 
   Member.findOneQ({key: key})
     .then(function(member) {
-      var event = Event.prepare('memberLeft', member.fleetKey, member.toObject())
-      event.saveQ();
-      member.removeQ();
-
+      if (member) {
+        var event = Event.prepare('memberLeft', member.fleetKey, member.toObject());
+        event.saveQ();
+        member.removeQ();
+        
+      }
+      
       return response.success(res);
     })
     .catch(function(error) {
       console.log(error)
-      return response.error(res, 'state', 'Error joining fleet: ' + error);
+      return response.error(res, 'state', 'Error leaving fleet: ' + error);
     })
     .done();
 
 };
 
 exports.status = function(req, res, next) {
+  if (!req.session) return next();
+  
   if (!req.session.fleetKey || !req.session.memberKey) {
     var self = Member.prepare('none', header_parser(req))
     var event = Event.prepare('statusSelf', 'none', self.toObject())
@@ -80,26 +85,31 @@ exports.status = function(req, res, next) {
     return response.success(res, [ event ]);
   }
 
+  var events = [];
+  
   Member.findOneQ({key: req.session.memberKey})
     .then(function(member) {
-      var events = [];
+      if (!member) throw 'Invalid Member key.';            
       events.push( Event.prepare('statusSelf', member.fleetKey, member.toObject()) );
 
+      return Fleet.findOne({key: member.fleetKey}).execQ();
+    })
+    .then(function(fleet) {
+      if (!fleet) throw 'Invalid Fleet.';
+      events.push( Event.prepare('statusFleet', fleet.key, fleet.toObject()) );
+      
       var tasks = [
-        Fleet.findOne({key: member.fleetKey}).execQ().then(function(fleet) {
-          return Event.prepare('statusFleet', member.fleetKey, fleet.toObject());
+        Event.find({fleetKey: fleet.key}).execQ().then(function(events) {
+          return Event.prepare('statusEvents', fleet.key, _.map(events, function(event) { return event.toObject(); }));
         }),
-        Event.find({fleetKey: member.fleetKey}).execQ().then(function(events) {
-          return Event.prepare('statusEvents', member.fleetKey, _.map(events, function(event) { return event.toObject(); }));
+        Member.find({fleetKey: fleet.key}).execQ().then(function(members) {
+          return Event.prepare('statusMembers', fleet.key, _.map(members, function(member) { return member.toObject(); }));
         }),
-        Member.find({fleetKey: member.fleetKey}).execQ().then(function(members) {
-          return Event.prepare('statusMembers', member.fleetKey, _.map(members, function(member) { return member.toObject(); }));
+        Hostile.find({fleetKey: fleet.key}).execQ().then(function(hostiles) {
+          return Event.prepare('statusHostiles', fleet.key, _.map(hostiles, function(hostile) { return hostile.toObject(); }));
         }),
-        Hostile.find({fleetKey: member.fleetKey}).execQ().then(function(hostiles) {
-          return Event.prepare('statusHostiles', member.fleetKey, _.map(hostiles, function(hostile) { return hostile.toObject(); }));
-        }),
-        Scan.find({fleetKey: member.fleetKey}).execQ().then(function(scans) {
-          return Event.prepare('statusScans', member.fleetKey, _.map(scans, function(scan) { return scan.toObject(); }));
+        Scan.find({fleetKey: fleet.key}).execQ().then(function(scans) {
+          return Event.prepare('statusScans', fleet.key, _.map(scans, function(scan) { return scan.toObject(); }));
         })
       ];
 
@@ -110,13 +120,21 @@ exports.status = function(req, res, next) {
         })
         .catch(function(error) {
           console.log(error)
-          return response.error(res, 'state', 'Error fetching fleet tasks.');
+          req.sessionStore.destroy( req.session.id, function(err) {
+            delete req.session;
+          });
+          
+          return response.error(res, 'status', 'Error fetching fleet tasks.');
         })
         .done();
     })
     .catch(function(error) {
       console.log(error)
-      return response.error(res, 'state', 'Error fetching fleet status.');
+      req.sessionStore.destroy( req.session.id, function(err) {
+        delete req.session;
+      });
+      
+      return response.error(res, 'status', 'Error fetching fleet status.');
     })
     .done();
 
