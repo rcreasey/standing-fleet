@@ -8,7 +8,7 @@ module.exports = function () {
 		session_secret: process.env.SESSION_SECRET || 'buttes',
 		log: 'console',
 
-		hostileTtl: 900,
+		hostileTtl: 300,
 		memberTtl: 600,
 		fleetTtl: 86400,
 
