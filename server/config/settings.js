@@ -13,7 +13,7 @@ module.exports = function () {
 		fleetTtl: 86400,
 
 		minPollInterval: 0,
-		cleanInterval: 300000,
+		cleanInterval: 600000,
 
 		requestSizeLimit: '80kb',
 

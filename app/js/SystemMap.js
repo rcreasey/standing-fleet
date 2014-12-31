@@ -9,7 +9,13 @@ var SystemMap = {
   // let's count things
   hostile_count: function(system) {
     if (system == undefined) { return 0; }
-    return (system.name !== undefined ) ? $.grep(Data.hostiles, function(h) { return system.name === h.systemName; }).length : 0
+    return (system.name !== undefined ) ? $.grep(Data.hostiles, function(h) { return system.name === h.systemName && h.is_faded === false; }).length : 0
+  },
+  
+  faded_count: function(system) {
+    if (system == undefined) { return 0; }
+    return (system.name !== undefined ) ? $.grep(Data.hostiles, function(h) { return system.name === h.systemName && h.is_faded === true; }).length : 0
+    
   },
 
   friendly_count: function(system) {
@@ -21,6 +27,8 @@ var SystemMap = {
   system_color: function(system) {
     if ( SystemMap.hostile_count(system) > 0 ) {
       return "hostile";
+    } else if ( SystemMap.faded_count(system) > 0 ) {
+      return "warning";
     } else if ( SystemMap.friendly_count(system) > 0 ) {
       return "clear";
     }
@@ -251,16 +259,18 @@ var SystemMap = {
     system.neighbors = $.map(SystemMap.links, function(n) {
       if (n.target.system && n.target.system.name === system_name) {
         n.source.hostiles = SystemMap.hostile_count(n.source.system);
+        n.source.faded = SystemMap.faded_count(n.source.system);
         return n.source;
       }
       if (n.source.system && n.source.system.name === system_name) {
         n.target.hostiles = SystemMap.hostile_count(n.target.system);
+        n.target.faded = SystemMap.faded_count(n.target.system);
         return n.target;
       }
     });
 
-    system.status = (system.neighbors.filter(function(n) { return n.hostiles > 0 }).length) ? 'warning' : SystemMap.system_color(system);
-
+    system.status = (system.neighbors.filter(function(n) { return n.hostiles > 0 || n.faded > 0 }).length) ? 'warning' : SystemMap.system_color(system);
+    
     Data.ui.hud.html( Data.templates.hud(system) );
   },
 

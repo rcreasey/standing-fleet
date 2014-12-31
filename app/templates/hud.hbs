@@ -2,7 +2,7 @@
   <h2>{{status}}</h2>
   {{#each neighbors}}
   {{#if system.name}}
-  <h3>{{hostiles}} hostile{{#if hostiles}}s{{/if}} in {{system.name}}</h3>
+  <h3>{{system.name}}: {{hostiles}} hostile{{#if hostiles}}s{{/if}} {{#if faded}}({{faded}} faded){{/if}}</h3>
   {{/if}}
   {{/each}}
 </div>

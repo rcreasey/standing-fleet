@@ -18,6 +18,14 @@ var HostileList = {
     Data.hostiles.push(hostileToAdd);
   },
 
+  fadeHostile: function (hostileToFadeId) {
+    var hostileToFade = HostileList.findHostile(hostileToFadeId);
+    if (hostileToFade) {
+      log('Fading hostile: ' + hostileToFade.characterName + '...');
+      hostileToFade.is_faded = true;
+    }
+  },
+  
   removeHostile: function (hostileToRemoveId) {
     var hostileToRemove = HostileList.findHostile(hostileToRemoveId);
     if (hostileToRemove) {

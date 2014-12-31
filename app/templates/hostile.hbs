@@ -1,5 +1,5 @@
-<table id="hostiles-list" class="hostile">
-  <tr id="hostile-{{characterId}}">
+<table id="hostile-{{characterId}}" class="hostile">
+  <tr>
     <td class="ship-icon">{{{shipIcon}}}</td>
     <td class="name"><a href="javascript:CCPEVE.showInfo(1377, {{characterId}});">{{characterName}}</a></td>
     <td class="alliance">
@@ -14,6 +14,9 @@
         <i class="fa fa-eye"></i> <a href="javascript:CCPEVE.showInfo({{shipTypeId}});">{{shipType}}</a>
       {{else}}
         <i class="fa fa-eye-slash"></i> Non Visual
+      {{/if}}
+      {{#if isFaded}}
+      <i class="fa fa-clock-o"></i> Faded
       {{/if}}
     </td>
     <td class="system {{#if isDocked}}docked{{/if}}"><a href="javascript:CCPEVE.showInfo(5,{{systemId}});">{{systemName}}</a></td>
