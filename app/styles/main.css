@@ -722,6 +722,11 @@ code.error,
 	margin-bottom: 1rem;
 }
 
+#fleet-list {
+	height: 250px;
+	overflow: overlay;
+}
+
 .panel table {
 	margin: 0 1rem 1rem;
 	width: 93%;
