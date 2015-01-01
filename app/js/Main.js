@@ -65,13 +65,14 @@ function initialize() {
 }
 
 function createFleetButtonClick(button) {
+  var fleetName = $('#create-fleet-name').val();
   var fleetPassword = $('#create-fleet-password').val();
-  createFleet(fleetPassword);
+  createFleet(fleetName, fleetPassword);
 }
 
-function createFleet(fleetPassword) {
+function createFleet(fleetName, fleetPassword) {
   UIPanels.showLoadingPanel('Creating new fleet...', function () {
-    Server.createFleet(fleetPassword, function(error, data) {
+    Server.createFleet(fleetName, fleetPassword, function(error, data) {
       if (error) {
         UIPanels.showCreatePanel(error);
         return;

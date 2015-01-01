@@ -3,6 +3,10 @@ var express = require('express')
   , validate = require(__dirname + '/../middleware/validate')
   , fleet = require(__dirname + '/../controllers/fleet')
 
+router.route('/fleet/list')
+  .get(validate.headers)
+  .get(fleet.list);
+  
 router.route('/fleet/join/:fleetKey')
   .get(validate.headers)
   .get(fleet.join);

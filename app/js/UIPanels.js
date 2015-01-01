@@ -21,11 +21,12 @@ var UIPanels = {
       type: 'options',
       icon: 'settings',
       title: 'Standing Fleet Options',
-      footer: '&copy; 2014 Goonswarm Federation',
+      footer: '&copy; 2015 Goonswarm Federation',
       closeable: true,
       formitems: [
         {button: {legend: 'Fleet Actions', class: 'reload-fleet no-margin', text: 'Reload Standing Fleet', onClick: 'location.reload()'}},
         {button: {class: 'leave-fleet', text: 'Leave Standing Fleet', onClick: 'leaveFleet()'}},
+        {input:  {legend: 'Fleet Name', label: 'Fleet Name', class: 'info-string', value: Data.state.fleet.name, readonly: true}},
         {input:  {legend: 'Pilot Key', label: 'Pilot Key', class: 'info-string', value: Data.state.self.key, readonly: true}},
         {input:  {legend: 'Fleet Key', label: 'Fleet Key', class: 'info-string', value: Data.state.fleet.key, readonly: true}},
         {input:  {legend: 'Fleet URL', label: 'Fleet URL', class: 'info-string', value: fleet_link, readonly: true}}
@@ -42,16 +43,21 @@ var UIPanels = {
     var panel = {
       type: 'start',
       logo: true,
+      fleets: [],
       formitems: [
-        {button: {class: 'submit-create', text: 'Create Fleet', onClick: 'UIPanels.showCreatePanel()'}},
-        {submit: {class: 'submit-join', text: 'Join Fleet', onClick: 'UIPanels.showJoinPanel()'}},
-        {button: {class: 'leave-fleet', text: 'Leave Standing Fleet', onClick: 'leaveFleet()'}},
+      {button: {class: 'submit-create', text: 'Create Fleet', onClick: 'UIPanels.showCreatePanel()'}},
+        {button: {class: 'leave-fleet', text: 'Leave Standing Fleet', onClick: 'leaveFleet()'}}
       ],
       error: error,
-      footer: '<a href="/docs/">What is this site?</a><br />&copy 2014 Goonswarm Federation'
+      footer: '<a href="/docs/">What is this site?</a><br />&copy 2015 Goonswarm Federation'
     };
-
-    UIPanels.showPanel(panel, callback);
+    
+    Server.listFleets(function (error, data) {
+      if (error) return handleError(error);
+      panel.fleets = data.events;
+      UIPanels.showPanel(panel, callback);      
+    });
+    
   },
 
   showCreatePanel: function (error, callback) {
@@ -59,6 +65,7 @@ var UIPanels = {
       type: 'create',
       logo: true,
       formitems: [
+        {input:  {label: 'Fleet Name', id: 'create-fleet-name', class: 'submit-key'}},
         {input:  {label: 'Fleet Password', id: 'create-fleet-password', class: 'submit-key'}},
         {button: {class: 'submit-key', text: 'Create Fleet', onClick: 'createFleetButtonClick(this)'}},
         {submit: {class: 'submit-join', text: '<i class="fa fa-arrow-circle-left"></i> Go Back', onClick: 'UIPanels.showStartPanel()'}}
@@ -185,7 +192,7 @@ var UIPanels = {
   },
 
   showPanel: function (params, callback) {
-    var compiledPanel = $(Data.templates.panel(params));
+    var compiledPanel = (params.type === 'start') ? $(Data.templates.start(params)) : $(Data.templates.panel(params));
 
     if (Data.ui.dim.children().length) {
 

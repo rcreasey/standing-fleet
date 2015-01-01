@@ -13,7 +13,7 @@ var settings = require(__dirname + '/../config/settings')
 var clean_timer = 0;
 
 var clean_fleets = function() {
-  Fleet.findQ({ts: { $lte: moment().unix() - +settings.fleetTtl }})
+  Fleet.findQ({ts: { $lte: moment().unix() - (+settings.fleetTtl * +settings.fleetTtlModifier) }})
     .then(function(fleets) {
       _.forEach(fleets, function(fleet) {
 

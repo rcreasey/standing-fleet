@@ -116,6 +116,10 @@ var UI = {
   }
 }
 
+Handlebars.registerHelper('format_ts', function(ts) {
+  return moment(ts).format('MM/DD HH:mm:ss');s
+});
+
 Handlebars.registerHelper('ui_icon', function(icon) {
   if (icon == 'alert') return 'bell';
   if (icon == 'approve') return 'check';

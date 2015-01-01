@@ -577,6 +577,15 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	padding-bottom: 1.4rem;
 }
 
+.panel h2 {
+	color: #ffcc2a;
+	font-family: 'Lato', sans-serif;
+	font-size: 14px;
+	font-weight: 900;
+	padding: 0 1rem;
+	text-align: left;
+}
+
 .panel .text.title {
 	color: #ffcc2a;
 	font-family: 'Droid Sans', sans-serif;
@@ -711,6 +720,40 @@ code.error,
 
 .panel .form .group {
 	margin-bottom: 1rem;
+}
+
+.panel table {
+	margin: 0 1rem 1rem;
+	width: 93%;
+}
+
+.panel th { font-weight: bold; }
+.panel td { border-top: 0.16rem solid #666; }
+
+.panel th,
+.panel td {
+	vertical-align: middle;
+	overflow: hidden;
+	text-align: right;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	height: 2.4rem;
+}
+
+.panel th:first-child,
+.panel td:first-child {
+	text-align: left;
+}
+
+.panel td i {
+	margin-top: 3px;
+}
+
+.panel .submit-leave,
+.panel .submit-create {
+	font-weight: bold;
+	margin: 1rem;
+	width: 90%;
 }
 
 .linked {

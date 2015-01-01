@@ -88,7 +88,8 @@ var Data = {
     hud: Templates.hud,
     member: Templates.member,
     panel: Templates.panel,
-    scan: Templates.scan
+    scan: Templates.scan,
+    start: Templates.start
   },
 
   ships: {},

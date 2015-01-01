@@ -1,0 +1,37 @@
+<div class="panel {{type}}">
+  <div class="header">
+    {{#if closeable}}<i class="close fa fa-times fa-2x" onClick="UIPanels.hidePanel()"></i>{{/if}}
+    {{#if icon}}<i class="fa fa-{{ui_icon icon}} fa-3x"></i>{{/if}}
+    {{#if image}}<img src="/images/{{image}}" alt="Panel image" />{{/if}}
+    {{#if logo}}<img id="logo" src="/images/panel-logo.png" alt="Standing Fleet" />{{/if}}
+    {{#if title}}<div class="text title">{{{title}}}</div>{{/if}}
+  </div>
+  {{#if fleets}}
+  <h2>Current Fleets</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Created On</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each fleets}}
+      <tr>
+        <td><a href="/{{key}}" title="{{key}}">{{name}}</a></td>
+        <td>
+          {{#if has_password}}<i class="fa fa-lock"></i>{{/if}}
+          {{format_ts ts}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>  
+  {{/if}}
+  <h2>Fleet Operations</h2>
+  <a target="_blank" class="button submit-create" onclick="UIPanels.showCreatePanel()">Create Fleet</a>
+  <a target="_blank" class="button submit-leave" onclick="leaveFleet()">Leave Fleet</a>
+  
+  {{#if footer}}
+  <div class="text footer">{{{footer}}}</div>
+  {{/if}}
+</div>

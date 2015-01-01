@@ -49,6 +49,10 @@ var Server = {
     });
   },
 
+  listFleets: function(callback) {
+    Server.ajaxGet('/list', callback);
+  },
+  
   status: function (callback) {
     Server.ajaxGet('/status', callback);
     Data.state.lastPollTs = moment().unix();
@@ -75,8 +79,8 @@ var Server = {
     });
   },
 
-  createFleet: function (fleetPassword, callback) {
-    Server.ajaxPost('/create', { fleetPassword: fleetPassword }, callback);
+  createFleet: function (fleetName, fleetPassword, callback) {
+    Server.ajaxPost('/create', { fleetName: fleetName, fleetPassword: fleetPassword }, callback);
   },
 
   leaveFleet: function (callback) {

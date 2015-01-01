@@ -13,6 +13,17 @@ var moment = require('moment')
   , Q = require('q')
   , _ = require('lodash')
 
+exports.list = function(req, res, next){
+  Fleet.find().select('ts key name description').execQ()
+    .then(function(fleets) {
+      if (fleets) {
+        return response.success(res, fleets);
+      } else {
+        return response.error(res, 'lookup', 'Unable to fetch fleet list.');        
+      }
+    })
+};
+
 exports.join = function(req, res, next){
 
   Fleet.findOneQ({key: req.params.fleetKey})
@@ -229,17 +240,22 @@ exports.poll = function(req, res, next) {
 exports.create = function(req, res, next) {
   if (req.session.fleetKey || req.session.memberKey) return response.error(res, 'state', 'Please leave your current fleet before creating a new one');
 
+  var fleetName = req.body.fleetName || false;
+  if ( !fleetName ) {
+    return response.error(res, 'create', 'Fleets must be created with a name.');    
+  }
+  
   var fleetPassword = req.body.fleetPassword || false;
 
   if ( fleetPassword &&
      ( fleetPassword.length > settings.fleetPasswordMaxLength
     || fleetPassword.length < settings.fleetPasswordMinLength)) {
 
-    return response.error(res, 'input',
+    return response.error(res, 'create',
       'Invalid password. Must consist of ' + settings.fleetPasswordMinLength + ' to ' + settings.fleetPasswordMaxLength + ' characters.');
   }
 
-  var fleet = Fleet.prepare(fleetPassword);
+  var fleet = Fleet.prepare(fleetName, fleetPassword);
   var member = Member.prepare(fleet.key, req.session.fleet);
   var event = Event.prepare('fleetCreated', fleet.key,
                             { characterId: member.characterId, characterName: member.characterName });
