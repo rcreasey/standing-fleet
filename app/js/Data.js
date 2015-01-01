@@ -69,6 +69,7 @@ var Data = {
     statusClear: $('#status-clear'),
     statusHostile: $('#status-hostile'),
 
+    fleet_list: $('#fleet-list'),
     hud: $('#hud'),
     map: $('#system-map'),
     hostiles: $('#hostiles'),

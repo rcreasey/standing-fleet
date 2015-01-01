@@ -55,7 +55,8 @@ var UIPanels = {
     Server.listFleets(function (error, data) {
       if (error) return handleError(error);
       panel.fleets = data.events;
-      UIPanels.showPanel(panel, callback);      
+      UIPanels.showPanel(panel, callback);
+      UI.update_scrollables();      
     });
     
   },
