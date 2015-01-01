@@ -23,7 +23,11 @@
       <tbody>
         {{#each fleets}}
         <tr>
-          <td><a href="/{{key}}" title="{{key}}">{{name}}</a></td>
+          <td>
+            <a href="/{{key}}" title="{{key}}">
+              {{#if name}}{{name}}{{else}}{{key}}{{/if}}
+            </a>
+          </td>
           <td>
             {{#if has_password}}<i class="fa fa-lock"></i>{{/if}}
             {{format_ts ts}}</td>
