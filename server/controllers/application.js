@@ -1,5 +1,5 @@
 var response = require(__dirname + '/../response')
-  , Member = require(__dirname + '/../models/member')
+  , Member = require(__dirname + '/../models/member');
 
 exports.index = function(req, res, next) {
   res.render('main', { user: req.user });
@@ -31,7 +31,7 @@ exports.link_pilot = function(req, res, next) {
   Member.findOneQ({key: member_key})
     .then(function(member) {
 
-      if (member != null) {
+      if (member !== null) {
         req.flash('success', 'Linking pilot ' + member.characterName);
 
         member.link_to_session(req.session);
@@ -46,7 +46,6 @@ exports.link_pilot = function(req, res, next) {
 
     })
     .catch(function(error) {
-      console.log(error)
       req.flash('error', error);
     })
     .done(function() {
@@ -57,7 +56,7 @@ exports.link_pilot = function(req, res, next) {
 
 exports.unlink = function(req, res, next) {
   if (req.session.linked) {
-    req.flash('error', 'Unlinking pilot ' + req.session.linked.characterName)
+    req.flash('error', 'Unlinking pilot ' + req.session.linked.characterName);
     delete req.session.linked;
     delete req.session.fleetKey;
     delete req.session.memberKey;
@@ -66,4 +65,4 @@ exports.unlink = function(req, res, next) {
   }
 
   return next();
-}
+};
