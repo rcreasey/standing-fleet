@@ -11,9 +11,10 @@ module.exports = function () {
 		hostileTtl: 300,
 		memberTtl: 600,
 		fleetTtl: 86400,
+		fleetTtlModifier: 14,
 
 		minPollInterval: 0,
-		cleanInterval: 300000,
+		cleanInterval: 60000,
 
 		requestSizeLimit: '80kb',
 

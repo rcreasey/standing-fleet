@@ -90,10 +90,19 @@ var EventHandler = {
           + member.characterId + ');">' + member.characterName + '</a> timed out';
         event.blink = 'members';
 
-      } else if (event.type === 'hostileTimedOut') {
+      } else if (event.type === 'hostileFaded') {
         var hostile = event.data;
         event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
           + hostile.characterId + ');">' + hostile.characterName + '</a> faded in '
+          + '<a href="javascript:CCPEVE.showInfo(5, ' + hostile.systemId + ');">'
+          + hostile.systemName + '</a>';
+        event.blink = 'hostiles';
+        event.alert = true;
+        
+      } else if (event.type === 'hostileTimedOut') {
+        var hostile = event.data;
+        event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
+          + hostile.characterId + ');">' + hostile.characterName + '</a> contact lost in '
           + '<a href="javascript:CCPEVE.showInfo(5, ' + hostile.systemId + ');">'
           + hostile.systemName + '</a>';
         event.blink = 'hostiles';
@@ -182,6 +191,12 @@ var EventHandler = {
     SystemMap.refreshSystems();
   },
 
+  hostileFaded: function(hostile) {
+    HostileList.fadeHostile(hostile.characterId);
+    HostileList.sortAndRenderAll();
+    SystemMap.refreshSystems();
+  },
+  
   hostileTimedOut: function (hostile) {
     HostileList.removeHostile(hostile.characterId);
     HostileList.sortAndRenderAll();

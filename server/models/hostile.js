@@ -21,6 +21,7 @@ var HostileSchema  = new Schema({
   systemName: String,
   reporterId: Number,
   reporterName: String,
+  is_faded: { type: Boolean, default: false },
   is_docked: { type: Boolean, default: false }
 });
 
@@ -36,7 +37,8 @@ HostileSchema.statics.prepare = function prepare(fleetKey, reporterId, reporterN
     corporationId: character.corporationID,
     corporationName: character.corporationName,
     allianceId: character.allianceID,
-    allianceName: character.allianceName
+    allianceName: character.allianceName,
+    is_faded: false
   });
 };
 
@@ -47,6 +49,7 @@ HostileSchema.methods.report_update = function report_update(fleetKey, report) {
   this.reporterName = report.reporterName;
   this.systemId = report.systemId;
   this.systemName = report.systemName;
+  this.is_faded = false;
 
   if (report.shipTypeId !== undefined) this.shipTypeId = report.shipTypeId;
   if (report.shipType !== undefined) this.shipType = report.shipType;

@@ -10,42 +10,75 @@ var response = require(__dirname + '/../response')
   , Scan = require(__dirname + '/../models/scan')
 
 var moment = require('moment')
+  , neow = require('neow')
   , Q = require('q')
   , _ = require('lodash')
 
-exports.join = function(req, res, next){
-
-  Fleet.findOneQ({key: req.params.fleetKey})
-    .then(function(fleet) {
-
-      if (fleet.password && req.params.fleetPassword != fleet.password) {
-        return response.error(res, 'password', 'Invalid Password');
+exports.list = function(req, res, next){
+  Fleet.find().select('ts key name description').execQ()
+    .then(function(fleets) {
+      if (fleets) {
+        return response.success(res, fleets);
+      } else {
+        return response.error(res, 'lookup', 'Unable to fetch fleet list.');        
       }
+    })
+};
 
-      var member = Member.prepare(fleet.key, req.session.fleet);
-      var event = Event.prepare('memberJoined', fleet.key, member.toObject());
+var is_whitelisted = function(whitelist, character) {
+  if (_.contains(whitelist.alliances, character.allianceID)) return true;
+  if (_.contains(whitelist.corporations, character.allianceID)) return true;
+  
+  if (_.contains(whitelist.alliances, character.corporationID)) return true;
+  if (_.contains(whitelist.corporations, character.corporationID)) return true;
+  
+  return false;
+};
 
-      member.saveQ()
-        .then(function(member) {
-          member.link_to_session(req.session);
-          return event.saveQ();
-        })
-        .then(function(event) {
-          return response.success(res, event);
+exports.join = function(req, res, next){
+  
+  // check to see if pilot is hostile or not
+  var client = new neow.EveClient();
+  client.fetch('eve:CharacterAffiliation', {ids: req.session.fleet.characterId})
+    .then(function(results) {
+      if (!is_whitelisted(req.app.settings.whitelist, results.characters[ req.session.fleet.characterId ])) {
+        return response.error(res, 'authorization', 'Unable to join fleet.');        
+      }
+    
+      Fleet.findOneQ({key: req.params.fleetKey})
+        .then(function(fleet) {
+          
+          if (fleet.password && req.params.fleetPassword != fleet.password) {
+            return response.error(res, 'password', 'Invalid Password');
+          }
+          
+          var member = Member.prepare(fleet.key, req.session.fleet);
+          var event = Event.prepare('memberJoined', fleet.key, member.toObject());
+          
+          member.saveQ()
+          .then(function(member) {
+            member.link_to_session(req.session);
+            return event.saveQ();
+          })
+          .then(function(event) {
+            return response.success(res, event);
+          })
+          .catch(function(error) {
+            console.log(error)
+            return response.error(res, 'state', 'Error joining fleet');
+          })
+          .done()
+          
         })
         .catch(function(error) {
           console.log(error)
           return response.error(res, 'state', 'Error joining fleet');
         })
-        .done()
-
-    })
-    .catch(function(error) {
-      console.log(error)
-      return response.error(res, 'state', 'Error joining fleet');
+        .done();
+  
     })
     .done();
-
+  
 };
 
 exports.leave = function(req, res, next){
@@ -229,17 +262,22 @@ exports.poll = function(req, res, next) {
 exports.create = function(req, res, next) {
   if (req.session.fleetKey || req.session.memberKey) return response.error(res, 'state', 'Please leave your current fleet before creating a new one');
 
+  var fleetName = req.body.fleetName || false;
+  if ( !fleetName ) {
+    return response.error(res, 'create', 'Fleets must be created with a name.');    
+  }
+  
   var fleetPassword = req.body.fleetPassword || false;
 
   if ( fleetPassword &&
      ( fleetPassword.length > settings.fleetPasswordMaxLength
     || fleetPassword.length < settings.fleetPasswordMinLength)) {
 
-    return response.error(res, 'input',
+    return response.error(res, 'create',
       'Invalid password. Must consist of ' + settings.fleetPasswordMinLength + ' to ' + settings.fleetPasswordMaxLength + ' characters.');
   }
 
-  var fleet = Fleet.prepare(fleetPassword);
+  var fleet = Fleet.prepare(fleetName, fleetPassword);
   var member = Member.prepare(fleet.key, req.session.fleet);
   var event = Event.prepare('fleetCreated', fleet.key,
                             { characterId: member.characterId, characterName: member.characterName });

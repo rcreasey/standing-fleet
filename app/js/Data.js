@@ -69,6 +69,7 @@ var Data = {
     statusClear: $('#status-clear'),
     statusHostile: $('#status-hostile'),
 
+    fleet_list: $('#fleet-list'),
     hud: $('#hud'),
     map: $('#system-map'),
     hostiles: $('#hostiles'),
@@ -88,7 +89,8 @@ var Data = {
     hud: Templates.hud,
     member: Templates.member,
     panel: Templates.panel,
-    scan: Templates.scan
+    scan: Templates.scan,
+    start: Templates.start
   },
 
   ships: {},

@@ -51,6 +51,7 @@ var UI = {
     Data.ui.members_list.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
     Data.ui.scans_list.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
     Data.ui.events_list.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
+    Data.ui.fleet_list.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
   },
 
   submitStatusClear: function() {
@@ -116,6 +117,10 @@ var UI = {
   }
 }
 
+Handlebars.registerHelper('format_ts', function(ts) {
+  return moment(ts).format('MM/DD HH:mm:ss');s
+});
+
 Handlebars.registerHelper('ui_icon', function(icon) {
   if (icon == 'alert') return 'bell';
   if (icon == 'approve') return 'check';
@@ -125,6 +130,7 @@ Handlebars.registerHelper('ui_icon', function(icon) {
   if (icon == 'error') return 'exclamation-triangle';
   if (icon == 'fleet') return 'fighter-jet';
   if (icon == 'fleetCreated') return 'fighter-jet';
+  if (icon == 'hostileFaded') return 'eye-slash';
   if (icon == 'hostileTimeout') return 'clock-o';
   if (icon == 'info') return 'question';
   if (icon == 'member') return 'user';

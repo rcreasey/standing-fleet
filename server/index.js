@@ -59,7 +59,7 @@ app.use(session({
   secret: settings.session_secret,
   resave: true,
   saveUninitialized: true,
-  cookie: { secure: true },
+  // cookie: { secure: true },
   store: require('mongoose-session')(mongoose)
 }))
 

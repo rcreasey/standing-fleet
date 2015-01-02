@@ -93,3 +93,4 @@ ReportSchema.methods.parse_standings = function parse_standings(whitelist) {
 var Report = mongoose.model('Report', ReportSchema);
 
 module.exports = Report;
+exports.is_whitelisted = is_whitelisted;

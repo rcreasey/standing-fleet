@@ -349,7 +349,7 @@ input.log-path {
 rect.status-unknown { stroke: #666666; fill: #333333; }
 rect.status-blue    { stroke: #0079a1; fill: #0b5168; }
 rect.status-clear   { stroke: #5cb85c; fill: #366436; }
-rect.status-warm 	  { stroke: #ed9c28; fill: #805e2f; }
+rect.status-warning { stroke: #faa123; fill: #f89406; }
 rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 
 .node text {
@@ -440,6 +440,8 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 	color: #fff;
 	font-weight: bold;
 }
+
+.hostile .faded > td { background-color: #444; }
 .hostile .system, .hostile .ship-type, .hostile .actions, .hostile .alliance,
 .hostile .name { padding-left: 0.6rem; text-align: left; }
 
@@ -522,6 +524,7 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 .event.memberLeft {	background-color:#123; border-bottom: 0.2rem solid #012; border-top: 0.16rem solid #246; }
 .event.scanShared {	background-color:#332; border-bottom: 0.2rem solid #110; border-top: 0.16rem solid #553; }
 .event.reportShared {	background-color:#332; border-bottom: 0.2rem solid #110; border-top: 0.16rem solid #553; }
+.event.hostileFaded { background-color:#AF5B00; border-bottom: 0.2rem solid #291E0E; border-top: 0.16rem solid #BD8942; }
 .event.hostileTimedOut { background-color:#AF5B00; border-bottom: 0.2rem solid #291E0E; border-top: 0.16rem solid #BD8942; }
 .event.updateHostile { background-color:#885000; border-bottom: 0.2rem solid #291E0E; border-top: 0.16rem solid #BD8942; }
 .event.sourcedClear,
@@ -572,6 +575,15 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 
 .panel .text {
 	padding-bottom: 1.4rem;
+}
+
+.panel h2 {
+	color: #ffcc2a;
+	font-family: 'Lato', sans-serif;
+	font-size: 14px;
+	font-weight: 900;
+	padding: 0 1rem;
+	text-align: left;
 }
 
 .panel .text.title {
@@ -708,6 +720,45 @@ code.error,
 
 .panel .form .group {
 	margin-bottom: 1rem;
+}
+
+#fleet-list {
+	height: 250px;
+	overflow: overlay;
+}
+
+.panel table {
+	margin: 0 1rem 1rem;
+	width: 90%;
+}
+
+.panel th { font-weight: bold; }
+.panel td { border-top: 0.16rem solid #666; }
+
+.panel th,
+.panel td {
+	vertical-align: middle;
+	overflow: hidden;
+	text-align: right;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	height: 2.4rem;
+}
+
+.panel th:first-child,
+.panel td:first-child {
+	text-align: left;
+}
+
+.panel td i {
+	margin-top: 3px;
+}
+
+.panel .submit-leave,
+.panel .submit-create {
+	font-weight: bold;
+	margin: 1rem;
+	width: 90%;
 }
 
 .linked {

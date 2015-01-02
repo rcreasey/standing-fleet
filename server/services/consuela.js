@@ -13,7 +13,7 @@ var settings = require(__dirname + '/../config/settings')
 var clean_timer = 0;
 
 var clean_fleets = function() {
-  Fleet.findQ({ts: { $lte: moment().unix() - +settings.fleetTtl }})
+  Fleet.findQ({ts: { $lte: moment().unix() - (+settings.fleetTtl * +settings.fleetTtlModifier) }})
     .then(function(fleets) {
       _.forEach(fleets, function(fleet) {
 
@@ -41,6 +41,18 @@ var clean_members = function() {
 
 var clean_hostiles = function() {
   Hostile.findQ({ts: { $lte: moment().unix() - +settings.hostileTtl }})
+    .then(function(hostiles) {      
+      _.forEach(hostiles, function(hostile) {
+        if (!hostile.is_faded) {
+          var event = Event.prepare('hostileFaded', hostile.fleetKey, hostile);
+          event.saveQ();
+          hostile.is_faded = true;
+          hostile.saveQ();          
+        }
+      })
+    });
+    
+  Hostile.findQ({ts: { $lte: moment().unix() - (+settings.hostileTtl * 3) }})
     .then(function(hostiles) {      
       _.forEach(hostiles, function(hostile) {
         var event = Event.prepare('hostileTimedOut', hostile.fleetKey, hostile);
