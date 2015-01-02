@@ -13,6 +13,8 @@ var settings = require(__dirname + '/../config/settings')
 var clean_timer = 0;
 
 var ensure_fleets = function() {
+  console.log('Consuela: Ensuring Fleets');
+  
   _.forEach(settings.fleets, function(fleet) {
     var f = Fleet.prepare(fleet);
     Fleet.findOneQ({name: fleet.name})
@@ -27,6 +29,8 @@ var ensure_fleets = function() {
 };
 
 var clean_fleets = function() {
+  console.log('Consuela: Cleaning Fleets');
+  
   Fleet.findQ({ $or: [{name: null}, {name: {$nin: _.map(settings.fleets, function(f) { return f.name;} ) }}] })
     .then(function(fleets) {
       _.forEach(fleets, function(fleet) {
@@ -43,6 +47,8 @@ var clean_fleets = function() {
 };
 
 var clean_members = function() {
+  console.log('Consuela: Cleaning Members');
+  
   Member.findQ({ts: { $lte: moment().unix() - +settings.memberTtl }})
     .then(function(members) {
       _.forEach(members, function(member) {
@@ -53,7 +59,27 @@ var clean_members = function() {
     });
 };
 
+var clean_events = function() {
+  console.log('Consuela: Cleaning Events');
+  
+  Event.removeQ({ts: { $lte: moment().unix() - +settings.eventTtl }});
+}
+
+var clean_scans = function() {
+  console.log('Consuela: Cleaning Scans');
+  
+  Scan.removeQ({ts: { $lte: moment().unix() - +settings.scanTtl }});
+}
+
+var clean_reports = function() {
+  console.log('Consuela: Cleaning Reports');
+  
+  Report.removeQ({ts: { $lte: moment().unix() - +settings.reportTtl }});
+}
+
 var clean_hostiles = function() {
+  console.log('Consuela: Cleaning Hostiles');
+  
   Hostile.findQ({ts: { $lte: moment().unix() - +settings.hostileTtl }})
     .then(function(hostiles) {      
       _.forEach(hostiles, function(hostile) {
@@ -78,11 +104,12 @@ var clean_hostiles = function() {
 
 var clean_loop = function() {
   clean_timer = setTimeout(function() {
-    console.log('Consuela: Cleaning');
-
     clean_fleets();
     clean_members();
     clean_hostiles();
+    clean_events();
+    clean_scans();
+    clean_reports();
     
     ensure_fleets();
 

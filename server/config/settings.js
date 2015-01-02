@@ -9,6 +9,9 @@ module.exports = function () {
 		session_secret: process.env.SESSION_SECRET || 'buttes',
 		log: 'console',
 
+		eventTtl: 300,
+		scanTtl: 86400,
+		reportTtl: 300,
 		hostileTtl: 300,
 		memberTtl: 600,
 		
@@ -20,11 +23,10 @@ module.exports = function () {
 			{name: 'GEM.CFC',  description: 'Geminate'},
 			{name: 'PBF.CFC',  description: 'Fade and Pure Blind'},
 			{name: 'SYND.CFC',  description: 'Syndicate'},
-			{name: 'TNL.CFC',  description: 'Tenal'}
+			{name: 'TNL.CFC',  description: 'Tenal'},
 			{name: 'TRIB.CFC',  description: 'Tribute'},
 			{name: 'VALE.CFC',  description: 'Vale of the Silent'},
-			{name: 'VNL.CFC',  description: 'Venal'},
-
+			{name: 'VNL.CFC',  description: 'Venal'}
 		],
 
 		minPollInterval: 0,
