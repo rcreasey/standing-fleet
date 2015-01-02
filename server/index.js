@@ -55,11 +55,11 @@ app.set('view engine', 'jade');
 app.use(express.static(path.join(__dirname,'..','public')));
 
 app.use(session({
-  name: 'standing-fleet',
+  name: settings.session_name,
   secret: settings.session_secret,
   resave: true,
   saveUninitialized: true,
-  // cookie: { secure: true },
+  cookie: { secure: (process.env.NODE_ENV === 'development') ? false : true },
   store: require('mongoose-session')(mongoose)
 }))
 

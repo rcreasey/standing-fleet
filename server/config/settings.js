@@ -5,6 +5,7 @@ module.exports = function () {
 
 		port: process.env.PORT || 5000,
 		cookie_secret: process.env.COOKIE_SECRET || 'dongues',
+		session_name: 'standing-fleet',
 		session_secret: process.env.SESSION_SECRET || 'buttes',
 		log: 'console',
 

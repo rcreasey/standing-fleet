@@ -87,6 +87,7 @@ exports.leave = function(req, res, next){
 
   req.sessionStore.destroy( sid, function(err) {
     delete req.session;
+    res.clearCookie( settings.session_name );
   })
 
   Member.findOneQ({key: key})
@@ -115,6 +116,8 @@ exports.status = function(req, res, next) {
     var self = Member.prepare('none', header_parser(req))
     var event = Event.prepare('statusSelf', 'none', self.toObject())
 
+    res.clearCookie( settings.session_name );
+    
     return response.success(res, [ event ]);
   }
 
