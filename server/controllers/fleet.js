@@ -10,6 +10,7 @@ var response = require(__dirname + '/../response')
   , Scan = require(__dirname + '/../models/scan')
 
 var moment = require('moment')
+  , neow = require('neow')
   , Q = require('q')
   , _ = require('lodash')
 
@@ -24,39 +25,60 @@ exports.list = function(req, res, next){
     })
 };
 
+var is_whitelisted = function(whitelist, character) {
+  if (_.contains(whitelist.alliances, character.allianceID)) return true;
+  if (_.contains(whitelist.corporations, character.allianceID)) return true;
+  
+  if (_.contains(whitelist.alliances, character.corporationID)) return true;
+  if (_.contains(whitelist.corporations, character.corporationID)) return true;
+  
+  return false;
+};
+
 exports.join = function(req, res, next){
-
-  Fleet.findOneQ({key: req.params.fleetKey})
-    .then(function(fleet) {
-
-      if (fleet.password && req.params.fleetPassword != fleet.password) {
-        return response.error(res, 'password', 'Invalid Password');
+  
+  // check to see if pilot is hostile or not
+  var client = new neow.EveClient();
+  client.fetch('eve:CharacterAffiliation', {ids: req.session.fleet.characterId})
+    .then(function(results) {
+      if (!is_whitelisted(req.app.settings.whitelist, results.characters[ req.session.fleet.characterId ])) {
+        return response.error(res, 'authorization', 'Unable to join fleet.');        
       }
-
-      var member = Member.prepare(fleet.key, req.session.fleet);
-      var event = Event.prepare('memberJoined', fleet.key, member.toObject());
-
-      member.saveQ()
-        .then(function(member) {
-          member.link_to_session(req.session);
-          return event.saveQ();
-        })
-        .then(function(event) {
-          return response.success(res, event);
+    
+      Fleet.findOneQ({key: req.params.fleetKey})
+        .then(function(fleet) {
+          
+          if (fleet.password && req.params.fleetPassword != fleet.password) {
+            return response.error(res, 'password', 'Invalid Password');
+          }
+          
+          var member = Member.prepare(fleet.key, req.session.fleet);
+          var event = Event.prepare('memberJoined', fleet.key, member.toObject());
+          
+          member.saveQ()
+          .then(function(member) {
+            member.link_to_session(req.session);
+            return event.saveQ();
+          })
+          .then(function(event) {
+            return response.success(res, event);
+          })
+          .catch(function(error) {
+            console.log(error)
+            return response.error(res, 'state', 'Error joining fleet');
+          })
+          .done()
+          
         })
         .catch(function(error) {
           console.log(error)
           return response.error(res, 'state', 'Error joining fleet');
         })
-        .done()
-
-    })
-    .catch(function(error) {
-      console.log(error)
-      return response.error(res, 'state', 'Error joining fleet');
+        .done();
+  
     })
     .done();
-
+  
 };
 
 exports.leave = function(req, res, next){
