@@ -12,8 +12,22 @@ var settings = require(__dirname + '/../config/settings')
 
 var clean_timer = 0;
 
+var ensure_fleets = function() {
+  _.forEach(settings.fleets, function(fleet) {
+    var f = Fleet.prepare(fleet);
+    Fleet.findOneQ({name: fleet.name})
+      .then(function(existing_fleet) {
+        if (!existing_fleet) {
+          f.saveQ()
+            .done();
+        }
+      })
+      .done();
+  })  
+};
+
 var clean_fleets = function() {
-  Fleet.findQ({ts: { $lte: moment().unix() - (+settings.fleetTtl * +settings.fleetTtlModifier) }})
+  Fleet.findQ({ $or: [{name: null}, {name: {$nin: _.map(settings.fleets, function(f) { return f.name;} ) }}] })
     .then(function(fleets) {
       _.forEach(fleets, function(fleet) {
 
@@ -69,6 +83,8 @@ var clean_loop = function() {
     clean_fleets();
     clean_members();
     clean_hostiles();
+    
+    ensure_fleets();
 
     clean_loop();
   }, settings.cleanInterval);

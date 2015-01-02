@@ -6,37 +6,34 @@
     {{#if logo}}<img id="logo" src="/images/panel-logo.png" alt="Standing Fleet" />{{/if}}
     {{#if title}}<div class="text title">{{{title}}}</div>{{/if}}
   </div>
-  <h2>Fleet Operations</h2>
-  <a target="_blank" class="button submit-create" onclick="UIPanels.showCreatePanel()">Create Fleet</a>
-  <a target="_blank" class="button submit-leave" onclick="leaveFleet()">Leave Fleet</a>
   
-  {{#if fleets}}
   <h2>Current Fleets</h2>
-  <div id="fleet-list">
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Created On</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each fleets}}
-        <tr>
-          <td>
-            <a href="/{{key}}" title="{{key}}">
-              {{#if name}}{{name}}{{else}}{{key}}{{/if}}
-            </a>
-          </td>
-          <td>
-            {{#if has_password}}<i class="fa fa-lock"></i>{{/if}}
-            {{format_ts ts}}</td>
-        </tr>
-        {{/each}}
-      </tbody>
-    </table>  
-  </div>
-  {{/if}}
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Region</th>
+        <th>Formed</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each fleets}}
+      <tr>
+        <td>
+          <a href="/{{key}}" title="{{key}}">
+            {{#if name}}{{name}}{{else}}{{key}}{{/if}}
+          </a>
+        </td>
+        <td>{{description}}</td>
+        <td>
+          {{#if has_password}}<i class="fa fa-lock"></i>{{/if}}
+          {{format_ts ts}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>  
+  
+  <a target="_blank" class="button submit-leave" onclick="leaveFleet()">Leave Fleet</a>
 
   {{#if footer}}
   <div class="text footer">{{{footer}}}</div>
