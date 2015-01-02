@@ -25,8 +25,7 @@ module.exports = function () {
 		],
 
 		minPollInterval: 0,
-		// cleanInterval: 60000,
-		cleanInterval: 1000,
+		cleanInterval: 60000,
 
 		requestSizeLimit: '80kb',
 
