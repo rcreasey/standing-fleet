@@ -13,16 +13,18 @@ module.exports = function () {
 		memberTtl: 600,
 		
 		fleets: [						
-			{name: 'DEK.CFC',  description: 'Deklein'},
 			{name: 'BRN.CFC',  description: 'Branch'},
-			{name: 'VNL.CFC',  description: 'Venal'},
 			{name: 'CR.CFC',  description: 'Cloud Ring'},
-			{name: 'SYND.CFC',  description: 'Syndicate'},
+			{name: 'DEK.CFC',  description: 'Deklein'},
+			{name: 'FTN.CFC',  description: 'Fountain'},
+			{name: 'GEM.CFC',  description: 'Geminate'},
 			{name: 'PBF.CFC',  description: 'Fade and Pure Blind'},
+			{name: 'SYND.CFC',  description: 'Syndicate'},
+			{name: 'TNL.CFC',  description: 'Tenal'}
 			{name: 'TRIB.CFC',  description: 'Tribute'},
 			{name: 'VALE.CFC',  description: 'Vale of the Silent'},
-			{name: 'GEM.CFC',  description: 'Geminate'},
-			{name: 'TNL.CFC',  description: 'Tenal'}
+			{name: 'VNL.CFC',  description: 'Venal'},
+
 		],
 
 		minPollInterval: 0,
