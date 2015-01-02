@@ -13,8 +13,8 @@ var FleetSchema  = new Schema({
 
 FleetSchema.index({ ts: 1, key: 1 }, { expireAfterSeconds: 86400 });
 
-FleetSchema.statics.prepare = function prepare(name, password) {
-  return new this({ name: name, password: password });
+FleetSchema.statics.prepare = function prepare(fleet) {
+  return new this({ name: fleet.name, description: fleet.description, password: false });
 };
 
 module.exports = mongoose.model('Fleet', FleetSchema);

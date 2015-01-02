@@ -15,7 +15,7 @@ var moment = require('moment')
   , _ = require('lodash')
 
 exports.list = function(req, res, next){
-  Fleet.find().select('ts key name description').execQ()
+  Fleet.find().select('ts key name description').sort('name').execQ()
     .then(function(fleets) {
       if (fleets) {
         return response.success(res, fleets);
@@ -260,6 +260,10 @@ exports.poll = function(req, res, next) {
 };
 
 exports.create = function(req, res, next) {
+  // enforce premade fleets only
+  return response.error(res, 'create', 'Creating fleets is currently prohibited.');        
+  
+  
   if (req.session.fleetKey || req.session.memberKey) return response.error(res, 'state', 'Please leave your current fleet before creating a new one');
 
   var fleetName = req.body.fleetName || false;

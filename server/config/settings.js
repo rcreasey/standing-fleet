@@ -10,11 +10,23 @@ module.exports = function () {
 
 		hostileTtl: 300,
 		memberTtl: 600,
-		fleetTtl: 86400,
-		fleetTtlModifier: 14,
+		
+		fleets: [						
+			{name: 'DEK.CFC',  description: 'Deklein'},
+			{name: 'BRN.CFC',  description: 'Branch'},
+			{name: 'VNL.CFC',  description: 'Venal'},
+			{name: 'CR.CFC',  description: 'Cloud Ring'},
+			{name: 'SYND.CFC',  description: 'Syndicate'},
+			{name: 'PBF.CFC',  description: 'Fade and Pure Blind'},
+			{name: 'TRIB.CFC',  description: 'Tribute'},
+			{name: 'VALE.CFC',  description: 'Vale of the Silent'},
+			{name: 'GEM.CFC',  description: 'Geminate'},
+			{name: 'TNL.CFC',  description: 'Tenal'}
+		],
 
 		minPollInterval: 0,
-		cleanInterval: 60000,
+		// cleanInterval: 60000,
+		cleanInterval: 1000,
 
 		requestSizeLimit: '80kb',
 
