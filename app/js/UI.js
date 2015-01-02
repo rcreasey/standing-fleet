@@ -115,12 +115,12 @@ var UI = {
     ];
     return msgs[Math.floor(Math.random()*msgs.length)] + "...";
   }
-}
+};
 
 Handlebars.registerHelper('hud_detect_hostiles', function(status) {
   if (status == 'warning') return true;
   else return false;
-}
+});
 
 Handlebars.registerHelper('format_ts', function(ts) {
   return moment(ts).format('MM/DD HH:mm:ss');s
