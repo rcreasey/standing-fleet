@@ -8,6 +8,8 @@ var EventHandler = {
     'statusSelf',
     'statusFleet',
     'memberAccepted',
+    'memberJoined',
+    'memberLeft',
     'memberTimedOut',
     'memberUpdated',
     'updateSystemMap'

@@ -1,13 +1,13 @@
 var MemberList = {
 
   clear: function () {
-    log('Clearing member list...');
+    // log('Clearing member list...');
     Data.members = [];
     Data.ui.members_list.empty();
   },
 
   addMember: function (memberToAdd) {
-    log('Adding member: ' + memberToAdd.characterName + '...');
+    // log('Adding member: ' + memberToAdd.characterName + '...');
     MemberList.removeMember(memberToAdd.characterId);
     Data.members.push(memberToAdd);
   },
@@ -15,7 +15,7 @@ var MemberList = {
   removeMember: function (memberToRemoveId) {
     var memberToRemove = MemberList.findMember(memberToRemoveId);
     if (memberToRemove) {
-      log('Removing member: ' + memberToRemove.characterName + '...');
+      // log('Removing member: ' + memberToRemove.characterName + '...');
       Data.members.splice(Data.members.indexOf(memberToRemove), 1);
     }
   },
@@ -33,7 +33,7 @@ var MemberList = {
   },
 
   renderSingleMember: function (member) {
-    log('Rendering member: ' + member.characterName + ' (single)...');
+    // log('Rendering member: ' + member.characterName + ' (single)...');
     MemberList.addUiProperties(member);
     var existingMemberElement = Data.ui.members_list.find('#member-' + member.characterId);
     if (existingMemberElement.length) {
@@ -44,7 +44,7 @@ var MemberList = {
   },
 
   sortAndRenderAll: function () {
-    log('Sorting and rendering all members...');
+    // log('Sorting and rendering all members...');
 
     Data.members.sort(function (member1, member2) {
       if (member1[Data.state.memberSortOrder.property] < member2[Data.state.memberSortOrder.property]) {
@@ -58,7 +58,7 @@ var MemberList = {
 
     Data.ui.members_list.empty();
     Data.members.forEach(function (member) {
-      log('Rendering member: ' + member.characterName + ' (batch)...');
+      // log('Rendering member: ' + member.characterName + ' (batch)...');
       MemberList.addUiProperties(member);
       Data.ui.members_list.append($(member.html));
     });
