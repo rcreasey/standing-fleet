@@ -133,16 +133,16 @@ exports.status = function(req, res, next) {
       
       var tasks = [
         Event.find({fleetKey: fleet.key}).execQ().then(function(events) {
-          return Event.prepare('statusEvents', fleet.key, _.map(events, function(event) { return event.toObject(); }));
+          return Event.prepare('statusEvents', fleet.key, _.map(events, function(event) { if (event !== null) return event.toObject(); }));
         }),
         Member.find({fleetKey: fleet.key}).execQ().then(function(members) {
-          return Event.prepare('statusMembers', fleet.key, _.map(members, function(member) { return member.toObject(); }));
+          return Event.prepare('statusMembers', fleet.key, _.map(members, function(member) { if (member !== null) return member.toObject(); }));
         }),
         Hostile.find({fleetKey: fleet.key}).execQ().then(function(hostiles) {
-          return Event.prepare('statusHostiles', fleet.key, _.map(hostiles, function(hostile) { return hostile.toObject(); }));
+          return Event.prepare('statusHostiles', fleet.key, _.map(hostiles, function(hostile) { if (hostile !== null) return hostile.toObject(); }));
         }),
         Scan.find({fleetKey: fleet.key}).execQ().then(function(scans) {
-          return Event.prepare('statusScans', fleet.key, _.map(scans, function(scan) { return scan.toObject(); }));
+          return Event.prepare('statusScans', fleet.key, _.map(scans, function(scan) { if (scan !== null) return scan.toObject(); }));
         })
       ];
 
