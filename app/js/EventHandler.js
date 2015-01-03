@@ -8,7 +8,9 @@ var EventHandler = {
     'statusSelf',
     'statusFleet',
     'memberAccepted',
-    'memberUpdated'
+    'memberTimedOut',
+    'memberUpdated',
+    'updateSystemMap'
   ],
 
   dispatchEvents: function (events, silent) {

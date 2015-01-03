@@ -12,7 +12,7 @@ module.exports = function () {
 		eventTtl: 300,
 		scanTtl: 86400,
 		reportTtl: 300,
-		hostileTtl: 300,
+		hostileTtl: 600,
 		memberTtl: 600,
 		
 		fleets: [						

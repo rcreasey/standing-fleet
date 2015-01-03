@@ -92,7 +92,7 @@ var clean_hostiles = function() {
       })
     });
     
-  Hostile.findQ({ts: { $lte: moment().unix() - (+settings.hostileTtl * 3) }})
+  Hostile.findQ({ts: { $lte: moment().unix() - (+settings.hostileTtl * 2) }})
     .then(function(hostiles) {      
       _.forEach(hostiles, function(hostile) {
         var event = Event.prepare('hostileTimedOut', hostile.fleetKey, hostile);
