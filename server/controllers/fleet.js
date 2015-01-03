@@ -87,7 +87,7 @@ exports.leave = function(req, res, next){
 
   req.sessionStore.destroy( sid, function(err) {
     delete req.session;
-    res.clearCookie(settings.session_name);
+    // res.clearCookie(settings.session_name);
   })
 
   Member.findOneQ({key: key})
