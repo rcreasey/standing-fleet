@@ -71,7 +71,9 @@ var Server = {
   },
 
   poll: function (callback) {
-    Server.ajaxGet('/poll/' + Data.state.lastPollTs, function (error, data) {
+    var lastPoll = Math.round(Data.state.lastPollTs / 5) * 5;
+    
+    Server.ajaxGet('/poll/' + lastPoll, function (error, data) {
       if (error) return callback(error);
 
       Data.state.lastPollTs = data.ts;
