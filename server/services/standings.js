@@ -12,12 +12,12 @@ exports.update = function(whitelist) {
         if (!parse_error) {
 
           whitelist.corporations = _.filter(standings.eveapi.result[0].rowset[0].row, function(s) {
-            return parseInt(s.$.standing) >= whitelist.threshold;
+            return parseFloat(s.$.standing) >= whitelist.threshold;
           })
           whitelist.corporations = _.map(whitelist.corporations, function(e) { return e.$.contactID });
 
           whitelist.alliances = _.filter(standings.eveapi.result[0].rowset[1].row, function(s) {
-            return parseInt(s.$.standing) >= whitelist.threshold;
+            return parseFloat(s.$.standing) >= whitelist.threshold;
           })
           whitelist.alliances = _.map(whitelist.alliances, function(e) { return e.$.contactID });
 
