@@ -59,6 +59,7 @@ var UI = {
   },
 
   showAlert: function (event) {
+    if ($('.menu-button.active').attr('id') === Data.ui.topMenu_hud.attr('id')) return;
     var alert = $(Data.templates.alert(event));
 
     alert.on('mouseover',function () {
