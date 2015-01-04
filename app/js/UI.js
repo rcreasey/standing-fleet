@@ -13,7 +13,22 @@ var UI = {
 
     return UI;
   },
-
+  
+  toggle: function(element) {
+    element.toggle();
+  },
+  
+  tabClick: function (tab) {
+    if ($('#'+tab).hasClass('active')) return;
+    
+    $('#content-wrapper').fadeOut('fast',function(){
+      $('.main-content.active, .menu-button.active ').removeClass('active');
+      $('.menu-button.' + tab + ', #' + tab).addClass('active');
+      $('.menu-button.' + tab).removeClass('blink');
+      $('#content-wrapper').fadeIn('fast');
+    });
+  },
+  
   startSpin: function () {
     Data.ui.bottomMenu_spinner
       .fadeIn(Data.config.uiSpeed*4);

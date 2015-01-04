@@ -356,6 +356,64 @@ input.log-path {
   opacity: 0;
 }
 
+#system-map .legend {
+	background-color: #000;
+	color: #fff; 
+	border: solid 1px #fff;
+	border-radius: 5px; 
+	font-family: 'Droid Sans', sans-serif;
+	opacity: 0.75;
+	padding: 0.5rem 0.75rem;
+	position: absolute;
+	bottom: 3rem;
+	left: 0.5rem;
+	z-index: 5;
+}
+
+#system-map .legend .toggle {
+	cursor: pointer;
+	padding: 0.5rem 0.25rem;
+}
+
+#system-map .legend .contents {
+	display: none;
+	width: 200px;
+	margin-left: 0.5rem;
+	float: right;	
+}
+
+#system-map .legend .contents .heading {
+	display: block;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 2rem;
+	margin-bottom: 0.5rem;
+}
+
+#system-map .legend .contents .body li {
+	margin-bottom: 0.5rem;
+}
+
+#system-map .legend .contents .body span {
+	background-color: #333;
+	border: solid 1px #666;
+	color: #fff;
+	font-weight: bold;
+	width: 62px;
+	border-radius: 3px;
+	font-size: 10px;
+	height: 19px;
+	margin-right: 0.75rem;
+	padding: 0.15rem 0.75rem;
+}
+
+#system-map .legend .contents .body span.system-unknown { border: solid 1px #666666; background-color: #333333; }
+#system-map .legend .contents .body span.system-blue    { border: solid 1px #0079a1; background-color: #0b5168; }
+#system-map .legend .contents .body span.system-clear   { border: solid 1px #5cb85c; background-color: #366436; }
+#system-map .legend .contents .body span.system-warning { border: solid 1px #faa123; background-color: #f89406; }
+#system-map .legend .contents .body span.system-hostile { border: solid 1px #d9534f; background-color: #74312f; }
+#system-map .legend .contents .body span.current 				{ border: solid 2px #f39c12 !important; }
+
 .node rect {
   stroke: #666;
   stroke-width: 1px;

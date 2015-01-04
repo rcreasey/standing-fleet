@@ -65,6 +65,8 @@ var Data = {
     bottomMenu_unlink: $('#bottom-menu-unlink'),
     bottomMenu_menu: $('#bottom-menu-menu'),
 
+    mapLegend_contents: $('#system-map .legend .contents'),
+    mapLegend_systems: $('#system-map .legend span'),
     currentSystem: $('#current .system'),
     currentRegion: $('#current .region'),
     statusClear: $('#status-clear'),
@@ -88,6 +90,7 @@ var Data = {
     event: Templates.event,
     hostile: Templates.hostile,
     hud: Templates.hud,
+    legend: Templates.legend,
     member: Templates.member,
     panel: Templates.panel,
     scan: Templates.scan,
