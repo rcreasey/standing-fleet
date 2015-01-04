@@ -85,27 +85,29 @@ exports.leave = function(req, res, next){
   var sid = req.session.id;
   var key = req.session.memberKey;
 
-  req.sessionStore.destroy( sid, function(err) {
-    delete req.session;
-    // res.clearCookie(settings.session_name);
-  })
-
-  Member.findOneQ({key: key})
-    .then(function(member) {
-      if (member) {
-        var event = Event.prepare('memberLeft', member.fleetKey, member.toObject());
-        event.saveQ();
-        member.removeQ();
+  req.session.regenerate(function(err) {
+    if (err) return response.error(res, 'state', 'Error leaving fleet: ' + err);
+    
+    Member.findOneQ({key: key})
+      .then(function(member) {
+        if (member) {
+          var event = Event.prepare('memberLeft', member.fleetKey, member.toObject());
+          event.saveQ();
+          member.removeQ();
+          
+        }
         
-      }
+        return response.success(res);
+      })
+      .catch(function(error) {
+        console.log(error)
+        return response.error(res, 'state', 'Error leaving fleet: ' + error);
+      })
+      .done(function() {
+        
+      });
       
-      return response.success(res);
-    })
-    .catch(function(error) {
-      console.log(error)
-      return response.error(res, 'state', 'Error leaving fleet: ' + error);
-    })
-    .done();
+  });
 
 };
 
@@ -139,7 +141,7 @@ exports.status = function(req, res, next) {
         Member.find({fleetKey: fleet.key}).execQ().then(function(members) {
           return Event.prepare('statusMembers', fleet.key, _.map(members, function(member) { if (member !== null) return member.toObject(); }));
         }),
-        Hostile.find({fleetKey: fleet.key}).execQ().then(function(hostiles) {
+        Hostile.find({fleetKey: fleet.key, systemId: {$ne: null}}).execQ().then(function(hostiles) {
           return Event.prepare('statusHostiles', fleet.key, _.map(hostiles, function(hostile) { if (hostile !== null) return hostile.toObject(); }));
         }),
         Scan.find({fleetKey: fleet.key}).execQ().then(function(scans) {
@@ -154,21 +156,19 @@ exports.status = function(req, res, next) {
         })
         .catch(function(error) {
           console.log(error)
-          req.sessionStore.destroy( req.session.id, function(err) {
-            delete req.session;
+          req.session.regenerate(function(err) {
+            return response.error(res, 'status', 'Error fetching fleet tasks.');
           });
           
-          return response.error(res, 'status', 'Error fetching fleet tasks.');
         })
         .done();
     })
     .catch(function(error) {
       console.log(error)
-      req.sessionStore.destroy( req.session.id, function(err) {
-        delete req.session;
+      req.session.regenerate(function(err) {
+        return response.error(res, 'status', 'Error fetching fleet status.');
       });
       
-      return response.error(res, 'status', 'Error fetching fleet status.');
     })
     .done();
 
@@ -311,7 +311,7 @@ exports.report = function(req, res, next) {
   if (!report.data.length) return response.error(res, 'report', 'Invalid report data.');
 
   if (report.text === 'clear') {
-    Hostile.removeQ({systemId: report.systemId})
+    Hostile.updateQ({systemId: report.systemId}, {systemId: null, systemName: null, is_faded: true}, {upsert: true})
       .then(function(hostile) {
         var event = Event.prepare('reportClear', report.fleetKey, report.toObject());
         event.saveQ();

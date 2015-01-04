@@ -34,11 +34,11 @@ var Data = {
     dimmed: false,
     lastPollTs : moment().unix(),
     memberSortOrder: {
-      property: 'name',
+      property: 'characterName',
       order: 'asc'
     },
     hostileSortOrder: {
-      property: 'systemName',
+      property: 'characterName',
       order: 'asc'
     },
     pollLoop: 0

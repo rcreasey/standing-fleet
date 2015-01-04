@@ -106,9 +106,12 @@ var EventHandler = {
       } else if (event.type === 'hostileTimedOut') {
         var hostile = event.data;
         event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
-          + hostile.characterId + ');">' + hostile.characterName + '</a> contact lost in '
-          + '<a href="javascript:CCPEVE.showInfo(5, ' + hostile.systemId + ');">'
-          + hostile.systemName + '</a>';
+          + hostile.characterId + ');">' + hostile.characterName + '</a> '
+          + ' contact lost '
+        if (hostile.systemId !== null ) {
+          event.text += 'in <a href="javascript:CCPEVE.showInfo(5, ' + hostile.systemId + ');"> ' 
+                     + hostile.systemName + '</a>';
+        }
         event.blink = 'hostiles';
         event.alert = true;
 

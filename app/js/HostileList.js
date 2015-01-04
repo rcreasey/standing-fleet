@@ -1,19 +1,19 @@
 var HostileList = {
 
   clear: function () {
-    log('Clearing hostile list...');
+    // log('Clearing hostile list...');
     Data.hostiles = [];
     Data.ui.hostiles_list.empty();
   },
 
   clearBySystem: function (systemId) {
-    log('Clearing system ' + systemId);
+    // log('Clearing system ' + systemId);
     Data.hostiles = $.map(Data.hostiles, function(h) { return h.systemId !== +systemId ? h : null; });
     Data.ui.hostiles_list.empty();
   },
 
   addHostile: function (hostileToAdd) {
-    log('Adding hostile: ' + hostileToAdd.characterName + '...');
+    // log('Adding hostile: ' + hostileToAdd.characterName + '...');
     HostileList.removeHostile(hostileToAdd.characterId);
     Data.hostiles.push(hostileToAdd);
   },
@@ -21,7 +21,7 @@ var HostileList = {
   fadeHostile: function (hostileToFadeId) {
     var hostileToFade = HostileList.findHostile(hostileToFadeId);
     if (hostileToFade) {
-      log('Fading hostile: ' + hostileToFade.characterName + '...');
+      // log('Fading hostile: ' + hostileToFade.characterName + '...');
       hostileToFade.is_faded = true;
     }
   },
@@ -29,7 +29,7 @@ var HostileList = {
   removeHostile: function (hostileToRemoveId) {
     var hostileToRemove = HostileList.findHostile(hostileToRemoveId);
     if (hostileToRemove) {
-      log('Removing hostile: ' + hostileToRemove.characterName + '...');
+      // log('Removing hostile: ' + hostileToRemove.characterName + '...');
       Data.hostiles.splice(Data.hostiles.indexOf(hostileToRemove), 1);
     }
   },
@@ -47,7 +47,7 @@ var HostileList = {
   },
 
   renderSingleHostile: function (hostile) {
-    log('Rendering hostile: ' + hostile.characterName + ' (single)...');
+    // log('Rendering hostile: ' + hostile.characterName + ' (single)...');
     HostileList.addUiProperties(hostile);
     var existingHostileElement = Data.ui.hostiles_list.find('#hostile-' + hostile.characterId);
     if (existingHostileElement.length) {
@@ -58,7 +58,7 @@ var HostileList = {
   },
 
   sortAndRenderAll: function () {
-    log('Sorting and rendering all hostiles...');
+    // log('Sorting and rendering all hostiles...');
 
     Data.hostiles.sort(function (hostile1, hostile2) {
       if (hostile1[Data.state.hostileSortOrder.property] < hostile2[Data.state.hostileSortOrder.property]) {
@@ -72,7 +72,7 @@ var HostileList = {
 
     Data.ui.hostiles_list.empty();
     Data.hostiles.forEach(function (hostile) {
-      log('Rendering hostile: ' + hostile.characterName + ' (batch)...');
+      // log('Rendering hostile: ' + hostile.characterName + ' (batch)...');
       HostileList.addUiProperties(hostile);
       Data.ui.hostiles_list.append($(hostile.html));
     });
