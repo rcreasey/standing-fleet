@@ -111,7 +111,7 @@ function start() {
   });
 }
 
-consuela.start_cleaning();
+// consuela.start_cleaning();
 start();
 
 exports.app = app;

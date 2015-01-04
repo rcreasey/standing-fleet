@@ -65,7 +65,8 @@ var Data = {
     bottomMenu_unlink: $('#bottom-menu-unlink'),
     bottomMenu_menu: $('#bottom-menu-menu'),
 
-    currentSystem: $('#current-system'),
+    currentSystem: $('#current .system'),
+    currentRegion: $('#current .region'),
     statusClear: $('#status-clear'),
     statusHostile: $('#status-hostile'),
 

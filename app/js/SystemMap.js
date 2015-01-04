@@ -116,9 +116,13 @@ var SystemMap = {
       })
       .on("end", function(){
 
-        $('#current-system')
+        Data.ui.currentSystem
           .data('systemId', system.id)
           .text( system.name );
+          
+        Data.ui.currentRegion
+          .data('regionId', system.regionID)
+          .text( Data.regions[ system.regionID ].name );
 
         SystemMap.updateHud( system.name );
 
