@@ -19,7 +19,7 @@ var MemberSchema  = new Schema({
   isLinked: { type: Boolean, default: false }
 });
 
-MemberSchema.index({ ts: 1, key: 1, fleetKey: 1 });
+MemberSchema.index({ ts: 1, key: 1, fleetKey: 1 }, { expireAfterSeconds: settings.memberTtl });
 
 MemberSchema.methods.link_to_session = function link_to_session(session, next) {
   session.fleetKey = this.fleetKey;

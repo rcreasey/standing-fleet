@@ -21,7 +21,7 @@ var ReportSchema  = new Schema({
   hostiles: [ Schema.Types.Mixed ],
 });
 
-ReportSchema.index({ ts: 1, fleetKey: 1 }, { expireAfterSeconds: 900 });
+ReportSchema.index({ ts: 1, fleetKey: 1 }, { expireAfterSeconds: settings.reportTtl });
 
 ReportSchema.statics.prepare = function prepare(fleetKey, report) {
   return new this({

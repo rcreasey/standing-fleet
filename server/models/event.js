@@ -1,5 +1,6 @@
 var mongoose = require('mongoose-q')()
   , Schema = mongoose.Schema
+  , settings = require(__dirname + '/../config/settings')
   , key_generator = require(__dirname + '/../util/key-generator')
   , moment = require('moment')
 
@@ -11,7 +12,7 @@ var EventSchema  = new Schema({
   data: Schema.Types.Mixed
 });
 
-EventSchema.index({ ts: 1, key: 1, fleetKey: 1 }, { expireAfterSeconds: 900 });
+EventSchema.index({ ts: 1, key: 1, fleetKey: 1 }, { expireAfterSeconds: settings.eventTtl });
 
 EventSchema.statics.prepare = function prepare(type, fleetKey, data) {
   return new this({

@@ -3,43 +3,43 @@ var express = require('express')
   , validate = require(__dirname + '/../middleware/validate')
   , fleet = require(__dirname + '/../controllers/fleet')
 
-router.route('/fleet/list')
+router.route('/list')
   .get(validate.headers)
   .get(fleet.list);
   
-router.route('/fleet/join/:fleetKey')
+router.route('/join/:fleetKey')
   .get(validate.headers)
   .get(fleet.join);
 
-router.route('/fleet/join/:fleetKey/:fleetPassword')
+router.route('/join/:fleetKey/:fleetPassword')
   .get(validate.headers)
   .get(fleet.join);
 
-router.route('/fleet/leave')
+router.route('/leave')
   .get(validate.headers)
   .get(fleet.leave);
 
-router.route('/fleet/status')
+router.route('/status')
   .get(validate.headers)
   .get(fleet.status);
 
-router.route('/fleet/poll/:lastPollTs')
+router.route('/poll/:lastPollTs')
   .get(validate.headers, validate.session, validate.poll)
   .get(fleet.poll);
 
-router.route('/fleet/create')
+router.route('/create')
   .post(validate.headers)
   .post(fleet.create);
 
-router.route('/fleet/status')
+router.route('/status')
   .post(validate.headers, validate.session)
   .post(fleet.report)
 
-router.route('/fleet/scan')
+router.route('/scan')
   .post(validate.headers, validate.session)
   .post(fleet.add_scan);
 
-router.route('/fleet/details')
+router.route('/details')
   .post(validate.headers, validate.session)
   .post(fleet.update_hostile)
 

@@ -69,9 +69,9 @@ app.use(passport.session());
 
 app.use('/docs', docs);
 app.use('/', routes);
-app.use('/api', fleet);
-app.use('/scans', scans);
-app.use('/map', map);
+app.use('/api/fleets', fleet);
+app.use('/api/scans', scans);
+app.use('/api/map', map);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

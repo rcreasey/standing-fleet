@@ -8,7 +8,7 @@ var Data = {
   config: {
     data_client: 'http://127.0.0.1:44444/',
     domain: 'https://standing-fleet.apps.goonswarm.org/',
-    apiUrl: '/api/fleet',
+    apiUrl: '/api',
     alertStay: 5000,
     pollInterval: 7000,
     maxEvents: 50,
