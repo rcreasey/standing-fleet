@@ -42,6 +42,8 @@ var EventHandler = {
 
       } else if (event.type === 'reportHostile') {
         var reported = event.data;
+        if (reported.length === 0) return;
+        
         if ( reported.length === 1 ) {
           var hostile = reported[0];
           if (hostile) event.text = '<a href="javascript:CCPEVE.showInfo(1377, '

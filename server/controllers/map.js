@@ -4,8 +4,9 @@ var Q = require('q')
   , Region = require(__dirname + '/../models/region')
   , System = require(__dirname + '/../models/system')
   , Jump = require(__dirname + '/../models/jump')
-
-exports.show = function(req, res, next){
+  , Report = require(__dirname + '/../models/report')
+  
+exports.show_region = function(req, res, next){
 
   Region.findOneQ({name: req.params.region_name})
     .then(function(region) {
@@ -75,3 +76,53 @@ exports.show = function(req, res, next){
     .done();
 
 };
+
+exports.show_system = function(req, res, next){
+    
+  var system = {};
+  
+  System.findOneQ({name: req.params.system_name})
+    .then(function(system) {
+      if (!system) throw 'Invalid system name ' + req.params.system_name;
+      
+      system = {
+        id: system.id,
+        name: system.name,
+        regionID: system.regionID,
+        constellationID: system.constellationID,
+        x: system.x,
+        y: system.y,
+        jumps: [],
+        reports: []
+      };
+      
+      return system;
+    })
+    .then(function(system) {
+      
+      var tasks = [
+        Jump.findQ({ $or: [ {to: system.id}, {from: system.id} ] }).then(function(jumps) {               
+          return _.map(jumps, function(jump) { return {to: jump.to, from: jump.from, type: jump.type} });
+        }),
+        Report.findQ({systemId: system.id}).then(function(reports) {
+          return reports;
+        })
+      ];
+      
+      Q.all(tasks)
+        .then(function(results) {          
+          system.jumps = results[0];
+          system.reports = results[1];
+          system.advisories = [];
+          
+          return res.jsonp(system);          
+        })
+        .catch(function(error) {
+          console.log(error)
+          return response.error(res, 'map', error);
+        })
+      
+    })
+  
+};
+  

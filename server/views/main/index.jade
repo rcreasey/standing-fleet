@@ -3,7 +3,10 @@ extends ../layout/default
 block content
   #dim
   #top-bar
-    span#current-system Standing Fleet
+    span#current
+      span.system Standing Fleet
+      span.separator // 
+      span.region Select Region
     #top-menu.sub-bar.right
       #top-menu-hud.menu-button.hud
         i.fa.fa-tachometer
@@ -26,6 +29,7 @@ block content
   #content-wrapper
     #hud.main-content
     #system-map.main-content.active
+      #system-info        
     #hostiles.main-content
       .list
     #members.main-content

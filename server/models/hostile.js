@@ -3,6 +3,7 @@ var mongoose = require('mongoose-q')()
   , moment = require('moment')
   , key_generator = require(__dirname + '/../util/key-generator')
   , System = require('./system')
+  , settings = require(__dirname + '/../config/settings')
   
 var HostileSchema  = new Schema({
   ts: { type: Number, default: function() { return moment().unix(); } },
@@ -25,7 +26,7 @@ var HostileSchema  = new Schema({
   is_docked: { type: Boolean, default: false }
 });
 
-HostileSchema.index({ ts: 1, key: 1, fleetKey: 1 });
+HostileSchema.index({ ts: 1, key: 1, fleetKey: 1 }, { expireAfterSeconds: settings.hostileTtl });
 
 HostileSchema.statics.prepare = function prepare(fleetKey, reporterId, reporterName, character) {
   return new this({

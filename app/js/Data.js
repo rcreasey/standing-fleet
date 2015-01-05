@@ -8,7 +8,7 @@ var Data = {
   config: {
     data_client: 'http://127.0.0.1:44444/',
     domain: 'https://standing-fleet.apps.goonswarm.org/',
-    apiUrl: '/api/fleet',
+    apiUrl: '/api',
     alertStay: 5000,
     pollInterval: 7000,
     maxEvents: 50,
@@ -65,7 +65,11 @@ var Data = {
     bottomMenu_unlink: $('#bottom-menu-unlink'),
     bottomMenu_menu: $('#bottom-menu-menu'),
 
-    currentSystem: $('#current-system'),
+    mapInfo: $('#system-info'),
+    mapLegend_contents: $('#system-map .legend .contents'),
+    mapLegend_systems: $('#system-map .legend span'),
+    currentSystem: $('#current .system'),
+    currentRegion: $('#current .region'),
     statusClear: $('#status-clear'),
     statusHostile: $('#status-hostile'),
 
@@ -87,10 +91,12 @@ var Data = {
     event: Templates.event,
     hostile: Templates.hostile,
     hud: Templates.hud,
+    legend: Templates.legend,
     member: Templates.member,
     panel: Templates.panel,
     scan: Templates.scan,
-    start: Templates.start
+    start: Templates.start,
+    system_info: Templates.system_info
   },
 
   ships: {},

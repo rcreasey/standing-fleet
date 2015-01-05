@@ -7,6 +7,7 @@ var Server = {
       dataType: 'json',
 
       success: function (data) {
+        if (data.success === undefined && data.error === undefined) callback(null, data);
         setTimeout(function () {
           if (data.success) {
             callback(null, data);
@@ -50,30 +51,30 @@ var Server = {
   },
 
   listFleets: function(callback) {
-    Server.ajaxGet('/list', callback);
+    Server.ajaxGet('/fleets/list', callback);
   },
   
   status: function (callback) {
-    Server.ajaxGet('/status', callback);
+    Server.ajaxGet('/fleets/status', callback);
     Data.state.lastPollTs = moment().unix();
   },
 
   joinFleet: function (fleetKey, callback) {
-    Server.ajaxGet('/join/' + fleetKey, callback);
+    Server.ajaxGet('/fleets/join/' + fleetKey, callback);
   },
 
   joinFleetWithPassword: function (fleetKey, fleetPassword, callback) {
-    Server.ajaxGet('/join/' + fleetKey + '/' + fleetPassword, callback);
+    Server.ajaxGet('/fleets/join/' + fleetKey + '/' + fleetPassword, callback);
   },
 
   eventResponse: function (eventKey, response, callback) {
-    Server.ajaxGet('/respond/' + eventKey + '/' + response, callback);
+    Server.ajaxGet('/fleets/respond/' + eventKey + '/' + response, callback);
   },
 
   poll: function (callback) {
     var lastPoll = Math.round(Data.state.lastPollTs / 5) * 5;
     
-    Server.ajaxGet('/poll/' + lastPoll, function (error, data) {
+    Server.ajaxGet('/fleets/poll/' + lastPoll, function (error, data) {
       if (error) return callback(error);
 
       Data.state.lastPollTs = data.ts;
@@ -82,22 +83,22 @@ var Server = {
   },
 
   createFleet: function (fleetName, fleetPassword, callback) {
-    Server.ajaxPost('/create', { fleetName: fleetName, fleetPassword: fleetPassword }, callback);
+    Server.ajaxPost('/fleets/create', { fleetName: fleetName, fleetPassword: fleetPassword }, callback);
   },
 
   leaveFleet: function (callback) {
-    Server.ajaxGet('/leave', callback);
+    Server.ajaxGet('/fleets/leave', callback);
   },
 
   postScan: function (scanData, callback) {
-    Server.ajaxPost('/scan', scanData, callback);
+    Server.ajaxPost('/fleets/scan', scanData, callback);
   },
 
   postStatus: function(statusData, callback) {
-    Server.ajaxPost('/status', statusData , callback);
+    Server.ajaxPost('/fleets/status', statusData , callback);
   },
 
   postDetails: function(detailsData, callback) {
-    Server.ajaxPost('/details', detailsData, callback);
+    Server.ajaxPost('/fleets/details', detailsData, callback);
   }
 };

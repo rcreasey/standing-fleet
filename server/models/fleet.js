@@ -11,7 +11,7 @@ var FleetSchema  = new Schema({
   password: Schema.Types.Mixed
 });
 
-FleetSchema.index({ ts: 1, key: 1 }, { expireAfterSeconds: 86400 });
+FleetSchema.index({ ts: 1, key: 1 });
 
 FleetSchema.statics.prepare = function prepare(fleet) {
   return new this({ name: fleet.name, description: fleet.description, password: false });

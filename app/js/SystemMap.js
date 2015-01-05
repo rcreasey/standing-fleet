@@ -15,7 +15,6 @@ var SystemMap = {
   faded_count: function(system) {
     if (system == undefined) { return 0; }
     return (system.name !== undefined ) ? $.grep(Data.hostiles, function(h) { return system.name === h.systemName && h.is_faded === true; }).length : 0
-    
   },
 
   friendly_count: function(system) {
@@ -116,10 +115,16 @@ var SystemMap = {
       })
       .on("end", function(){
 
-        $('#current-system')
+        Data.ui.currentSystem
           .data('systemId', system.id)
           .text( system.name );
+          
+        Data.ui.currentRegion
+          .data('regionId', system.regionID)
+          .text( Data.regions[ system.regionID ].name );
 
+        $('#system-map .legend span').text( Data.systems[ Data.state.self.systemId ].name );
+          
         SystemMap.updateHud( system.name );
 
         var link_groups = link.data(SystemMap.jumps)
@@ -146,7 +151,11 @@ var SystemMap = {
           .attr("alignment-baseline", "middle")
           .attr("x", rect_width / 2)
           .attr("y", 10)
-          .text(function(d) { return d.system.name; });
+          .text(function(n) { return n.system.name; });
+        
+        node_groups.on('click', function(n) {
+          SystemMap.updateInfo( n.system.name );
+        });
 
         link_groups.attr("x1", function(d) {return d.source.x;})
           .attr("y1", function(d) {return d.source.y;})
@@ -288,29 +297,56 @@ var SystemMap = {
 
     Data.ui.currentSystem
       .data('system-id', Data.state.self.systemId)
-      .text( $('.current text').text() );
+      .text( Data.systems[ Data.state.self.systemId ].name );
+    
+    $('#system-map .legend span').text( Data.systems[ Data.state.self.systemId ].name );
 
-    SystemMap.updateHud( $('#current-system').text() );
+    SystemMap.updateHud( Data.systems[ Data.state.self.systemId ].name );
+  },
+  
+  updateInfo: function(system_name) {
+    Server.ajaxGet('/map/system/' + system_name, function(error, results) {
+      if (results === null) return;
+      var system = { name: results.name,
+                     region: Data.regions[ results.regionID ].name,
+                     hostile_count: SystemMap.hostile_count( results ),
+                     faded_count: SystemMap.faded_count( results ),
+                     gates: $.map( results.jumps, function(j) { return Data.systems[ j.to ]})
+      }
+      
+      system.last_report = (results.reports.length) ? moment(results.reports.pop().ts).format('HH:MM:SS') : 'Never';
+
+      Data.ui.mapInfo.html( $(Data.templates.system_info(system)) )
+      $('#system-info dl')
+        .fadeIn(Data.config.uiSpeed)
+        .delay(Data.config.alertStay)
+        .fadeOut(Data.config.uiSpeed * 5);
+    });
+    
   },
 
   refreshSystems: function() {
     d3.selectAll('g.node rect')
       .attr("class", function(n) { return 'status-' + SystemMap.system_color(n.system); });
-
-    SystemMap.updateHud( $('#current-system').text() );
+    
+    SystemMap.updateHud( Data.systems[ Data.state.self.systemId ].name );
   },
 
   redraw: function() {
     log("Redrawing System Map...");
     $("#system-map > svg").remove();
     SystemMap.draw();
-    SystemMap.updateHud( $('#current-system').text() );
+    SystemMap.updateHud( Data.systems[ Data.state.self.systemId ].name );
   },
 
   init: function() {
     log("Initializing System Map...");
+    
+    Data.ui.map.append( $(Data.templates.legend()) );
+    $('#system-map .legend .toggle').on('click', $.proxy(UI.toggle, null, $('#system-map .legend .contents')));
+    
     SystemMap.draw();
-    SystemMap.updateCurrent();
+    SystemMap.updateCurrent();    
   }
 
 };
