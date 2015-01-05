@@ -65,6 +65,7 @@ var Data = {
     bottomMenu_unlink: $('#bottom-menu-unlink'),
     bottomMenu_menu: $('#bottom-menu-menu'),
 
+    mapInfo: $('#system-info'),
     mapLegend_contents: $('#system-map .legend .contents'),
     mapLegend_systems: $('#system-map .legend span'),
     currentSystem: $('#current .system'),
@@ -94,7 +95,8 @@ var Data = {
     member: Templates.member,
     panel: Templates.panel,
     scan: Templates.scan,
-    start: Templates.start
+    start: Templates.start,
+    system_info: Templates.system_info
   },
 
   ships: {},

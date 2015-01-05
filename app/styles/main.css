@@ -356,6 +356,40 @@ input.log-path {
   opacity: 0;
 }
 
+#system-info {
+	position: absolute;
+	right: 0.5rem;
+	top: 3rem;
+	z-index: 4;
+}
+
+#system-info dl {
+	font-family: 'Droid Sans', sans-serif;
+	background-color: #000;
+	border-radius: 5px; 
+	border: solid 1px #fff;
+	color: #fff;
+	opacity: 0.75;
+	padding: 0.5rem 0.75rem;
+	width: 225px;
+}
+
+#system-info dt {
+	float: left;
+	width: 85px;
+	overflow: hidden;
+	clear: left;
+	text-align: right;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	color: #ffcc2a;
+	font-weight: bold;
+}
+
+#system-info dd {
+	margin-left: 90px;
+}
+
 #system-map .legend {
 	background-color: #000;
 	color: #fff; 
@@ -413,6 +447,10 @@ input.log-path {
 #system-map .legend .contents .body span.system-warning { border: solid 1px #faa123; background-color: #f89406; }
 #system-map .legend .contents .body span.system-hostile { border: solid 1px #d9534f; background-color: #74312f; }
 #system-map .legend .contents .body span.current 				{ border: solid 2px #f39c12 !important; }
+
+g.node {
+	cursor: pointer;
+}
 
 .node rect {
   stroke: #666;

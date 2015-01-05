@@ -7,6 +7,7 @@ var Server = {
       dataType: 'json',
 
       success: function (data) {
+        if (data.success === undefined && data.error === undefined) callback(null, data);
         setTimeout(function () {
           if (data.success) {
             callback(null, data);

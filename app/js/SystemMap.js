@@ -151,7 +151,11 @@ var SystemMap = {
           .attr("alignment-baseline", "middle")
           .attr("x", rect_width / 2)
           .attr("y", 10)
-          .text(function(d) { return d.system.name; });
+          .text(function(n) { return n.system.name; });
+        
+        node_groups.on('click', function(n) {
+          SystemMap.updateInfo( n.system.name );
+        });
 
         link_groups.attr("x1", function(d) {return d.source.x;})
           .attr("y1", function(d) {return d.source.y;})
@@ -299,6 +303,27 @@ var SystemMap = {
 
     SystemMap.updateHud( Data.systems[ Data.state.self.systemId ].name );
   },
+  
+  updateInfo: function(system_name) {
+    Server.ajaxGet('/map/system/' + system_name, function(error, results) {
+      if (results === null) return;
+      var system = { name: results.name,
+                     region: Data.regions[ results.regionID ].name,
+                     hostile_count: SystemMap.hostile_count( results ),
+                     faded_count: SystemMap.faded_count( results ),
+                     gates: $.map( results.jumps, function(j) { return Data.systems[ j.to ]})
+      }
+      
+      system.last_report = (results.reports.length) ? moment(results.reports.pop().ts).format('HH:MM:SS') : 'Never';
+
+      Data.ui.mapInfo.html( $(Data.templates.system_info(system)) )
+      $('#system-info dl')
+        .fadeIn(Data.config.uiSpeed)
+        .delay(Data.config.alertStay)
+        .fadeOut(Data.config.uiSpeed * 5);
+    });
+    
+  },
 
   refreshSystems: function() {
     d3.selectAll('g.node rect')
@@ -316,6 +341,7 @@ var SystemMap = {
 
   init: function() {
     log("Initializing System Map...");
+    
     Data.ui.map.append( $(Data.templates.legend()) );
     $('#system-map .legend .toggle').on('click', $.proxy(UI.toggle, null, $('#system-map .legend .contents')));
     

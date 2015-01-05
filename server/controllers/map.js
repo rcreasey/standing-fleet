@@ -113,6 +113,7 @@ exports.show_system = function(req, res, next){
         .then(function(results) {          
           system.jumps = results[0];
           system.reports = results[1];
+          system.advisories = [];
           
           return res.jsonp(system);          
         })
