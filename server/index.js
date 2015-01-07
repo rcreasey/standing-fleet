@@ -40,6 +40,8 @@ app.use(compression())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(checks.ssl_headers)
+app.use(checks.redirect_to_https)
 app.use(checks.static_rewrite);
 
 app.set('trust proxy', 1);
@@ -57,6 +59,7 @@ app.use(session({
   secret: settings.session_secret,
   resave: true,
   saveUninitialized: true,
+  cookie: { secure: (process.env.NODE_ENV === 'development') ? false : true },
   store: require('mongoose-session')(mongoose)
 }))
 
