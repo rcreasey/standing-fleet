@@ -6,10 +6,12 @@ var express = require('express')
   , application = require(__dirname + '/../controllers/application')
 
 router.route('/login')
+  .get(checks.ssl_headers)
   .get(checks.redirect_to_https)
   .get(application.login);
 
 router.route('/login')
+  .post(checks.ssl_headers)
   .post(checks.redirect_to_https)
   .post(passport.authenticate('atlassian-crowd',
   { failureRedirect:'/login', failureFlash:"Invalid username or password." }))
