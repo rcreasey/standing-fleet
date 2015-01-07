@@ -1,5 +1,9 @@
 var Util = {
 
+  compareRegion: function( pilot ) {
+    return Data.systems[ pilot.systemId ].regionID === Data.systems[ Data.state.self.systemId ].regionID;
+  },
+  
   isShip: function (shipName) {
     return (typeof Data.ships[shipName] !== 'undefined' && Data.ships[shipName].icons !== undefined)
   },
@@ -68,8 +72,7 @@ var Util = {
   redirectIfNecessary: function (fleetKey, callback) {
     if (!!fleetKey !== !!Util.getUrlKey() || fleetKey !== Util.getUrlKey()) {
       UIPanels.showLoadingPanel('Redirecting to Standing Fleet URL...', function () {
-        setTimeout($.proxy(Util.redirectToKeyUrl, null, fleetKey), 2);
-          // Data.config.pollInterval);
+        Util.redirectToKeyUrl();
       });
     } else {
       callback();

@@ -2,7 +2,7 @@
   "name": "standing-fleet-client",
   "description": "Intelligence visualized",
   "repository": "git@github.com:rcreasey/standing-fleet.git",
-  "version": "0.5.2",
+  "version": "1.0.4",
   "main": "index.html",
   "window": {
     "show": false,

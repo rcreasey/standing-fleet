@@ -1,6 +1,6 @@
 {
   "name": "standing-fleet",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Intelligence visualized",
   "main": "server/index.js",
   "author": "GARPA",
@@ -29,6 +29,7 @@
     "debug": "~0.7.4",
     "express": "4.2.x",
     "express-session": "^1.8.2",
+    "faye": "^1.1.0",
     "gulp": "^3.8.7",
     "gulp-concat": "^2.4.1",
     "gulp-declare": "^0.3.0",

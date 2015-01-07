@@ -24,13 +24,13 @@ var EventHandler = {
       }
 
       if (event.internal) return;
-
+      
       if (silent) {
         delete event.alert;
         delete event.blink;
       }
 
-      EventList.addEvent(event);
+      if (event.suppress !== true) EventList.addEvent(event);;      
     });
   },
 
@@ -44,13 +44,17 @@ var EventHandler = {
         var reported = event.data;
         if (reported.length === 0) return;
         
-        if ( reported.length === 1 ) {
+        if (reported.length === 1) {
           var hostile = reported[0];
+          if (!Util.compareRegion(hostile)) event.suppress = true;      
+          
           if (hostile) event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
               + hostile.characterId + ');">' + hostile.characterName + '</a> has been reported in '
               + '<a href="javascript:CCPEVE.showInfo(5, ' + hostile.systemId + ');">'
               + hostile.systemName + '</a>';
         } else {
+          if (!Util.compareRegion(reported[0])) event.suppress = true;      
+          
           event.text = reported.length + ' hostiles have been reported in '
             + '<a href="javascript:CCPEVE.showInfo(5, ' + reported[0].systemId + ');">'
             + reported[0].systemName + '</a>';
