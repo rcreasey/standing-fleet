@@ -1,6 +1,6 @@
 {
   "name": "standing-fleet",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Intelligence visualized",
   "main": "server/index.js",
   "author": "GARPA",
