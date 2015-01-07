@@ -312,11 +312,8 @@ var SystemMap = {
       
       system.last_report = (results.reports.length) ? moment(results.reports.pop().ts).format('HH:MM:SS') : 'Never';
 
-      Data.ui.mapInfo.html( $(Data.templates.system_info(system)) )
-      $('#system-info dl')
-        .fadeIn(Data.config.uiSpeed)
-        .delay(Data.config.alertStay)
-        .fadeOut(Data.config.uiSpeed * 5);
+      Data.ui.mapInfo.html( $(Data.templates.system_info(system)) );
+      Data.ui.mapInfo.children('dl').fadeIn(Data.config.uiSpeed)
     });
     
   },
