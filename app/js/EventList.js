@@ -7,10 +7,10 @@ var EventList = {
   },
 
   addEvent: function (event) {
+    EventList.preParse(event);
     if (event.alert) UI.showAlert(event);
     if (event.blink) UI.blinkTab(event.blink);
-
-    EventList.preParse(event);
+    
     Data.events.unshift(event);
 
     if (Data.events.length > Data.config.maxEvents) {

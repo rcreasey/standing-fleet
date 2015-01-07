@@ -18,6 +18,8 @@ var ScanList = {
   },
 
   addScan: function (scan) {
+    if (!Util.compareRegion(scan)) return;
+    
     scan.time = Util.getTime(scan.ts);
     Data.scans.push(scan);
 
@@ -30,6 +32,8 @@ var ScanList = {
   },
 
   renderScan: function (scan) {
+    if (!Util.compareRegion(scan)) return;
+    
     var element = $(Data.templates.scan(scan));
     Data.ui.scans_list.prepend(element);
 

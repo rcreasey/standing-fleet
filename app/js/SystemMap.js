@@ -122,8 +122,6 @@ var SystemMap = {
         Data.ui.currentRegion
           .data('regionId', system.regionID)
           .text( Data.regions[ system.regionID ].name );
-
-        $('#system-map .legend span').text( Data.systems[ Data.state.self.systemId ].name );
           
         SystemMap.updateHud( system.name );
 
@@ -299,8 +297,6 @@ var SystemMap = {
       .data('system-id', Data.state.self.systemId)
       .text( Data.systems[ Data.state.self.systemId ].name );
     
-    $('#system-map .legend span').text( Data.systems[ Data.state.self.systemId ].name );
-
     SystemMap.updateHud( Data.systems[ Data.state.self.systemId ].name );
   },
   
@@ -341,9 +337,6 @@ var SystemMap = {
 
   init: function() {
     log("Initializing System Map...");
-    
-    Data.ui.map.append( $(Data.templates.legend()) );
-    $('#system-map .legend .toggle').on('click', $.proxy(UI.toggle, null, $('#system-map .legend .contents')));
     
     SystemMap.draw();
     SystemMap.updateCurrent();    
