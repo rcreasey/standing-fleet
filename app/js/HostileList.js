@@ -12,10 +12,11 @@ var HostileList = {
     Data.ui.hostiles_list.empty();
   },
 
-  addHostile: function (hostileToAdd) {
-    // log('Adding hostile: ' + hostileToAdd.characterName + '...');
-    HostileList.removeHostile(hostileToAdd.characterId);
-    Data.hostiles.push(hostileToAdd);
+  addHostile: function (hostile) {
+    // log('Adding hostile: ' + hostile.characterName + '...');
+    if (!Util.compareRegion(hostile)) return;      
+    HostileList.removeHostile(hostile.characterId);
+    Data.hostiles.push(hostile);
   },
 
   fadeHostile: function (hostileToFadeId) {
@@ -48,6 +49,7 @@ var HostileList = {
 
   renderSingleHostile: function (hostile) {
     // log('Rendering hostile: ' + hostile.characterName + ' (single)...');
+    if (!Util.compareRegion(hostile)) return;
     HostileList.addUiProperties(hostile);
     var existingHostileElement = Data.ui.hostiles_list.find('#hostile-' + hostile.characterId);
     if (existingHostileElement.length) {
@@ -73,13 +75,14 @@ var HostileList = {
     Data.ui.hostiles_list.empty();
     Data.hostiles.forEach(function (hostile) {
       // log('Rendering hostile: ' + hostile.characterName + ' (batch)...');
+      if (!Util.compareRegion(hostile)) return;
       HostileList.addUiProperties(hostile);
       Data.ui.hostiles_list.append($(hostile.html));
     });
 
     UI.update_scrollables();
   },
-
+  
   addUiProperties: function (hostile) {
     hostile.reported_at = moment(hostile.ts).utc().format('HH:mm:ss')
     hostile.shipIcon = Util.getShipIcon(hostile.shipType);

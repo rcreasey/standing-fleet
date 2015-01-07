@@ -29,7 +29,8 @@ block content
   #content-wrapper
     #hud.main-content
     #system-map.main-content.active
-      #system-info        
+      #legend
+      #system-info
     #hostiles.main-content
       .list
     #members.main-content
@@ -57,10 +58,9 @@ block content
         #bottom-menu-unlink.menu-button
           i.fa.fa-sign-out
           span UNLINK
-      #bottom-menu-docs.menu-button
-        a(href='/docs/', target='_blank')
-          i.fa.fa-question-circle
-          span HELP
+      #bottom-menu-help.menu-button
+        i.fa.fa-question-circle
+        span HELP
         
       #bottom-menu-menu.menu-button
         i.fa.fa-cog

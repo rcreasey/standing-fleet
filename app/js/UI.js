@@ -18,6 +18,18 @@ var UI = {
     element.toggle();
   },
   
+  toggleHelp: function() {
+    if ($('.menu-button.active').attr('id') === Data.ui.topMenu_map.attr('id')) {
+      Data.ui.mapLegend.hide();
+      var help = $(Data.templates.map_legend());
+      help.find('span').text( Data.systems[ Data.state.self.systemId ].name );
+      Data.ui.mapLegend.html( help );
+      Data.ui.mapLegend.fadeIn(Data.config.uiSpeed)
+        .delay(Data.config.alertStay)
+        .fadeOut(Data.config.uiSpeed * 5);
+    }
+  },
+  
   tabClick: function (tab) {
     if ($('#'+tab).hasClass('active')) return;
     
@@ -43,6 +55,7 @@ var UI = {
   logout: function() { window.location = "/logout"; },
 
   registerEventHandlers: function () {
+    
     Data.ui.topMenu_hud.on('click', $.proxy(UI.tabClick, null, "hud"));
     Data.ui.topMenu_map.on('click', $.proxy(UI.tabClick, null, "system-map"));
     Data.ui.topMenu_hostiles.on('click', $.proxy(UI.tabClick, null, "hostiles"));
@@ -53,6 +66,7 @@ var UI = {
     Data.ui.bottomMenu_local.on('click', $.proxy(UIPanels.showStatusPanel, null, false));
     Data.ui.bottomMenu_scan.on('click', $.proxy(UIPanels.showScanPanel, null, false));
     Data.ui.bottomMenu_unlink.on('click', $.proxy(UI.unlink, null, false));
+    Data.ui.bottomMenu_help.on('click', $.proxy(UI.toggleHelp, null));
     Data.ui.bottomMenu_menu.on('click', $.proxy(UIPanels.showMenuPanel, null, false));
 
     Data.ui.statusClear.on('click', $.proxy(UI.submitStatusClear, null));
