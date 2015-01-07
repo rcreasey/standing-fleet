@@ -49,10 +49,16 @@ var Util = {
   },
 
   redirectToKeyUrl: function (fleetKey) {
-    window.location = location.protocol
+    if (fleetKey !== undefined || fleetKey !== 'undefined') {
+      window.location = location.protocol
       + '//' + location.hostname
       + (location.port ? ':' + location.port : '')
-      + '/' + fleetKey + '/';
+      + '/' + fleetKey + '/';      
+    } else {
+      Data.poll = false;
+      stopPolling();
+      Util.redirectToBasePath();
+    }
   },
 
   redirectToBasePath: function () {

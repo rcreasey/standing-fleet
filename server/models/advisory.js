@@ -5,11 +5,14 @@ var mongoose = require('mongoose-q')()
 
 var types = ['Wormhole Detected', 
              'Hostile Cloaked',
+             'Hostile Docked',
              'Hostile Faded',
              'Hostile Logged Off',
              'Undock Camped',
              'Gate Bubbled'
             ];
+
+exports.types = types;
             
 var AdvisorySchema  = new Schema({
   ts: { type: Number, default: function() { return moment().unix(); } },

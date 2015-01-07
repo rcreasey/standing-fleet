@@ -390,6 +390,40 @@ input.log-path {
 	margin-left: 90px;
 }
 
+#system-info h4 {
+	background-color: #ffcc2a;
+	color: #000;
+	font-weight: bold;
+	line-height: 1em;
+	padding: .25rem;
+	margin: 0.5rem 0;
+}
+
+#system-info h4:first-child { margin: 0; }
+
+#system-info a.btn {
+	color: #ffffff;
+	background-color: #333333;
+	border-color: #666666;
+	display: inline-block;
+	margin-bottom: 0.5rem;
+	margin-left: 0.35rem;
+	font-weight: normal;
+	text-align: center;
+	cursor: pointer;
+	white-space: nowrap;
+	font-size: 1.15rem;
+	line-height: 1rem;
+	border-radius: 4px;
+	width: 75px;
+}
+
+#system-info a.btn.present {
+	color: #ffffff;
+	background-color: #f89406;
+	border-color: #faa123;	
+}
+
 #system-map #legend {
 	background-color: #000;
 	color: #fff; 
@@ -398,7 +432,7 @@ input.log-path {
 	font-family: 'Droid Sans', sans-serif;
 	opacity: 0.75;
 	padding: 0.5rem 0.75rem;
-	position: absolute;
+	position: fixed;
 	bottom: 3rem;
 	left: 0.5rem;
 	z-index: 5;
