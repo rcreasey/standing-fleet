@@ -30,7 +30,8 @@ var EventHandler = {
         delete event.blink;
       }
 
-      if (event.suppress !== true) EventList.addEvent(event);;      
+      if (Util.dedupe(Data.events, event, 'text')) event.suppress = true;
+      if (event.suppress !== true) EventList.addEvent(event); 
     });
   },
 

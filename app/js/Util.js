@@ -4,6 +4,12 @@ var Util = {
     return Data.systems[ pilot.systemId ].regionID === Data.systems[ Data.state.self.systemId ].regionID;
   },
   
+  dedupe: function(list, element, key) {
+    var match = $.grep(list, function(e) { return e[key] === element[key] });
+    
+    return (match.length > 0) ? true : false;
+  },  
+  
   isShip: function (shipName) {
     return (typeof Data.ships[shipName] !== 'undefined' && Data.ships[shipName].icons !== undefined)
   },
