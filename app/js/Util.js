@@ -5,7 +5,7 @@ var Util = {
   },
   
   dedupe: function(list, element, key) {
-    var match = $.grep(list, function(e) { return e[key] === element[key] });
+    var match = $.grep(list, function(e) { return e[key] === element[key] && e.ts.toString().slice(0,-2) === element.ts.toString().slice(0,-2) });
     
     return (match.length > 0) ? true : false;
   },  
