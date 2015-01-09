@@ -304,6 +304,7 @@ var SystemMap = {
     Server.ajaxGet('/map/system/' + system_name, function(error, results) {
       if (results === null) return;
       var system = { name: results.name,
+                     systemId: results.id,
                      region: Data.regions[ results.regionID ].name,
                      hostile_count: SystemMap.hostile_count( results ),
                      faded_count: SystemMap.faded_count( results ),

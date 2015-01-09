@@ -8,6 +8,7 @@ var response = require(__dirname + '/../response')
   , Hostile = require(__dirname + '/../models/hostile')
   , Report = require(__dirname + '/../models/report')
   , Scan = require(__dirname + '/../models/scan')
+  , Advisory = require(__dirname + '/../models/advisory')
 
 var moment = require('moment')
   , neow = require('neow')
@@ -426,4 +427,23 @@ exports.update_hostile = function(req, res, next) {
       return response.error(res, 'report', 'Error updating hostile: ' + error);
     })
     .done();
+};
+
+exports.update_advisory = function(req, res, next) {
+  var advisory = req.body;
+  
+  Advisory.updateQ(advisory, {upsert: true})
+    .then(function(advisory) {
+      if (advisory === null) throw 'Advisory failed to save';
+      
+      debugger;
+      var event = Event.prepare('updateHostile', req.session.fleetKey, advisory.toObject());
+      event.saveQ();
+
+      return response.success(res);
+    })
+    .catch(function(error) {
+      console.log(error);
+      return response.error(res, 'advisory', 'Error reporting advisory');
+    })
 };

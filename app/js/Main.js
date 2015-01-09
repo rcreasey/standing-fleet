@@ -232,6 +232,23 @@ function submitHostileDetails(key, id, name, shipType, shipName) {
   });
 }
 
+function reportAdvisory(button, systemId, type) {
+  var state = ! $( button ).hasClass('present');
+  var advisory = {systemId: systemId, type: type, state: state};
+  
+  Server.postAdvisory(advisory, function(error, data) {
+    if (error) {
+      handleError(error);
+      return;
+    }
+    
+    EventList.addEvent({type: 'info', text: 'Advisory reported on ' +
+                                            '<a href="javascript:CCPEVE.showInfo(5, ' + systemId + ')">' +
+                                            Data.systems[systemId].name + '</a> by you.' 
+    });
+  });
+}
+
 function leaveFleet() {
   UIPanels.showLoadingPanel('Leaving Standing Fleet...', function () {
     Server.leaveFleet(function(error, data) {

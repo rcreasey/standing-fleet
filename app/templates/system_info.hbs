@@ -38,9 +38,9 @@
   {{/if}}
 
   <h4>Report Advisory</h4>
-  <a class="btn present" onclick="report_advisory('{{ name }}', 'Wormhole Detected')" title="Wormhole Detected"><i class="fa fa-chevron-circle-right"></i></a>
-  <a class="btn" onclick="report_advisory('{{ name }}', 'Hostile Cloaked')" title="Hostile Cloaked"><i class="fa fa-cloud"></i></a>
-  <a class="btn" onclick="report_advisory('{{ name }}', 'Hostile Logged Off')" title="Hostile Logged Off"><i class="fa fa-sign-out"></i></a>
-  <a class="btn present" onclick="report_advisory('{{ name }}', 'Undock Camped')" title="Undock Camped"><i class="fa fa-lock"></i></a>
-  <a class="btn" onclick="report_advisory('{{ name }}', 'Gate Bubbled')" title="Gate Bubbled"><i class="fa fa-dot-circle-o"></i></a>
+  <a class="btn present" onclick="reportAdvisory(this, '{{ systemId }}', 'Wormhole Detected')" title="Wormhole Detected"><i class="fa fa-chevron-circle-right"></i></a>
+  <a class="btn" onclick="reportAdvisory(this, '{{ systemId }}', 'Hostile Cloaked')" title="Hostile Cloaked"><i class="fa fa-cloud"></i></a>
+  <a class="btn" onclick="reportAdvisory(this, '{{ systemId }}', 'Hostile Logged Off')" title="Hostile Logged Off"><i class="fa fa-sign-out"></i></a>
+  <a class="btn present" onclick="reportAdvisory(this, '{{ systemId }}', 'Undock Camped')" title="Undock Camped"><i class="fa fa-lock"></i></a>
+  <a class="btn" onclick="reportAdvisory(this, '{{ systemId }}', 'Gate Bubbled')" title="Gate Bubbled"><i class="fa fa-dot-circle-o"></i></a>
 </dl>
