@@ -151,6 +151,16 @@ var SystemMap = {
           .attr("y", 10)
           .text(function(n) { return n.system.name; });
         
+        node_groups.append("text")
+          .attr("class", "advisories")
+          .attr("text-anchor", "middle")
+          .attr("alignment-baseline", "middle")
+          .attr("x", rect_width / 2)
+          .attr("y", -10)
+          .text(function(n) {
+            return UI.advisoryUnicode( Data.advisories[n.system.id] );
+          });
+        
         node_groups.on('click', function(n) {
           SystemMap.updateInfo( n.system.name );
         });
@@ -313,6 +323,8 @@ var SystemMap = {
       
       system.last_report = (results.reports.length) ? moment(results.reports.pop().ts).format('HH:MM:SS') : 'Never';
       system.advisories = AdvisoryList.lookup(results.id);
+      system.active_advisories = $.grep(system.advisories, function(a) { return a.present == true; });
+      if (results.id == Data.state.self.systemId) system.allow_report = true; 
       
       Data.ui.mapInfo.html( $(Data.templates.system_info(system)) );
       Data.ui.mapInfo.children('dl').fadeIn(Data.config.uiSpeed)
@@ -324,6 +336,11 @@ var SystemMap = {
     d3.selectAll('g.node rect')
       .attr("class", function(n) { return 'status-' + SystemMap.system_color(n.system); });
     
+    d3.selectAll('g.node text.advisories')
+      .text(function(n) {
+        return UI.advisoryUnicode( Data.advisories[n.system.id] );
+      });
+        
     SystemMap.updateHud( Data.systems[ Data.state.self.systemId ].name );
   },
 

@@ -144,6 +144,23 @@ var UI = {
       "Whoring on the pod"
     ];
     return msgs[Math.floor(Math.random()*msgs.length)] + "...";
+  },
+  
+  advisoryUnicode: function(advisory_list) {
+    if (advisory_list === undefined) return "";
+    if (advisory_list.length === 0) return "";
+    
+    return $.map(advisory_list, function(a) { 
+      if (a == 'Wormhole Detected') return '\uf138'; 
+      else if (a == 'Hostile Cloaked') return '\uf0c2'; 
+      else if (a == 'Hostile Faded') return '\uf017'; 
+      else if (a == 'Hostile Logged Off') return '\uf08b'; 
+      else if (a == 'Undock Camped') return '\uf023'; 
+      else if (a == 'Gate Bubbled') return '\uf192';  
+      else if (a == 'Hostiles') return '\uf0fb';  
+      else return '';
+      
+    }).join("");
   }
 };
 

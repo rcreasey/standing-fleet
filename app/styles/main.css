@@ -363,7 +363,7 @@ input.log-path {
   z-index: 4;
 }
 
-#system-info dl {
+#system-info .details {
   font-family: 'Droid Sans', sans-serif;
   background-color: #000;
   border-radius: 5px;
@@ -509,6 +509,12 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
   font-size: 10px;
   font-weight: bold;
   fill: #fff;
+}
+
+.node text.advisories {
+  font-family: FontAwesome;
+  font-size: 1.25rem;
+  fill: #f89406;
 }
 
 .current rect {
