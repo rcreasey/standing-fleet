@@ -16,12 +16,21 @@ exports.types = types;
             
 var AdvisorySchema  = new Schema({
   ts: { type: Number, default: function() { return moment().unix(); } },
-  fleetKey: Number,
+  fleetKey: String,
   systemId: Number,
   hostileId: Number,
   type: {type: String, enum: types}
 });
 
 AdvisorySchema.index({ ts: 1 }, { expireAfterSeconds: settings.advisoryTtl });
+
+AdvisorySchema.statics.format = function prepare(fleetKey, systemId, type) {
+  return {
+    ts: moment().unix(),
+    fleetKey: fleetKey,
+    systemId: systemId,
+    type: type
+  };
+};
 
 module.exports = mongoose.model('Advisory', AdvisorySchema);

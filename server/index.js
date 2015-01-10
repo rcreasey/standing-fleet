@@ -111,7 +111,7 @@ function start() {
   });
 }
 
-if (process.env.NODE_ENV !== 'development') consuela.start_cleaning();
+consuela.start_cleaning();
 start();
 
 exports.app = app;

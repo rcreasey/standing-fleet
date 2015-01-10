@@ -4,12 +4,11 @@ module.exports = function () {
 		domain: 'https://standing-fleet.apps.goonswarm.org/',
 
 		port: process.env.PORT || 5000,
-		cookie_secret: process.env.COOKIE_SECRET || 'dongues',
 		session_name: 'standing-fleet',
 		session_secret: process.env.SESSION_SECRET || 'buttes',
 		log: 'console',
 
-		advisoryTtl: 600,
+		advisoryTtl: 1800,
 		eventTtl: 300,
 		scanTtl: 86400,
 		reportTtl: 300,

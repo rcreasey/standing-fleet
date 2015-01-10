@@ -3,6 +3,7 @@ var Q = require('q')
   , _ = require('lodash')
 
 var settings = require(__dirname + '/../config/settings')
+  , Advisory = require(__dirname + '/../models/advisory')
   , Fleet = require(__dirname + '/../models/fleet')
   , Event = require(__dirname + '/../models/event')
   , Member = require(__dirname + '/../models/member')
@@ -35,6 +36,7 @@ var clean_fleets = function() {
     .then(function(fleets) {
       _.forEach(fleets, function(fleet) {
 
+        Advisory.removeQ({fleetKey: fleet.key});
         Event.removeQ({fleetKey: fleet.key});
         Scan.removeQ({fleetKey: fleet.key});
         Member.removeQ({fleetKey: fleet.key});
@@ -52,12 +54,25 @@ var clean_members = function() {
   Member.findQ({ts: { $lte: moment().unix() - +settings.memberTtl }})
     .then(function(members) {
       _.forEach(members, function(member) {
-        var event = Event.prepare('memberTimedOut', member.fleetKey, member);
-        event.saveQ();
+        Event.prepare('memberTimedOut', member.fleetKey, member)
+          .saveQ();
         member.removeQ();
       })
     });
 };
+
+var clean_advisories = function() {
+  console.log('Consuela: Cleaning Advisories');
+  
+  Advisory.findQ({ts: { $lte: moment().unix() - +settings.advisoryTtl }})
+    .then(function(advisories) {
+      _.forEach(advisories, function(advisory) {
+        Event.prepare('clearAdvisory', advisory.fleetKey, advisory)
+          .saveQ();
+        advisory.removeQ();
+      })
+    })
+}
 
 var clean_events = function() {
   console.log('Consuela: Cleaning Events');
@@ -84,8 +99,8 @@ var clean_hostiles = function() {
     .then(function(hostiles) {      
       _.forEach(hostiles, function(hostile) {
         if (!hostile.is_faded) {
-          var event = Event.prepare('hostileFaded', hostile.fleetKey, hostile);
-          event.saveQ();
+          Event.prepare('hostileFaded', hostile.fleetKey, hostile)
+            .saveQ();
           hostile.is_faded = true;
           hostile.saveQ();          
         }
@@ -95,8 +110,8 @@ var clean_hostiles = function() {
   Hostile.findQ({ts: { $lte: moment().unix() - (+settings.hostileTtl * 2) }})
     .then(function(hostiles) {      
       _.forEach(hostiles, function(hostile) {
-        var event = Event.prepare('hostileTimedOut', hostile.fleetKey, hostile);
-        event.saveQ();
+        Event.prepare('hostileTimedOut', hostile.fleetKey, hostile)
+          .saveQ();
         hostile.removeQ();
       })
     });
@@ -104,6 +119,7 @@ var clean_hostiles = function() {
 
 var clean_loop = function() {
   clean_timer = setTimeout(function() {
+    clean_advisories();
     clean_fleets();
     clean_members();
     clean_hostiles();

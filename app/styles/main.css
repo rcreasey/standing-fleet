@@ -443,7 +443,7 @@ input.log-path {
   opacity: 0.75;
   padding: 0.5rem 0.75rem;
   position: fixed;
-  bottom: 3rem;
+  top: 3rem;
   left: 0.5rem;
   z-index: 5;
 }
