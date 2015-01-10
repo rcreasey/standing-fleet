@@ -42,5 +42,9 @@ router.route('/scan')
 router.route('/details')
   .post(validate.headers, validate.session)
   .post(fleet.update_hostile)
+  
+router.route('/advisory')
+  .post(validate.headers, validate.session)
+  .post(fleet.update_advisory)
 
 module.exports = router;

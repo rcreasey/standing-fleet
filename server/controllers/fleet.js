@@ -8,6 +8,7 @@ var response = require(__dirname + '/../response')
   , Hostile = require(__dirname + '/../models/hostile')
   , Report = require(__dirname + '/../models/report')
   , Scan = require(__dirname + '/../models/scan')
+  , Advisory = require(__dirname + '/../models/advisory')
 
 var moment = require('moment')
   , neow = require('neow')
@@ -135,6 +136,9 @@ exports.status = function(req, res, next) {
       events.push( Event.prepare('statusFleet', fleet.key, fleet.toObject()) );
       
       var tasks = [
+        Advisory.findQ({fleetKey: fleet.key}).then(function(advisories) {
+          return Event.prepare('statusAdvisories', fleet.key, _.map(advisories, function(advisory) { if (advisory !== null) return advisory.toObject(); }));
+        }),
         Event.find({fleetKey: fleet.key}).execQ().then(function(events) {
           return Event.prepare('statusEvents', fleet.key, _.map(events, function(event) { if (event !== null) return event.toObject(); }));
         }),
@@ -426,4 +430,42 @@ exports.update_hostile = function(req, res, next) {
       return response.error(res, 'report', 'Error updating hostile: ' + error);
     })
     .done();
+};
+
+exports.update_advisory = function(req, res, next) {
+  var advisory = req.body;
+  
+  if (advisory.state == 'true') {
+    delete advisory.state;
+    advisory = Advisory.format(req.session.fleetKey, advisory.systemId, advisory.type);
+    
+    Advisory.updateQ({type: advisory.type, systemId: advisory.systemId}, advisory, {upsert: true})
+      .then(function(result) {
+        if (result === null) throw 'Advisory failed to save';
+        Event.prepare('addAdvisory', req.session.fleetKey, req.body).saveQ();
+        
+        return response.success(res);
+      })
+      .catch(function(error) {
+        console.log("ERROR: " + error);
+        return response.error(res, 'advisory', 'Error reporting advisory');
+      })
+      
+  } else {
+    delete advisory.state;
+    Advisory.removeQ(advisory)
+      .then(function(result) {
+        if (result === null) throw 'Advisory failed to delete';
+        Event.prepare('clearAdvisory', req.session.fleetKey, req.body).saveQ();
+        
+        return response.success(res);
+      })
+      .catch(function(error) {
+        console.log(error);
+        return response.error(res, 'advisory', 'Error reporting advisory');
+      })
+    
+  }
+  
+  
 };

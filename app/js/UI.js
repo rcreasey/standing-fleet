@@ -144,6 +144,23 @@ var UI = {
       "Whoring on the pod"
     ];
     return msgs[Math.floor(Math.random()*msgs.length)] + "...";
+  },
+  
+  advisoryUnicode: function(advisory_list) {
+    if (advisory_list === undefined) return "";
+    if (advisory_list.length === 0) return "";
+    
+    return $.map(advisory_list, function(a) { 
+      if (a == 'Wormhole Detected') return '\uf138'; 
+      else if (a == 'Hostile Cloaked') return '\uf0c2'; 
+      else if (a == 'Hostile Faded') return '\uf017'; 
+      else if (a == 'Hostile Logged Off') return '\uf08b'; 
+      else if (a == 'Undock Camped') return '\uf023'; 
+      else if (a == 'Gate Bubbled') return '\uf192';  
+      else if (a == 'Hostiles') return '\uf0fb';  
+      else return '';
+      
+    }).join("");
   }
 };
 
@@ -157,6 +174,7 @@ Handlebars.registerHelper('format_ts', function(ts) {
 });
 
 Handlebars.registerHelper('ui_icon', function(icon) {
+  if (icon == 'addAdvisory') return 'bolt';
   if (icon == 'alert') return 'bell';
   if (icon == 'approve') return 'check';
   if (icon == 'close') return 'close';
@@ -175,6 +193,7 @@ Handlebars.registerHelper('ui_icon', function(icon) {
   if (icon == 'options') return 'cog';
   if (icon == 'reportClear') return 'check';
   if (icon == 'reportHostile') return 'crosshairs';
+  if (icon == 'clearAdvisory') return 'check';
   if (icon == 'scan') return 'wifi';
   if (icon == 'scanPosted') return 'wifi';
   if (icon == 'settings') return 'cog';
@@ -185,6 +204,13 @@ Handlebars.registerHelper('ui_icon', function(icon) {
   if (icon == 'updateHostile') return 'crosshairs';
   if (icon == 'updateSystemMap') return 'sitemap';
   if (icon == 'youJoined') return 'user';
+  
+  if (icon == 'Wormhole Detected') return 'chevron-circle-right'; 
+  if (icon == 'Hostile Cloaked') return 'cloud'; 
+  if (icon == 'Hostile Faded') return 'clock-o'; 
+  if (icon == 'Hostile Logged Off') return 'sign-out'; 
+  if (icon == 'Undock Camped') return 'lock'; 
+  if (icon == 'Gate Bubbled') return 'dot-circle-o';  
 
   return 'exclamation';
 });

@@ -1,6 +1,7 @@
 var Q = require('q')
   , _ = require('lodash')
   , response = require(__dirname + '/../response')
+  , Advisory = require(__dirname + '/../models/advisory')
   , Region = require(__dirname + '/../models/region')
   , System = require(__dirname + '/../models/system')
   , Jump = require(__dirname + '/../models/jump')
@@ -104,16 +105,15 @@ exports.show_system = function(req, res, next){
         Jump.findQ({ $or: [ {to: system.id}, {from: system.id} ] }).then(function(jumps) {               
           return _.map(jumps, function(jump) { return {to: jump.to, from: jump.from, type: jump.type} });
         }),
-        Report.findQ({systemId: system.id}).then(function(reports) {
-          return reports;
-        })
+        Report.findQ({systemId: system.id}).then(function(reports) { return reports; }),
+        Advisory.findQ({systemId: system.id}).then(function(advisories) { return advisories; })
       ];
       
       Q.all(tasks)
         .then(function(results) {          
           system.jumps = results[0];
           system.reports = results[1];
-          system.advisories = [];
+          system.advisories = results[2];
           
           return res.jsonp(system);          
         })

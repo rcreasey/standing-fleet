@@ -40,8 +40,8 @@ app.use(compression())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(checks.ssl_headers);
-app.use(checks.redirect_to_https);
+app.use(checks.ssl_headers)
+app.use(checks.redirect_to_https)
 app.use(checks.static_rewrite);
 
 app.set('trust proxy', 1);
@@ -111,7 +111,7 @@ function start() {
   });
 }
 
-consuela.start_cleaning();
+if (process.env.NODE_ENV !== 'development') consuela.start_cleaning();
 start();
 
 exports.app = app;

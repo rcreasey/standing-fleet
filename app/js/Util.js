@@ -1,8 +1,18 @@
 var Util = {
 
   compareRegion: function( pilot ) {
-    return Data.systems[ pilot.systemId ].regionID === Data.systems[ Data.state.self.systemId ].regionID;
+    try {
+      return Data.systems[ pilot.systemId ].regionID === Data.systems[ Data.state.self.systemId ].regionID;      
+    } catch(e) {
+      return false;
+    }
   },
+  
+  dedupe: function(list, element, key) {
+    var match = $.grep(list, function(e) { return e[key] === element[key] && e.ts.toString().slice(0,-2) === element.ts.toString().slice(0,-2) });
+    
+    return (match.length > 0) ? true : false;
+  },  
   
   isShip: function (shipName) {
     return (typeof Data.ships[shipName] !== 'undefined' && Data.ships[shipName].icons !== undefined)
@@ -49,10 +59,16 @@ var Util = {
   },
 
   redirectToKeyUrl: function (fleetKey) {
-    window.location = location.protocol
+    if (fleetKey !== undefined || fleetKey !== 'undefined') {
+      window.location = location.protocol
       + '//' + location.hostname
       + (location.port ? ':' + location.port : '')
-      + '/' + fleetKey + '/';
+      + '/' + fleetKey + '/';      
+    } else {
+      Data.poll = false;
+      stopPolling();
+      Util.redirectToBasePath();
+    }
   },
 
   redirectToBasePath: function () {
