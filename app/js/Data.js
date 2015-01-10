@@ -1,5 +1,6 @@
 var Data = {
 
+  advisories: [],
   members: [],
   hostiles: [],
   events: [],

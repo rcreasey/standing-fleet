@@ -150,7 +150,23 @@ var EventHandler = {
           + target.characterId + ');">' + target.characterName + '</a> has moved into '
           + '<a href="javascript:CCPEVE.showInfo(5, ' + target.systemId + ');">'
           + target.systemName + '</a>';
-
+          
+      } else if (event.type === 'addAdvisory') {
+        var advisory = event.data;
+        event.text = 'Advisory issued for '
+          + '<a href="javascript:CCPEVE.showInfo(5, ' + advisory.systemId + ');">'
+          + Data.systems[advisory.systemId].name + '</a>: '
+          + advisory.type;
+        event.alert = true;
+      
+      } else if (event.type === 'clearAdvisory') {
+        var advisory = event.data;
+        event.text = 'Advisory cleared for '
+          + '<a href="javascript:CCPEVE.showInfo(5, ' + advisory.systemId + ');">'
+          + Data.systems[advisory.systemId].name + '</a>: '
+          + advisory.type;
+        event.alert = true;
+          
       } else if (event.type === 'sourcedClear') {
         var report = event.data;
         event.text = 'Intel channel reported '
@@ -223,6 +239,18 @@ var EventHandler = {
     SystemMap.refreshSystems();
   },
 
+  addAdvisory: function(advisory) {
+    AdvisoryList.addAdvisory(advisory);
+    SystemMap.refreshSystems();
+    SystemMap.updateInfo(Data.systems[advisory.systemId].name);
+  },
+  
+  clearAdvisory: function(advisory) {
+    AdvisoryList.clearAdvisory(advisory);
+    SystemMap.refreshSystems();    
+    SystemMap.updateInfo(Data.systems[advisory.systemId].name);
+  },
+
   reportClear: function (system) {
     HostileList.clearBySystem(system.systemId);
     HostileList.sortAndRenderAll();
@@ -283,6 +311,11 @@ var EventHandler = {
     Data.state.fleet.password = fleet.password;
 
     SystemMap.init();
+  },
+
+  statusAdvisories: function (advisories) {
+    advisories.forEach(AdvisoryList.addAdvisory);
+    SystemMap.refreshSystems();
   },
 
   statusEvents: function (events) {

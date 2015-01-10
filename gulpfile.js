@@ -24,6 +24,7 @@ gulp.task('prepare', function() {
       'js/Data.js',
       'js/Server.js',
       'js/SystemMap.js',
+      'js/AdvisoryList.js',
       'js/MemberList.js',
       'js/HostileList.js',
       'js/EventList.js',

@@ -1,7 +1,11 @@
 var Util = {
 
   compareRegion: function( pilot ) {
-    return Data.systems[ pilot.systemId ].regionID === Data.systems[ Data.state.self.systemId ].regionID;
+    try {
+      return Data.systems[ pilot.systemId ].regionID === Data.systems[ Data.state.self.systemId ].regionID;      
+    } catch(e) {
+      return false;
+    }
   },
   
   dedupe: function(list, element, key) {

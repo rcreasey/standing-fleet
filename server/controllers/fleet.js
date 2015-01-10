@@ -136,6 +136,9 @@ exports.status = function(req, res, next) {
       events.push( Event.prepare('statusFleet', fleet.key, fleet.toObject()) );
       
       var tasks = [
+        Advisory.findQ().then(function(advisories) {
+          return Event.prepare('statusAdvisories', fleet.key, _.map(advisories, function(advisory) { if (advisory !== null) return advisory.toObject(); }));
+        }),
         Event.find({fleetKey: fleet.key}).execQ().then(function(events) {
           return Event.prepare('statusEvents', fleet.key, _.map(events, function(event) { if (event !== null) return event.toObject(); }));
         }),
@@ -431,19 +434,37 @@ exports.update_hostile = function(req, res, next) {
 
 exports.update_advisory = function(req, res, next) {
   var advisory = req.body;
-  
-  Advisory.updateQ(advisory, {upsert: true})
-    .then(function(advisory) {
-      if (advisory === null) throw 'Advisory failed to save';
-      
-      debugger;
-      var event = Event.prepare('updateHostile', req.session.fleetKey, advisory.toObject());
-      event.saveQ();
 
-      return response.success(res);
-    })
-    .catch(function(error) {
-      console.log(error);
-      return response.error(res, 'advisory', 'Error reporting advisory');
-    })
+  if (advisory.state == 'true') {
+    delete advisory.state;
+    
+    Advisory.updateQ(advisory, advisory, {upsert: true})
+      .then(function(result) {
+        if (result === null) throw 'Advisory failed to save';
+        Event.prepare('addAdvisory', req.session.fleetKey, req.body).saveQ();
+        
+        return response.success(res);
+      })
+      .catch(function(error) {
+        console.log("ERROR: " + error);
+        return response.error(res, 'advisory', 'Error reporting advisory');
+      })
+      
+  } else {
+    delete advisory.state;
+    Advisory.removeQ(advisory)
+      .then(function(result) {
+        if (result === null) throw 'Advisory failed to delete';
+        Event.prepare('clearAdvisory', req.session.fleetKey, req.body).saveQ();
+        
+        return response.success(res);
+      })
+      .catch(function(error) {
+        console.log(error);
+        return response.error(res, 'advisory', 'Error reporting advisory');
+      })
+    
+  }
+  
+  
 };

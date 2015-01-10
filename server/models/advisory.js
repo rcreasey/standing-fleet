@@ -19,8 +19,7 @@ var AdvisorySchema  = new Schema({
   fleetKey: Number,
   systemId: Number,
   hostileId: Number,
-  type: {type: String, enum: types},
-  ttl: Date
+  type: {type: String, enum: types}
 });
 
 AdvisorySchema.index({ ts: 1 }, { expireAfterSeconds: settings.advisoryTtl });

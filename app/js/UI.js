@@ -157,6 +157,7 @@ Handlebars.registerHelper('format_ts', function(ts) {
 });
 
 Handlebars.registerHelper('ui_icon', function(icon) {
+  if (icon == 'addAdvisory') return 'bolt';
   if (icon == 'alert') return 'bell';
   if (icon == 'approve') return 'check';
   if (icon == 'close') return 'close';
@@ -175,6 +176,7 @@ Handlebars.registerHelper('ui_icon', function(icon) {
   if (icon == 'options') return 'cog';
   if (icon == 'reportClear') return 'check';
   if (icon == 'reportHostile') return 'crosshairs';
+  if (icon == 'clearAdvisory') return 'check';
   if (icon == 'scan') return 'wifi';
   if (icon == 'scanPosted') return 'wifi';
   if (icon == 'settings') return 'cog';
@@ -185,6 +187,13 @@ Handlebars.registerHelper('ui_icon', function(icon) {
   if (icon == 'updateHostile') return 'crosshairs';
   if (icon == 'updateSystemMap') return 'sitemap';
   if (icon == 'youJoined') return 'user';
+  
+  if (icon == 'Wormhole Detected') return 'chevron-circle-right'; 
+  if (icon == 'Hostile Cloaked') return 'cloud'; 
+  if (icon == 'Hostile Faded') return 'clock-o'; 
+  if (icon == 'Hostile Logged Off') return 'sign-out'; 
+  if (icon == 'Undock Camped') return 'lock'; 
+  if (icon == 'Gate Bubbled') return 'dot-circle-o';  
 
   return 'exclamation';
 });

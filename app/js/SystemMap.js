@@ -312,7 +312,8 @@ var SystemMap = {
       }
       
       system.last_report = (results.reports.length) ? moment(results.reports.pop().ts).format('HH:MM:SS') : 'Never';
-
+      system.advisories = AdvisoryList.lookup(results.id);
+      
       Data.ui.mapInfo.html( $(Data.templates.system_info(system)) );
       Data.ui.mapInfo.children('dl').fadeIn(Data.config.uiSpeed)
     });
