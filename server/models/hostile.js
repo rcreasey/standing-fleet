@@ -26,7 +26,7 @@ var HostileSchema  = new Schema({
   is_docked: { type: Boolean, default: false }
 });
 
-HostileSchema.index({ ts: 1, key: 1, fleetKey: 1 }, { expireAfterSeconds: settings.hostileTtl });
+HostileSchema.index({ ts: 1, key: 1, fleetKey: 1 }, { expireAfterSeconds: settings.hostileRemoveTtl });
 
 HostileSchema.statics.prepare = function prepare(fleetKey, reporterId, reporterName, character) {
   return new this({

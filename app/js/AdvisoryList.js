@@ -10,15 +10,14 @@ var AdvisoryList = {
     Data.advisories = {};
   },
   
-  lookup: function(systemId) {
+  lookup: function(systemId) {    
     var advisories = $.map(AdvisoryList.types, function(t) {
       var a = {type: t, systemId: systemId}
       
       if ($.inArray(t, Data.advisories[systemId]) !== -1) a.present = true;
       
       return a;
-    })
-    
+    })    
     return advisories;
   },
   

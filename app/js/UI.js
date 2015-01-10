@@ -146,23 +146,25 @@ var UI = {
     return msgs[Math.floor(Math.random()*msgs.length)] + "...";
   },
   
-  advisoryUnicode: function(advisory_list) {
-    if (advisory_list === undefined) return "";
-    if (advisory_list.length === 0) return "";
+  mapUnicode: function(list) {
+    if (list === undefined) return "";
+    if (list.length === 0) return "";
     
-    return $.map(advisory_list, function(a) { 
+    return $.map(list, function(a) { 
       if (a == 'Wormhole Detected') return '\uf138'; 
       else if (a == 'Hostile Cloaked') return '\uf0c2'; 
       else if (a == 'Hostile Faded') return '\uf017'; 
       else if (a == 'Hostile Logged Off') return '\uf08b'; 
       else if (a == 'Undock Camped') return '\uf023'; 
       else if (a == 'Gate Bubbled') return '\uf192';  
-      else if (a == 'Hostiles') return '\uf0fb';  
+      else if (a == 'Hostile') return '\uf0fb';  
       else return '';
       
     }).join("");
   }
 };
+
+Handlebars.logger.level = 0;
 
 Handlebars.registerHelper('hud_detect_hostiles', function(status) {
   if (status == 'warning') return true;
@@ -170,7 +172,11 @@ Handlebars.registerHelper('hud_detect_hostiles', function(status) {
 });
 
 Handlebars.registerHelper('format_ts', function(ts) {
-  return moment(ts).format('MM/DD HH:mm:ss');s
+  return moment(ts).utc().format('MM/DD HH:mm:ss');
+});
+
+Handlebars.registerHelper('format_ts_short', function(ts) {
+  return moment(ts).utc().format('HH:mm:ss');
 });
 
 Handlebars.registerHelper('ui_icon', function(icon) {

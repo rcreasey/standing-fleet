@@ -95,7 +95,7 @@ var clean_reports = function() {
 var clean_hostiles = function() {
   console.log('Consuela: Cleaning Hostiles');
   
-  Hostile.findQ({ts: { $lte: moment().unix() - +settings.hostileTtl }})
+  Hostile.findQ({ts: { $lte: moment().unix() - +settings.hostileFadeTtl }})
     .then(function(hostiles) {      
       _.forEach(hostiles, function(hostile) {
         if (!hostile.is_faded) {
@@ -107,7 +107,7 @@ var clean_hostiles = function() {
       })
     });
     
-  Hostile.findQ({ts: { $lte: moment().unix() - (+settings.hostileTtl * 2) }})
+  Hostile.findQ({ts: { $lte: moment().unix() - +settings.hostileRemoveTtl }})
     .then(function(hostiles) {      
       _.forEach(hostiles, function(hostile) {
         Event.prepare('hostileTimedOut', hostile.fleetKey, hostile)
