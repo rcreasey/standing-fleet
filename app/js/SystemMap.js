@@ -8,18 +8,23 @@ var SystemMap = {
 
   // let's count things
   hostile_count: function(system) {
-    if (system == undefined) { return 0; }
-    return (system.name !== undefined ) ? $.grep(Data.hostiles, function(h) { return system.name === h.systemName && h.is_faded === false; }).length : 0
+    if (system === undefined) { return 0; }
+    return (system.name !== undefined ) ? $.grep(Data.hostiles, function(h) { return system.name === h.systemName && h.is_faded === false; }).length : 0;
   },
   
   faded_count: function(system) {
-    if (system == undefined) { return 0; }
-    return (system.name !== undefined ) ? $.grep(Data.hostiles, function(h) { return system.name === h.systemName && h.is_faded === true; }).length : 0
+    if (system === undefined) { return 0; }
+    return (system.name !== undefined ) ? $.grep(Data.hostiles, function(h) { return system.name === h.systemName && h.is_faded === true; }).length : 0;
   },
 
   friendly_count: function(system) {
-    if (system == undefined) { return 0; }
-    return (system.name !== undefined ) ? $.grep(Data.members, function(h) { return system.name === h.systemName; }).length : 0
+    if (system === undefined) { return 0; }
+    return (system.name !== undefined ) ? $.grep(Data.members, function(m) { return system.name === m.systemName; }).length : 0;
+  },
+  
+  advisory_count: function(system) {
+    if (system === undefined) { return 0; }
+    return (Data.advisories[system.id] instanceof Array) ? Data.advisories[system.id].length : 0;
   },
 
   // Given a system, return the class that corresponds to whether a system is hostile or not.
@@ -28,11 +33,13 @@ var SystemMap = {
       return "hostile";
     } else if ( SystemMap.faded_count(system) > 0 ) {
       return "warning";
-    } else if ( SystemMap.friendly_count(system) > 0 ) {
+    } else if ( SystemMap.advisory_count(system) > 0 ) {
+      return "warning";
+    } else if ( SystemMap.friendly_count(system) > 0 ) {      
       return "clear";
     }
   },
-
+  
   // Given a line AB and a point C, finds point D such that CD is perpendicular to AB
   getSpPoint: function(A, B, C) {
     var x1 = A.x, y1 = A.y, x2 = B.x, y2 = B.y, x3 = C.x, y3 = C.y;
@@ -123,7 +130,7 @@ var SystemMap = {
           .data('regionId', system.regionID)
           .text( Data.regions[ system.regionID ].name );
           
-        SystemMap.updateHud( system.name );
+        SystemMap.updateHud( system );
 
         var link_groups = link.data(SystemMap.jumps)
           .enter().append("g")
@@ -156,11 +163,23 @@ var SystemMap = {
           .attr("text-anchor", "middle")
           .attr("alignment-baseline", "middle")
           .attr("x", rect_width / 2)
-          .attr("y", -10)
+          .attr("y", -8)
           .text(function(n) {
-            return UI.advisoryUnicode( Data.advisories[n.system.id] );
+            return UI.mapUnicode( Data.advisories[n.system.id] );
           });
-        
+          
+        node_groups.append("text")
+          .attr("class", "hostiles")
+          .attr("text-anchor", "middle")
+          .attr("vector-effect", "non-scaling-stroke")
+          .attr("alignment-baseline", "middle")
+          .attr("x", rect_width / 2)
+          .attr("y", 25)
+          .text(function(n) {
+            var count = SystemMap.hostile_count(n.system)
+            return (count > 0) ? count + " " + UI.mapUnicode(['Hostile']) : "";
+          });
+                  
         node_groups.on('click', function(n) {
           SystemMap.updateInfo( n.system.name );
         });
@@ -271,15 +290,15 @@ var SystemMap = {
     SystemMap.zoom.event(root);
   },
 
-  updateHud: function(system_name) {
-    var system = {name: system_name}
+  updateHud: function(system) {
+    var system = {name: system.name, id: system.id }
     system.neighbors = $.map(SystemMap.links, function(n) {
-      if (n.target.system && n.target.system.name === system_name) {
+      if (n.target.system && n.target.system.name === system.name) {
         n.source.hostiles = SystemMap.hostile_count(n.source.system);
         n.source.faded = SystemMap.faded_count(n.source.system);
         return n.source;
       }
-      if (n.source.system && n.source.system.name === system_name) {
+      if (n.source.system && n.source.system.name === system.name) {
         n.target.hostiles = SystemMap.hostile_count(n.target.system);
         n.target.faded = SystemMap.faded_count(n.target.system);
         return n.target;
@@ -307,7 +326,7 @@ var SystemMap = {
       .data('system-id', Data.state.self.systemId)
       .text( Data.systems[ Data.state.self.systemId ].name );
     
-    SystemMap.updateHud( Data.systems[ Data.state.self.systemId ].name );
+    SystemMap.updateHud( Data.systems[ Data.state.self.systemId ] );
   },
   
   updateInfo: function(system_name) {
@@ -338,17 +357,17 @@ var SystemMap = {
     
     d3.selectAll('g.node text.advisories')
       .text(function(n) {
-        return UI.advisoryUnicode( Data.advisories[n.system.id] );
+        return UI.mapUnicode( Data.advisories[n.system.id] );
       });
         
-    SystemMap.updateHud( Data.systems[ Data.state.self.systemId ].name );
+    SystemMap.updateHud( Data.systems[ Data.state.self.systemId ] );
   },
 
   redraw: function() {
     log("Redrawing System Map...");
     $("#system-map > svg").remove();
     SystemMap.draw();
-    SystemMap.updateHud( Data.systems[ Data.state.self.systemId ].name );
+    SystemMap.updateHud( Data.systems[ Data.state.self.systemId ] );
   },
 
   init: function() {

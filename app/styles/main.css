@@ -514,7 +514,13 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 .node text.advisories {
   font-family: FontAwesome;
   font-size: 1.25rem;
-  fill: #f89406;
+  fill: #faa123;
+}
+
+.node text.hostiles {
+  font-family: FontAwesome;
+  font-size: 1.25rem;
+  fill: #d9534f;
 }
 
 .current rect {
@@ -599,7 +605,7 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
   font-weight: bold;
 }
 
-.hostile .faded > td { background-color: #444; }
+.hostile.faded td { opacity: 0.5; }
 .hostile .system, .hostile .ship-type, .hostile .actions, .hostile .alliance,
 .hostile .name { padding-left: 0.6rem; text-align: left; }
 

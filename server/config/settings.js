@@ -8,11 +8,12 @@ module.exports = function () {
 		session_secret: process.env.SESSION_SECRET || 'buttes',
 		log: 'console',
 
-		advisoryTtl: 1800,
+		advisoryTtl: 3600,
 		eventTtl: 300,
 		scanTtl: 86400,
-		reportTtl: 300,
-		hostileTtl: 600,
+		reportTtl: 86400,
+		hostileFadeTtl: 600,
+		hostileRemoveTtl: 1200,
 		memberTtl: 600,
 		
 		fleets: [						
