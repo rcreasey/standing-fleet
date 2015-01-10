@@ -9,6 +9,7 @@ module.exports = function () {
 		session_secret: process.env.SESSION_SECRET || 'buttes',
 		log: 'console',
 
+		advisoryTtl: 600,
 		eventTtl: 300,
 		scanTtl: 86400,
 		reportTtl: 300,

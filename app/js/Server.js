@@ -98,6 +98,10 @@ var Server = {
     Server.ajaxPost('/fleets/status', statusData , callback);
   },
 
+  postAdvisory: function(advisoryData, callback) {
+    Server.ajaxPost('/fleets/advisory', advisoryData , callback);
+  },
+  
   postDetails: function(detailsData, callback) {
     Server.ajaxPost('/fleets/details', detailsData, callback);
   }

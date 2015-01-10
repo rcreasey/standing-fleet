@@ -1,39 +1,48 @@
-<dl>
-  <dt>System</dt>
-  <dd class="system">{{ name }}</dd>
-  
-  <dt>Region</dt>
-  <dd class="region">{{ region }}</dd>
+<div class="details">
+  <h4>Details</h4>
+  <dl>
+    <dt>System</dt>
+    <dd class="system">{{ name }}</dd>
 
-  <dt>Status</dt>
-  <dd class="status">
-    {{ hostile_count }} <i class="fa fa-fighter-jet" title="Hostiles"></i>
-    {{ faded_count }} <i class="fa fa-eye-slash" title="Faded Hostiles"></i> 
-  </dd>
-  
-  <dt>Last Report</dt>
-  <dd class="last-report">{{ last_report }}</dd>
+    <dt>Region</dt>
+    <dd class="region">{{ region }}</dd>
 
-  {{#if jumps}}
-  <dt>Gates</dt>
-  <dd class="gates">
-    <ul>
-      {{#each jumps}}
-      <li><i class="fa fa-chevron-right"></i>{{name}}</li>
-      {{/each}}
-    </ul>
-  </dd>
+    <dt>Status</dt>
+    <dd class="status">
+      {{ hostile_count }} <i class="fa fa-fighter-jet" title="Hostiles"></i>
+      {{ faded_count }} <i class="fa fa-eye-slash" title="Faded Hostiles"></i>
+    </dd>
+
+    <dt>Last Report</dt>
+    <dd class="last-report">{{ last_report }}</dd>
+
+    {{#if jumps}}
+    <dt>Gates</dt>
+    <dd class="gates">
+      <ul>
+        {{#each jumps}}
+        <li><i class="fa fa-chevron-right"></i>{{name}}</li>
+        {{/each}}
+      </ul>
+    </dd>
+    {{/if}}
+
+    {{#if active_advisories}}
+    <dt>Advisories<dt>
+    <dd class="advisories">
+      <ul>
+        {{#each active_advisories }}
+        <li><i class="fa fa-{{ui_icon type}}"></i> {{ type }}</li>
+        {{/each}}
+      </ul>
+    </dd>
+    {{/if}}
+  </dl>
+
+  {{#if allow_report }}
+  <h4 class="report-advisory">Report Advisory</h4>
+  {{#each advisories}}
+  <a class="btn {{#if present}}present{{/if}}" onclick="reportAdvisory(this, '{{ systemId }}', '{{ type }}')" title="{{ type }}"><i class="fa fa-{{ui_icon type}}"></i></a>
+  {{/each}}
   {{/if}}
-  
-  {{#if advisories}}
-  <dt>Advisories<dt>
-  <dd class="advisories">
-    <ul>
-      {{#each advisories }}
-      <li><i class="fa fa-bolt"></i> {{ type }}</li>
-      {{/each}}      
-    </ul>
-  </dd>
-  {{/if}}
-    
-</dl>
+</div>
