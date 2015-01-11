@@ -34,6 +34,10 @@ var HostileList = {
       Data.hostiles.splice(Data.hostiles.indexOf(hostileToRemove), 1);
     }
   },
+  
+  fadedCount: function(systemId) {
+    return $.grep(Data.hostiles, function(h) { return h.is_faded == true && h.systemId == systemId}).length;
+  },
 
   findHostile: function (hostileId) {
     for (var index in Data.hostiles) {

@@ -165,7 +165,7 @@ var SystemMap = {
           .attr("x", rect_width / 2)
           .attr("y", -8)
           .text(function(n) {
-            return UI.mapUnicode( Data.advisories[n.system.id] );
+            return UI.mapUnicode(n.system.id, Data.advisories[n.system.id] );
           });
           
         node_groups.append("text")
@@ -372,7 +372,7 @@ var SystemMap = {
     
     d3.selectAll('g.node text.advisories')
       .text(function(n) {
-        return UI.mapUnicode( Data.advisories[n.system.id] );
+        return UI.mapUnicode(n.system.id, Data.advisories[n.system.id] );
       });
         
     SystemMap.updateHud( Data.systems[ Data.state.self.systemId ] );

@@ -146,8 +146,10 @@ var UI = {
     return msgs[Math.floor(Math.random()*msgs.length)] + "...";
   },
   
-  mapUnicode: function(list) {
-    if (list === undefined) return "";
+  mapUnicode: function(system_id, list) {
+    if (list === undefined) {
+      return (HostileList.fadedCount(system_id) > 0) ? '\uf017' : "";
+    }
     if (list.length === 0) return "";
     
     return $.map(list, function(a) { 
