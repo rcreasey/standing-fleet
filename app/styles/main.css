@@ -94,7 +94,8 @@ div#page, div#content-wrapper { position: relative; height: 100%; width: 100%; b
   margin: 0 0.5rem;
 }
 
-#current .region {
+#current .region,
+#current .fleet-name {
   color: #ffcc2a;
   cursor: pointer;
   font-size: 11px !important;
@@ -388,6 +389,11 @@ input.log-path {
 
 #system-info dd {
   margin-left: 90px;
+}
+
+#system-info dd .hostile {
+  cursor: pointer;
+  display: block;
 }
 
 #system-info h4 {
@@ -888,6 +894,10 @@ code.error,
 .panel .form .group {
   margin-bottom: 1rem;
 }
+.panel .form .group input[type="checkbox"] + span {
+  width: 13rem;
+}
+
 
 #fleet-list {
   height: 250px;

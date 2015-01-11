@@ -65,7 +65,7 @@ ReportSchema.methods.parse_standings = function parse_standings(whitelist) {
           if (character.characterID == 0) return false;
           if (character.characterName == '') return false;
           
-          return Hostile.prepare(this.fleetKey, this.reporterId, this.reporterName, character)
+          return Hostile.prepare(this.fleetKey, {characterId: this.reporterId, characterName: this.reporterName}, character)
         });
         
         batch.resolve(_.where(resolved));
@@ -82,8 +82,8 @@ ReportSchema.methods.parse_standings = function parse_standings(whitelist) {
     response.resolve(_.flatten(results)); 
   })
   .catch(function(error) {
-    console.log(error)
-    response.reject('CCP API data corrupt:' + error)
+    console.error(error)
+    response.reject('CCP API data corrupt: ' + error)
   })
   .done()
 

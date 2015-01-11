@@ -347,6 +347,7 @@ var SystemMap = {
       var system = { name: results.name,
                      systemId: results.id,
                      region: Data.regions[ results.regionID ].name,
+                     hostiles: HostileList.findHostileBySystemId( results.id ),
                      hostile_count: SystemMap.hostile_count( results ),
                      faded_count: SystemMap.faded_count( results ),
                      gates: $.map( results.jumps, function(j) { return Data.systems[ j.to ]})
@@ -373,6 +374,18 @@ var SystemMap = {
     d3.selectAll('g.node text.advisories')
       .text(function(n) {
         return UI.mapUnicode(n.system.id, Data.advisories[n.system.id] );
+      });
+      
+    d3.selectAll('g.node text.hostiles')
+      .text(function(n) {
+        var count = SystemMap.hostile_count(n.system)
+        return (count > 0) ? count : "";
+      });
+      
+    d3.selectAll('g.node text.faded')
+      .text(function(n) {
+        var count = SystemMap.faded_count(n.system)
+        return (count > 0) ? count : "";
       });
         
     SystemMap.updateHud( Data.systems[ Data.state.self.systemId ] );

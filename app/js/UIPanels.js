@@ -119,7 +119,10 @@ var UIPanels = {
         {input:  {hidden: true, id: 'hostile-key', value: hostile.key}},
         {input:  {hidden: true, id: 'hostile-id', value: hostile.characterId}},
         {input:  {hidden: true, id: 'hostile-name', value: hostile.characterName}},
+        {input:  {hidden: true, id: 'hostile-system-name', value: hostile.systemName}},
+        {input:  {hidden: true, id: 'hostile-system-id', value: hostile.systemId}},
         {input:  {label: 'Ship Type', id: 'hostile-ship-type', value: hostile.shipType} },
+        {checkbox: {label: 'Is Docked', id: 'hostile-is-docked', checked: hostile.is_docked}},
         {submit: {text: 'Update Details', onClick: 'submitHostileDetailsClick(this)'}}
       ],
       closeable: true

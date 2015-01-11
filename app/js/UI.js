@@ -154,7 +154,7 @@ var UI = {
     
     return $.map(list, function(a) { 
       if (a == 'Wormhole Detected') return '\uf138'; 
-      else if (a == 'Hostile Cloaked') return '\uf0c2'; 
+      else if (a == 'Hostile Cloaked') return '\uf070'; 
       else if (a == 'Hostile Faded') return '\uf017'; 
       else if (a == 'Hostile Logged Off') return '\uf08b'; 
       else if (a == 'Undock Camped') return '\uf023'; 
@@ -174,11 +174,11 @@ Handlebars.registerHelper('hud_detect_hostiles', function(status) {
 });
 
 Handlebars.registerHelper('format_ts', function(ts) {
-  return moment(ts).utc().format('MM/DD HH:mm:ss');
+  return moment(ts).utc().add(28800, 'seconds').format('MM/DD HH:mm:ss');
 });
 
 Handlebars.registerHelper('format_ts_short', function(ts) {
-  return moment(ts).utc().format('HH:mm:ss');
+  return moment(ts).utc().add(28800, 'seconds').format('HH:mm:ss');
 });
 
 Handlebars.registerHelper('ui_icon', function(icon) {
@@ -214,7 +214,7 @@ Handlebars.registerHelper('ui_icon', function(icon) {
   if (icon == 'youJoined') return 'user';
   
   if (icon == 'Wormhole Detected') return 'chevron-circle-right'; 
-  if (icon == 'Hostile Cloaked') return 'cloud'; 
+  if (icon == 'Hostile Cloaked') return 'eye-slash'; 
   if (icon == 'Hostile Faded') return 'clock-o'; 
   if (icon == 'Hostile Logged Off') return 'sign-out'; 
   if (icon == 'Undock Camped') return 'lock'; 
