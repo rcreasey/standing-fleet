@@ -189,7 +189,7 @@ Handlebars.registerHelper('ui_icon', function(icon) {
   if (icon == 'error') return 'exclamation-triangle';
   if (icon == 'fleet') return 'fighter-jet';
   if (icon == 'fleetCreated') return 'fighter-jet';
-  if (icon == 'hostileFaded') return 'eye-slash';
+  if (icon == 'hostileFaded') return 'clock-o';
   if (icon == 'hostileTimeout') return 'clock-o';
   if (icon == 'info') return 'question';
   if (icon == 'member') return 'user';

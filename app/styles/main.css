@@ -511,6 +511,7 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
   fill: #fff;
 }
 
+.node text.faded,
 .node text.advisories {
   font-family: FontAwesome;
   font-size: 1.25rem;

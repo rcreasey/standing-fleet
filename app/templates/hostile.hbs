@@ -11,9 +11,9 @@
     </td>
     <td class="ship-type" onClick="UIPanels.updateHostileDetailsPanel('{{characterId}}');">
       {{#if shipTypeId}}
-        <i class="fa fa-eye"></i> <a href="javascript:CCPEVE.showInfo({{shipTypeId}});">{{shipType}}</a>
+        <i class="fa fa-fighter-jet"></i> <a href="javascript:CCPEVE.showInfo({{shipTypeId}});">{{shipType}}</a>
       {{else}}
-        <i class="fa fa-eye-slash"></i> Non Visual
+        Non Visual
       {{/if}}
       {{#if isFaded}}
       <i class="fa fa-clock-o"></i> Faded

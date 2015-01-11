@@ -76,7 +76,7 @@ var SystemMap = {
 
   draw: function() {
     // Change this to globally adjust minimum node distance and system [x,y] scale
-    const SCALING_FACTOR = 0.75;
+    const SCALING_FACTOR = 0.85;
 
     var svg = d3.select("#system-map")
       .attr("width", Data.ui.map.width())
@@ -170,16 +170,28 @@ var SystemMap = {
           
         node_groups.append("text")
           .attr("class", "hostiles")
-          .attr("text-anchor", "middle")
+          .attr("text-anchor", "left")
+          .attr("alignment-baseline", "left")
           .attr("vector-effect", "non-scaling-stroke")
-          .attr("alignment-baseline", "middle")
-          .attr("x", rect_width / 2)
-          .attr("y", 25)
+          .attr("x", 0)
+          .attr("y", 30)
           .text(function(n) {
             var count = SystemMap.hostile_count(n.system)
-            return (count > 0) ? count + " " + UI.mapUnicode(['Hostile']) : "";
+            return (count > 0) ? count : "";
           });
-                  
+          
+        node_groups.append("text")
+          .attr("class", "faded")
+          .attr("text-anchor", "right")
+          .attr("alignment-baseline", "right")
+          .attr("vector-effect", "non-scaling-stroke")
+          .attr("x", rect_width / 1.15)
+          .attr("y", 30)
+          .text(function(n) {
+            var count = SystemMap.faded_count(n.system)
+            return (count > 0) ? count : "";
+          });
+        
         node_groups.on('click', function(n) {
           SystemMap.updateInfo( n.system.name );
         });
@@ -346,7 +358,10 @@ var SystemMap = {
       if (results.id == Data.state.self.systemId) system.allow_report = true; 
       
       Data.ui.mapInfo.html( $(Data.templates.system_info(system)) );
-      Data.ui.mapInfo.children('dl').fadeIn(Data.config.uiSpeed)
+      Data.ui.mapInfo.children('div.details')
+        .fadeIn(Data.config.uiSpeed)
+        .delay(Data.config.alertStay)
+        .fadeOut(Data.config.uiSpeed * 8);
     });
     
   },
