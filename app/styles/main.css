@@ -94,7 +94,8 @@ div#page, div#content-wrapper { position: relative; height: 100%; width: 100%; b
   margin: 0 0.5rem;
 }
 
-#current .region {
+#current .region,
+#current .fleet-name {
   color: #ffcc2a;
   cursor: pointer;
   font-size: 11px !important;

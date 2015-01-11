@@ -316,6 +316,7 @@ var EventHandler = {
     Data.state.fleet.key = fleet.key;
     Data.state.fleet.password = fleet.password;
 
+    Data.ui.fleetName.text( fleet.name );
     SystemMap.init();
   },
 

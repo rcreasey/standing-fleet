@@ -72,6 +72,7 @@ var Data = {
     mapLegend_systems: $('#system-map .legend span'),
     currentSystem: $('#current .system'),
     currentRegion: $('#current .region'),
+    fleetName: $('#current .fleet-name'),
     statusClear: $('#status-clear'),
     statusHostile: $('#status-hostile'),
 
