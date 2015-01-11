@@ -399,31 +399,22 @@ exports.add_scan = function(req, res, next) {
 };
 
 exports.update_hostile = function(req, res, next) {
+  var update_data = req.body;
+  
+  if (!update_data.is_docked) {
+    if (!update_data.shipType) return response.error(res, 'details', 'Invalid hostile details');
+  }
 
-  var scan_data = req.body;
+  hostile = Hostile.prepare(req.session.fleetKey, req.session.fleet, update_data);
+  if (settings.ships[ update_data.shipType ]) hostile.shipTypeId = settings.ships[ hostile.shipType ].id;
 
-  if (!scan_data.shipType) return response.error(res, 'details', 'Invalid hostile details');
-  if (!settings.ships[ scan_data.shipType ]) return response.error(res, 'details', 'Invalid ship type: ' + scan_data.shipType );
-
-  Hostile.findOneQ({key: scan_data.key, fleetKey: req.session.fleetKey})
-    .then(function(hostile) {
-
-      if (hostile !== null) {
-        hostile.shipType = req.body.shipType;
-        hostile.shipTypeId = settings.ships[ scan_data.shipType ].id;
-        hostile.reporterId = req.session.fleet.characterId;
-        hostile.reporterName = req.session.fleet.characterName;
-
-        var event = Event.prepare('updateHostile', req.session.fleetKey, hostile.toObject());
-
-        hostile.saveQ();
-        event.saveQ();
-
-        return response.success(res);
-      } else {
-        throw 'Hostile not found (' + scan_data.name + ')';
-      }
-
+  Hostile.updateQ({key: hostile.key}, hostile.toObject(), {upsert: true})
+    .then(function(result) {
+      if (!result) throw 'Hostile not found: ' + hostile.characterName;
+      
+      Event.prepare('updateHostile', req.session.fleetKey, hostile.toObject()).saveQ();
+      
+      return response.success(res);
     })
     .catch(function(error) {
       console.log(error)

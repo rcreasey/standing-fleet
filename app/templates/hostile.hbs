@@ -10,16 +10,17 @@
       {{/if}}
     </td>
     <td class="ship-type" onClick="UIPanels.updateHostileDetailsPanel('{{characterId}}');">
-      {{#if shipTypeId}}
-        <i class="fa fa-fighter-jet"></i> <a href="javascript:CCPEVE.showInfo({{shipTypeId}});">{{shipType}}</a>
+      {{#if is_docked}}
+      <i class="fa fa-university"></i> Docked
       {{else}}
-        Non Visual
-      {{/if}}
-      {{#if isFaded}}
-      <i class="fa fa-clock-o"></i> Faded
+        {{#if shipTypeId}}
+          <i class="fa fa-fighter-jet"></i> <a href="javascript:CCPEVE.showInfo({{shipTypeId}});">{{shipType}}</a>
+        {{else}}
+          Non Visual
+        {{/if}}
       {{/if}}
     </td>
-    <td class="system {{#if is_docked}}docked{{/if}}"><a href="javascript:CCPEVE.showInfo(5,{{systemId}});">{{systemName}}</a></td>
+    <td class="system"><a href="javascript:CCPEVE.showInfo(5,{{systemId}});">{{systemName}}</a></td>
     <td class="reported-at"><a title="Reported by {{reporterName}}">{{format_ts_short ts}}</a></td>
     <td class="actions">
       <a title="Set Destination" onClick="CCPEVE.setDestination({{systemId}})"><i class="fa fa-map-marker" title="Set Destination"></i></a>

@@ -28,19 +28,25 @@ var HostileSchema  = new Schema({
 
 HostileSchema.index({ ts: 1, key: 1, fleetKey: 1 }, { expireAfterSeconds: settings.hostileRemoveTtl });
 
-HostileSchema.statics.prepare = function prepare(fleetKey, reporterId, reporterName, character) {
+HostileSchema.statics.prepare = function prepare(fleetKey, reporter, hostile) {
   return new this({
     fleetKey: fleetKey,
-    reporterId: reporterId,
-    reporterName: reporterName,
-    characterId: character.characterID,
-    characterName: character.characterName,
-    corporationId: character.corporationID,
-    corporationName: character.corporationName,
-    allianceId: character.allianceID,
-    allianceName: character.allianceName,
-    is_faded: false
-  });
+    reporterId: reporter.characterId,
+    reporterName: reporter.characterName,
+    key: hostile.key,
+    characterId: hostile.characterId,
+    characterName: hostile.characterName,
+    corporationId: hostile.corporationID,
+    corporationName: hostile.corporationName,
+    allianceId: hostile.allianceID,
+    allianceName: hostile.allianceName,
+    shipType: hostile.shipType,
+    shipTypeId: hostile.shipTypeId,
+    systemId: hostile.systemId,
+    systemName: hostile.systemName,
+    is_faded: hostile.is_faded,
+    is_docked: hostile.is_docked
+  }, { versionKey: false });
 };
 
 HostileSchema.methods.report_update = function report_update(fleetKey, report) {

@@ -6,16 +6,25 @@
 
     <dt>Region</dt>
     <dd class="region">{{ region }}</dd>
-
-    <dt>Status</dt>
-    <dd class="status">
-      {{ hostile_count }} <i class="fa fa-fighter-jet" title="Hostiles"></i>
-      {{ faded_count }} <i class="fa fa-eye-slash" title="Faded Hostiles"></i>
-    </dd>
-
+    
     <dt>Last Report</dt>
     <dd class="last-report">{{ last_report }}</dd>
 
+    {{#if hostiles}}
+    <dt>Hostiles</dt>
+    <dd class="hostiles">
+      {{#each hostiles}}
+        <div class="hostile" onClick="UIPanels.updateHostileDetailsPanel('{{characterId}}');">
+          {{#if is_faded}}
+          <i class="fa fa-clock-o" title="Faded"></i> {{characterName}}
+          {{else}}
+          <i class="fa fa-fighter-jet" title="Active"></i> {{characterName}}
+          {{/if}}
+        </div>
+      {{/each}}
+    </dd>
+    {{/if}}
+    
     {{#if jumps}}
     <dt>Gates</dt>
     <dd class="gates">

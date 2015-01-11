@@ -39,8 +39,8 @@
       {{/if}}
       {{#if checkbox}}
       <div class="group">
-        <input type="checkbox" {{#if checkbox.checked}}checked{{/if}} {{#if checkbox.onclick}}onclick="{{checkbox.onclick}}"{{/if}}>
-        <span class="label">{{checkbox.legend}}</span>
+        <input type="checkbox" id="{{checkbox.id}}" {{#if checkbox.checked}}checked{{/if}} {{#if checkbox.onclick}}onclick="{{checkbox.onclick}}"{{/if}}>
+        <span class="label">{{{checkbox.label}}}</span>
       </div>
       {{/if}}
       {{#if submit}}
@@ -55,8 +55,8 @@
             {{#each group.formitems}}
               {{#if checkbox}}
               <div class="item">
-                <input type="checkbox" {{#if checkbox.checked}}checked{{/if}} {{#if checkbox.onclick}}onclick="{{checkbox.onclick}}"{{/if}}>
-                <span class="label">{{checkbox.legend}}</span>
+                <input type="checkbox" id="{{checkbox.id}}" {{#if checkbox.checked}}checked{{/if}} {{#if checkbox.onclick}}onclick="{{checkbox.onclick}}"{{/if}}>
+                <span class="label">{{{checkbox.label}}}</span>
               </div>
               {{/if}}
             {{/each}}

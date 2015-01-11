@@ -45,6 +45,10 @@ var HostileList = {
     }
     return false;
   },
+  
+  findHostileBySystemId: function(systemId) {
+    return $.grep(Data.hostiles, function(h) { return h.systemId == systemId});
+  },
 
   findHostileElement: function (hostileId) {
     var foundHostileElement = Data.ui.hostiles_list.find('.hostile-' + hostileId);

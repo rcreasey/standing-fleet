@@ -76,10 +76,16 @@ var EventHandler = {
 
       } else if (event.type === 'updateHostile') {
         var hostile = event.data;
-        if (hostile) event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
-            + hostile.characterId + ');">' + hostile.characterName + '</a> has been identified in a '
-            + '<a href="javascript:CCPEVE.showInfo(' + hostile.shipTypeId + ');">' + hostile.shipType + '</a> in '
-            + '<a href="javascript:CCPEVE.showInfo(5, ' + hostile.systemId + ');">' + hostile.systemName + '</a>';
+        event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
+            + hostile.characterId + ');">' + hostile.characterName + '</a> has been identified ';
+        
+        if (hostile.is_docked) {
+          event.text += 'as being Docked in ';
+        } else {
+          event.text += 'in a <a href="javascript:CCPEVE.showInfo(' + hostile.shipTypeId + ');">' + hostile.shipType + '</a> in '
+        }
+        
+        event.text += '<a href="javascript:CCPEVE.showInfo(5, ' + hostile.systemId + ');">' + hostile.systemName + '</a>';
         event.blink = 'hostiles';
         event.alert = true;
 

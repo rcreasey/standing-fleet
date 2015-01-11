@@ -22,7 +22,7 @@ var AdvisoryList = {
   },
   
   addAdvisory: function(advisory) {
-    if (! (Data.advisories[advisory.systemId] instanceof Array)) Data.advisories[advisory.systemId] = new Array;
+    if (!(Data.advisories[advisory.systemId] instanceof Array)) Data.advisories[advisory.systemId] = new Array;
     Data.advisories[advisory.systemId].push(advisory.type);
     
     $.unique(Data.advisories[advisory.systemId]);

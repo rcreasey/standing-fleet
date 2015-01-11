@@ -203,20 +203,23 @@ function submitSourcedStatus(status) {
 }
 
 function submitHostileDetailsClick(button) {
-  var key = $('#hostile-key').val();
-  var id = $('#hostile-id').val();
-  var name = $('#hostile-name').val();
-  var shipType = $('#hostile-ship-type').val();
-  var shipName = $('#hostile-ship-name').val();
+  var hostile = {'key': $('#hostile-key').val(),
+                 'type': 'hostile',
+                 'characterId': $('#hostile-id').val(),
+                 'characterName': $('#hostile-name').val(),
+                 'shipType': $('#hostile-ship-type').val(),
+                 'systemName': $('#hostile-system-name').val(),
+                 'systemId': $('#hostile-system-id').val(),
+                 'is_docked': $('#hostile-is-docked').is(':checked')
+  }
 
-  submitHostileDetails(key, id, name, shipType, shipName);
+  submitHostileDetails(hostile);
 }
 
-function submitHostileDetails(key, id, name, shipType, shipName) {
+function submitHostileDetails(hostile) {
   UIPanels.showLoadingPanel('Uploading status...', function () {
-    var details = {type: 'hostile', key: key, characterId: id, characterName: name, shipType: shipType, shipName: shipName};
 
-    Server.postDetails(details, function(error, data) {
+    Server.postDetails(hostile, function(error, data) {
       UIPanels.hidePanel(function () {
         if (error) {
           handleError(error);
@@ -225,8 +228,8 @@ function submitHostileDetails(key, id, name, shipType, shipName) {
 
         EventList.addEvent({ type: 'info', class: status.text,
                             text: 'Details were reported on <strong>' +
-                                  '<a href="javascript:CCPEVE.showInfo(1377, ' + details.characterId + ')">' +
-                                  details.characterName + '</a> by you.' });
+                                  '<a href="javascript:CCPEVE.showInfo(1377, ' + hostile.characterId + ')">' +
+                                  hostile.characterName + '</a> by you.' });
       });
     });
   });

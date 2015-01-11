@@ -347,6 +347,7 @@ var SystemMap = {
       var system = { name: results.name,
                      systemId: results.id,
                      region: Data.regions[ results.regionID ].name,
+                     hostiles: HostileList.findHostileBySystemId( results.id ),
                      hostile_count: SystemMap.hostile_count( results ),
                      faded_count: SystemMap.faded_count( results ),
                      gates: $.map( results.jumps, function(j) { return Data.systems[ j.to ]})
