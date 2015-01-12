@@ -31,10 +31,10 @@ HostileSchema.index({ ts: 1, key: 1, fleetKey: 1 }, { expireAfterSeconds: settin
 HostileSchema.statics.prepare = function prepare(fleetKey, reporter, hostile) {
   return new this({
     fleetKey: fleetKey,
-    reporterId: reporter.characterId,
+    reporterId: reporter.characterId || reporter.characterID,
     reporterName: reporter.characterName,
     key: hostile.key,
-    characterId: hostile.characterId,
+    characterId: hostile.characterId || hostile.characterID,
     characterName: hostile.characterName,
     corporationId: hostile.corporationID,
     corporationName: hostile.corporationName,
