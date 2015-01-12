@@ -407,15 +407,17 @@ exports.update_hostile = function(req, res, next) {
 
   hostile = Hostile.prepare(req.session.fleetKey, req.session.fleet, update_data);
   if (settings.ships[ update_data.shipType ]) hostile.shipTypeId = settings.ships[ hostile.shipType ].id;
-  debugger
   
   Hostile.updateQ({key: hostile.key}, hostile.toObject(), {upsert: true})
     .then(function(result) {
       if (!result) throw 'Hostile not found: ' + hostile.characterName;
       
-      Event.prepare('updateHostile', req.session.fleetKey, hostile.toObject()).saveQ();
-      
-      return response.success(res);
+      Hostile.findOneQ({key: hostile.key})
+        .then(function(updated_hostile) {          
+          Event.prepare('updateHostile', req.session.fleetKey, updated_hostile.toObject()).saveQ();
+          
+          return response.success(res);          
+        })
     })
     .catch(function(error) {
       console.log(error)
