@@ -1,5 +1,6 @@
 var passport = require('passport')
   , CrowdStrategy = require(__dirname + '/../crowd').Strategy
+  , LocalStrategy = require('passport-local').Strategy
   , _ = require('lodash');
 
 module.exports = function () {
@@ -25,6 +26,17 @@ module.exports = function () {
       }
     });
 
+    if (process.env.NODE_ENV === 'development') {
+      users.push({username: 'tarei'})
+    
+      passport.use(new LocalStrategy(
+        function(username, password, done) {
+          if (users.length) return done(null, users[0]);        
+          else return done(null, false);
+        }
+      ));
+    }
+    
     passport.use(new CrowdStrategy({
       crowdServer: process.env.CROWD_URL || "https://crowd.goonfleet.com/crowd/",
       crowdApplication: process.env.CROWD_USERNAME,
@@ -36,14 +48,15 @@ module.exports = function () {
         var exists = _.any(users, function (user) {
           return user.id == userprofile.id;
         });
-
+        
         if (!exists) {
           users.push(userprofile);
         }
-
+        
         return done(null, userprofile);
       });
     }));
+    
   };
 
   return pub;

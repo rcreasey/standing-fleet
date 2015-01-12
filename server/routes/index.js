@@ -13,10 +13,10 @@ router.route('/login')
 router.route('/login')
   .post(checks.ssl_headers)
   .post(checks.redirect_to_https)
-  .post(passport.authenticate('atlassian-crowd',
-  { failureRedirect:'/login', failureFlash:"Invalid username or password." }))
+  // .post(passport.authenticate('local', { failureRedirect:'/login', failureFlash:"Invalid username or password." }))
+  .post(passport.authenticate('atlassian-crowd', { failureRedirect:'/login', failureFlash:"Invalid username or password." }))
   .post(application.authenticate);
-
+    
 router.route('/logout')
   .get(application.logout);
 
