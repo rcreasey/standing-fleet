@@ -407,7 +407,8 @@ exports.update_hostile = function(req, res, next) {
 
   hostile = Hostile.prepare(req.session.fleetKey, req.session.fleet, update_data);
   if (settings.ships[ update_data.shipType ]) hostile.shipTypeId = settings.ships[ hostile.shipType ].id;
-
+  debugger
+  
   Hostile.updateQ({key: hostile.key}, hostile.toObject(), {upsert: true})
     .then(function(result) {
       if (!result) throw 'Hostile not found: ' + hostile.characterName;
