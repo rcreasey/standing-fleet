@@ -1,6 +1,5 @@
 var passport = require('passport')
   , CrowdStrategy = require(__dirname + '/../crowd').Strategy
-  , LocalStrategy = require('passport-local').Strategy
   , _ = require('lodash');
 
 module.exports = function () {
@@ -27,6 +26,8 @@ module.exports = function () {
     });
 
     if (process.env.NODE_ENV === 'development') {
+      LocalStrategy = require('passport-local').Strategy
+      
       users.push({username: 'tarei'})
     
       passport.use(new LocalStrategy(
