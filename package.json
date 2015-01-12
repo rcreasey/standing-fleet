@@ -63,6 +63,7 @@
   "devDependencies": {
     "blanket": "^1.1.6",
     "mocha": "^1.21.4",
+    "passport-local": "^1.0.0",
     "passport-stub": "^1.0.1",
     "should": "^4.0.4",
     "superagent": "^0.20.0",

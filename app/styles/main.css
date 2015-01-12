@@ -1244,6 +1244,7 @@ border-top: 0.16rem solid #333;
 */
 
 .panel .start,
+#download,
 #link,
 #login {
   width: 300px;
@@ -1253,7 +1254,7 @@ border-top: 0.16rem solid #333;
   background: linear-gradient(#444, #222 1%);
 }
 
-#link h2 { color: #ffcc2a; font-size: 1.5rem; }
+#link h2 { color: #ffcc2a; font-size: 1.5rem; text-align: left; }
 #link p { text-align: left;}
 #link p.strong { color: #ffcc2a; font-size: 1.2rem; font-weight: bold; text-align: left;}
 
@@ -1396,6 +1397,18 @@ border-top: 0.16rem solid #333;
   display: block;
 }
 
+#link a.logout.button {
+  padding: 1rem;
+  font-size: 1.1rem;
+  margin: 1rem 0;
+  width: inherit;
+}
+
+#link dl.download {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  padding-top: 1rem;
+}
 
 .atlwdg-trigger {
   z-index: 9001;
