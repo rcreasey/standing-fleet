@@ -1400,6 +1400,7 @@ border-top: 0.16rem solid #333;
 #link a.logout.button {
   padding: 1rem;
   font-size: 1.1rem;
+  font-family: 'Lato', sans-serif !important;
   margin: 1rem 0;
   width: inherit;
 }
