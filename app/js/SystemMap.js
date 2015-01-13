@@ -145,6 +145,52 @@ var SystemMap = {
           });
 
         node_groups.append("rect")
+          .attr("class", function(n) {
+            var count = SystemMap.hostile_count(n.system)
+            return (count > 0) ? "hostiles" : "vacant";
+          })
+          .attr("width", rect_width / 3)
+          .attr("height", rect_height)
+          .attr("rx", 2).attr("ry", 2)
+          .attr("y", 16)
+        
+        node_groups.append("text")
+          .attr("class", "hostiles")
+          .attr("text-anchor", "left")
+          .attr("alignment-baseline", "left")
+          .attr("vector-effect", "non-scaling-stroke")
+          .attr("x", 7)
+          .attr("y", 30)
+          .text(function(n) {
+            var count = SystemMap.hostile_count(n.system)
+            return (count > 0) ? count : "";
+          });
+        
+        node_groups.append("rect")
+          .attr("class", function(n) {
+            var count = SystemMap.faded_count(n.system)
+            return (count > 0) ? "faded" : "vacant";
+          })
+          .attr("width", rect_width / 3)
+          .attr("height", rect_height)
+          .attr("rx", 2).attr("ry", 2)
+          .attr("x", rect_width - 20).attr("y", 16)
+          
+        node_groups.append("text")
+          .attr("class", "faded")
+          .attr("text-anchor", "right")
+          .attr("alignment-baseline", "right")
+          .attr("vector-effect", "non-scaling-stroke")
+          .attr("x", rect_width - 14)
+          .attr("y", 30)
+          .text(function(n) {
+            var count = SystemMap.faded_count(n.system)
+            return (count > 0) ? count : "";
+          });
+          
+          
+          
+        node_groups.append("rect")
           .attr("width", rect_width)
           .attr("height", rect_height)
           .attr("rx", 2).attr("ry", 2)
@@ -167,31 +213,9 @@ var SystemMap = {
           .text(function(n) {
             return UI.mapUnicode(n.system.id, Data.advisories[n.system.id] );
           });
-          
-        node_groups.append("text")
-          .attr("class", "hostiles")
-          .attr("text-anchor", "left")
-          .attr("alignment-baseline", "left")
-          .attr("vector-effect", "non-scaling-stroke")
-          .attr("x", 0)
-          .attr("y", 30)
-          .text(function(n) {
-            var count = SystemMap.hostile_count(n.system)
-            return (count > 0) ? count : "";
-          });
-          
-        node_groups.append("text")
-          .attr("class", "faded")
-          .attr("text-anchor", "right")
-          .attr("alignment-baseline", "right")
-          .attr("vector-effect", "non-scaling-stroke")
-          .attr("x", rect_width / 1.15)
-          .attr("y", 30)
-          .text(function(n) {
-            var count = SystemMap.faded_count(n.system)
-            return (count > 0) ? count : "";
-          });
-        
+      
+            
+
         node_groups.on('click', function(n) {
           SystemMap.updateInfo( n.system.name );
         });

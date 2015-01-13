@@ -489,7 +489,7 @@ input.log-path {
 #system-map #legend span.system-unknown { border: solid 1px #666666; background-color: #333333; }
 #system-map #legend span.system-blue    { border: solid 1px #0079a1; background-color: #0b5168; }
 #system-map #legend span.system-clear   { border: solid 1px #5cb85c; background-color: #366436; }
-#system-map #legend span.system-warning { border: solid 1px #faa123; background-color: #f89406; }
+#system-map #legend span.system-warning { border: solid 1px #f0ad4e; background-color: #df691a; }
 #system-map #legend span.system-hostile { border: solid 1px #d9534f; background-color: #74312f; }
 #system-map #legend span.current         { border: solid 2px #f39c12 !important; }
 
@@ -507,8 +507,12 @@ g.node {
 rect.status-unknown { stroke: #666666; fill: #333333; }
 rect.status-blue    { stroke: #0079a1; fill: #0b5168; }
 rect.status-clear   { stroke: #5cb85c; fill: #366436; }
-rect.status-warning { stroke: #faa123; fill: #f89406; }
+rect.status-warning { stroke: #f0ad4e; fill: #df691a; }
 rect.status-hostile { stroke: #d9534f; fill: #74312f; }
+
+rect.hostiles { stroke: #d9534f; fill: #d9534f; }
+rect.faded    { stroke: #f0ad4e; fill: #f0ad4e; }
+rect.vacant   { stroke-width: 0; fill: transparent; }
 
 .node text {
   font-family: 'Droid Sans', sans-serif;
@@ -517,20 +521,20 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
   fill: #fff;
 }
 
-.node text.faded,
 .node text.advisories {
   font-family: FontAwesome;
   font-size: 1.25rem;
   fill: #faa123;
 }
 
+.node text.faded,
 .node text.hostiles {
-  font-family: FontAwesome;
-  font-size: 1.25rem;
-  fill: #d9534f;
+  font-family: 'Droid Sans', sans-serif;
+  font-size: 1.15rem;
+  fill: #fff;
 }
 
-.current rect {
+.current rect:last-child {
   stroke: #f39c12 !important;
   stroke-width: 2px !important;
 }

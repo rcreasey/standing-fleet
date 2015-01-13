@@ -59,7 +59,7 @@ var Util = {
   },
 
   redirectToKeyUrl: function (fleetKey) {
-    if (fleetKey !== undefined || fleetKey !== 'undefined') {
+    if (fleetKey !== undefined) {
       window.location = location.protocol
       + '//' + location.hostname
       + (location.port ? ':' + location.port : '')
