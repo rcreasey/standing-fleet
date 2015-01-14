@@ -74,7 +74,7 @@ div#page, div#content-wrapper { position: relative; height: 100%; width: 100%; b
 }
 
 #current {
-  color: #ff;
+  color: #fff;
   font-family: 'Lato', sans-serif !important;
   font-size: 11px !important;
   font-weight: 700;
@@ -250,13 +250,19 @@ div#page, div#content-wrapper { position: relative; height: 100%; width: 100%; b
 .menu-button.active { height: 2rem }
 .menu-button.blink { background-color: #842; }
 
-#bottom-menu-spinner {
+#bottom-menu-spinner,
+#bottom-menu-data-client {
   width: 1.2rem;
   background: none;
   display: inline-block;
   cursor:  default;
   padding: 0rem 1rem 0rem 1rem;
   border: none;
+}
+
+#bottom-menu-data-client {
+  cursor: default;
+  color: #ffcc2a;
 }
 
 #bottom-menu a {
@@ -535,10 +541,6 @@ g.node {
   font-family: 'Droid Sans', sans-serif;
   font-size: 1.1rem;
   fill: #fff;
-}
-
-.node rect.current rect:last-child {
-
 }
 
 /* Link line styles */

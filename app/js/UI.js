@@ -73,6 +73,7 @@ var UI = {
     Data.ui.statusHostile.on('click', $.proxy(UIPanels.showStatusPanel, null, false));
 
     UI.update_scrollables();
+    UI.data_client_check();
   },
 
   update_scrollables: function() {
@@ -81,6 +82,14 @@ var UI = {
     Data.ui.scans_list.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
     Data.ui.events_list.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
     Data.ui.fleet_list.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
+  },
+  
+  data_client_check: function() {
+    if (Data.config.data_client.connected) {
+      Data.ui.bottomMenu_dataClient_icon.addClass('fa-chain');
+    } else {
+      Data.ui.bottomMenu_dataClient.remove();
+    }
   },
 
   submitStatusClear: function() {
