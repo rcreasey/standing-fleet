@@ -7,11 +7,14 @@ var Data = {
   scans: [],
 
   config: {
-    data_client: 'http://127.0.0.1:44444/',
+    data_client: {
+      url: 'http://127.0.0.1:44444/',
+      connected: false
+    },
     domain: 'https://standing-fleet.apps.goonswarm.org/',
     apiUrl: '/api',
     alertStay: 5000,
-    pollInterval: 5000,
+    pollInterval: 10000,
     maxEvents: 20,
     maxScans: 20,
     uiSpeed: 400,
@@ -61,6 +64,8 @@ var Data = {
 
     bottomMenu: $('#bottom-menu'),
     bottomMenu_spinner: $('#bottom-menu-spinner'),
+    bottomMenu_dataClient: $('#bottom-menu-data-client'),
+    bottomMenu_dataClient_icon: $('#bottom-menu-data-client i'),
     bottomMenu_local: $('#bottom-menu-local'),
     bottomMenu_scan: $('#bottom-menu-scan'),
     bottomMenu_unlink: $('#bottom-menu-unlink'),

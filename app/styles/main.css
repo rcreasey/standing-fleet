@@ -74,7 +74,7 @@ div#page, div#content-wrapper { position: relative; height: 100%; width: 100%; b
 }
 
 #current {
-  color: #ff;
+  color: #fff;
   font-family: 'Lato', sans-serif !important;
   font-size: 11px !important;
   font-weight: 700;
@@ -250,13 +250,19 @@ div#page, div#content-wrapper { position: relative; height: 100%; width: 100%; b
 .menu-button.active { height: 2rem }
 .menu-button.blink { background-color: #842; }
 
-#bottom-menu-spinner {
+#bottom-menu-spinner,
+#bottom-menu-data-client {
   width: 1.2rem;
   background: none;
   display: inline-block;
   cursor:  default;
   padding: 0rem 1rem 0rem 1rem;
   border: none;
+}
+
+#bottom-menu-data-client {
+  cursor: default;
+  color: #ffcc2a;
 }
 
 #bottom-menu a {
@@ -489,9 +495,9 @@ input.log-path {
 #system-map #legend span.system-unknown { border: solid 1px #666666; background-color: #333333; }
 #system-map #legend span.system-blue    { border: solid 1px #0079a1; background-color: #0b5168; }
 #system-map #legend span.system-clear   { border: solid 1px #5cb85c; background-color: #366436; }
-#system-map #legend span.system-warning { border: solid 1px #faa123; background-color: #f89406; }
+#system-map #legend span.system-warning { border: solid 1px #f0ad4e; background-color: #df691a; }
 #system-map #legend span.system-hostile { border: solid 1px #d9534f; background-color: #74312f; }
-#system-map #legend span.current         { border: solid 2px #f39c12 !important; }
+#system-map #legend span.current        { border: solid 2px #f39c12 !important; }
 
 g.node {
   cursor: pointer;
@@ -504,11 +510,20 @@ g.node {
   fill: #333;
 }
 
-rect.status-unknown { stroke: #666666; fill: #333333; }
-rect.status-blue    { stroke: #0079a1; fill: #0b5168; }
-rect.status-clear   { stroke: #5cb85c; fill: #366436; }
-rect.status-warning { stroke: #faa123; fill: #f89406; }
-rect.status-hostile { stroke: #d9534f; fill: #74312f; }
+.node rect.status-unknown { stroke: #666666; fill: #333333; }
+.node rect.status-blue    { stroke: #0079a1; fill: #0b5168; }
+.node rect.status-clear   { stroke: #5cb85c; fill: #366436; }
+.node rect.status-warning { stroke: #f0ad4e; fill: #df691a; }
+.node rect.status-hostile { stroke: #d9534f; fill: #74312f; }
+
+.node rect.advisories { opacity: 0.6; }
+.node rect.hostiles.present   { stroke: #d9534f; fill: #d9534f; }
+.node rect.faded.present      { stroke: #f0ad4e; fill: #f0ad4e; }
+
+.node rect.hostiles.vacant,
+.node rect.faded.vacant       { stroke-width: 0; fill: transparent; }
+
+.node rect.current    { stroke: #f39c12 !important; stroke-width: 2px !important; }
 
 .node text {
   font-family: 'Droid Sans', sans-serif;
@@ -517,22 +532,17 @@ rect.status-hostile { stroke: #d9534f; fill: #74312f; }
   fill: #fff;
 }
 
-.node text.faded,
 .node text.advisories {
   font-family: FontAwesome;
   font-size: 1.25rem;
   fill: #faa123;
 }
 
+.node text.faded,
 .node text.hostiles {
-  font-family: FontAwesome;
-  font-size: 1.25rem;
-  fill: #d9534f;
-}
-
-.current rect {
-  stroke: #f39c12 !important;
-  stroke-width: 2px !important;
+  font-family: 'Droid Sans', sans-serif;
+  font-size: 1.1rem;
+  fill: #fff;
 }
 
 /* Link line styles */
@@ -1400,6 +1410,7 @@ border-top: 0.16rem solid #333;
 #link a.logout.button {
   padding: 1rem;
   font-size: 1.1rem;
+  font-family: 'Lato', sans-serif !important;
   margin: 1rem 0;
   width: inherit;
 }

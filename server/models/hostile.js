@@ -30,10 +30,13 @@ HostileSchema.index({ ts: 1, key: 1, fleetKey: 1 }, { expireAfterSeconds: settin
 
 HostileSchema.statics.prepare = function prepare(fleetKey, reporter, hostile) {
   return new this({
+    ts: moment().unix(),
+    key: hostile.key || key_generator.getKey(),
     fleetKey: fleetKey,
+
     reporterId: reporter.characterId || reporter.characterID,
     reporterName: reporter.characterName,
-    key: hostile.key,
+
     characterId: hostile.characterId || hostile.characterID,
     characterName: hostile.characterName,
     corporationId: hostile.corporationID,
@@ -42,26 +45,10 @@ HostileSchema.statics.prepare = function prepare(fleetKey, reporter, hostile) {
     allianceName: hostile.allianceName,
     shipType: hostile.shipType,
     shipTypeId: hostile.shipTypeId,
-    systemId: hostile.systemId,
-    systemName: hostile.systemName,
-    is_faded: hostile.is_faded,
-    is_docked: hostile.is_docked
+
+    is_faded: false,
+    is_docked: hostile.is_docked || false
   }, { versionKey: false });
-};
-
-HostileSchema.methods.report_update = function report_update(fleetKey, report) {
-  this.ts = moment().unix();
-  this.fleetKey = fleetKey;
-  this.reporterId = report.reporterId;
-  this.reporterName = report.reporterName;
-  this.systemId = report.systemId;
-  this.systemName = report.systemName;
-  this.is_faded = false;
-
-  if (report.shipTypeId !== undefined) this.shipTypeId = report.shipTypeId;
-  if (report.shipType !== undefined) this.shipType = report.shipType;
-
-  return;
 };
 
 module.exports = mongoose.model('Hostile', HostileSchema);

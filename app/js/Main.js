@@ -3,10 +3,11 @@ $(function () {
   initialize();
 
   try {
-    Data.state.data_client = new Faye.Client(Data.config.data_client);
+    Data.state.data_client = new Faye.Client(Data.config.data_client.url);
     Data.state.data_client.subscribe('/events', function(event) {
       EventHandler.dispatchEvents([event]);
     });
+    Data.config.data_client.connected = true;
     log('Connected to local data client...');
   } catch(err) {
     log('Unable to connect to local data client...');

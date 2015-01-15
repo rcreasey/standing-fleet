@@ -268,7 +268,6 @@ exports.create = function(req, res, next) {
   // enforce premade fleets only
   return response.error(res, 'create', 'Creating fleets is currently prohibited.');        
   
-  
   if (req.session.fleetKey || req.session.memberKey) return response.error(res, 'state', 'Please leave your current fleet before creating a new one');
 
   var fleetName = req.body.fleetName || false;
@@ -319,7 +318,7 @@ exports.report = function(req, res, next) {
       .then(function(hostile) {
         var event = Event.prepare('reportClear', report.fleetKey, report.toObject());
         event.saveQ();
-
+        
         return response.success(res, event);
       })
       .catch(function(error) {
@@ -334,29 +333,26 @@ exports.report = function(req, res, next) {
         Q.all(_.map(hostiles, function(hostile) {
           var batch = Q.defer();
           
-          Hostile.findOneQ({fleetKey: report.fleetKey, characterId: hostile.characterId})
+          hostile.systemId = report.systemId;
+          hostile.systemName = report.systemName;
+          
+          Hostile.findOneAndUpdateQ({characterId: hostile.characterId}, hostile, {upsert: true})          
             .then(function(result) {
-              if (result !== null) hostile = result;
-              hostile.report_update(report.fleetKey, report);              
-              report.hostiles.push(hostile);
-              hostile.saveQ();
+              if (!result) throw 'Error updating hostile: ' + hostile.characterName
               
-              batch.resolve(hostile.toObject());
+              report.hostiles.push(hostile);
+              batch.resolve(result.toObject());
             })
             .catch(function(error) {
-              batch.reject(error)
+              batch.reject(error);
             })
             .done();
           
             return batch.promise;
           })
         )
-        .then(function(updated) {          
-          report.hostiles = updated;
-          report.saveQ();
-          
-          event = Event.prepare('reportHostile', report.fleetKey, updated);
-          event.saveQ();
+        .then(function(hostiles) {
+          Event.prepare('reportHostile', report.fleetKey, hostiles).saveQ();
 
           return response.success(res);
         })
@@ -364,14 +360,15 @@ exports.report = function(req, res, next) {
           console.log(error)
           throw 'Error updating hostile: ' + error;
         })
-        .done()
+        .done();
 
       })
       .catch(function(error) {
         console.log(error)
         return response.error(res, 'report', 'Error reporting status: ' + error);
       })
-      .done()
+      .done();
+      
   }
 };
 

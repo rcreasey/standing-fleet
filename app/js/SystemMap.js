@@ -40,6 +40,15 @@ var SystemMap = {
     }
   },
   
+  // Determines class list for a system
+  system_classes: function(system) {
+    var classes = ["system"];
+    classes.push("status-" + SystemMap.system_color(system));
+    if (system.id === +Data.state.self.systemId ) classes.push('current')
+      
+    return classes.join(" ");
+  },
+  
   // Given a line AB and a point C, finds point D such that CD is perpendicular to AB
   getSpPoint: function(A, B, C) {
     var x1 = A.x, y1 = A.y, x2 = B.x, y2 = B.y, x3 = C.x, y3 = C.y;
@@ -140,16 +149,63 @@ var SystemMap = {
         var node_groups = node.data(SystemMap.systems)
           .enter().append("g")
           .attr("id", function(n) { return "system-" + n.system.id })
+          .attr("class", "node");
+
+        node_groups.append("rect")
           .attr("class", function(n) {
-            return (n.system.id === +Data.state.self.systemId ) ? "current node" : "node";
+            return (SystemMap.hostile_count(n.system) > 0) ? "hostiles present" : "hostiles vacant";
+          })
+          .attr("width", rect_width / 3)
+          .attr("height", rect_height)
+          .attr("rx", 2).attr("ry", 2)
+          .attr("y", 16)
+        
+        node_groups.append("text")
+          .attr("class", "hostiles")
+          .attr("text-anchor", "center")
+          .attr("alignment-baseline", "center")
+          .attr("vector-effect", "non-scaling-stroke")          
+          .attr("x", 7).attr("y", 29)
+          .text(function(n) {
+            var count = SystemMap.hostile_count(n.system)
+            return (count > 0) ? count : "";
+          });
+        
+        node_groups.append("rect")
+          .attr("class", function(n) {
+            return (SystemMap.faded_count(n.system) > 0) ? "faded present" : "faded vacant";
+          })
+          .attr("width", rect_width / 3)
+          .attr("height", rect_height)
+          .attr("rx", 2).attr("ry", 2)
+          .attr("x", rect_width - 20).attr("y", 16)
+          
+        node_groups.append("text")
+          .attr("class", "faded")
+          .attr("text-anchor", "center")
+          .attr("alignment-baseline", "center")
+          .attr("vector-effect", "non-scaling-stroke")
+          .attr("x", 47).attr("y", 29)
+          .text(function(n) {
+            var count = SystemMap.faded_count(n.system)
+            return (count > 0) ? count : "";
+          });
+
+        node_groups.append("text")
+          .attr("class", "advisories")
+          .attr("text-anchor", "middle")
+          .attr("alignment-baseline", "middle")
+          .attr("x", rect_width / 2).attr("y", -8)
+          .text(function(n) {
+            return UI.mapUnicode(n.system.id, Data.advisories[n.system.id] );
           });
 
         node_groups.append("rect")
           .attr("width", rect_width)
           .attr("height", rect_height)
           .attr("rx", 2).attr("ry", 2)
-          .attr("class", function(n) { return 'status-' + SystemMap.system_color(n.system); });
-
+          .attr("class", function(n) { return SystemMap.system_classes(n.system); });
+          
         node_groups.append("text")
           .attr("class", "system-name")
           .attr("text-anchor", "middle")
@@ -157,41 +213,7 @@ var SystemMap = {
           .attr("x", rect_width / 2)
           .attr("y", 10)
           .text(function(n) { return n.system.name; });
-        
-        node_groups.append("text")
-          .attr("class", "advisories")
-          .attr("text-anchor", "middle")
-          .attr("alignment-baseline", "middle")
-          .attr("x", rect_width / 2)
-          .attr("y", -8)
-          .text(function(n) {
-            return UI.mapUnicode(n.system.id, Data.advisories[n.system.id] );
-          });
-          
-        node_groups.append("text")
-          .attr("class", "hostiles")
-          .attr("text-anchor", "left")
-          .attr("alignment-baseline", "left")
-          .attr("vector-effect", "non-scaling-stroke")
-          .attr("x", 0)
-          .attr("y", 30)
-          .text(function(n) {
-            var count = SystemMap.hostile_count(n.system)
-            return (count > 0) ? count : "";
-          });
-          
-        node_groups.append("text")
-          .attr("class", "faded")
-          .attr("text-anchor", "right")
-          .attr("alignment-baseline", "right")
-          .attr("vector-effect", "non-scaling-stroke")
-          .attr("x", rect_width / 1.15)
-          .attr("y", 30)
-          .text(function(n) {
-            var count = SystemMap.faded_count(n.system)
-            return (count > 0) ? count : "";
-          });
-        
+
         node_groups.on('click', function(n) {
           SystemMap.updateInfo( n.system.name );
         });
@@ -323,10 +345,8 @@ var SystemMap = {
   },
 
   updateCurrent: function() {
-    d3.selectAll('g.node')
-      .attr("class", function(n) {
-        return (n.system.id === +Data.state.self.systemId ) ? "current node" : "node";
-      });
+    d3.selectAll('g.node .system')
+      .attr("class", function(n) { return SystemMap.system_classes(n.system) });
 
     var node = SystemMap._system_nodes[Data.state.self.systemId];
     var scale = SystemMap.zoom.scale();
@@ -368,18 +388,28 @@ var SystemMap = {
   },
 
   refreshSystems: function() {
-    d3.selectAll('g.node rect')
-      .attr("class", function(n) { return 'status-' + SystemMap.system_color(n.system); });
+    d3.selectAll('g.node .system')
+      .attr("class", function(n) { return SystemMap.system_classes(n.system) });
     
     d3.selectAll('g.node text.advisories')
       .text(function(n) {
         return UI.mapUnicode(n.system.id, Data.advisories[n.system.id] );
+      });
+    
+    d3.selectAll('g.node rect.hostiles')
+      .attr("class", function(n) {
+        return (SystemMap.hostile_count(n.system) > 0) ? "hostiles present" : "hostiles vacant";
       });
       
     d3.selectAll('g.node text.hostiles')
       .text(function(n) {
         var count = SystemMap.hostile_count(n.system)
         return (count > 0) ? count : "";
+      });
+      
+    d3.selectAll('g.node rect.faded')
+      .attr("class", function(n) {
+        return (SystemMap.faded_count(n.system) > 0) ? "faded present" : "faded vacant";
       });
       
     d3.selectAll('g.node text.faded')
