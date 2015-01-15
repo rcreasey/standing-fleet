@@ -517,9 +517,11 @@ g.node {
 .node rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 
 .node rect.advisories { opacity: 0.6; }
-.node rect.hostiles   { stroke: #d9534f; fill: #d9534f; }
-.node rect.faded      { stroke: #f0ad4e; fill: #f0ad4e; }
-.node rect.vacant     { stroke-width: 0; fill: transparent; }
+.node rect.hostiles.present   { stroke: #d9534f; fill: #d9534f; }
+.node rect.faded.present      { stroke: #f0ad4e; fill: #f0ad4e; }
+
+.node rect.hostiles.vacant,
+.node rect.faded.vacant       { stroke-width: 0; fill: transparent; }
 
 .node rect.current    { stroke: #f39c12 !important; stroke-width: 2px !important; }
 

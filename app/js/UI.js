@@ -183,11 +183,11 @@ Handlebars.registerHelper('hud_detect_hostiles', function(status) {
 });
 
 Handlebars.registerHelper('format_ts', function(ts) {
-  return moment(ts).utc().add(28800, 'seconds').format('MM/DD HH:mm:ss');
+  return moment.unix(ts).utc().format('MM/DD HH:mm:ss');
 });
 
 Handlebars.registerHelper('format_ts_short', function(ts) {
-  return moment(ts).utc().add(28800, 'seconds').format('HH:mm:ss');
+  return moment.unix(ts).utc().format('HH:mm:ss');
 });
 
 Handlebars.registerHelper('ui_icon', function(icon) {
