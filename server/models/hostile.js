@@ -47,7 +47,7 @@ HostileSchema.statics.prepare = function prepare(fleetKey, reporter, hostile) {
     shipTypeId: hostile.shipTypeId,
 
     is_faded: false,
-    is_docked: false
+    is_docked: hostile.is_docked || false
   }, { versionKey: false });
 };
 
