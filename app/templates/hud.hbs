@@ -1,8 +1,46 @@
-<div class="{{status}}">
-  <h2>{{status}}</h2>
-  {{#each neighbors}}
-  {{#if system.name}}
-  <h3>{{system.name}}: {{hostiles}} hostile{{#if hostiles}}s{{/if}} {{#if faded}}({{faded}} faded){{/if}}</h3>
-  {{/if}}
-  {{/each}}
+{{ log system }}
+<div class="screen {{status}}">
+  <div class="console">
+    <h2>{{{hud_status_text status}}}</h2>
+
+    {{#if hostiles}}
+    <div class="hostiles">
+      <h3>Reported Hostiles</h3>
+      <ul>
+        {{#each hostiles }}
+        <li>
+          {{ characterName }}{{#if shipType }}: <i class="fa fa-fighter-jet"></i> {{ shipType }}{{/if}}
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+    {{/if}}
+
+    <div class="vicinity">
+      <h3>Vicinity</h3>
+      <ul>
+        {{#each vicinity}}
+        <li>{{ name }} : {{{hud_neighbor_status id name}}}</li>
+        {{/each}}
+      </ul>
+    </div>
+
+    <div class="advisories">
+      <h3>Advisories</h3>
+      <ul>
+        {{#each advisories }}
+          <li><i class="fa fa-{{ui_icon type}}"></i> {{ type }}</li>
+        {{else}}
+          <li>None reported</li>
+        {{/each}}
+      </ul>
+    </div>
+
+    {{#each neighbors}}
+    {{#if system.name}}
+    <h3>{{system.name}}: {{hostiles}} hostile{{#if hostiles}}s{{/if}} {{#if faded}}({{faded}} faded){{/if}}</h3>
+    {{/if}}
+    {{/each}}
+
+  </div>
 </div>

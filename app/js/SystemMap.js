@@ -8,22 +8,22 @@ var SystemMap = {
 
   // let's count things
   hostile_count: function(system) {
-    if (system === undefined) { return 0; }
+    if (system === null) { return 0; }
     return (system.name !== undefined ) ? $.grep(Data.hostiles, function(h) { return system.name === h.systemName && h.is_faded === false; }).length : 0;
   },
-  
+
   faded_count: function(system) {
-    if (system === undefined) { return 0; }
+    if (system === null) { return 0; }
     return (system.name !== undefined ) ? $.grep(Data.hostiles, function(h) { return system.name === h.systemName && h.is_faded === true; }).length : 0;
   },
 
   friendly_count: function(system) {
-    if (system === undefined) { return 0; }
+    if (system === null) { return 0; }
     return (system.name !== undefined ) ? $.grep(Data.members, function(m) { return system.name === m.systemName; }).length : 0;
   },
-  
+
   advisory_count: function(system) {
-    if (system === undefined) { return 0; }
+    if (system === null) { return 0; }
     return (Data.advisories[system.id] instanceof Array) ? Data.advisories[system.id].length : 0;
   },
 
@@ -35,20 +35,22 @@ var SystemMap = {
       return "warning";
     } else if ( SystemMap.advisory_count(system) > 0 ) {
       return "warning";
-    } else if ( SystemMap.friendly_count(system) > 0 ) {      
+    } else if ( SystemMap.friendly_count(system) > 0 ) {
       return "clear";
+    } else {
+      return "unknown";
     }
   },
-  
+
   // Determines class list for a system
   system_classes: function(system) {
     var classes = ["system"];
     classes.push("status-" + SystemMap.system_color(system));
     if (system.id === +Data.state.self.systemId ) classes.push('current')
-      
+
     return classes.join(" ");
   },
-  
+
   // Given a line AB and a point C, finds point D such that CD is perpendicular to AB
   getSpPoint: function(A, B, C) {
     var x1 = A.x, y1 = A.y, x2 = B.x, y2 = B.y, x3 = C.x, y3 = C.y;
@@ -134,11 +136,11 @@ var SystemMap = {
         Data.ui.currentSystem
           .data('systemId', system.id)
           .text( system.name );
-          
+
         Data.ui.currentRegion
           .data('regionId', system.regionID)
           .text( Data.regions[ system.regionID ].name );
-          
+
         SystemMap.updateHud( system );
 
         var link_groups = link.data(SystemMap.jumps)
@@ -159,18 +161,18 @@ var SystemMap = {
           .attr("height", rect_height)
           .attr("rx", 2).attr("ry", 2)
           .attr("y", 16)
-        
+
         node_groups.append("text")
           .attr("class", "hostiles")
           .attr("text-anchor", "center")
           .attr("alignment-baseline", "center")
-          .attr("vector-effect", "non-scaling-stroke")          
+          .attr("vector-effect", "non-scaling-stroke")
           .attr("x", 7).attr("y", 29)
           .text(function(n) {
             var count = SystemMap.hostile_count(n.system)
             return (count > 0) ? count : "";
           });
-        
+
         node_groups.append("rect")
           .attr("class", function(n) {
             return (SystemMap.faded_count(n.system) > 0) ? "faded present" : "faded vacant";
@@ -179,7 +181,7 @@ var SystemMap = {
           .attr("height", rect_height)
           .attr("rx", 2).attr("ry", 2)
           .attr("x", rect_width - 20).attr("y", 16)
-          
+
         node_groups.append("text")
           .attr("class", "faded")
           .attr("text-anchor", "center")
@@ -205,7 +207,7 @@ var SystemMap = {
           .attr("height", rect_height)
           .attr("rx", 2).attr("ry", 2)
           .attr("class", function(n) { return SystemMap.system_classes(n.system); });
-          
+
         node_groups.append("text")
           .attr("class", "system-name")
           .attr("text-anchor", "middle")
@@ -324,24 +326,17 @@ var SystemMap = {
     SystemMap.zoom.event(root);
   },
 
-  updateHud: function(system) {
-    var system = {name: system.name, id: system.id }
-    system.neighbors = $.map(SystemMap.links, function(n) {
-      if (n.target.system && n.target.system.name === system.name) {
-        n.source.hostiles = SystemMap.hostile_count(n.source.system);
-        n.source.faded = SystemMap.faded_count(n.source.system);
-        return n.source;
+  updateHud: function(system_object) {
+    Server.systemInformation(system_object.name, function(error, system) {
+      if (system === null) return;
+      system.status = SystemMap.system_color(system);
+      
+      if ($.inArray('hostile', $.map(system.vicinity, function(s) { return SystemMap.system_color(s); })) > -1) {
+        system.status = 'warning';
       }
-      if (n.source.system && n.source.system.name === system.name) {
-        n.target.hostiles = SystemMap.hostile_count(n.target.system);
-        n.target.faded = SystemMap.faded_count(n.target.system);
-        return n.target;
-      }
-    });
 
-    system.status = (system.neighbors.filter(function(n) { return n.hostiles > 0 || n.faded > 0 }).length) ? 'warning' : SystemMap.system_color(system);
-    
-    Data.ui.hud.html( Data.templates.hud(system) );
+      Data.ui.hud.html( Data.templates.hud(system) );
+    });
   },
 
   updateCurrent: function() {
@@ -357,12 +352,12 @@ var SystemMap = {
     Data.ui.currentSystem
       .data('system-id', Data.state.self.systemId)
       .text( Data.systems[ Data.state.self.systemId ].name );
-    
+
     SystemMap.updateHud( Data.systems[ Data.state.self.systemId ] );
   },
-  
+
   updateInfo: function(system_name) {
-    Server.ajaxGet('/map/system/' + system_name, function(error, results) {
+    Server.systemInformation(system_name, function(error, results) {
       if (results === null) return;
       var system = { name: results.name,
                      systemId: results.id,
@@ -372,52 +367,52 @@ var SystemMap = {
                      faded_count: SystemMap.faded_count( results ),
                      gates: $.map( results.jumps, function(j) { return Data.systems[ j.to ]})
       }
-      
+
       system.last_report = (results.reports.length) ? moment(results.reports.pop().ts).format('HH:MM:SS') : 'Never';
       system.advisories = AdvisoryList.lookup(results.id);
       system.active_advisories = $.grep(system.advisories, function(a) { return a.present == true; });
-      if (results.id == Data.state.self.systemId) system.allow_report = true; 
-      
+      if (results.id == Data.state.self.systemId) system.allow_report = true;
+
       Data.ui.mapInfo.html( $(Data.templates.system_info(system)) );
       Data.ui.mapInfo.children('div.details')
         .fadeIn(Data.config.uiSpeed)
         .delay(Data.config.alertStay)
         .fadeOut(Data.config.uiSpeed * 8);
     });
-    
+
   },
 
   refreshSystems: function() {
     d3.selectAll('g.node .system')
       .attr("class", function(n) { return SystemMap.system_classes(n.system) });
-    
+
     d3.selectAll('g.node text.advisories')
       .text(function(n) {
         return UI.mapUnicode(n.system.id, Data.advisories[n.system.id] );
       });
-    
+
     d3.selectAll('g.node rect.hostiles')
       .attr("class", function(n) {
         return (SystemMap.hostile_count(n.system) > 0) ? "hostiles present" : "hostiles vacant";
       });
-      
+
     d3.selectAll('g.node text.hostiles')
       .text(function(n) {
         var count = SystemMap.hostile_count(n.system)
         return (count > 0) ? count : "";
       });
-      
+
     d3.selectAll('g.node rect.faded')
       .attr("class", function(n) {
         return (SystemMap.faded_count(n.system) > 0) ? "faded present" : "faded vacant";
       });
-      
+
     d3.selectAll('g.node text.faded')
       .text(function(n) {
         var count = SystemMap.faded_count(n.system)
         return (count > 0) ? count : "";
       });
-        
+
     SystemMap.updateHud( Data.systems[ Data.state.self.systemId ] );
   },
 
@@ -430,9 +425,9 @@ var SystemMap = {
 
   init: function() {
     log("Initializing System Map...");
-    
+
     SystemMap.draw();
-    SystemMap.updateCurrent();    
+    SystemMap.updateCurrent();
   }
 
 };

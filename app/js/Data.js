@@ -91,7 +91,17 @@ var Data = {
     events: $('#events'),
     events_list: $('#events > .list'),
     scans: $('#scans'),
-    scans_list: $('#scans > .list')
+    scans_list: $('#scans > .list'),
+
+    hud_scanline: $('#hud .screen .scanline'),
+    scanline: {
+      line_speed: 3000,
+
+
+      line_start: $('#hud .scanline').css('top'),
+      line_position: $(window).height(),
+      dot_position: $(window).width() - 20
+    }
   },
 
   templates: {

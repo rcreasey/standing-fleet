@@ -6,7 +6,8 @@ var Q = require('q')
   , System = require(__dirname + '/../models/system')
   , Jump = require(__dirname + '/../models/jump')
   , Report = require(__dirname + '/../models/report')
-  
+  , Hostile = require(__dirname + '/../models/hostile')
+
 exports.show_region = function(req, res, next){
 
   Region.findOneQ({name: req.params.region_name})
@@ -79,50 +80,58 @@ exports.show_region = function(req, res, next){
 };
 
 exports.show_system = function(req, res, next){
-    
   var system = {};
-  
-  System.findOneQ({name: req.params.system_name})
+
+  System.findOneQ({name: req.params.system_name}, 'id name constellationID regionID x y')
     .then(function(system) {
       if (!system) throw 'Invalid system name ' + req.params.system_name;
-      
+
       system = {
         id: system.id,
         name: system.name,
         regionID: system.regionID,
         constellationID: system.constellationID,
         x: system.x,
-        y: system.y,
-        jumps: [],
-        reports: []
+        y: system.y
       };
-      
+
       return system;
     })
     .then(function(system) {
-      
+
       var tasks = [
-        Jump.findQ({ $or: [ {to: system.id}, {from: system.id} ] }).then(function(jumps) {               
+        Jump.findQ({ $or: [ {to: system.id}, {from: system.id} ] }).then(function(jumps) {
           return _.map(jumps, function(jump) { return {to: jump.to, from: jump.from, type: jump.type} });
         }),
         Report.findQ({systemId: system.id}).then(function(reports) { return reports; }),
-        Advisory.findQ({systemId: system.id}).then(function(advisories) { return advisories; })
+        Advisory.findQ({systemId: system.id}).then(function(advisories) { return advisories; }),
+        Hostile.findQ({systemId: system.id}).then(function(hostiles) { return hostiles; })
       ];
-      
+
       Q.all(tasks)
-        .then(function(results) {          
+        .then(function(results) {
           system.jumps = results[0];
-          system.reports = results[1];
+          system.reports = _.map(results[1], function(report) { return report.toObject(); });
           system.advisories = results[2];
-          
-          return res.jsonp(system);          
+          system.hostiles = _.map(results[3], function(hostile) { return hostile.toObject(); });
+
+          return system;
+        })
+        .then(function(system) {
+          var vicinity_ids = _.map(system.jumps, function(jump) { return (system.id !== jump.to) ? jump.to : jump.from; });
+
+          System.findQ({ id: {$in: vicinity_ids} }, 'id name constellationID regionID')
+            .then(function(vicinity) {
+              system.vicinity = vicinity;
+              return res.jsonp(system);
+            });
+
         })
         .catch(function(error) {
           console.log(error)
           return response.error(res, 'map', error);
         })
-      
+
     })
-  
+
 };
-  
