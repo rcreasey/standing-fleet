@@ -46,7 +46,7 @@ var is_whitelisted = function(whitelist, character) {
 
 ReportSchema.methods.parse_standings = function parse_standings(whitelist) {
   var fleetKey = this.fleetKey;
-  var reporter = {characterId: this.reporterId, characterName: this.characterName};
+  var reporter = {characterId: this.reporterId, characterName: this.reporterName};
   var response = Q.defer();
 
   if (this.hostiles.length > 0) return response.reject('Report hostiles already exist');
@@ -67,7 +67,7 @@ ReportSchema.methods.parse_standings = function parse_standings(whitelist) {
           if (character.characterID == 0) return false;
           if (character.characterName == '') return false;
           
-          return Hostile.prepare(fleetKey, reporter, character);
+          return Hostile.prepare(fleetKey, reporter, character).toObject();
         });
         
         batch.resolve(_.where(resolved));

@@ -153,8 +153,7 @@ var SystemMap = {
 
         node_groups.append("rect")
           .attr("class", function(n) {
-            var count = SystemMap.hostile_count(n.system)
-            return (count > 0) ? "hostiles" : "vacant";
+            return (SystemMap.hostile_count(n.system) > 0) ? "hostiles present" : "hostiles vacant";
           })
           .attr("width", rect_width / 3)
           .attr("height", rect_height)
@@ -174,8 +173,7 @@ var SystemMap = {
         
         node_groups.append("rect")
           .attr("class", function(n) {
-            var count = SystemMap.faded_count(n.system)
-            return (count > 0) ? "faded" : "vacant";
+            return (SystemMap.faded_count(n.system) > 0) ? "faded present" : "faded vacant";
           })
           .attr("width", rect_width / 3)
           .attr("height", rect_height)
@@ -397,11 +395,21 @@ var SystemMap = {
       .text(function(n) {
         return UI.mapUnicode(n.system.id, Data.advisories[n.system.id] );
       });
+    
+    d3.selectAll('g.node rect.hostiles')
+      .attr("class", function(n) {
+        return (SystemMap.hostile_count(n.system) > 0) ? "hostiles present" : "hostiles vacant";
+      });
       
     d3.selectAll('g.node text.hostiles')
       .text(function(n) {
         var count = SystemMap.hostile_count(n.system)
         return (count > 0) ? count : "";
+      });
+      
+    d3.selectAll('g.node rect.faded')
+      .attr("class", function(n) {
+        return (SystemMap.faded_count(n.system) > 0) ? "faded present" : "faded vacant";
       });
       
     d3.selectAll('g.node text.faded')

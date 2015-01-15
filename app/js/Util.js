@@ -40,7 +40,7 @@ var Util = {
   },
 
   getTime: function () {
-    return moment().utc().add(28800, 'seconds').format('HH:mm:ss');
+    return moment().utc().format('HH:mm:ss');
   },
 
   escapeHTML: function (string) {
