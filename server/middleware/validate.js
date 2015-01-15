@@ -1,4 +1,5 @@
 var header_parser = require('./header-parser')
+  , passport = require('passport')
   , response = require(__dirname + '/../response')
   , settings = require(__dirname + '/../config/settings')
   , checks = require(__dirname + '/../middleware/checks')
@@ -36,7 +37,6 @@ var session = function(req, res, next) {
       return next();
     })
     .catch(function(error) {
-      console.log(error)
       return response.error(res, 'session', 'Error validating session');
     })
     .done();
@@ -66,3 +66,13 @@ var is_authenticated = function(req, res, next) {
   return res.redirect('/login');
 };
 module.exports.is_authenticated = is_authenticated;
+
+var authentication = function(req, res, next) {
+  if (process.env.NODE_ENV === 'development') {
+    passport.authenticate('local', { failureRedirect:'/login', failureFlash:"Invalid username or password." })(req, res, next);
+  } else {
+    passport.authenticate('atlassian-crowd', { failureRedirect:'/login', failureFlash:"Invalid username or password." })(req, res, next);
+  }
+
+};
+module.exports.authentication = authentication;
