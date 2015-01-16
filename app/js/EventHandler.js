@@ -301,7 +301,7 @@ var EventHandler = {
     Data.state.self.characterName = self.characterName;
     Data.state.self.characterId = self.characterId;
     Data.state.self.key = self.key;
-    Data.ui.bottomMenu_pilotKey.append(" " + Data.state.self.key);
+    Data.ui.bottomMenu_pilotKey.find('i').after(" " + Data.state.self.key);
     if (self.systemId) this.statusSelfSystem(self);
   },
 

@@ -577,7 +577,7 @@ g.node {
 .node rect.faded.present      { stroke: #f0ad4e; fill: #f0ad4e; }
 
 .node rect.hostiles.vacant,
-.node rect.faded.vacant       { stroke-width: 0; fill: transparent; }
+.node rect.faded.vacant       { display: none; }
 
 .node rect.current    { stroke: #f39c12 !important; stroke-width: 2px !important; }
 
