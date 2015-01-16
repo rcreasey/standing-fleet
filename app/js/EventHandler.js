@@ -24,38 +24,38 @@ var EventHandler = {
       }
 
       if (event.internal) return;
-      
+
       if (silent) {
         delete event.alert;
         delete event.blink;
       }
 
       if (Util.dedupe(Data.events, event, 'text')) event.suppress = true;
-      if (event.suppress !== true) EventList.addEvent(event); 
+      if (event.suppress !== true) EventList.addEvent(event);
     });
   },
 
   preParse: function (event) {
     try {
-      
+
       if (EventHandler.internalEvents.indexOf(event.type) > -1) {
         event.internal = true;
 
       } else if (event.type === 'reportHostile') {
         var reported = event.data;
         if (reported.length === 0) return;
-        
+
         if (reported.length === 1) {
           var hostile = reported[0];
-          if (!Util.compareRegion(hostile)) event.suppress = true;      
-          
+          if (!Util.compareRegion(hostile)) event.suppress = true;
+
           if (hostile) event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
               + hostile.characterId + ');">' + hostile.characterName + '</a> has been reported in '
               + '<a href="javascript:CCPEVE.showInfo(5, ' + hostile.systemId + ');">'
               + hostile.systemName + '</a>';
         } else {
-          if (!Util.compareRegion(reported[0])) event.suppress = true;      
-          
+          if (!Util.compareRegion(reported[0])) event.suppress = true;
+
           event.text = reported.length + ' hostiles have been reported in '
             + '<a href="javascript:CCPEVE.showInfo(5, ' + reported[0].systemId + ');">'
             + reported[0].systemName + '</a>';
@@ -78,13 +78,13 @@ var EventHandler = {
         var hostile = event.data;
         event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
             + hostile.characterId + ');">' + hostile.characterName + '</a> has been identified ';
-        
+
         if (hostile.is_docked) {
           event.text += 'as being Docked in ';
         } else {
           event.text += 'in a <a href="javascript:CCPEVE.showInfo(' + hostile.shipTypeId + ');">' + hostile.shipType + '</a> in '
         }
-        
+
         event.text += '<a href="javascript:CCPEVE.showInfo(5, ' + hostile.systemId + ');">' + hostile.systemName + '</a>';
         event.blink = 'hostiles';
         event.alert = true;
@@ -115,14 +115,14 @@ var EventHandler = {
           + hostile.systemName + '</a>';
         event.blink = 'hostiles';
         event.alert = true;
-        
+
       } else if (event.type === 'hostileTimedOut') {
         var hostile = event.data;
         event.text = '<a href="javascript:CCPEVE.showInfo(1377, '
           + hostile.characterId + ');">' + hostile.characterName + '</a> '
           + ' contact lost '
         if (hostile.systemId !== null ) {
-          event.text += 'in <a href="javascript:CCPEVE.showInfo(5, ' + hostile.systemId + ');"> ' 
+          event.text += 'in <a href="javascript:CCPEVE.showInfo(5, ' + hostile.systemId + ');"> '
                      + hostile.systemName + '</a>';
         }
         event.blink = 'hostiles';
@@ -156,7 +156,7 @@ var EventHandler = {
           + target.characterId + ');">' + target.characterName + '</a> has moved into '
           + '<a href="javascript:CCPEVE.showInfo(5, ' + target.systemId + ');">'
           + target.systemName + '</a>';
-          
+
       } else if (event.type === 'addAdvisory') {
         var advisory = event.data;
         event.text = 'Advisory issued for '
@@ -164,7 +164,7 @@ var EventHandler = {
           + Data.systems[advisory.systemId].name + '</a>: '
           + advisory.type;
         event.alert = true;
-      
+
       } else if (event.type === 'clearAdvisory') {
         var advisory = event.data;
         event.text = 'Advisory cleared for '
@@ -172,7 +172,7 @@ var EventHandler = {
           + Data.systems[advisory.systemId].name + '</a>: '
           + advisory.type;
         event.alert = true;
-          
+
       } else if (event.type === 'sourcedClear') {
         var report = event.data;
         event.text = 'Intel channel reported '
@@ -232,7 +232,7 @@ var EventHandler = {
     HostileList.sortAndRenderAll();
     SystemMap.refreshSystems();
   },
-  
+
   hostileTimedOut: function (hostile) {
     HostileList.removeHostile(hostile.characterId);
     HostileList.sortAndRenderAll();
@@ -250,10 +250,10 @@ var EventHandler = {
     SystemMap.refreshSystems();
     SystemMap.updateInfo(Data.systems[advisory.systemId].name);
   },
-  
+
   clearAdvisory: function(advisory) {
     AdvisoryList.clearAdvisory(advisory);
-    SystemMap.refreshSystems();    
+    SystemMap.refreshSystems();
     SystemMap.updateInfo(Data.systems[advisory.systemId].name);
   },
 
@@ -301,6 +301,7 @@ var EventHandler = {
     Data.state.self.characterName = self.characterName;
     Data.state.self.characterId = self.characterId;
     Data.state.self.key = self.key;
+    Data.ui.bottomMenu_pilotKey.append(" " + Data.state.self.key);
     if (self.systemId) this.statusSelfSystem(self);
   },
 

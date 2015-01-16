@@ -53,7 +53,7 @@ var Server = {
   listFleets: function(callback) {
     Server.ajaxGet('/fleets/list', callback);
   },
-  
+
   status: function (callback) {
     Server.ajaxGet('/fleets/status', callback);
     Data.state.lastPollTs = moment().unix();
@@ -73,7 +73,7 @@ var Server = {
 
   poll: function (callback) {
     var lastPoll = Math.round(Data.state.lastPollTs / 5) * 5;
-    
+
     Server.ajaxGet('/fleets/poll/' + lastPoll, function (error, data) {
       if (error) return callback(error);
 
@@ -90,6 +90,10 @@ var Server = {
     Server.ajaxGet('/fleets/leave', callback);
   },
 
+  systemInformation: function(system_name, callback) {
+    Server.ajaxGet('/map/systems/' + system_name, callback);
+  },
+
   postScan: function (scanData, callback) {
     Server.ajaxPost('/fleets/scan', scanData, callback);
   },
@@ -101,7 +105,7 @@ var Server = {
   postAdvisory: function(advisoryData, callback) {
     Server.ajaxPost('/fleets/advisory', advisoryData , callback);
   },
-  
+
   postDetails: function(detailsData, callback) {
     Server.ajaxPost('/fleets/details', detailsData, callback);
   }

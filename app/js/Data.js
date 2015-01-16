@@ -63,6 +63,7 @@ var Data = {
     topMenu_scans: $('#top-menu-scans'),
 
     bottomMenu: $('#bottom-menu'),
+    bottomMenu_pilotKey: $('#bottom-menu-pilot-key'),
     bottomMenu_spinner: $('#bottom-menu-spinner'),
     bottomMenu_dataClient: $('#bottom-menu-data-client'),
     bottomMenu_dataClient_icon: $('#bottom-menu-data-client i'),
@@ -91,7 +92,17 @@ var Data = {
     events: $('#events'),
     events_list: $('#events > .list'),
     scans: $('#scans'),
-    scans_list: $('#scans > .list')
+    scans_list: $('#scans > .list'),
+
+    hud_scanline: $('#hud .screen .scanline'),
+    scanline: {
+      line_speed: 3000,
+
+
+      line_start: $('#hud .scanline').css('top'),
+      line_position: $(window).height(),
+      dot_position: $(window).width() - 20
+    }
   },
 
   templates: {

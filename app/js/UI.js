@@ -13,11 +13,11 @@ var UI = {
 
     return UI;
   },
-  
+
   toggle: function(element) {
     element.toggle();
   },
-  
+
   toggleHelp: function() {
     if ($('.menu-button.active').attr('id') === Data.ui.topMenu_map.attr('id')) {
       Data.ui.mapLegend.hide();
@@ -29,10 +29,10 @@ var UI = {
         .fadeOut(Data.config.uiSpeed * 5);
     }
   },
-  
+
   tabClick: function (tab) {
     if ($('#'+tab).hasClass('active')) return;
-    
+
     $('#content-wrapper').fadeOut('fast',function(){
       $('.main-content.active, .menu-button.active ').removeClass('active');
       $('.menu-button.' + tab + ', #' + tab).addClass('active');
@@ -40,7 +40,7 @@ var UI = {
       $('#content-wrapper').fadeIn('fast');
     });
   },
-  
+
   startSpin: function () {
     Data.ui.bottomMenu_spinner
       .fadeIn(Data.config.uiSpeed*4);
@@ -55,7 +55,6 @@ var UI = {
   logout: function() { window.location = "/logout"; },
 
   registerEventHandlers: function () {
-    
     Data.ui.topMenu_hud.on('click', $.proxy(UI.tabClick, null, "hud"));
     Data.ui.topMenu_map.on('click', $.proxy(UI.tabClick, null, "system-map"));
     Data.ui.topMenu_hostiles.on('click', $.proxy(UI.tabClick, null, "hostiles"));
@@ -73,7 +72,6 @@ var UI = {
     Data.ui.statusHostile.on('click', $.proxy(UIPanels.showStatusPanel, null, false));
 
     UI.update_scrollables();
-    UI.data_client_check();
   },
 
   update_scrollables: function() {
@@ -83,7 +81,7 @@ var UI = {
     Data.ui.events_list.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
     Data.ui.fleet_list.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
   },
-  
+
   data_client_check: function() {
     if (Data.config.data_client.connected) {
       Data.ui.bottomMenu_dataClient_icon.addClass('fa-chain');
@@ -154,32 +152,43 @@ var UI = {
     ];
     return msgs[Math.floor(Math.random()*msgs.length)] + "...";
   },
-  
+
   mapUnicode: function(system_id, list) {
     if (list === undefined) {
       return (HostileList.fadedCount(system_id) > 0) ? '\uf017' : "";
     }
     if (list.length === 0) return "";
-    
-    return $.map(list, function(a) { 
-      if (a == 'Wormhole Detected') return '\uf138'; 
-      else if (a == 'Hostile Cloaked') return '\uf070'; 
-      else if (a == 'Hostile Faded') return '\uf017'; 
-      else if (a == 'Hostile Logged Off') return '\uf08b'; 
-      else if (a == 'Undock Camped') return '\uf023'; 
-      else if (a == 'Gate Bubbled') return '\uf192';  
-      else if (a == 'Hostile') return '\uf0fb';  
+
+    return $.map(list, function(a) {
+      if (a == 'Wormhole Detected') return '\uf138';
+      else if (a == 'Hostile Cloaked') return '\uf070';
+      else if (a == 'Hostile Faded') return '\uf017';
+      else if (a == 'Hostile Logged Off') return '\uf08b';
+      else if (a == 'Undock Camped') return '\uf023';
+      else if (a == 'Gate Bubbled') return '\uf192';
+      else if (a == 'Hostile') return '\uf0fb';
       else return '';
-      
+
     }).join("");
+  },
+
+  hud_status_text: function(status) {
+    var cl = '<i class="fa fa-chevron-left"></i>';
+    var cr = '<i class="fa fa-chevron-right"></i>';
+
+    if (status == 'clear') return 'clear';
+    else if (status == 'warning') return cr + ' warning ' + cl;
+    else if (status == 'hostile') return cr + cr + ' alert ' + cl + cl;
+    else return 'unknown';
   }
 };
 
 Handlebars.logger.level = 0;
 
-Handlebars.registerHelper('hud_detect_hostiles', function(status) {
-  if (status == 'warning') return true;
-  else return false;
+Handlebars.registerHelper('hud_status_text', UI.hud_status_text);
+
+Handlebars.registerHelper('hud_neighbor_status', function(id, name) {
+  return UI.hud_status_text( SystemMap.system_color({id: id, name: name}) );
 });
 
 Handlebars.registerHelper('format_ts', function(ts) {
@@ -221,13 +230,13 @@ Handlebars.registerHelper('ui_icon', function(icon) {
   if (icon == 'updateHostile') return 'crosshairs';
   if (icon == 'updateSystemMap') return 'sitemap';
   if (icon == 'youJoined') return 'user';
-  
-  if (icon == 'Wormhole Detected') return 'chevron-circle-right'; 
-  if (icon == 'Hostile Cloaked') return 'eye-slash'; 
-  if (icon == 'Hostile Faded') return 'clock-o'; 
-  if (icon == 'Hostile Logged Off') return 'sign-out'; 
-  if (icon == 'Undock Camped') return 'lock'; 
-  if (icon == 'Gate Bubbled') return 'dot-circle-o';  
+
+  if (icon == 'Wormhole Detected') return 'chevron-circle-right';
+  if (icon == 'Hostile Cloaked') return 'eye-slash';
+  if (icon == 'Hostile Faded') return 'clock-o';
+  if (icon == 'Hostile Logged Off') return 'sign-out';
+  if (icon == 'Undock Camped') return 'lock';
+  if (icon == 'Gate Bubbled') return 'dot-circle-o';
 
   return 'exclamation';
 });

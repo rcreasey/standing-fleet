@@ -3,10 +3,10 @@ var express = require('express')
   , validate = require(__dirname + '/../middleware/validate')
   , map = require(__dirname + '/../controllers/map')
 
-router.route('/region/:region_name')
+router.route('/regions/:region_name')
   .get(map.show_region);
 
-router.route('/system/:system_name')
+router.route('/systems/:system_name')
   .get(map.show_system);
-  
+
 module.exports = router;

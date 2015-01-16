@@ -20,8 +20,7 @@ exports.logout = function(req, res, next) {
 };
 
 exports.link = function(req, res, next) {
-  res.render('link', { user: req.user, linked: {characterName: 'Tarei', characterId: 12345 }, success: req.flash('success'), error: req.flash('error') });
-  // res.render('link', { user: req.user, linked: req.session.linked, success: req.flash('success'), error: req.flash('error') });
+  res.render('link', { user: req.user, linked: req.session.linked, success: req.flash('success'), error: req.flash('error') });
 };
 
 exports.link_pilot = function(req, res, next) {
