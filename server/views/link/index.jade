@@ -19,7 +19,8 @@ block content
           h2 Client Download
           dl.download
             dt 
-              i.fa.fa-windows  Windows
+              i.fa.fa-windows 
+              |  Windows
             dd
               a(href='/clients/client-1.0.6.zip') client-1.0.6.zip
               
@@ -32,7 +33,7 @@ block content
             button(type='submit', name='submit')
               i.fa.fa-arrow-right.fa-large
 
-      if linked      
+      if linked  
         .linked.panel
           img(src='https://image.eveonline.com/Character/#{linked.characterId}_128.jpg' title='#{linked.characterName}')
           h2 #{linked.name}

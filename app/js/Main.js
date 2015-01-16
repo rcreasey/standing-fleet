@@ -12,7 +12,8 @@ $(function () {
   } catch(err) {
     log('Unable to connect to local data client...');
   }
-
+  
+  UI.data_client_check();
 });
 
 function initialize() {

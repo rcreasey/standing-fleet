@@ -331,8 +331,10 @@ var SystemMap = {
       if (system === null) return;
       system.status = SystemMap.system_color(system);
       
-      if ($.inArray('hostile', $.map(system.vicinity, function(s) { return SystemMap.system_color(s); })) > -1) {
-        system.status = 'warning';
+      if (system.status == 'clear') {
+        if ($.inArray('hostile', $.map(system.vicinity, function(s) { return SystemMap.system_color(s); })) > -1) {
+          system.status = 'warning';
+        }        
       }
 
       Data.ui.hud.html( Data.templates.hud(system) );
@@ -341,7 +343,7 @@ var SystemMap = {
 
   updateCurrent: function() {
     d3.selectAll('g.node .system')
-      .attr("class", function(n) { return SystemMap.system_classes(n.system) });
+      .attr("class", function(n) { return SystemMap.system_classes(n.system); });
 
     var node = SystemMap._system_nodes[Data.state.self.systemId];
     var scale = SystemMap.zoom.scale();

@@ -10,10 +10,10 @@ block content
       span.separator //
       span.fleet-name Select Fleet
     #top-menu.sub-bar.right
-      #top-menu-hud.menu-button.hud.active
+      #top-menu-hud.menu-button.hud
         i.fa.fa-tachometer
         span HUD
-      #top-menu-system-map.menu-button.system-map
+      #top-menu-system-map.menu-button.system-map.active
         i.fa.fa-sitemap
         span MAP
       #top-menu-hostiles.menu-button.hostiles
@@ -29,8 +29,8 @@ block content
         i.fa.fa-bell
         span EVENTS
   #content-wrapper
-    #hud.main-content.active
-    #system-map.main-content
+    #hud.main-content
+    #system-map.main-content.active
       #legend
       #system-info
     #hostiles.main-content
@@ -54,7 +54,7 @@ block content
       #bottom-menu-spinner.menu-button
         img(src='/images/spinner.gif', alt='Processing...')
       #bottom-menu-pilot-key
-        i.fa.fa-key
+        i.fa.fa-key(title="Pilot Key")
       #bottom-menu-data-client.menu-button
         i.fa
       #bottom-menu-scan.menu-button

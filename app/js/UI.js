@@ -72,8 +72,6 @@ var UI = {
     Data.ui.statusHostile.on('click', $.proxy(UIPanels.showStatusPanel, null, false));
 
     UI.update_scrollables();
-    UI.data_client_check();
-
   },
 
   update_scrollables: function() {

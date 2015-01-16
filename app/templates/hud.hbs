@@ -3,24 +3,26 @@
   <div class="console">
     <h2>{{{hud_status_text status}}}</h2>
 
-    {{#if hostiles}}
-    <div class="hostiles">
-      <h3>Reported Hostiles</h3>
-      <ul>
-        {{#each hostiles }}
-        <li>
-          {{ characterName }}{{#if shipType }}: <i class="fa fa-fighter-jet"></i> {{ shipType }}{{/if}}
-        </li>
-        {{/each}}
-      </ul>
-    </div>
-    {{/if}}
-
     <div class="vicinity">
       <h3>Vicinity</h3>
       <ul>
         {{#each vicinity}}
         <li>{{ name }} : {{{hud_neighbor_status id name}}}</li>
+        {{else}}
+        <li>No Connecting Systems</li>
+        {{/each}}
+      </ul>
+    </div>
+    
+    <div class="hostiles">
+      <h3>Hostiles</h3>
+      <ul>
+        {{#each hostiles }}
+        <li>
+          {{ characterName }}{{#if shipType }}: <i class="fa fa-fighter-jet"></i> {{ shipType }}{{/if}}
+        </li>
+        {{else}}
+        <li>None reported</li>
         {{/each}}
       </ul>
     </div>

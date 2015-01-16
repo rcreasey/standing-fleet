@@ -344,18 +344,14 @@ input.log-path {
   opacity: 0.5;
 }
 
-#hud .screen .console .hostiles {
-  margin-bottom: 2rem;
-  text-align: center;
-}
-
+#hud .screen .console .hostiles,
 #hud .screen .console .advisories,
 #hud .screen .console .vicinity {
   text-align: center;
   display: inline-block;
   float: left;
   margin-bottom: 2rem;
-  width: 50%;
+  width: 33%;
 }
 
 #hud .screen.clear   {
@@ -1287,6 +1283,7 @@ border-top: 0.16rem solid #333;
 */
 
 .panel .start,
+.linked, 
 #download,
 #link,
 #login {
