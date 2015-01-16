@@ -397,6 +397,9 @@ input.log-path {
   font-size: 3rem;
 }
 
+#hud .fa {
+  vertical-align: middle;
+}
   /*/
  / /  MAP
  */
@@ -1283,7 +1286,7 @@ border-top: 0.16rem solid #333;
 */
 
 .panel .start,
-.linked, 
+.linked,
 #download,
 #link,
 #login {
