@@ -265,20 +265,21 @@ div#page, div#content-wrapper { position: relative; height: 100%; width: 100%; b
   color: #ffcc2a;
 }
 
-#bottom-menu a {
-  color: #fff;
+#bottom-menu-pilot-key {
+  font-family: monospace;
+  color: #ffcc2a;
+  display: inline-block;
+  height: 2rem;
+  margin-left: 0.5rem;
+  padding: 0.3rem 1rem 0rem 1rem;
+  cursor: pointer;
+  -moz-user-select: text;
+  -webkit-user-select: text;
+  -ms-user-select: text;
 }
 
-input.info-string {
-  background: transparent !important;
-  border: 0 !important;
-  display: inline-block;
-  padding: 0 !important;
-  color: #888 !important;
-  font-family: monospace !important;
-  font-size: 1.5rem !important;
-  text-align: center !important;
-  width: 100% !important;
+#bottom-menu a {
+  color: #fff;
 }
 
 input.log-path {

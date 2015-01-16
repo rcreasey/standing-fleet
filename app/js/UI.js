@@ -55,7 +55,6 @@ var UI = {
   logout: function() { window.location = "/logout"; },
 
   registerEventHandlers: function () {
-
     Data.ui.topMenu_hud.on('click', $.proxy(UI.tabClick, null, "hud"));
     Data.ui.topMenu_map.on('click', $.proxy(UI.tabClick, null, "system-map"));
     Data.ui.topMenu_hostiles.on('click', $.proxy(UI.tabClick, null, "hostiles"));
