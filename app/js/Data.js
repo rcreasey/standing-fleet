@@ -14,7 +14,7 @@ var Data = {
     domain: 'https://standing-fleet.apps.goonswarm.org/',
     apiUrl: '/api',
     alertStay: 5000,
-    pollInterval: 10000,
+    pollInterval: 7000,
     maxEvents: 20,
     maxScans: 20,
     uiSpeed: 400,
