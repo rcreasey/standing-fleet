@@ -158,7 +158,7 @@ var SystemMap = {
             return (SystemMap.hostile_count(n.system) > 0) ? "hostiles present" : "hostiles vacant";
           })
           .attr("width", function(n) {
-            return (SystemMap.hostile_count(n.system) > 9) ? 20 : 27;
+            return (SystemMap.hostile_count(n.system) > 9) ? 27 : 20;
           }) 
           .attr("height", rect_height)
           .attr("rx", 2).attr("ry", 2)
@@ -180,7 +180,7 @@ var SystemMap = {
             return (SystemMap.faded_count(n.system) > 0) ? "faded present" : "faded vacant";
           })
           .attr("width", function(n) {
-            return (SystemMap.faded_count(n.system) > 9) ? 20 : 27;
+            return (SystemMap.faded_count(n.system) > 9) ? 27 : 20;
           })
           .attr("height", rect_height)
           .attr("rx", 2).attr("ry", 2)
@@ -402,7 +402,7 @@ var SystemMap = {
         return (SystemMap.hostile_count(n.system) > 0) ? "hostiles present" : "hostiles vacant";
       })
       .attr("width", function(n) {
-        return (SystemMap.hostile_count(n.system) > 9) ? 20 : 27;
+        return (SystemMap.hostile_count(n.system) > 9) ? 27 : 20;
       });
 
     d3.selectAll('g.node text.hostiles')
@@ -416,7 +416,7 @@ var SystemMap = {
         return (SystemMap.faded_count(n.system) > 0) ? "faded present" : "faded vacant";
       })
       .attr("width", function(n) {
-        return (SystemMap.faded_count(n.system) > 9) ? 20 : 27;
+        return (SystemMap.faded_count(n.system) > 9) ? 27 : 20;
       });
 
     d3.selectAll('g.node text.faded')
