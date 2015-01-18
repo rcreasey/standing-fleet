@@ -159,7 +159,7 @@ var SystemMap = {
           })
           .attr("width", function(n) {
             return (SystemMap.hostile_count(n.system) > 9) ? 20 : 27;
-          } 
+          }) 
           .attr("height", rect_height)
           .attr("rx", 2).attr("ry", 2)
           .attr("y", 16)
@@ -181,7 +181,7 @@ var SystemMap = {
           })
           .attr("width", function(n) {
             return (SystemMap.faded_count(n.system) > 9) ? 20 : 27;
-          } 
+          })
           .attr("height", rect_height)
           .attr("rx", 2).attr("ry", 2)
           .attr("x", rect_width - 20).attr("y", 16)
@@ -400,6 +400,9 @@ var SystemMap = {
     d3.selectAll('g.node rect.hostiles')
       .attr("class", function(n) {
         return (SystemMap.hostile_count(n.system) > 0) ? "hostiles present" : "hostiles vacant";
+      })
+      .attr("width", function(n) {
+        return (SystemMap.hostile_count(n.system) > 9) ? 20 : 27;
       });
 
     d3.selectAll('g.node text.hostiles')
@@ -411,6 +414,9 @@ var SystemMap = {
     d3.selectAll('g.node rect.faded')
       .attr("class", function(n) {
         return (SystemMap.faded_count(n.system) > 0) ? "faded present" : "faded vacant";
+      })
+      .attr("width", function(n) {
+        return (SystemMap.faded_count(n.system) > 9) ? 20 : 27;
       });
 
     d3.selectAll('g.node text.faded')
