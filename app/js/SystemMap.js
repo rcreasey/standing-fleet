@@ -157,7 +157,9 @@ var SystemMap = {
           .attr("class", function(n) {
             return (SystemMap.hostile_count(n.system) > 0) ? "hostiles present" : "hostiles vacant";
           })
-          .attr("width", rect_width / 3)
+          .attr("width", function(n) {
+            return (SystemMap.hostile_count(n.system) > 9) ? 20 : 27;
+          } 
           .attr("height", rect_height)
           .attr("rx", 2).attr("ry", 2)
           .attr("y", 16)
@@ -177,7 +179,9 @@ var SystemMap = {
           .attr("class", function(n) {
             return (SystemMap.faded_count(n.system) > 0) ? "faded present" : "faded vacant";
           })
-          .attr("width", rect_width / 3)
+          .attr("width", function(n) {
+            return (SystemMap.faded_count(n.system) > 9) ? 20 : 27;
+          } 
           .attr("height", rect_height)
           .attr("rx", 2).attr("ry", 2)
           .attr("x", rect_width - 20).attr("y", 16)
