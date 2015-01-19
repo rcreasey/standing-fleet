@@ -46,7 +46,7 @@ var SystemMap = {
   system_classes: function(system) {
     var classes = ["system"];
     classes.push("status-" + SystemMap.system_color(system));
-    if (system.id === +Data.state.self.systemId ) classes.push('current')
+    if (system.id === +Data.state.self.systemId ) classes.push('current');
 
     return classes.join(" ");
   },
@@ -87,7 +87,7 @@ var SystemMap = {
 
   draw: function() {
     // Change this to globally adjust minimum node distance and system [x,y] scale
-    const SCALING_FACTOR = 0.85;
+    var SCALING_FACTOR = 0.85;
 
     var svg = d3.select("#system-map")
       .attr("width", Data.ui.map.width())
@@ -116,7 +116,7 @@ var SystemMap = {
             if(jump.source === systemNode || jump.target === systemNode) {
               return;
             }
-            const r = 20;
+            var r = 20;
             if(!SystemMap.lineCircleIntersection(jump.source, jump.target, systemNode, r)) {
               return;
             }
@@ -150,7 +150,7 @@ var SystemMap = {
 
         var node_groups = node.data(SystemMap.systems)
           .enter().append("g")
-          .attr("id", function(n) { return "system-" + n.system.id })
+          .attr("id", function(n) { return "system-" + n.system.id; })
           .attr("class", "node");
 
         node_groups.append("rect")
@@ -162,7 +162,7 @@ var SystemMap = {
           }) 
           .attr("height", rect_height)
           .attr("rx", 2).attr("ry", 2)
-          .attr("y", 16)
+          .attr("y", 16);
 
         node_groups.append("text")
           .attr("class", "hostiles")
@@ -171,7 +171,7 @@ var SystemMap = {
           .attr("vector-effect", "non-scaling-stroke")
           .attr("x", 7).attr("y", 29)
           .text(function(n) {
-            var count = SystemMap.hostile_count(n.system)
+            var count = SystemMap.hostile_count(n.system);
             return (count > 0) ? count : "";
           });
 
@@ -184,7 +184,7 @@ var SystemMap = {
           })
           .attr("height", rect_height)
           .attr("rx", 2).attr("ry", 2)
-          .attr("x", rect_width - 20).attr("y", 16)
+          .attr("x", rect_width - 20).attr("y", 16);
 
         node_groups.append("text")
           .attr("class", "faded")
@@ -193,7 +193,7 @@ var SystemMap = {
           .attr("vector-effect", "non-scaling-stroke")
           .attr("x", 47).attr("y", 29)
           .text(function(n) {
-            var count = SystemMap.faded_count(n.system)
+            var count = SystemMap.faded_count(n.system); 
             return (count > 0) ? count : "";
           });
 
@@ -371,12 +371,12 @@ var SystemMap = {
                      hostiles: HostileList.findHostileBySystemId( results.id ),
                      hostile_count: SystemMap.hostile_count( results ),
                      faded_count: SystemMap.faded_count( results ),
-                     gates: $.map( results.jumps, function(j) { return Data.systems[ j.to ]})
-      }
+                     gates: $.map( results.jumps, function(j) { return Data.systems[ j.to ]; })
+      };
 
       system.last_report = (results.reports.length) ? moment(results.reports.pop().ts).format('HH:MM:SS') : 'Never';
       system.advisories = AdvisoryList.lookup(results.id);
-      system.active_advisories = $.grep(system.advisories, function(a) { return a.present == true; });
+      system.active_advisories = $.grep(system.advisories, function(a) { return a.present === true; });
       if (results.id == Data.state.self.systemId) system.allow_report = true;
 
       Data.ui.mapInfo.html( $(Data.templates.system_info(system)) );
@@ -390,7 +390,7 @@ var SystemMap = {
 
   refreshSystems: function() {
     d3.selectAll('g.node .system')
-      .attr("class", function(n) { return SystemMap.system_classes(n.system) });
+      .attr("class", function(n) { return SystemMap.system_classes(n.system); });
 
     d3.selectAll('g.node text.advisories')
       .text(function(n) {
@@ -407,7 +407,7 @@ var SystemMap = {
 
     d3.selectAll('g.node text.hostiles')
       .text(function(n) {
-        var count = SystemMap.hostile_count(n.system)
+        var count = SystemMap.hostile_count(n.system);
         return (count > 0) ? count : "";
       });
 
@@ -421,7 +421,7 @@ var SystemMap = {
 
     d3.selectAll('g.node text.faded')
       .text(function(n) {
-        var count = SystemMap.faded_count(n.system)
+        var count = SystemMap.faded_count(n.system);
         return (count > 0) ? count : "";
       });
 

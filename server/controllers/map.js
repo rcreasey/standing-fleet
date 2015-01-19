@@ -45,12 +45,12 @@ exports.show_region = function(req, res, next){
                 ];
         })
         .spread(function(region, systems, system_ids) {
-          var locals = { Regions: {}, Systems: {}, Gates: [] }
+          var locals = { Regions: {}, Systems: {}, Gates: [] };
           locals.Regions[ region.id ] = region;
 
           _.forEach(systems, function(system) {
             locals.Systems[ system.id ] = system;
-          })
+          });
 
           Jump.findQ({ $or: [ {to: {$in: system_ids} }, {from: {$in: system_ids}} ] })
             .then(function(jumps) {
@@ -61,18 +61,18 @@ exports.show_region = function(req, res, next){
                   to: jump.to,
                   from: jump.from,
                   type: jump.type
-                }
+                };
               });
 
               return res.jsonp(locals);
             })
-            .done()
+            .done();
 
         })
-        .done()
+        .done();
     })
     .catch(function(error) {
-      console.log(error)
+      console.log(error);
       return response.error(res, 'map', error);
     })
     .done();
@@ -101,7 +101,7 @@ exports.show_system = function(req, res, next){
 
       var tasks = [
         Jump.findQ({ $or: [ {to: system.id}, {from: system.id} ] }).then(function(jumps) {
-          return _.map(jumps, function(jump) { return {to: jump.to, from: jump.from, type: jump.type} });
+          return _.map(jumps, function(jump) { return {to: jump.to, from: jump.from, type: jump.type}; });
         }),
         Report.findQ({systemId: system.id}).then(function(reports) { return reports; }),
         Advisory.findQ({systemId: system.id}).then(function(advisories) { return advisories; }),
@@ -128,10 +128,10 @@ exports.show_system = function(req, res, next){
 
         })
         .catch(function(error) {
-          console.log(error)
+          console.log(error);
           return response.error(res, 'map', error);
-        })
+        });
 
-    })
+    });
 
 };

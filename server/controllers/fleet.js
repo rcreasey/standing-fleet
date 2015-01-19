@@ -23,7 +23,7 @@ exports.list = function(req, res, next){
       } else {
         return response.error(res, 'lookup', 'Unable to fetch fleet list.');        
       }
-    })
+    });
 };
 
 var is_whitelisted = function(whitelist, character) {
@@ -65,14 +65,14 @@ exports.join = function(req, res, next){
             return response.success(res, event);
           })
           .catch(function(error) {
-            console.log(error)
+            console.log(error);
             return response.error(res, 'state', 'Error joining fleet');
           })
-          .done()
+          .done();
           
         })
         .catch(function(error) {
-          console.log(error)
+          console.log(error);
           return response.error(res, 'state', 'Error joining fleet');
         })
         .done();
@@ -101,7 +101,7 @@ exports.leave = function(req, res, next){
         return response.success(res);
       })
       .catch(function(error) {
-        console.log(error)
+        console.log(error);
         return response.error(res, 'state', 'Error leaving fleet: ' + error);
       })
       .done(function() {
@@ -116,8 +116,8 @@ exports.status = function(req, res, next) {
   if (!req.session) return next();
   
   if (!req.session.fleetKey || !req.session.memberKey) {
-    var self = Member.prepare('none', header_parser(req))
-    var event = Event.prepare('statusSelf', 'none', self.toObject())
+    var self = Member.prepare('none', header_parser(req));
+    var event = Event.prepare('statusSelf', 'none', self.toObject());
     
     return response.success(res, [ event ]);
   }
@@ -159,7 +159,7 @@ exports.status = function(req, res, next) {
           return response.success(res, events);
         })
         .catch(function(error) {
-          console.log(error)
+          console.log(error);
           req.session.regenerate(function(err) {
             return response.error(res, 'status', 'Error fetching fleet tasks.');
           });
@@ -168,7 +168,7 @@ exports.status = function(req, res, next) {
         .done();
     })
     .catch(function(error) {
-      console.log(error)
+      console.log(error);
       req.session.regenerate(function(err) {
         return response.error(res, 'status', 'Error fetching fleet status.');
       });
@@ -187,7 +187,7 @@ exports.poll = function(req, res, next) {
     Member.findOne({key: req.session.memberKey}).execQ().then(function(member) {
       var events = [];
       var self = req.session.fleet;
-      var previous = _.clone(member.toObject())
+      var previous = _.clone(member.toObject());
 
       member.shipType = self.shipType;
       member.shipTypeId = self.shipTypeId;
@@ -232,7 +232,7 @@ exports.poll = function(req, res, next) {
                           characterId: member.characterId,
                           systemName: member.systemName,
                           systemId: member.systemId
-                        })
+                        });
             events.push(event);
             event.saveQ();
           }
@@ -257,7 +257,7 @@ exports.poll = function(req, res, next) {
       return response.success(res, _.flatten(events, true));
     })
     .catch(function(error) {
-      console.log(error)
+      console.log(error);
       return response.error(res, 'state', 'Error fetching fleet poll.');
     })
     .done();
@@ -278,8 +278,7 @@ exports.create = function(req, res, next) {
   var fleetPassword = req.body.fleetPassword || false;
 
   if ( fleetPassword &&
-     ( fleetPassword.length > settings.fleetPasswordMaxLength
-    || fleetPassword.length < settings.fleetPasswordMinLength)) {
+     ( fleetPassword.length > settings.fleetPasswordMaxLength || fleetPassword.length < settings.fleetPasswordMinLength)) {
 
     return response.error(res, 'create',
       'Invalid password. Must consist of ' + settings.fleetPasswordMinLength + ' to ' + settings.fleetPasswordMaxLength + ' characters.');
@@ -302,7 +301,7 @@ exports.create = function(req, res, next) {
       response.success(res, Event.prepare('fleetCreated', 'none', fleet.toObject()));
     })
     .catch(function(error) {
-      console.log(error)
+      console.log(error);
       return response.error(res, 'state', 'Error creating fleet');
     })
     .done();
@@ -322,7 +321,7 @@ exports.report = function(req, res, next) {
         return response.success(res, event);
       })
       .catch(function(error) {
-        console.log(error)
+        console.log(error);
         return response.error(res, 'report', 'Error reporting system clear');
       })
       .done();
@@ -338,7 +337,7 @@ exports.report = function(req, res, next) {
           
           Hostile.findOneAndUpdateQ({characterId: hostile.characterId}, hostile, {upsert: true})          
             .then(function(result) {
-              if (!result) throw 'Error updating hostile: ' + hostile.characterName
+              if (!result) throw 'Error updating hostile: ' + hostile.characterName;
               
               report.hostiles.push(hostile);
               batch.resolve(result.toObject());
@@ -357,14 +356,14 @@ exports.report = function(req, res, next) {
           return response.success(res);
         })
         .catch(function(error) {
-          console.log(error)
+          console.log(error);
           throw 'Error updating hostile: ' + error;
         })
         .done();
 
       })
       .catch(function(error) {
-        console.log(error)
+        console.log(error);
         return response.error(res, 'report', 'Error reporting status: ' + error);
       })
       .done();
@@ -388,7 +387,7 @@ exports.add_scan = function(req, res, next) {
       return response.success(res);
     })
     .catch(function(error) {
-      console.log(error)
+      console.log(error);
       return response.error(res, 'report', 'Error reporting scan: ' + error);
     })
     .done();
@@ -414,10 +413,10 @@ exports.update_hostile = function(req, res, next) {
           Event.prepare('updateHostile', req.session.fleetKey, updated_hostile.toObject()).saveQ();
           
           return response.success(res);          
-        })
+        });
     })
     .catch(function(error) {
-      console.log(error)
+      console.log(error);
       return response.error(res, 'report', 'Error updating hostile: ' + error);
     })
     .done();
@@ -440,7 +439,7 @@ exports.update_advisory = function(req, res, next) {
       .catch(function(error) {
         console.log("ERROR: " + error);
         return response.error(res, 'advisory', 'Error reporting advisory');
-      })
+      });
       
   } else {
     delete advisory.state;
@@ -454,7 +453,7 @@ exports.update_advisory = function(req, res, next) {
       .catch(function(error) {
         console.log(error);
         return response.error(res, 'advisory', 'Error reporting advisory');
-      })
+      });
     
   }
   
