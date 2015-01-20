@@ -400,6 +400,7 @@ input.log-path {
 #hud .fa {
   vertical-align: middle;
 }
+
   /*/
  / /  MAP
  */
@@ -1542,13 +1543,32 @@ border-top: 0.16rem solid #333;
   #dim { padding-top: 0; }
   .panel { max-width: none }
 
-  #hud { font-size: 1.5rem; }
-  #hud h2 { font-size: 3rem; }
-  #hud h3 { font-size: 2.25rem; }
+  #hud { font-size: 1.5rem; padding-top: 0.5rem; }
+  #hud h2 { font-size: 2.5rem; height: 2.5rem; }
+  #hud h3 { display: none; }
   #status-clear span, #status-hostile span, .menu-button span { display: none }
   .menu-button i { margin-top: 0.3rem; }
   .member td.ship-name { width: 0rem; }
   .member td.ship-icon img { width: 2rem; height:2rem; }
 
   .hostile td.corp, .hostile td.alliance, .hostile td.ship-name { width: 0rem; }
+  
+  #hud .screen .console .hostiles,
+  #hud .screen .console .advisories {
+    display: none;
+  }
+  
+  #hud .screen .console .vicinity {
+    display: block;
+    float: none;
+    margin-bottom: 2rem;
+    width: inherit;
+  }
+
+  #hud .screen .console .vicinity ul li {
+    display: inline-block;
+    float: left;
+    width: 50%;
+  }
+  
 }
