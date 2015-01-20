@@ -125,7 +125,9 @@ exports.show_system = function(req, res, next){
               
               plus_two = _.unique( _.flatten( _.map(result, function(jump) { return [jump.to, jump.from]; }) ));
               
-              System.findQ({ id: {$in: _.union(plus_one, plus_two)} }, 'id name constellationID regionID')
+              System.find({ id: {$in: _.union(plus_one, plus_two)} }, 'id name constellationID regionID')
+              .sort('name')
+              .execQ()
               .then(function(vicinity) {
                 system.vicinity = vicinity;
                 return res.jsonp(system);
