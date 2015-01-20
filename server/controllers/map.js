@@ -118,13 +118,20 @@ exports.show_system = function(req, res, next){
           return system;
         })
         .then(function(system) {
-          var vicinity_ids = _.map(system.jumps, function(jump) { return (system.id !== jump.to) ? jump.to : jump.from; });
-
-          System.findQ({ id: {$in: vicinity_ids} }, 'id name constellationID regionID')
-            .then(function(vicinity) {
-              system.vicinity = vicinity;
-              return res.jsonp(system);
-            });
+          var plus_one = _.unique( _.flatten( _.map(system.jumps, function(jump) { return [jump.to, jump.from]; }) ));
+          
+          Jump.findQ({ $or: [ {to: {$in: plus_one}}, {from: {$in: plus_one}} ] })
+            .then(function(result) {
+              
+              plus_two = _.unique( _.flatten( _.map(result, function(jump) { return [jump.to, jump.from]; }) ));
+              
+              System.findQ({ id: {$in: _.union(plus_one, plus_two)} }, 'id name constellationID regionID')
+              .then(function(vicinity) {
+                system.vicinity = vicinity;
+                return res.jsonp(system);
+              });
+              
+            })
 
         })
         .catch(function(error) {
@@ -132,6 +139,11 @@ exports.show_system = function(req, res, next){
           return response.error(res, 'map', error);
         });
 
+    })
+    .catch(function(error) {
+      console.log(error);
+      return response.error(res, 'map', error);
     });
+    
 
 };
