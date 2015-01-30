@@ -116,7 +116,7 @@ gulp.task('db:seed', function(done) {
     , Jump = require('./server/models/jump')
     , map_data = require('./public/data/map.json')
 
-  var db = mongoose.connect(process.env.MONGO_URL);
+  var db = mongoose.connect(process.env.MONGODB_URL);
   mongoose.set('debug', true);
 
   db.models.System.remove().execQ();

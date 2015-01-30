@@ -1544,7 +1544,7 @@ border-top: 0.16rem solid #333;
   .panel { max-width: none }
 
   #hud { font-size: 1.5rem; padding-top: 0.5rem; }
-  #hud h2 { font-size: 2.5rem; height: 2.5rem; }
+  #hud h2 { font-size: 2.5rem; height: 2.5rem; margin-bottom: 1rem; }
   #hud h3 { display: none; }
   #status-clear span, #status-hostile span, .menu-button span { display: none }
   .menu-button i { margin-top: 0.3rem; }

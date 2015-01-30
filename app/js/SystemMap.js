@@ -342,6 +342,10 @@ var SystemMap = {
       }
 
       Data.ui.hud.html( Data.templates.hud(system) );
+      
+      if (system.status == 'hostile') {
+        UI.blinkHud();
+      }
     });
   },
 

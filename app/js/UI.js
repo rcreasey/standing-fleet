@@ -50,6 +50,10 @@ var UI = {
     Data.ui.bottomMenu_spinner
       .fadeOut(Data.config.uiSpeed*4);
   },
+  
+  blinkHud: function() {
+    Data.ui.hud.find('.screen').pulse({times: 20, duration: Data.config.uiSpeed});
+  },
 
   unlink: function() { window.location = "/unlink"; },
   logout: function() { window.location = "/logout"; },
@@ -245,3 +249,22 @@ Handlebars.registerHelper('ui_icon', function(icon) {
 
   return 'exclamation';
 });
+
+$.fn.pulse = function(options) {
+  
+  var options = $.extend({
+    times: 3,
+    duration: 1000
+  }, options);
+  
+  var period = function(callback) {
+    $(this).animate({opacity: 0.5}, options.duration, function() {
+      $(this).animate({opacity: 1}, options.duration, callback);
+    });
+  };
+  return this.each(function() {
+    var i = +options.times, self = this,
+    repeat = function() { --i && period.call(self, repeat) };
+    period.call(this, repeat);
+  });
+};
