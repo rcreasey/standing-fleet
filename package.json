@@ -7,7 +7,7 @@
   "license": "MIT",
   "repository": "git@github.com:rcreasey/standing-fleet.git",
   "scripts": {
-    "postinstall": "./node_modules/.bin/bower install && ./node_modules/.bin/gulp",
+    "postinstall": "./node_modules/.bin/bower --allow-root --config.interactive=false -s install && ./node_modules/.bin/gulp",
     "start": "./node_modules/.bin/nf start",
     "test": "foreman run mocha -e test/env"
   },
@@ -30,8 +30,7 @@
     "express": "4.2.x",
     "express-session": "^1.8.2",
     "faye": "^1.1.0",
-    "gulp": "^3.8.7",
-    "gulp-concat": "^2.4.1",
+    "gulp": "^3.8.7", "gulp-concat": "^2.4.1",
     "gulp-declare": "^0.3.0",
     "gulp-handlebars": "^2.2.0",
     "gulp-minify-css": "^0.3.10",
