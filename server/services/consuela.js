@@ -3,6 +3,7 @@ var Q = require('q')
   , _ = require('lodash')
 
 var settings = require(__dirname + '/../config/settings')
+  , standings = require(__dirname + '/standings')
   , Advisory = require(__dirname + '/../models/advisory')
   , Fleet = require(__dirname + '/../models/fleet')
   , Event = require(__dirname + '/../models/event')
@@ -26,7 +27,13 @@ var ensure_fleets = function() {
         }
       })
       .done();
-  })  
+  });
+};
+
+var update_standings = function() {
+  console.log('Consuela: Updating Standings');
+  
+  standings.update(settings.whitelist);
 };
 
 var clean_fleets = function() {
@@ -119,15 +126,18 @@ var clean_hostiles = function() {
 
 var clean_loop = function() {
   clean_timer = setTimeout(function() {
-    clean_advisories();
-    clean_fleets();
-    clean_members();
-    clean_hostiles();
-    clean_events();
-    clean_scans();
-    clean_reports();
+    if (process.env.CONSUELA !== 'disable') {      
+      clean_advisories();
+      clean_fleets();
+      clean_members();
+      clean_hostiles();
+      clean_events();
+      clean_scans();
+      clean_reports();
+    }
     
     ensure_fleets();
+    update_standings();
 
     clean_loop();
   }, settings.cleanInterval);

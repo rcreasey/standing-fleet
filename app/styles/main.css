@@ -1552,7 +1552,11 @@ border-top: 0.16rem solid #333;
   .member td.ship-icon img { width: 2rem; height:2rem; }
 
   .hostile td.corp, .hostile td.alliance, .hostile td.ship-name { width: 0rem; }
-  
+
+  #top-menu-scans.menu-button,
+  #top-menu-events.menu-button,
+  #top-menu-members.menu-button,
+  #bottom-menu-help.menu-button,  
   #hud .screen .console .hostiles,
   #hud .screen .console .advisories {
     display: none;
