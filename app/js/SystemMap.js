@@ -374,7 +374,7 @@ var SystemMap = {
                      gates: $.map( results.jumps, function(j) { return Data.systems[ j.to ]; })
       };
 
-      system.last_report = (results.reports.length) ? moment(results.reports.pop().ts).format('HH:MM:SS') : 'Never';
+      system.last_report = (results.reports.length) ? Util.formatTime(results.reports.pop().ts) : 'Never';
       system.advisories = AdvisoryList.lookup(results.id);
       system.active_advisories = $.grep(system.advisories, function(a) { return a.present === true; });
       if (results.id == Data.state.self.systemId) system.allow_report = true;

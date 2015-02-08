@@ -42,7 +42,11 @@ var Util = {
   getTime: function () {
     return moment().utc().format('HH:mm:ss');
   },
-
+  
+  formatTime: function(ts) {
+    return moment(ts).format('HH:mm:ss');
+  },
+ 
   escapeHTML: function (string) {
     return string.replace(/</gi,'&lt;').replace(/>/gi,'&gt;');
   },
