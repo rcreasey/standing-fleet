@@ -3,7 +3,7 @@ var Q = require('q')
   , _ = require('lodash')
 
 var settings = require(__dirname + '/../config/settings')
-  , standings = require(__dirname + '/services/standings')
+  , standings = require(__dirname + '/standings')
   , Advisory = require(__dirname + '/../models/advisory')
   , Fleet = require(__dirname + '/../models/fleet')
   , Event = require(__dirname + '/../models/event')
