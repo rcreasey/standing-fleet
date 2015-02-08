@@ -108,7 +108,7 @@ function start() {
   });
 }
 
-if (process.env.CONSUELA !== 'disable') consuela.start_cleaning();
+consuela.start_cleaning();
 start();
 
 exports.app = app;
