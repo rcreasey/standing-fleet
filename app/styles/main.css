@@ -609,8 +609,9 @@ g.node {
 
 /* Link line styles */
 .link { stroke: #ccc; stroke-width: 2px; }
-.link.interregion { stroke: #2a9fd6; stroke-dasharray: 2,2; stroke-width: 3px; }
+.link.interregion { stroke-dasharray: 4,2; stroke-width: 3px; }
 .link.interconstellation { stroke-dasharray: 2,2; }
+.link.jumpbridge { stroke: #2a9fd6; stroke-dasharray: 2,2; }
 
 .anchorLink {
     stroke: #00aaff;
