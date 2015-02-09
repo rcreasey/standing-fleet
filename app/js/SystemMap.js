@@ -145,7 +145,7 @@ var SystemMap = {
 
         var link_groups = link.data(SystemMap.jumps)
           .enter().append("g")
-          .attr("class", "link")
+          .attr("class", function(j) { return "link " + j.type; })
           .append("line");
 
         var node_groups = node.data(SystemMap.systems)
@@ -197,11 +197,20 @@ var SystemMap = {
             return (count > 0) ? count : "";
           });
 
+        node_groups.append("rect")
+          .attr("width", rect_width)
+          .attr("height", rect_height)
+          .attr("y", rect_height * -1)
+          .attr("rx", 2).attr("ry", 2)
+          .attr("class", function(n) {
+            return (SystemMap.advisory_count(n.system) > 0) ? "advisories present" : "advisories vacant ";
+          });  
+          
         node_groups.append("text")
           .attr("class", "advisories")
           .attr("text-anchor", "middle")
           .attr("alignment-baseline", "middle")
-          .attr("x", rect_width / 2).attr("y", -8)
+          .attr("x", rect_width / 2).attr("y", rect_height * -0.5)
           .text(function(n) {
             return UI.mapUnicode(n.system.id, Data.advisories[n.system.id] );
           });
@@ -287,7 +296,7 @@ var SystemMap = {
           nodes[to.id] = node;
           SystemMap.systems.push(node);
         }
-        SystemMap.jumps.push(jump = {source: nodes[from.id], target: nodes[to.id]});
+        SystemMap.jumps.push(jump = {source: nodes[from.id], target: nodes[to.id], type: gate.type.toLowerCase()});
         SystemMap.links.push(jump);
       }
     });
@@ -392,6 +401,11 @@ var SystemMap = {
     d3.selectAll('g.node .system')
       .attr("class", function(n) { return SystemMap.system_classes(n.system); });
 
+    d3.selectAll('g.node rect.advisories')
+      .attr("class", function(n) {
+        return (SystemMap.advisory_count(n.system) > 0) ? "advisories present" : "advisories vacant";
+      })
+      
     d3.selectAll('g.node text.advisories')
       .text(function(n) {
         return UI.mapUnicode(n.system.id, Data.advisories[n.system.id] );

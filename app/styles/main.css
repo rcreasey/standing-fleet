@@ -576,10 +576,11 @@ g.node {
 .node rect.status-warning { stroke: #f0ad4e; fill: #df691a; }
 .node rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 
-.node rect.advisories { opacity: 0.6; }
+.node rect.advisories.present { opacity: 0.6; }
 .node rect.hostiles.present   { stroke: #d9534f; fill: #d9534f; }
 .node rect.faded.present      { stroke: #f0ad4e; fill: #f0ad4e; }
 
+.node rect.advisories.vacant,
 .node rect.hostiles.vacant,
 .node rect.faded.vacant       { display: none; }
 
@@ -596,6 +597,7 @@ g.node {
   font-family: FontAwesome;
   font-size: 1.25rem;
   fill: #faa123;
+  letter-spacing: 2px;
 }
 
 .node text.faded,
@@ -606,15 +608,14 @@ g.node {
 }
 
 /* Link line styles */
-.link {
-  stroke: #ccc;
-  stroke-width: 2px;
-}
+.link { stroke: #ccc; stroke-width: 2px; }
+.link.interregion { stroke: #2a9fd6; stroke-dasharray: 2,2; stroke-width: 3px; }
+.link.interconstellation { stroke-dasharray: 2,2; }
 
 .anchorLink {
     stroke: #00aaff;
     stroke-width: 1px;
-    stroke-dasharray: 2,2,4,2
+    stroke-dasharray: 2,2,4,2;
 }
 
   /*/
