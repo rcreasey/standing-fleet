@@ -609,8 +609,8 @@ g.node {
 
 /* Link line styles */
 .link { stroke: #ccc; stroke-width: 2px; }
-.link.interregion { stroke-dasharray: 4,2; stroke-width: 3px; }
-.link.interconstellation { stroke-dasharray: 2,2; }
+.link.region { stroke: #ed9c28; stroke-dasharray: 4,4; stroke-width: 3px; }
+.link.constellation { stroke-dasharray: 2,4; }
 .link.jumpbridge { stroke: #2a9fd6; stroke-dasharray: 2,2; }
 
 .anchorLink {
@@ -1572,12 +1572,12 @@ border-top: 0.16rem solid #333;
   #top-menu-scans.menu-button,
   #top-menu-events.menu-button,
   #top-menu-members.menu-button,
-  #bottom-menu-help.menu-button,  
+  #bottom-menu-help.menu-button,
   #hud .screen .console .hostiles,
   #hud .screen .console .advisories {
     display: none;
   }
-  
+
   #hud .screen .console .vicinity {
     display: block;
     float: none;
@@ -1590,5 +1590,5 @@ border-top: 0.16rem solid #333;
     float: left;
     width: 50%;
   }
-  
+
 }

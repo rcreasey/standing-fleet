@@ -7,7 +7,9 @@ var SystemSchema  = new Schema({
   regionID: { type: Number },
   name: String,
   x: Number,
-  y: Number
+  y: Number,
+  security: Number,
+  security_class: String
 });
 
 SystemSchema.index({ id: 1, regionID: 1 });

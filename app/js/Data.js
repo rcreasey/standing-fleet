@@ -120,25 +120,36 @@ var Data = {
 
   ships: {},
 
-  preload: function() {
-    $.ajax({
-      url: '/data/ships.json',
-      dataType: 'json',
+  populate: function(callback) {
+    // $.ajax({
+    //   url: '/data/ships.json',
+    //   dataType: 'json',
+    //
+    //   success: function( data ) { Data.ships = data; },
+    //   error: function(data, error, errorstring) {  if (error) console.log("Error: " + errorString); }
+    // });
 
-      success: function( data ) { Data.ships = data; },
-      error: function(data, error, errorstring) {  if (error) console.log("Error: " + errorString); }
+    log('Populating Region Data...');
+
+    Server.vicinity(Data.state.self.systemId, function(error, data) {
+      if (!data) return;
+      Data.regions = data.regions;
+      Data.systems = data.systems;
+      Data.jumps   = data.jumps;
+
+      callback();
     });
 
-    $.ajax({
-      url: '/data/map.json',
-      dataType: 'json',
-
-      success: function( data ) {
-        Data.regions = data.Regions;
-        Data.systems = data.Systems;
-        Data.gates   = data.Gates;
-      },
-      error: function(data, error, errorstring) {  if (error) console.log("Error: " + errorString); }
-    });
+    // $.ajax({
+    //   url: '/data/map.json',
+    //   dataType: 'json',
+    //
+    //   success: function( data ) {
+    //     Data.regions = data.Regions;
+    //     Data.systems = data.Systems;
+    //     Data.gates   = data.Gates;
+    //   },
+    //   error: function(data, error, errorstring) {  if (error) console.log("Error: " + errorString); }
+    // });
   }
 };

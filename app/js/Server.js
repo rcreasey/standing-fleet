@@ -90,6 +90,10 @@ var Server = {
     Server.ajaxGet('/fleets/leave', callback);
   },
 
+  vicinity: function(system_id, callback) {
+    Server.ajaxGet('/map/vicinity/' + system_id, callback);
+  },
+
   systemInformation: function(system_name, callback) {
     Server.ajaxGet('/map/systems/' + system_name, callback);
   },

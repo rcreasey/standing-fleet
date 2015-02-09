@@ -26,8 +26,6 @@ function initialize() {
   EventList.clear();
   ScanList.clear();
 
-  Data.preload();
-
   UIPanels.showLoadingPanel(false, function () {
     Server.status(function(error, data) {
       if (error) {

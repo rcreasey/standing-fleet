@@ -302,7 +302,13 @@ var EventHandler = {
     Data.state.self.characterId = self.characterId;
     Data.state.self.key = self.key;
     Data.ui.bottomMenu_pilotKey.html('<i class="fa fa-key"></i>  ' + Data.state.self.key);
+
     if (self.systemId) this.statusSelfSystem(self);
+
+    Data.populate(function() {
+      SystemMap.init();
+    });
+
   },
 
   statusSelfSystem: function(self) {
@@ -318,7 +324,6 @@ var EventHandler = {
     Data.state.fleet.password = fleet.password;
 
     Data.ui.fleetName.text( fleet.name );
-    SystemMap.init();
   },
 
   statusAdvisories: function (advisories) {

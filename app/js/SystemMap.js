@@ -159,7 +159,7 @@ var SystemMap = {
           })
           .attr("width", function(n) {
             return (SystemMap.hostile_count(n.system) > 9) ? 27 : 20;
-          }) 
+          })
           .attr("height", rect_height)
           .attr("rx", 2).attr("ry", 2)
           .attr("y", 16);
@@ -193,7 +193,7 @@ var SystemMap = {
           .attr("vector-effect", "non-scaling-stroke")
           .attr("x", 47).attr("y", 29)
           .text(function(n) {
-            var count = SystemMap.faded_count(n.system); 
+            var count = SystemMap.faded_count(n.system);
             return (count > 0) ? count : "";
           });
 
@@ -204,8 +204,8 @@ var SystemMap = {
           .attr("rx", 2).attr("ry", 2)
           .attr("class", function(n) {
             return (SystemMap.advisory_count(n.system) > 0) ? "advisories present" : "advisories vacant ";
-          });  
-          
+          });
+
         node_groups.append("text")
           .attr("class", "advisories")
           .attr("text-anchor", "middle")
@@ -263,6 +263,7 @@ var SystemMap = {
       node = root.selectAll(".node");
 
     // fetch data about our current system
+    if (!Data.systems) return;
     system = Data.systems[ Data.state.self.systemId ];
 
     SystemMap.systems = [];
@@ -281,10 +282,10 @@ var SystemMap = {
       }
     });
 
-    Data.gates.forEach(function(gate) {
+    Data.jumps.forEach(function(gate) {
       var jump, node;
-      var from = Data.systems[gate.from];
-      var to = Data.systems[gate.to];
+      var from = Data.systems[gate.fromSystem];
+      var to = Data.systems[gate.toSystem];
       if(from.regionID == system.regionID || to.regionID == system.regionID) {
         if(from.regionID != system.regionID && !nodes.hasOwnProperty(from.id)) {
           node = { system: from, x: from.x, y: from.y };
@@ -343,11 +344,11 @@ var SystemMap = {
     Server.systemInformation(system_object.name, function(error, system) {
       if (system === null) return;
       system.status = SystemMap.system_color(system);
-      
+
       if (system.status == 'clear') {
         if ($.inArray('hostile', $.map(system.vicinity, function(s) { return SystemMap.system_color(s); })) > -1) {
           system.status = 'warning';
-        }        
+        }
       }
 
       Data.ui.hud.html( Data.templates.hud(system) );
@@ -355,6 +356,8 @@ var SystemMap = {
   },
 
   updateCurrent: function() {
+    if (!Data.systems) return;
+
     d3.selectAll('g.node .system')
       .attr("class", function(n) { return SystemMap.system_classes(n.system); });
 
@@ -398,6 +401,8 @@ var SystemMap = {
   },
 
   refreshSystems: function() {
+    if (!Data.systems) return;
+
     d3.selectAll('g.node .system')
       .attr("class", function(n) { return SystemMap.system_classes(n.system); });
 
@@ -405,7 +410,7 @@ var SystemMap = {
       .attr("class", function(n) {
         return (SystemMap.advisory_count(n.system) > 0) ? "advisories present" : "advisories vacant";
       })
-      
+
     d3.selectAll('g.node text.advisories')
       .text(function(n) {
         return UI.mapUnicode(n.system.id, Data.advisories[n.system.id] );
