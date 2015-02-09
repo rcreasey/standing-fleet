@@ -2,7 +2,7 @@ extends ../layout/default
 
 block content
   #dim
-    #content-wrapper
+    #content-wrapper          
       #login
         form(action='/login', method='POST')
           img#logo(src='/images/panel-logo.png', alt='Standing Fleet')
@@ -15,8 +15,15 @@ block content
           p.submit
             button(type='submit', name='submit')
               i.fa.fa-arrow-right.fa-large
+              
+          if !is_trusted
+            span.trust.error
+              h2 Needs Trust
+              p Standing Fleet was designed to work with the EVE In-Game Browser.  
+              p Please add this site to the IGB's "Trust Sites" to enable full functionality.  Afterwards, please refresh the page.
+              a.button(href="javascript:CCPEVE.requestTrust(location.protocol + '//' + location.hostname '/')") Request Trust          
+            
           if error != ''
             span.error
               = error 
               a(href='https://goonfleet.com/esa/') Password problems?
-              

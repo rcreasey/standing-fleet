@@ -1455,6 +1455,20 @@ border-top: 0.16rem solid #333;
   padding-top: 1rem;
 }
 
+.error.trust h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.error.trust p {
+  margin-bottom: 0.5rem;
+  text-align: justify;
+}
+
+.error.trust a {
+  margin-bottom: 0;
+}
+
 .atlwdg-trigger {
   z-index: 9001;
   background: #000 !important;
