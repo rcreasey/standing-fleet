@@ -304,18 +304,17 @@ var EventHandler = {
     Data.ui.bottomMenu_pilotKey.html('<i class="fa fa-key"></i>  ' + Data.state.self.key);
 
     if (self.systemId) this.statusSelfSystem(self);
-
-    Data.populate(function() {
-      SystemMap.init();
-    });
-
   },
 
   statusSelfSystem: function(self) {
     Data.state.self.systemId = self.systemId;
-    if (Data.state.self.regionId && Data.state.self.systemId) {
-      Data.state.self.regionId = Data.systems[self.systemId].regionID;
-    }
+    Data.populate(function() {
+      if (Data.state.self.regionId && Data.state.self.systemId) {
+        Data.state.self.regionId = Data.systems[self.systemId].regionID;
+      }
+
+      SystemMap.init();
+    });
   },
 
   statusFleet: function (fleet) {
