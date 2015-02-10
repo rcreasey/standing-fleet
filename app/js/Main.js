@@ -44,7 +44,10 @@ function initialize() {
         return;
       }
 
-      EventHandler.dispatchEvents(data.events);
+      Data.populate(function() {
+        SystemMap.init();
+        EventHandler.dispatchEvents(data.events);
+      });
 
       if (Data.state.fleet.key) {
         EventList.addEvent({ type: 'youJoined', text: 'You opened this standing fleet', alert: false });

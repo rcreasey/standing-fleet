@@ -100,8 +100,8 @@ exports.show_system = function(req, res, next){
     .then(function(system) {
 
       var tasks = [
-        Jump.findQ({ $or: [ {to: system.id}, {from: system.id} ] }).then(function(jumps) {
-          return _.map(jumps, function(jump) { return {to: jump.to, from: jump.from, type: jump.type}; });
+        Jump.findQ({ $or: [ {toSystem: system.id}, {fromSystem: system.id} ] }).then(function(jumps) {
+          return _.map(jumps, function(jump) { return {to: jump.toSystem, from: jump.fromSystem, type: jump.type}; });
         }),
         Report.findQ({systemId: system.id}).then(function(reports) { return reports; }),
         Advisory.findQ({systemId: system.id}).then(function(advisories) { return advisories; }),
@@ -152,78 +152,55 @@ exports.show_system = function(req, res, next){
 
 exports.vicinity = function(req, res, next){
   var vicinity = {regions: {}, systems: {}, jumps: []};
-
-  // First find the system
-  // Then find the system's region
-  // Then find the region's systems
-  // Then find the jumps for all the regions's systems
-  //   Then find the systems for all of the jump's targets
-  //   Then find the regions for all of those new system's targets
-
-  // {
-  //   id: system.id,
-  //   name: system.name,
-  //   regionID: system.regionID,
-  //   constellationID: system.constellationID,
-  //   x: system.x,
-  //   y: system.y
-  // };
-
-  if (isNaN(req.params.system_id)) throw 'Invalid system ID ' + req.params.system_id;
-
-  // First find the system's region we're in
-  System.findOneQ({id: req.params.system_id}, 'regionID')
-    .then(function(system) {
-      if (!system) throw 'Invalid system ID ' + req.params.system_id;
-      return system.regionID;
+  vicinity.current = {systemName: req.session.fleet.systemName, systemId: req.session.fleet.systemId,
+                      regionName: req.session.fleet.regionName};
+  
+  // Find the region
+  Region.findOneQ({name: req.session.fleet.regionName})
+    .then(function(region) {
+      if (!region) throw 'Invalid Region: ' + req.session.fleet.regionName;
+      vicinity.current.regionId = region.id;
+      vicinity.regions[region.id] = region.toObject();
+      
+      return region.toObject();
     })
-    .then(function(region_id) {
+    .then(function(region) {
+      var tasks = [
+        System.findQ({regionID: region.id}),
+        Jump.findQ({ $or: [ {toRegion: region.id}, {fromRegion: region.id} ] })
+      ];
 
-      // Then find the region
-      Region.findOneQ({id: region_id})
-        .then(function(region) {
-          if (!region) throw 'Invalid region ID ' + region_id;
-          vicinity.regions[region.id] = region.toObject();
+      // Concurrently find the systems and jumps in that region
+      Q.all(tasks)
+        .then(function(results) {
+          _.each(results[0], function(system) { vicinity.systems[system.id] = system; });
+          vicinity.jumps = _.map(results[1], function(jump) { return _.merge(jump.toObject(), {'type': jump.type()}); });
 
-          return region.toObject();
+          // Return a list of system ids that are referenced from the jump data
+          return _.filter(vicinity.jumps, function(jump) {
+            if (jump.toRegion != region.id) return jump.toSystem;
+            else if (jump.fromRegion != region.id) return jump.fromSystem;
+          });
         })
-        .then(function(region) {
+        .then(function(systems) {
+          var system_ids = _.unique( _.flatten( _.map(systems, function(jump) { return [jump.toSystem, jump.fromSystem]; }) ));
+          var region_ids = _.unique( _.flatten( _.map(systems, function(jump) { return [jump.toRegion, jump.fromRegion]; }) ));
+
           var tasks = [
-            System.findQ({regionID: region.id}),
-            Jump.findQ({ $or: [ {toRegion: region.id}, {fromRegion: region.id} ] })
+            System.findQ({ id: {$in: system_ids} }),
+            // Region.findQ({ id: {$in: region_ids} })
+            Region.findQ()
           ];
 
-          // Concurrently find the systems and jumps in that region
           Q.all(tasks)
             .then(function(results) {
-              _.each(results[0], function(system) { vicinity.systems[system.id] = system; });
-              vicinity.jumps = _.map(results[1], function(jump) { return _.merge(jump.toObject(), {'type': jump.type()}); });
+              _.each(results[0], function(system) { vicinity.systems[system.id] = system.toObject(); });
+              _.each(results[1], function(region) { vicinity.regions[region.id] = region.toObject(); });
 
-              // Return a list of system ids that are referenced from the jump data
-              return _.filter(vicinity.jumps, function(jump) {
-                if (jump.toRegion != region.id) return jump.toSystem;
-                else if (jump.fromRegion != region.id) return jump.fromSystem;
-              });
-            })
-            .then(function(systems) {
-              var system_ids = _.unique( _.flatten( _.map(systems, function(jump) { return [jump.toSystem, jump.fromSystem]; }) ));
-              var region_ids = _.unique( _.flatten( _.map(systems, function(jump) { return [jump.toRegion, jump.fromRegion]; }) ));
-
-              var tasks = [
-                System.findQ({ id: {$in: system_ids} }),
-                Region.findQ({ id: {$in: region_ids} })
-              ];
-
-              Q.all(tasks)
-                .then(function(results) {
-                  _.each(results[0], function(system) { vicinity.systems[system.id] = system.toObject(); });
-                  _.each(results[1], function(region) { vicinity.regions[region.id] = region.toObject(); });
-
-                  return res.jsonp(vicinity);
-                });
-            })
-
+              return res.jsonp(vicinity);
+            });
         });
+
     })
     .catch(function(error) {
       console.log(error);

@@ -14,7 +14,7 @@ var Data = {
     domain: 'https://standing-fleet.apps.goonswarm.org/',
     apiUrl: '/api',
     alertStay: 5000,
-    pollInterval: 7000,
+    pollInterval: 8000,
     maxEvents: 20,
     maxScans: 20,
     uiSpeed: 400,
@@ -30,8 +30,13 @@ var Data = {
     self: {
       characterName: '',
       characterId: '',
-      key: '',
-      systemId: ''
+      key: ''
+    },
+    vicinity: {
+      systemId: '',
+      systemName: '',
+      regionId: '',
+      regionName: ''
     },
     alertCount: 0,
     data_client: null,
@@ -130,26 +135,14 @@ var Data = {
     // });
 
     log('Populating Region Data...');
-
-    Server.vicinity(Data.state.self.systemId, function(error, data) {
-      if (!data) return;
+    Server.vicinity(function(error, data) {
+      Data.state.vicinity = data.current;
       Data.regions = data.regions;
       Data.systems = data.systems;
       Data.jumps   = data.jumps;
 
-      callback();
+      callback(data);
     });
 
-    // $.ajax({
-    //   url: '/data/map.json',
-    //   dataType: 'json',
-    //
-    //   success: function( data ) {
-    //     Data.regions = data.Regions;
-    //     Data.systems = data.Systems;
-    //     Data.gates   = data.Gates;
-    //   },
-    //   error: function(data, error, errorstring) {  if (error) console.log("Error: " + errorString); }
-    // });
   }
 };

@@ -191,8 +191,12 @@ var EventHandler = {
         event.text = 'Parsing clipboard text from client.'
       }
     } catch(error) {
-      log('Error parsing event: ' + error);
-      console.log(event);
+      if (event.data.systemId && !Util.compareRegion({systemID: event.data.systemId})) {
+        log('Filtering event for remote region.');
+      } else {
+        log('Error parsing event: ' + error);
+        console.log(event);        
+      }
     }
   },
 
@@ -289,8 +293,8 @@ var EventHandler = {
   sourcedClipboard: function (report) {
     submitSourcedStatus({
       text: 'validate',
-      systemId: Data.state.self.systemId,
-      systemName: Data.systems[Data.state.self.systemId].name,
+      systemId: Data.state.vicinity.systemId,
+      systemName: Data.state.vicinity.systemName,
       reporterId: Data.state.self.characterId,
       reporterName: Data.state.self.characterName,
       data: ScanList.parseLocal(report)
@@ -302,19 +306,6 @@ var EventHandler = {
     Data.state.self.characterId = self.characterId;
     Data.state.self.key = self.key;
     Data.ui.bottomMenu_pilotKey.html('<i class="fa fa-key"></i>  ' + Data.state.self.key);
-
-    if (self.systemId) this.statusSelfSystem(self);
-  },
-
-  statusSelfSystem: function(self) {
-    Data.state.self.systemId = self.systemId;
-    Data.populate(function() {
-      if (Data.state.self.regionId && Data.state.self.systemId) {
-        Data.state.self.regionId = Data.systems[self.systemId].regionID;
-      }
-
-      SystemMap.init();
-    });
   },
 
   statusFleet: function (fleet) {
@@ -353,17 +344,12 @@ var EventHandler = {
     ScanList.addScan(scan);
   },
 
-  updateSystemMap: function (target) {
-    if(Data.state.self.characterId == target.characterId) {
-      this.statusSelfSystem(target);
-
-      if(Data.state.self.regionId != Data.systems[target.systemId].regionID) {
-        SystemMap.redraw();
-      }
-      else {
-        SystemMap.updateCurrent();
-        SystemMap.refreshSystems();
-      }
+  updateSystemMap: function (pilot) {
+    if(Util.isMe(pilot) && !Util.compareRegion(pilot)) {
+      SystemMap.redraw();
     }
+      
+    SystemMap.refreshSystems();
+    
   }
 };

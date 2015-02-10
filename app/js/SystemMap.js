@@ -46,7 +46,7 @@ var SystemMap = {
   system_classes: function(system) {
     var classes = ["system"];
     classes.push("status-" + SystemMap.system_color(system));
-    if (system.id === +Data.state.self.systemId ) classes.push('current');
+    if (system.id === Data.state.vicinity.systemId ) classes.push('current');
 
     return classes.join(" ");
   },
@@ -89,6 +89,10 @@ var SystemMap = {
     // Change this to globally adjust minimum node distance and system [x,y] scale
     var SCALING_FACTOR = 0.85;
 
+    // Clear existing map
+    d3.select("#system-map svg").remove();
+    
+    // Construct current map
     var svg = d3.select("#system-map")
       .attr("width", Data.ui.map.width())
       .attr("height", Data.ui.map.height())
@@ -264,8 +268,8 @@ var SystemMap = {
 
     // fetch data about our current system
     if (!Data.systems) return;
-    system = Data.systems[ Data.state.self.systemId ];
-
+    system = Data.systems[ Data.state.vicinity.systemId ];
+    
     SystemMap.systems = [];
     SystemMap.nodes = [];
     SystemMap.jumps = [];
@@ -275,31 +279,17 @@ var SystemMap = {
 
     // Only draw systems that are in our current region
     SystemMap.systems = $.map(Data.systems, function(s) {
-      if (system && (s.regionID === system.regionID)) {
-        var node = { system: s, x: s.x, y: s.y };
-        nodes[s.id] = node;
-        return node;
-      }
+      var node = { system: s, x: s.x, y: s.y };
+      nodes[s.id] = node;
+      return node;
     });
 
     Data.jumps.forEach(function(gate) {
       var jump, node;
       var from = Data.systems[gate.fromSystem];
       var to = Data.systems[gate.toSystem];
-      if(from.regionID == system.regionID || to.regionID == system.regionID) {
-        if(from.regionID != system.regionID && !nodes.hasOwnProperty(from.id)) {
-          node = { system: from, x: from.x, y: from.y };
-          nodes[from.id] = node;
-          SystemMap.systems.push(node);
-        }
-        if( to.regionID != system.regionID && !nodes.hasOwnProperty(to.id)) {
-          node = { system: to, x: to.x, y: to.y };
-          nodes[to.id] = node;
-          SystemMap.systems.push(node);
-        }
-        SystemMap.jumps.push(jump = {source: nodes[from.id], target: nodes[to.id], type: gate.type.toLowerCase()});
-        SystemMap.links.push(jump);
-      }
+      SystemMap.jumps.push(jump = {source: nodes[from.id], target: nodes[to.id], type: gate.type});
+      SystemMap.links.push(jump);
     });
 
     SystemMap.systems.forEach(function (system) {
@@ -338,6 +328,14 @@ var SystemMap = {
 
     SystemMap.zoom.translate([(Data.ui.map.width() / 2 - nodes[system.id].x * scale), (Data.ui.map.height() / 2 - nodes[system.id].y * scale)]);
     SystemMap.zoom.event(root);
+    
+    Data.ui.currentSystem
+    .data('system-id', Data.state.vicinity.systemId)
+    .text( Data.state.vicinity.systemName );
+    
+    Data.ui.currentRegion
+    .data('region-id', Data.state.vicinity.regionId)
+    .text( Data.state.vicinity.regionName );
   },
 
   updateHud: function(system_object) {
@@ -355,25 +353,6 @@ var SystemMap = {
     });
   },
 
-  updateCurrent: function() {
-    if (!Data.systems) return;
-
-    d3.selectAll('g.node .system')
-      .attr("class", function(n) { return SystemMap.system_classes(n.system); });
-
-    var node = SystemMap._system_nodes[Data.state.self.systemId];
-    var scale = SystemMap.zoom.scale();
-
-    SystemMap.zoom.translate([(Data.ui.map.width() / 2 - node.x * scale), (Data.ui.map.height() / 2 - node.y * scale)]);
-    SystemMap.zoom.event(d3.select('#system-map'));
-
-    Data.ui.currentSystem
-      .data('system-id', Data.state.self.systemId)
-      .text( Data.systems[ Data.state.self.systemId ].name );
-
-    SystemMap.updateHud( Data.systems[ Data.state.self.systemId ] );
-  },
-
   updateInfo: function(system_name) {
     Server.systemInformation(system_name, function(error, results) {
       if (results === null) return;
@@ -389,7 +368,7 @@ var SystemMap = {
       system.last_report = (results.reports.length) ? Util.formatTime(results.reports.pop().ts) : 'Never';
       system.advisories = AdvisoryList.lookup(results.id);
       system.active_advisories = $.grep(system.advisories, function(a) { return a.present === true; });
-      if (results.id == Data.state.self.systemId) system.allow_report = true;
+      if (results.id == Data.state.vicinity.systemId) system.allow_report = true;
 
       Data.ui.mapInfo.html( $(Data.templates.system_info(system)) );
       Data.ui.mapInfo.children('div.details')
@@ -401,15 +380,13 @@ var SystemMap = {
   },
 
   refreshSystems: function() {
-    if (!Data.systems) return;
-
     d3.selectAll('g.node .system')
       .attr("class", function(n) { return SystemMap.system_classes(n.system); });
 
     d3.selectAll('g.node rect.advisories')
       .attr("class", function(n) {
         return (SystemMap.advisory_count(n.system) > 0) ? "advisories present" : "advisories vacant";
-      })
+      });
 
     d3.selectAll('g.node text.advisories')
       .text(function(n) {
@@ -444,21 +421,22 @@ var SystemMap = {
         return (count > 0) ? count : "";
       });
 
-    SystemMap.updateHud( Data.systems[ Data.state.self.systemId ] );
+    SystemMap.updateHud( Data.systems[ Data.state.vicinity.systemId ] );
   },
 
   redraw: function() {
     log("Redrawing System Map...");
-    $("#system-map > svg").remove();
-    SystemMap.draw();
-    SystemMap.updateHud( Data.systems[ Data.state.self.systemId ] );
+    Data.populate(function() {
+      Server.status(function(error, data) {
+        SystemMap.draw();
+        EventHandler.dispatchEvents(data.events);
+      });
+    });
   },
 
   init: function() {
     log("Initializing System Map...");
-
     SystemMap.draw();
-    SystemMap.updateCurrent();
   }
 
 };

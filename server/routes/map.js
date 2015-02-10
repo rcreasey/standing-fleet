@@ -3,7 +3,8 @@ var express = require('express')
   , validate = require(__dirname + '/../middleware/validate')
   , map = require(__dirname + '/../controllers/map')
 
-router.route('/vicinity/:system_id')
+router.route('/vicinity')
+  .get(validate.headers)
   .get(map.vicinity);
 
 router.route('/regions/:region_name')
