@@ -276,7 +276,6 @@ var SystemMap = {
 
     var nodes = SystemMap._system_nodes = {};
 
-    // Only draw systems that are in our current region
     SystemMap.systems = $.map(Data.systems, function(s) {
       var node = { system: s, x: s.x, y: s.y };
       nodes[s.id] = node;
@@ -288,7 +287,19 @@ var SystemMap = {
       var from = Data.systems[gate.fromSystem];
       var to = Data.systems[gate.toSystem];
       jump = {source: nodes[from.id], target: nodes[to.id], type: gate.type};
-      if (gate.type == 'wormhole') jump.wormhole_data = gate.wormhole_data;
+      if (gate.type == 'wormhole') {
+        
+        // pin the wormhole close to the connecting node
+        if (to.y === undefined && to.x === undefined) {
+          to.y = from.y;
+          to.x = from.x;
+        } else if ( from.y === undefined && from.x === undefined) {
+          from.y = to.y;
+          from.x = to.x;
+        }
+        
+        jump.wormhole_data = gate.wormhole_data;
+      }
       SystemMap.jumps.push(jump);
       SystemMap.links.push(jump);
     });
@@ -310,14 +321,12 @@ var SystemMap = {
       .chargeDistance(200 * SCALING_FACTOR)
       .linkDistance(function(l) {
         if (l.source.fixed || l.target.fixed) return 0;
+        if (l.type == 'wormhole') return 75 * SCALING_FACTOR;
         var dx = l.source.x - l.target.x, dy = l.source.y - l.target.y;
-        console.log(l)
-        console.log(Math.min(50 * SCALING_FACTOR, Math.sqrt(dx * dx + dy * dy)))
         return Math.min(50 * SCALING_FACTOR, Math.sqrt(dx * dx + dy * dy));
       })
       .linkStrength(function(l) {
         if (l.source.fixed || l.target.fixed) return 0.1;
-        if (l.type == 'wormhole') return 0;
         return 0.25;
       });
     force.start();
