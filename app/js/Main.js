@@ -25,6 +25,8 @@ function initialize() {
   HostileList.clear();
   EventList.clear();
   ScanList.clear();
+  
+  Data.load_ships();
 
   UIPanels.showLoadingPanel(false, function () {
     Server.status(function(error, data) {

@@ -92,11 +92,15 @@ var Server = {
   },
 
   vicinity: function(callback) {
-    Server.ajaxGet('/map/vicinity/', callback);
+    Server.ajaxGet('/map/vicinity', callback);
   },
 
   systemInformation: function(system_name, callback) {
     Server.ajaxGet('/map/systems/' + system_name, callback);
+  },
+  
+  ships: function(callback) {
+    Server.ajaxGet('/ships', callback);
   },
 
   postScan: function (scanData, callback) {
