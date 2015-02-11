@@ -124,6 +124,18 @@ gulp.task('db:seed', function(done) {
   db.disconnect(done);
 });
 
+gulp.task('db:purge:jumps', function(done) {
+  var mongoose = require('mongoose')
+  , Jump = require('./server/models/jump')
+  
+  var db = mongoose.connect(process.env.MONGODB_URL);
+  mongoose.set('debug', true);
+  
+  db.models.Jump.remove().execQ();
+  
+  db.disconnect(done);  
+});
+
 gulp.task('sde:clean', function() {
   return gulp.src('./sde/*', { read: false }).pipe(rimraf());
 });
