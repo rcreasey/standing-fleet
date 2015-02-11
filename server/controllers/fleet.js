@@ -243,7 +243,6 @@ exports.poll = function(req, res, next) {
                     var wormhole_data = {mass_estimate: 'Unknown', lifespan_estimate: 'Unknown',
                                          discovered_on: moment().unix(), updated_at: moment().unix(), expires_on: moment().add(24, 'hours').unix()}
 
-                    debugger
                     Jump.updateQ({toSystem: jump.toSystem, fromSystem: jump.fromSystem},
                                  {$set: jump, $setOnInsert: {wormhole_data: wormhole_data}}, {upsert: true});
 
