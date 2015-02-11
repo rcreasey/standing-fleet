@@ -16,7 +16,11 @@ var Util = {
     var match = $.grep(list, function(e) { return e[key] === element[key] && e.ts.toString().slice(0,-2) === element.ts.toString().slice(0,-2); });
     
     return (match.length > 0) ? true : false;
-  },  
+  },
+  
+  is_wormhole: function(system) {
+    return system.id >= 31000000 && system.id <= 31999999;
+  },
   
   isShip: function (shipName) {
     return (typeof Data.ships[shipName] !== 'undefined' && Data.ships[shipName].icons !== undefined);

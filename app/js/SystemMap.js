@@ -49,7 +49,7 @@ var SystemMap = {
     if (system.id === Data.state.vicinity.systemId ) classes.push('current');
     return classes.join(" ");
   },
-
+  
   // Given a line AB and a point C, finds point D such that CD is perpendicular to AB
   getSpPoint: function(A, B, C) {
     var x1 = A.x, y1 = A.y, x2 = B.x, y2 = B.y, x3 = C.x, y3 = C.y;
@@ -309,8 +309,10 @@ var SystemMap = {
       system.x *= SCALING_FACTOR;
       system.y *= SCALING_FACTOR;
       SystemMap.nodes.push(system);
-      SystemMap.nodes.push(anchor = { x: system.x, y: system.y, fixed: true });
-      SystemMap.links.push({ source: system, target: anchor });
+      if (!Util.is_wormhole(system.system)) {
+        SystemMap.nodes.push(anchor = { x: system.x, y: system.y, fixed: true });
+        SystemMap.links.push({ source: system, target: anchor });        
+      }
     });
 
     force
