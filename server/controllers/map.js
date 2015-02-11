@@ -154,14 +154,14 @@ exports.vicinity = function(req, res, next){
   var vicinity = {regions: {}, systems: {}, jumps: []};
   vicinity.current = {systemName: req.session.fleet.systemName, systemId: req.session.fleet.systemId,
                       regionName: req.session.fleet.regionName};
-  
+
   // Find the region
   Region.findOneQ({name: req.session.fleet.regionName})
     .then(function(region) {
       if (!region) throw 'Invalid Region: ' + req.session.fleet.regionName;
       vicinity.current.regionId = region.id;
       vicinity.regions[region.id] = region.toObject();
-      
+
       return region.toObject();
     })
     .then(function(region) {
@@ -188,8 +188,7 @@ exports.vicinity = function(req, res, next){
 
           var tasks = [
             System.findQ({ id: {$in: system_ids} }),
-            // Region.findQ({ id: {$in: region_ids} })
-            Region.findQ()
+            Region.findQ({ id: {$in: region_ids} })
           ];
 
           Q.all(tasks)

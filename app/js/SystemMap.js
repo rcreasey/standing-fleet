@@ -47,7 +47,6 @@ var SystemMap = {
     var classes = ["system"];
     classes.push("status-" + SystemMap.system_color(system));
     if (system.id === Data.state.vicinity.systemId ) classes.push('current');
-
     return classes.join(" ");
   },
 
@@ -87,11 +86,11 @@ var SystemMap = {
 
   draw: function() {
     // Change this to globally adjust minimum node distance and system [x,y] scale
-    var SCALING_FACTOR = 0.85;
+    var SCALING_FACTOR = 0.95;
 
     // Clear existing map
     d3.select("#system-map svg").remove();
-    
+
     // Construct current map
     var svg = d3.select("#system-map")
       .attr("width", Data.ui.map.width())
@@ -269,7 +268,7 @@ var SystemMap = {
     // fetch data about our current system
     if (!Data.systems) return;
     system = Data.systems[ Data.state.vicinity.systemId ];
-    
+
     SystemMap.systems = [];
     SystemMap.nodes = [];
     SystemMap.jumps = [];
@@ -288,7 +287,9 @@ var SystemMap = {
       var jump, node;
       var from = Data.systems[gate.fromSystem];
       var to = Data.systems[gate.toSystem];
-      SystemMap.jumps.push(jump = {source: nodes[from.id], target: nodes[to.id], type: gate.type});
+      jump = {source: nodes[from.id], target: nodes[to.id], type: gate.type};
+      if (gate.type == 'wormhole') jump.wormhole_data = gate.wormhole_data;
+      SystemMap.jumps.push(jump);
       SystemMap.links.push(jump);
     });
 
@@ -308,16 +309,15 @@ var SystemMap = {
       .charge(function(d) {return d.fixed ? 0 : -1250 * SCALING_FACTOR;})
       .chargeDistance(200 * SCALING_FACTOR)
       .linkDistance(function(l) {
-        if(l.source.fixed || l.target.fixed) {
-          return 0;
-        }
+        if (l.source.fixed || l.target.fixed) return 0;
         var dx = l.source.x - l.target.x, dy = l.source.y - l.target.y;
+        console.log(l)
+        console.log(Math.min(50 * SCALING_FACTOR, Math.sqrt(dx * dx + dy * dy)))
         return Math.min(50 * SCALING_FACTOR, Math.sqrt(dx * dx + dy * dy));
       })
       .linkStrength(function(l) {
-        if(l.source.fixed || l.target.fixed) {
-          return 0.1;
-        }
+        if (l.source.fixed || l.target.fixed) return 0.1;
+        if (l.type == 'wormhole') return 0;
         return 0.25;
       });
     force.start();
@@ -328,11 +328,11 @@ var SystemMap = {
 
     SystemMap.zoom.translate([(Data.ui.map.width() / 2 - nodes[system.id].x * scale), (Data.ui.map.height() / 2 - nodes[system.id].y * scale)]);
     SystemMap.zoom.event(root);
-    
+
     Data.ui.currentSystem
     .data('system-id', Data.state.vicinity.systemId)
     .text( Data.state.vicinity.systemName );
-    
+
     Data.ui.currentRegion
     .data('region-id', Data.state.vicinity.regionId)
     .text( Data.state.vicinity.regionName );
