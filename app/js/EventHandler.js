@@ -204,6 +204,7 @@ var EventHandler = {
     MemberList.removeMember(member.characterId);
     MemberList.addMember(member);
     MemberList.sortAndRenderAll();
+    if (Util.isMe(member)) SystemMap.updateCurrent(member);      
     SystemMap.refreshSystems();
   },
 
@@ -216,6 +217,7 @@ var EventHandler = {
   memberUpdated: function (member) {
     MemberList.addMember(member);
     MemberList.renderSingleMember(member);
+    if (Util.isMe(member)) SystemMap.updateCurrent(member);      
     SystemMap.refreshSystems();
   },
 
@@ -345,8 +347,13 @@ var EventHandler = {
   },
 
   updateSystemMap: function (pilot) {
-    if(Util.isMe(pilot) && !Util.compareRegion(pilot)) {
-      SystemMap.redraw();
+    if (Util.isMe(pilot)) {
+      
+      if (!Util.compareRegion(pilot)) {
+        SystemMap.redraw();
+      } else {
+        SystemMap.updateCurrent(pilot);
+      }
     }
       
     SystemMap.refreshSystems();

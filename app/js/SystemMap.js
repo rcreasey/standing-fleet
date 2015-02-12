@@ -434,6 +434,15 @@ var SystemMap = {
 
     SystemMap.updateHud( Data.systems[ Data.state.vicinity.systemId ] );
   },
+  
+  updateCurrent: function(pilot) {
+    Data.state.vicinity.systemId = pilot.systemId;
+    Data.state.vicinity.systemName = pilot.systemName;
+    
+    Data.ui.currentSystem
+      .data('system-id', Data.state.vicinity.systemId)
+      .text( Data.state.vicinity.systemName );
+  },
 
   redraw: function() {
     log("Redrawing System Map...");
