@@ -3,7 +3,6 @@ var SystemMap = {
   links: [],
   systems: [],
   jumps: [],
-  _system_nodes: {},
   zoom: null,
 
   // let's count things
@@ -298,7 +297,7 @@ var SystemMap = {
     SystemMap.jumps = [];
     SystemMap.links = [];
 
-    var nodes = SystemMap._system_nodes = {};
+    var nodes = {};
 
     SystemMap.systems = $.map(Data.systems, function(s) {
       var node = { system: s, x: s.x, y: s.y };
@@ -360,7 +359,7 @@ var SystemMap = {
       force.tick();
     }
     force.stop();
-
+    
     SystemMap.zoom.translate([(Data.ui.map.width() / 2 - nodes[system.id].x * scale), (Data.ui.map.height() / 2 - nodes[system.id].y * scale)]);
     SystemMap.zoom.event(root);
 
