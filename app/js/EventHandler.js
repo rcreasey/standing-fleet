@@ -217,7 +217,16 @@ var EventHandler = {
   memberUpdated: function (member) {
     MemberList.addMember(member);
     MemberList.renderSingleMember(member);
-    if (Util.isMe(member)) SystemMap.updateCurrent(member);      
+    if (Util.isMe(member)) SystemMap.updateCurrent(member); 
+    if (Util.isMe(member)) {
+      
+      if (!Util.compareRegion(member)) {
+        SystemMap.redraw();
+      } else {
+        SystemMap.updateCurrent(member);
+      }
+    }
+         
     SystemMap.refreshSystems();
   },
 

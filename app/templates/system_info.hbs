@@ -1,3 +1,4 @@
+{{log this}}
 <div class="details">
   <h4>Details</h4>
   <dl>
@@ -6,6 +7,23 @@
 
     <dt>Region</dt>
     <dd class="region">{{ region }}</dd>
+
+    {{#if wormhole_class}}
+    <dt>WH Class</dt>
+    <dd class="wormhole-class">C{{ wormhole_class }}</dd>
+    
+    {{#if wormhole_effect}}
+    <dt>WH Effect</dt>
+    <dd class="wormhole-effect">{{ wormhole_effect }}</dd>
+    {{/if}}
+    
+    {{else}}
+    <dt>Security Class</dt>
+    <dd class="security-class">{{ security_class }}</dd>
+
+    <dt>Security Level</dt>
+    <dd class="security-level">{{ security }}</dd>
+    {{/if}}
     
     <dt>Last Report</dt>
     <dd class="last-report">{{ last_report }}</dd>

@@ -175,16 +175,22 @@ gulp.task('sde:refresh', function(done) {
             toConstellation: row.toConstellationID, fromConstellation: row.fromConstellationID};
     Jump.updateQ({toSystem: jump.toSystem, fromSystem: jump.fromSystem}, jump, {upsert: true});
   });
-
+  
   sde.each('select * from mapSolarSystems', function(err, row) {
     system = {id: row.solarSystemID, regionID: row.regionID, constellationID: row.constellationID, name: row.solarSystemName,
               security: row.security, security_class: row.securityClass};
     System.updateQ({id: system.id}, system, {upsert: true});
   });
-
+  
   sde.each('select * from mapRegions', function(err, row) {
     region = {id: row.regionID, name: row.regionName};
     Region.updateQ({id: region.id}, region, {upsert: true});
+  });
+  
+  sde.each("SELECT mapDenormalize.solarSystemID solarSystemID, invTypes.typeId effectId, invTypes.typeName effectName, mapLocationWormholeClasses.wormholeClassID class FROM mapDenormalize LEFT JOIN invTypes ON mapDenormalize.typeid = invTypes.typeID LEFT JOIN mapLocationWormholeClasses ON mapDenormalize.regionID = mapLocationWormholeClasses.locationID WHERE mapDenormalize.groupID = '995' and mapLocationWormholeClasses.wormholeClassID < 7", function(error, row) {
+    wormhole_data = {effectId: row.effectId, effectName: row.effectName, class: row.class};
+    console.log(wormhole_data);
+    System.updateQ({id: row.solarSystemID}, {wormhole_data: wormhole_data}, {upsert: true});
   });
   
   // ship data

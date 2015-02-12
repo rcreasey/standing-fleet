@@ -2,14 +2,19 @@ var mongoose = require('mongoose-q')()
   , Schema = mongoose.Schema
 
 var SystemSchema  = new Schema({
-  id: { type: Number },
+  id: Number ,
   constellationID: Number,
-  regionID: { type: Number },
+  regionID: Number,
   name: String,
   x: Number,
   y: Number,
   security: Number,
-  security_class: String
+  security_class: String,
+  wormhole_data: {
+    effectId: Number,
+    effectName: String,
+    class: Number
+  }
 });
 
 SystemSchema.index({ id: 1, regionID: 1 });

@@ -82,18 +82,25 @@ exports.show_region = function(req, res, next){
 exports.show_system = function(req, res, next){
   var system = {};
 
-  System.findOneQ({name: req.params.system_name}, 'id name constellationID regionID x y')
-    .then(function(system) {
+  System.findOneQ({name: req.params.system_name})
+    .then(function(result) {
       if (!system) throw 'Invalid system name ' + req.params.system_name;
 
       system = {
-        id: system.id,
-        name: system.name,
-        regionID: system.regionID,
-        constellationID: system.constellationID,
-        x: system.x,
-        y: system.y
+        id: result.id,
+        name: result.name,
+        regionID: result.regionID,
+        constellationID: result.constellationID,
+        security_class: result.security_class,
+        security: result.security,
+        x: result.x,
+        y: result.y
       };
+      
+      if (result.wormhole_data) {
+        if (result.wormhole_data.effectName) system.wormhole_effect = result.wormhole_data.effectName;
+        if (result.wormhole_data.class) system.wormhole_class = result.wormhole_data.class;
+      }
 
       return system;
     })
