@@ -48,7 +48,7 @@ var SystemMap = {
     if (system.id === Data.state.vicinity.systemId ) classes.push('current');
     return classes.join(' ');
   },
-  
+
   // Given a line AB and a point C, finds point D such that CD is perpendicular to AB
   getSpPoint: function(A, B, C) {
     var x1 = A.x, y1 = A.y, x2 = B.x, y2 = B.y, x3 = C.x, y3 = C.y;
@@ -179,7 +179,7 @@ var SystemMap = {
 
         node_groups.append('rect')
           .attr('class', function(n) {
-            return (n.system.wormhole_data) ? 'wormhole-class class-' + n.system.wormhole_data.class : 
+            return (n.system.wormhole_data) ? 'wormhole-class class-' + n.system.wormhole_data.class :
               (n.system.security > 0) ? 'security-class class-' + parseInt(n.system.security * 10) : 'security-class vacant';
           })
           .attr('width', 20)
@@ -189,7 +189,7 @@ var SystemMap = {
 
         node_groups.append('text')
           .attr('class', function(n) {
-            return (n.system.wormhole_data) ? 'wormhole-class class-' + n.system.wormhole_data.class : 
+            return (n.system.wormhole_data) ? 'wormhole-class class-' + n.system.wormhole_data.class :
               (n.system.security > 0) ? 'security-class class-' + parseInt(n.system.security * 10) : 'security-class';
           })
           .attr('text-anchor', 'center')
@@ -197,10 +197,10 @@ var SystemMap = {
           .attr('vector-effect', 'non-scaling-stroke')
           .attr('x', rect_width / 2.5).attr('y', 29)
           .text(function(n) {
-            return (n.system.wormhole_data) ? 'C' + n.system.wormhole_data.class : 
+            return (n.system.wormhole_data) ? 'C' + n.system.wormhole_data.class :
               (n.system.security > 0) ? n.system.security.toFixed(1) : '';
           });
-          
+
         node_groups.append('rect')
           .attr('class', function(n) {
             return (SystemMap.faded_count(n.system) > 0) ? 'faded present' : 'faded vacant';
@@ -259,6 +259,10 @@ var SystemMap = {
           SystemMap.updateInfo( n.system.name );
         });
 
+        link_groups.filter(function(l) { return l.type == 'wormhole'; }).on('click', function(l) {
+          SystemMap.updateWormholeJump( l );
+        });
+
         link_groups.attr('x1', function(d) {return d.source.x;})
           .attr('y1', function(d) {return d.source.y;})
           .attr('x2', function(d) {return d.target.x;})
@@ -311,7 +315,7 @@ var SystemMap = {
       var to = Data.systems[gate.toSystem];
       jump = {source: nodes[from.id], target: nodes[to.id], type: gate.type};
       if (gate.type == 'wormhole') {
-        
+
         // pin the wormhole close to the connecting node
         if (to.y === undefined && to.x === undefined) {
           to.y = from.y;
@@ -320,7 +324,7 @@ var SystemMap = {
           from.y = to.y;
           from.x = to.x;
         }
-        
+
         jump.wormhole_data = gate.wormhole_data;
       }
       SystemMap.jumps.push(jump);
@@ -334,7 +338,7 @@ var SystemMap = {
       SystemMap.nodes.push(system);
       if (!Util.is_wormhole(system.system)) {
         SystemMap.nodes.push(anchor = { x: system.x, y: system.y, fixed: true });
-        SystemMap.links.push({ source: system, target: anchor });        
+        SystemMap.links.push({ source: system, target: anchor });
       }
     });
 
@@ -359,7 +363,7 @@ var SystemMap = {
       force.tick();
     }
     force.stop();
-    
+
     SystemMap.zoom.translate([(Data.ui.map.width() / 2 - nodes[system.id].x * scale), (Data.ui.map.height() / 2 - nodes[system.id].y * scale)]);
     SystemMap.zoom.event(root);
 
@@ -401,7 +405,7 @@ var SystemMap = {
                      faded_count: SystemMap.faded_count( results ),
                      gates: $.map( results.jumps, function(j) { return Data.systems[ j.to ]; })
       };
-      
+
       if (results.wormhole_class) system.wormhole_class = results.wormhole_class;
       if (results.wormhole_effect) system.wormhole_effect = results.wormhole_effect;
 
@@ -416,7 +420,11 @@ var SystemMap = {
         .delay(Data.config.alertStay)
         .fadeOut(Data.config.uiSpeed * 8);
     });
+  },
 
+  updateWormholeJump: function(link) {
+    log('from: ' + link.from);
+    log('to: ' + link.to);
   },
 
   refreshSystems: function() {
@@ -463,11 +471,11 @@ var SystemMap = {
 
     SystemMap.updateHud( Data.systems[ Data.state.vicinity.systemId ] );
   },
-  
+
   updateCurrent: function(pilot) {
     Data.state.vicinity.systemId = pilot.systemId;
     Data.state.vicinity.systemName = pilot.systemName;
-    
+
     Data.ui.currentSystem
       .data('system-id', Data.state.vicinity.systemId)
       .text( Data.state.vicinity.systemName );
