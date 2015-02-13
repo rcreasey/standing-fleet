@@ -430,6 +430,7 @@ input.log-path {
   z-index: 4;
 }
 
+#system-info .wormhole-link-details,
 #system-info .details {
   font-family: 'Droid Sans', sans-serif;
   background-color: #000;

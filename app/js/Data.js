@@ -102,8 +102,6 @@ var Data = {
     hud_scanline: $('#hud .screen .scanline'),
     scanline: {
       line_speed: 3000,
-
-
       line_start: $('#hud .scanline').css('top'),
       line_position: $(window).height(),
       dot_position: $(window).width() - 20
@@ -120,7 +118,8 @@ var Data = {
     panel: Templates.panel,
     scan: Templates.scan,
     start: Templates.start,
-    system_info: Templates.system_info
+    system_info: Templates.system_info,
+    wormhole_link_info: Templates.wormhole_link_info
   },
 
   ships: {},
