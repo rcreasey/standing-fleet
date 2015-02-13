@@ -140,7 +140,7 @@ exports.show_system = function(req, res, next){
                 return res.jsonp(system);
               });
 
-            })
+            });
 
         })
         .catch(function(error) {
@@ -180,8 +180,18 @@ exports.vicinity = function(req, res, next){
       // Concurrently find the systems and jumps in that region
       Q.all(tasks)
         .then(function(results) {
-          _.each(results[0], function(system) { vicinity.systems[system.id] = system; });
           vicinity.jumps = _.map(results[1], function(jump) { return _.merge(jump.toObject(), {'type': jump.type()}); });
+
+          // filter out wormholes that are not connected to anything (other than the current system)
+          _.each(results[0], function(system) { 
+            if (system.is_wspace()) {
+              if (system.id == vicinity.current.systemId || _.contains(vicinity.jumps, system.id) ) {
+                vicinity.systems[system.id] = system;               
+              }
+            } else {
+              vicinity.systems[system.id] = system;               
+            }
+          });
 
           // Return a list of system ids that are referenced from the jump data
           return _.filter(vicinity.jumps, function(jump) {
