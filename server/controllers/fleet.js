@@ -238,14 +238,14 @@ exports.poll = function(req, res, next) {
                   if (currentSystem.is_wspace() || previousSystem.is_wspace()) {
                     var jump = {toSystem: currentSystem.id, fromSystem: previousSystem.id,
                                 toRegion: currentSystem.regionID, fromRegion: previousSystem.regionID,
-                                toConstellation: currentSystem.constellationID, fromConstellation: previousSystem.constellationID};
+                                toConstellation: currentSystem.constellationID, fromConstellation: previousSystem.constellationID,
+                                wormhole_data: {updated_at: moment().unix()}};
 
                     var wormhole_data = {mass_estimate: 'Unknown', lifespan_estimate: 'Unknown',
-                                         discovered_on: moment().unix(), updated_at: moment().unix(), expires_on: moment().add(24, 'hours').unix()}
+                                         discovered_on: moment().unix(), expires_on: moment().add(24, 'hours').unix()};
 
                     Jump.updateQ({toSystem: jump.toSystem, fromSystem: jump.fromSystem},
                                  {$set: jump, $setOnInsert: {wormhole_data: wormhole_data}}, {upsert: true});
-
                   }
               })
               .done(function() {
