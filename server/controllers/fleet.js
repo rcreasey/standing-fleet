@@ -236,6 +236,8 @@ exports.poll = function(req, res, next) {
                   var currentSystem  = _.find(results, function(s) { if (s.id == member.systemId) return s; });
 
                   if (currentSystem.is_wspace() || previousSystem.is_wspace()) {
+                    
+                    // we need a Q processor here
                     var jump = {toSystem: currentSystem.id, fromSystem: previousSystem.id,
                                 toRegion: currentSystem.regionID, fromRegion: previousSystem.regionID,
                                 toConstellation: currentSystem.constellationID, fromConstellation: previousSystem.constellationID,
@@ -246,6 +248,17 @@ exports.poll = function(req, res, next) {
 
                     Jump.updateQ({toSystem: jump.toSystem, fromSystem: jump.fromSystem},
                                  {$set: jump, $setOnInsert: {wormhole_data: wormhole_data}}, {upsert: true});
+                                 
+                    advisory = Advisory.format(req.session.fleetKey, 
+                                               (currentSystem.is_wspace()) ? previousSystem.systemId : currentSystem.systemId, 
+                                               'Wormhole Detected');                      
+                    
+                    Advisory.updateQ({type: advisory.type, systemId: advisory.systemId}, advisory, {upsert: true})
+                      .then(function(result) {
+                        Event.prepare('addAdvisory', req.session.fleetKey, req.body).saveQ();
+                      });
+
+
                   }
               })
               .done(function() {
