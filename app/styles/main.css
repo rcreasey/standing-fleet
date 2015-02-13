@@ -577,7 +577,7 @@ g.node {
 .node rect.status-warning { stroke: #f0ad4e; fill: #df691a; }
 .node rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 
-.node rect.wormhole-class     { opacity: 0.6; }
+.node rect.wormhole-class     { opacity: 0.8; }
 .node rect.advisories.present { opacity: 0.6; }
 .node rect.hostiles.present   { stroke: #d9534f; fill: #d9534f; }
 .node rect.faded.present      { stroke: #f0ad4e; fill: #f0ad4e; }

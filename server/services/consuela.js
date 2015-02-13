@@ -7,6 +7,7 @@ var settings = require(__dirname + '/../config/settings')
   , Advisory = require(__dirname + '/../models/advisory')
   , Fleet = require(__dirname + '/../models/fleet')
   , Event = require(__dirname + '/../models/event')
+  , Jump = require(__dirname + '/../models/jump')
   , Member = require(__dirname + '/../models/member')
   , Hostile = require(__dirname + '/../models/hostile')
   , Report = require(__dirname + '/../models/report')
@@ -64,7 +65,7 @@ var clean_members = function() {
         Event.prepare('memberTimedOut', member.fleetKey, member)
           .saveQ();
         member.removeQ();
-      })
+      });
     });
 };
 
@@ -77,27 +78,27 @@ var clean_advisories = function() {
         Event.prepare('clearAdvisory', advisory.fleetKey, advisory)
           .saveQ();
         advisory.removeQ();
-      })
-    })
-}
+      });
+    });
+};
 
 var clean_events = function() {
   console.log('Consuela: Cleaning Events');
 
   Event.removeQ({ts: { $lte: moment().unix() - +settings.eventTtl }});
-}
+};
 
 var clean_scans = function() {
   console.log('Consuela: Cleaning Scans');
 
   Scan.removeQ({ts: { $lte: moment().unix() - +settings.scanTtl }});
-}
+};
 
 var clean_reports = function() {
   console.log('Consuela: Cleaning Reports');
 
   Report.removeQ({ts: { $lte: moment().unix() - +settings.reportTtl }});
-}
+};
 
 var clean_hostiles = function() {
   console.log('Consuela: Cleaning Hostiles');
@@ -111,7 +112,7 @@ var clean_hostiles = function() {
           hostile.is_faded = true;
           hostile.saveQ();
         }
-      })
+      });
     });
 
   Hostile.findQ({ts: { $lte: moment().unix() - +settings.hostileRemoveTtl }})
@@ -120,8 +121,14 @@ var clean_hostiles = function() {
         Event.prepare('hostileTimedOut', hostile.fleetKey, hostile)
           .saveQ();
         hostile.removeQ();
-      })
+      });
     });
+};
+
+var clean_wormhole_jumps = function() {
+  console.log('Consuela: Cleaning Wormhole Jumps');
+
+  Jump.removeQ({"wormhole_data.expires_on": {$lte: moment().unix()}});  
 };
 
 var clean_loop = function() {
@@ -134,6 +141,7 @@ var clean_loop = function() {
       clean_events();
       clean_scans();
       clean_reports();
+      clean_wormhole_jumps();
     }
 
     ensure_fleets();

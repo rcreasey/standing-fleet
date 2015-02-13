@@ -423,6 +423,7 @@ var SystemMap = {
   },
 
   updateWormholeJump: function(link) {
+    console.log(link);
     Data.ui.mapInfo.html( $(Data.templates.wormhole_link_info(link)) );
     Data.ui.mapInfo.children('div.wormhole-link-details')
       .fadeIn(Data.config.uiSpeed)
