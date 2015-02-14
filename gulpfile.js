@@ -163,12 +163,15 @@ gulp.task('sde:refresh', function(done) {
   , Region = require('./server/models/region')
   , Jump = require('./server/models/jump')
   , Ship = require('./server/models/ship')
+  , wormholes = require('./test/fixtures/wormholes.json')
 
   var sde = new sqlite3.Database('./sde/sqlite-latest.sqlite')
   , db = mongoose.connect(process.env.MONGODB_URL);
   mongoose.set('debug', true);
   
   // map data
+  db.models.Jump.remove().execQ();
+
   sde.each('select * from mapSolarSystemJumps', function(err, row) {
     jump = {toSystem: row.toSolarSystemID, fromSystem: row.fromSolarSystemID,
             toRegion: row.toRegionID, fromRegion: row.fromRegionID,
@@ -187,12 +190,10 @@ gulp.task('sde:refresh', function(done) {
     Region.updateQ({id: region.id}, region, {upsert: true});
   });
   
-  sde.each("SELECT mapDenormalize.solarSystemID solarSystemID, invTypes.typeId effectId, invTypes.typeName effectName, mapLocationWormholeClasses.wormholeClassID class FROM mapDenormalize LEFT JOIN invTypes ON mapDenormalize.typeid = invTypes.typeID LEFT JOIN mapLocationWormholeClasses ON mapDenormalize.regionID = mapLocationWormholeClasses.locationID WHERE mapDenormalize.groupID = '995' and mapLocationWormholeClasses.wormholeClassID < 7", function(error, row) {
-    wormhole_data = {effectId: row.effectId, effectName: row.effectName, class: row.class};
-    console.log(wormhole_data);
-    System.updateQ({id: row.solarSystemID}, {wormhole_data: wormhole_data}, {upsert: true});
+  _.forEach(wormholes.wormholes, function(wormhole) {
+    System.updateQ({name: wormhole.name}, {wormhole_data: {class: wormhole.class}}, {upsert: true});
   });
-  
+
   // ship data
   sde.each('SELECT i.typeID id, i.typeName name, g.groupName class, IFNULL(img.metaGroupName, "Tech I") as meta FROM invTypes i INNER JOIN invGroups g ON i.groupID = g.groupID LEFT JOIN invMetaTypes imt ON i.typeID = imt.typeID LEFT JOIN invMetaGroups img ON imt.metaGroupID = img.metaGroupID WHERE g.categoryID = 6 AND i.published = 1 ORDER BY i.typeID ASC', function(err, row) {
     ship = {id: row.id, name: row.name, class: row.class, meta: row.meta};

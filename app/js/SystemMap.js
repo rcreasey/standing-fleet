@@ -325,6 +325,7 @@ var SystemMap = {
           from.x = to.x;
         }
 
+        jump.updated_at = gate.updated_at;
         jump.wormhole_data = gate.wormhole_data;
       }
       SystemMap.jumps.push(jump);
