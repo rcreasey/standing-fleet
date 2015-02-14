@@ -29,11 +29,11 @@ var JumpSchema = new Schema({
   fromRegion: Number,
   toConstellation: Number,
   fromConstellation: Number,
+  updated_at: Number,
   wormhole_data: {
     mass_estimate: {type: String, enum: massEstimates},
     lifespan_estimate: {type: String, enum: lifespanEstimates},
     discovered_on: Number,
-    updated_at: Number,
     expires_on: Number
   }
 });

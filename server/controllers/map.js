@@ -181,7 +181,7 @@ exports.vicinity = function(req, res, next){
       Q.all(tasks)
         .then(function(results) {
           vicinity.jumps = _.map(results[1], function(jump) { return _.merge(jump.toObject(), {'type': jump.type()}); });
-
+          
           // filter out wormholes that are not connected to anything (other than the current system)
           _.each(results[0], function(system) { 
             if (system.is_wspace()) {
