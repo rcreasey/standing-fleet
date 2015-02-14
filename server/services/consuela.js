@@ -7,6 +7,7 @@ var settings = require(__dirname + '/../config/settings')
   , Advisory = require(__dirname + '/../models/advisory')
   , Fleet = require(__dirname + '/../models/fleet')
   , Event = require(__dirname + '/../models/event')
+  , Jump = require(__dirname + '/../models/jump')
   , Member = require(__dirname + '/../models/member')
   , Hostile = require(__dirname + '/../models/hostile')
   , Report = require(__dirname + '/../models/report')
@@ -16,7 +17,7 @@ var clean_timer = 0;
 
 var ensure_fleets = function() {
   console.log('Consuela: Ensuring Fleets');
-  
+
   _.forEach(settings.fleets, function(fleet) {
     var f = Fleet.prepare(fleet);
     Fleet.findOneQ({name: fleet.name})
@@ -32,13 +33,13 @@ var ensure_fleets = function() {
 
 var update_standings = function() {
   console.log('Consuela: Updating Standings');
-  
+
   standings.update(settings.whitelist);
 };
 
 var clean_fleets = function() {
   console.log('Consuela: Cleaning Fleets');
-  
+
   Fleet.findQ({ $or: [{name: null}, {name: {$nin: _.map(settings.fleets, function(f) { return f.name;} ) }}] })
     .then(function(fleets) {
       _.forEach(fleets, function(fleet) {
@@ -57,76 +58,82 @@ var clean_fleets = function() {
 
 var clean_members = function() {
   console.log('Consuela: Cleaning Members');
-  
+
   Member.findQ({ts: { $lte: moment().unix() - +settings.memberTtl }})
     .then(function(members) {
       _.forEach(members, function(member) {
         Event.prepare('memberTimedOut', member.fleetKey, member)
           .saveQ();
         member.removeQ();
-      })
+      });
     });
 };
 
 var clean_advisories = function() {
   console.log('Consuela: Cleaning Advisories');
-  
+
   Advisory.findQ({ts: { $lte: moment().unix() - +settings.advisoryTtl }})
     .then(function(advisories) {
       _.forEach(advisories, function(advisory) {
         Event.prepare('clearAdvisory', advisory.fleetKey, advisory)
           .saveQ();
         advisory.removeQ();
-      })
-    })
-}
+      });
+    });
+};
 
 var clean_events = function() {
   console.log('Consuela: Cleaning Events');
-  
+
   Event.removeQ({ts: { $lte: moment().unix() - +settings.eventTtl }});
-}
+};
 
 var clean_scans = function() {
   console.log('Consuela: Cleaning Scans');
-  
+
   Scan.removeQ({ts: { $lte: moment().unix() - +settings.scanTtl }});
-}
+};
 
 var clean_reports = function() {
   console.log('Consuela: Cleaning Reports');
-  
+
   Report.removeQ({ts: { $lte: moment().unix() - +settings.reportTtl }});
-}
+};
 
 var clean_hostiles = function() {
   console.log('Consuela: Cleaning Hostiles');
-  
+
   Hostile.findQ({ts: { $lte: moment().unix() - +settings.hostileFadeTtl }})
-    .then(function(hostiles) {      
+    .then(function(hostiles) {
       _.forEach(hostiles, function(hostile) {
         if (!hostile.is_faded) {
           Event.prepare('hostileFaded', hostile.fleetKey, hostile)
             .saveQ();
           hostile.is_faded = true;
-          hostile.saveQ();          
+          hostile.saveQ();
         }
-      })
+      });
     });
-    
+
   Hostile.findQ({ts: { $lte: moment().unix() - +settings.hostileRemoveTtl }})
-    .then(function(hostiles) {      
+    .then(function(hostiles) {
       _.forEach(hostiles, function(hostile) {
         Event.prepare('hostileTimedOut', hostile.fleetKey, hostile)
           .saveQ();
         hostile.removeQ();
-      })
+      });
     });
+};
+
+var clean_wormhole_jumps = function() {
+  console.log('Consuela: Cleaning Wormhole Jumps');
+
+  Jump.removeQ({"wormhole_data.expires_on": {$lte: moment().unix()}});  
 };
 
 var clean_loop = function() {
   clean_timer = setTimeout(function() {
-    if (process.env.CONSUELA !== 'disable') {      
+    if (process.env.CONSUELA !== 'disable') {
       clean_advisories();
       clean_fleets();
       clean_members();
@@ -134,8 +141,9 @@ var clean_loop = function() {
       clean_events();
       clean_scans();
       clean_reports();
+      clean_wormhole_jumps();
     }
-    
+
     ensure_fleets();
     update_standings();
 

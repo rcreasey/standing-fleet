@@ -1,0 +1,19 @@
+<div class="wormhole-link-details">
+  <h4>Wormhole Link Details</h4>
+  <dl>
+    <dt>To</dt>
+    <dd class="system">{{ target.system.name }}</dd>
+
+    <dt>From</dt>
+    <dd class="system">{{ source.system.name }}</dd>
+
+    <dt>Discovered</dt>
+    <dd class="discovered-on">{{format_ts_short wormhole_data.discovered_on}}</dd>
+
+    <dt>Expires</dt>
+    <dd class="expires-on">{{format_ts_short wormhole_data.expires_on}}</dd>
+    
+    <dt>Last Updated</dt>
+    <dd class="updated-at">{{format_ts_short updated_at}}</dd>
+  </dl>
+</div>

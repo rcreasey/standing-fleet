@@ -430,6 +430,7 @@ input.log-path {
   z-index: 4;
 }
 
+#system-info .wormhole-link-details,
 #system-info .details {
   font-family: 'Droid Sans', sans-serif;
   background-color: #000;
@@ -576,14 +577,43 @@ g.node {
 .node rect.status-warning { stroke: #f0ad4e; fill: #df691a; }
 .node rect.status-hostile { stroke: #d9534f; fill: #74312f; }
 
-.node rect.advisories { opacity: 0.6; }
+.node rect.wormhole-class     { opacity: 0.8; }
+.node rect.advisories.present { opacity: 0.6; }
 .node rect.hostiles.present   { stroke: #d9534f; fill: #d9534f; }
 .node rect.faded.present      { stroke: #f0ad4e; fill: #f0ad4e; }
 
+.node rect.security-class.vacant,
+.node rect.advisories.vacant,
 .node rect.hostiles.vacant,
-.node rect.faded.vacant       { display: none; }
+.node rect.faded.vacant { display: none; }
 
-.node rect.current    { stroke: #f39c12 !important; stroke-width: 2px !important; }
+.node rect.current { stroke: #f39c12 !important; stroke-width: 2px !important; }
+
+.node text.security-class,
+.node text.wormhole-class { fill: #222; }
+
+.node rect.security-class.class-10,
+.node rect.wormhole-class.class-10 { fill: #2fefef; }
+.node rect.security-class.class-9,
+.node rect.wormhole-class.class-9 { fill: #48f0c0; }
+.node rect.security-class.class-8,
+.node rect.wormhole-class.class-8 { fill: #00ef47; }
+.node rect.security-class.class-7,
+.node rect.wormhole-class.class-7 { fill: #00f000; }
+.node rect.security-class.class-6,
+.node rect.wormhole-class.class-6 { fill: #8fef2f; }
+.node rect.security-class.class-5,
+.node rect.wormhole-class.class-5 { fill: #efef00; }
+.node rect.security-class.class-4,
+.node rect.wormhole-class.class-4 { fill: #d77700; }
+.node rect.security-class.class-3,
+.node rect.wormhole-class.class-3 { fill: #f06000; }
+.node rect.security-class.class-2,
+.node rect.wormhole-class.class-2 { fill: #f04800; }
+.node rect.security-class.class-1,
+.node rect.wormhole-class.class-1 { fill: #d73000; }
+.node rect.security-class.class-0,
+.node rect.wormhole-class.class-0 { fill: #f00000; }
 
 .node text {
   font-family: 'Droid Sans', sans-serif;
@@ -596,6 +626,7 @@ g.node {
   font-family: FontAwesome;
   font-size: 1.25rem;
   fill: #faa123;
+  letter-spacing: 2px;
 }
 
 .node text.faded,
@@ -606,15 +637,16 @@ g.node {
 }
 
 /* Link line styles */
-.link {
-  stroke: #ccc;
-  stroke-width: 2px;
-}
+.link { stroke: #ccc; stroke-width: 2px; }
+.link.region { stroke: #ed9c28; stroke-dasharray: 4,4; stroke-width: 3px; }
+.link.constellation { stroke-dasharray: 2,4; }
+.link.jumpbridge { stroke: #2a9fd6; stroke-dasharray: 2,2; }
+.link.wormhole { stroke: #d9534f; stroke-width: 5px; cursor: pointer; }
 
 .anchorLink {
     stroke: #00aaff;
     stroke-width: 1px;
-    stroke-dasharray: 2,2,4,2
+    stroke-dasharray: 2,2,4,2;
 }
 
   /*/
@@ -1455,6 +1487,20 @@ border-top: 0.16rem solid #333;
   padding-top: 1rem;
 }
 
+.error.trust h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.error.trust p {
+  margin-bottom: 0.5rem;
+  text-align: justify;
+}
+
+.error.trust a {
+  margin-bottom: 0;
+}
+
 .atlwdg-trigger {
   z-index: 9001;
   background: #000 !important;
@@ -1556,12 +1602,12 @@ border-top: 0.16rem solid #333;
   #top-menu-scans.menu-button,
   #top-menu-events.menu-button,
   #top-menu-members.menu-button,
-  #bottom-menu-help.menu-button,  
+  #bottom-menu-help.menu-button,
   #hud .screen .console .hostiles,
   #hud .screen .console .advisories {
     display: none;
   }
-  
+
   #hud .screen .console .vicinity {
     display: block;
     float: none;
@@ -1574,5 +1620,5 @@ border-top: 0.16rem solid #333;
     float: left;
     width: 50%;
   }
-  
+
 }

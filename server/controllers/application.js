@@ -1,13 +1,14 @@
 var response = require(__dirname + '/../response')
+  , checks = require(__dirname + '/../middleware/checks')
   , Member = require(__dirname + '/../models/member');
 
 exports.index = function(req, res, next) {
-  res.render('main', { user: req.user });
+  res.render('main', { user: req.user, is_trusted: checks.is_trusted(req) });
 };
 
 exports.login = function(req, res, next) {
   if (req.isAuthenticated()) return res.redirect('/link');
-  res.render('login', { user: req.user, error: req.flash('error') });
+  res.render('login', { user: req.user, is_trusted: checks.is_trusted(req), error: req.flash('error') });
 };
 
 exports.authenticate = function(req, res, next) {
