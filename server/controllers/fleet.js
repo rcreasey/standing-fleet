@@ -232,6 +232,7 @@ exports.poll = function(req, res, next) {
 
             System.findQ({ id: {$in: [previous.systemId, member.systemId]} })
               .then(function(results) {
+                  if (!results) throw 'Unable to find system.';
                   var previousSystem = _.find(results, function(s) { if (s.id == previous.systemId) return s; });
                   var currentSystem  = _.find(results, function(s) { if (s.id == member.systemId) return s; });
 

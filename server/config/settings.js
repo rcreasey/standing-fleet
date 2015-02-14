@@ -17,7 +17,7 @@ module.exports = function () {
     memberTtl: 600,
 
     fleets: [
-      {name: 'CFC',  description: 'The Clusterfuck'}
+      {name: 'CFC',  description: 'The Clusterfuck Coalition'}
     ],
 
     minPollInterval: 0,
