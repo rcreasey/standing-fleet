@@ -13,6 +13,10 @@ exports.igb_request = function(fleet) {
   }
 };
 
+exports.is_trusted = function(req) {
+  return (req.get('EVE_TRUSTED') === 'Yes') ? true : false;
+};
+
 exports.for_existing_fleet = function(req) {
   return !!(req.session.fleetKey || req.session.memberKey);
 };

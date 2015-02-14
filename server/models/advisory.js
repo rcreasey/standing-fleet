@@ -3,14 +3,15 @@ var mongoose = require('mongoose-q')()
 , settings = require(__dirname + '/../config/settings')
 , moment = require('moment')
 
-var types = ['Wormhole Detected', 
-             'Hostile Cloaked',
-             'Hostile Docked',
-             'Hostile Faded',
-             'Hostile Logged Off',
-             'Undock Camped',
-             'Gate Bubbled'
-            ];
+var types = [
+  'Wormhole Detected', 
+  'Hostile Cloaked',
+  'Hostile Docked',
+  'Hostile Faded',
+  'Hostile Logged Off',
+  'Undock Camped',
+  'Gate Bubbled'
+];
 
 exports.types = types;
             

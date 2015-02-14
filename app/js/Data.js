@@ -30,8 +30,13 @@ var Data = {
     self: {
       characterName: '',
       characterId: '',
-      key: '',
-      systemId: ''
+      key: ''
+    },
+    vicinity: {
+      systemId: '',
+      systemName: '',
+      regionId: '',
+      regionName: ''
     },
     alertCount: 0,
     data_client: null,
@@ -97,8 +102,6 @@ var Data = {
     hud_scanline: $('#hud .screen .scanline'),
     scanline: {
       line_speed: 3000,
-
-
       line_start: $('#hud .scanline').css('top'),
       line_position: $(window).height(),
       dot_position: $(window).width() - 20
@@ -115,30 +118,29 @@ var Data = {
     panel: Templates.panel,
     scan: Templates.scan,
     start: Templates.start,
-    system_info: Templates.system_info
+    system_info: Templates.system_info,
+    wormhole_link_info: Templates.wormhole_link_info
   },
 
   ships: {},
+  
+  load_ships: function(callback) {
+    log('Populating Ship Types...');
+    Server.ships(function(error, data) {
+      Data.ships = data.ships;
+    });  
+  },
+  
+  populate: function(callback) {
+    log('Populating Region Data...');
+    Server.vicinity(function(error, data) {
+      Data.state.vicinity = data.current;
+      Data.regions = data.regions;
+      Data.systems = data.systems;
+      Data.jumps   = data.jumps;
 
-  preload: function() {
-    $.ajax({
-      url: '/data/ships.json',
-      dataType: 'json',
-
-      success: function( data ) { Data.ships = data; },
-      error: function(data, error, errorstring) {  if (error) console.log("Error: " + errorString); }
+      callback(data);
     });
 
-    $.ajax({
-      url: '/data/map.json',
-      dataType: 'json',
-
-      success: function( data ) {
-        Data.regions = data.Regions;
-        Data.systems = data.Systems;
-        Data.gates   = data.Gates;
-      },
-      error: function(data, error, errorstring) {  if (error) console.log("Error: " + errorString); }
-    });
   }
 };

@@ -3,7 +3,6 @@ var SystemMap = {
   links: [],
   systems: [],
   jumps: [],
-  _system_nodes: {},
   zoom: null,
 
   // let's count things
@@ -30,25 +29,24 @@ var SystemMap = {
   // Given a system, return the class that corresponds to whether a system is hostile or not.
   system_color: function(system) {
     if ( SystemMap.hostile_count(system) > 0 ) {
-      return "hostile";
+      return 'hostile';
     } else if ( SystemMap.faded_count(system) > 0 ) {
-      return "warning";
+      return 'warning';
     } else if ( SystemMap.advisory_count(system) > 0 ) {
-      return "warning";
+      return 'warning';
     } else if ( SystemMap.friendly_count(system) > 0 ) {
-      return "clear";
+      return 'clear';
     } else {
-      return "unknown";
+      return 'unknown';
     }
   },
 
   // Determines class list for a system
   system_classes: function(system) {
-    var classes = ["system"];
-    classes.push("status-" + SystemMap.system_color(system));
-    if (system.id === +Data.state.self.systemId ) classes.push('current');
-
-    return classes.join(" ");
+    var classes = ['system'];
+    classes.push('status-' + SystemMap.system_color(system));
+    if (system.id === Data.state.vicinity.systemId ) classes.push('current');
+    return classes.join(' ');
   },
 
   // Given a line AB and a point C, finds point D such that CD is perpendicular to AB
@@ -87,12 +85,16 @@ var SystemMap = {
 
   draw: function() {
     // Change this to globally adjust minimum node distance and system [x,y] scale
-    var SCALING_FACTOR = 0.85;
+    var SCALING_FACTOR = 0.95;
 
-    var svg = d3.select("#system-map")
-      .attr("width", Data.ui.map.width())
-      .attr("height", Data.ui.map.height())
-      .append("svg");
+    // Clear existing map
+    d3.select('#system-map svg').remove();
+
+    // Construct current map
+    var svg = d3.select('#system-map')
+      .attr('width', Data.ui.map.width())
+      .attr('height', Data.ui.map.height())
+      .append('svg');
 
     var rect_height = 17;
     var rect_width = 60;
@@ -103,7 +105,7 @@ var SystemMap = {
       .size([Data.ui.map.width(), Data.ui.map.height()])
       .charge(-250 * SCALING_FACTOR)
       .linkDistance(link_distance * SCALING_FACTOR)
-      .on("tick", function() {
+      .on('tick', function() {
 
         SystemMap.systems.forEach(function(systemNode) {
           SystemMap.jumps.forEach(function(jump) {
@@ -131,7 +133,7 @@ var SystemMap = {
           });
         });
       })
-      .on("end", function(){
+      .on('end', function(){
 
         Data.ui.currentSystem
           .data('systemId', system.id)
@@ -144,93 +146,130 @@ var SystemMap = {
         SystemMap.updateHud( system );
 
         var link_groups = link.data(SystemMap.jumps)
-          .enter().append("g")
-          .attr("class", "link")
-          .append("line");
+          .enter().append('g')
+          .attr('class', function(j) { return 'link ' + j.type; })
+          .append('line');
 
         var node_groups = node.data(SystemMap.systems)
-          .enter().append("g")
-          .attr("id", function(n) { return "system-" + n.system.id; })
-          .attr("class", "node");
+          .enter().append('g')
+          .attr('id', function(n) { return 'system-' + n.system.id; })
+          .attr('class', 'node');
 
-        node_groups.append("rect")
-          .attr("class", function(n) {
-            return (SystemMap.hostile_count(n.system) > 0) ? "hostiles present" : "hostiles vacant";
+        node_groups.append('rect')
+          .attr('class', function(n) {
+            return (SystemMap.hostile_count(n.system) > 0) ? 'hostiles present' : 'hostiles vacant';
           })
-          .attr("width", function(n) {
+          .attr('width', function(n) {
             return (SystemMap.hostile_count(n.system) > 9) ? 27 : 20;
-          }) 
-          .attr("height", rect_height)
-          .attr("rx", 2).attr("ry", 2)
-          .attr("y", 16);
+          })
+          .attr('height', rect_height)
+          .attr('rx', 2).attr('ry', 2)
+          .attr('y', 16);
 
-        node_groups.append("text")
-          .attr("class", "hostiles")
-          .attr("text-anchor", "center")
-          .attr("alignment-baseline", "center")
-          .attr("vector-effect", "non-scaling-stroke")
-          .attr("x", 7).attr("y", 29)
+        node_groups.append('text')
+          .attr('class', 'hostiles')
+          .attr('text-anchor', 'center')
+          .attr('alignment-baseline', 'center')
+          .attr('vector-effect', 'non-scaling-stroke')
+          .attr('x', 7).attr('y', 29)
           .text(function(n) {
             var count = SystemMap.hostile_count(n.system);
-            return (count > 0) ? count : "";
+            return (count > 0) ? count : '';
           });
 
-        node_groups.append("rect")
-          .attr("class", function(n) {
-            return (SystemMap.faded_count(n.system) > 0) ? "faded present" : "faded vacant";
+        node_groups.append('rect')
+          .attr('class', function(n) {
+            return (n.system.wormhole_data) ? 'wormhole-class class-' + n.system.wormhole_data.class :
+              (n.system.security > 0) ? 'security-class class-' + parseInt(n.system.security * 10) : 'security-class vacant';
           })
-          .attr("width", function(n) {
+          .attr('width', 20)
+          .attr('height', rect_height)
+          .attr('rx', 2).attr('ry', 2)
+          .attr('x', rect_width / 3).attr('y', 16);
+
+        node_groups.append('text')
+          .attr('class', function(n) {
+            return (n.system.wormhole_data) ? 'wormhole-class class-' + n.system.wormhole_data.class :
+              (n.system.security > 0) ? 'security-class class-' + parseInt(n.system.security * 10) : 'security-class';
+          })
+          .attr('text-anchor', 'center')
+          .attr('alignment-baseline', 'center')
+          .attr('vector-effect', 'non-scaling-stroke')
+          .attr('x', rect_width / 2.5).attr('y', 29)
+          .text(function(n) {
+            return (n.system.wormhole_data) ? 'C' + n.system.wormhole_data.class :
+              (n.system.security > 0) ? n.system.security.toFixed(1) : '';
+          });
+
+        node_groups.append('rect')
+          .attr('class', function(n) {
+            return (SystemMap.faded_count(n.system) > 0) ? 'faded present' : 'faded vacant';
+          })
+          .attr('width', function(n) {
             return (SystemMap.faded_count(n.system) > 9) ? 27 : 20;
           })
-          .attr("height", rect_height)
-          .attr("rx", 2).attr("ry", 2)
-          .attr("x", rect_width - 20).attr("y", 16);
+          .attr('height', rect_height)
+          .attr('rx', 2).attr('ry', 2)
+          .attr('x', rect_width - 20).attr('y', 16);
 
-        node_groups.append("text")
-          .attr("class", "faded")
-          .attr("text-anchor", "center")
-          .attr("alignment-baseline", "center")
-          .attr("vector-effect", "non-scaling-stroke")
-          .attr("x", 47).attr("y", 29)
+        node_groups.append('text')
+          .attr('class', 'faded')
+          .attr('text-anchor', 'center')
+          .attr('alignment-baseline', 'center')
+          .attr('vector-effect', 'non-scaling-stroke')
+          .attr('x', 47).attr('y', 29)
           .text(function(n) {
-            var count = SystemMap.faded_count(n.system); 
-            return (count > 0) ? count : "";
+            var count = SystemMap.faded_count(n.system);
+            return (count > 0) ? count : '';
           });
 
-        node_groups.append("text")
-          .attr("class", "advisories")
-          .attr("text-anchor", "middle")
-          .attr("alignment-baseline", "middle")
-          .attr("x", rect_width / 2).attr("y", -8)
+        node_groups.append('rect')
+          .attr('width', rect_width)
+          .attr('height', rect_height)
+          .attr('y', rect_height * -1)
+          .attr('rx', 2).attr('ry', 2)
+          .attr('class', function(n) {
+            return (SystemMap.advisory_count(n.system) > 0) ? 'advisories present' : 'advisories vacant ';
+          });
+
+        node_groups.append('text')
+          .attr('class', 'advisories')
+          .attr('text-anchor', 'middle')
+          .attr('alignment-baseline', 'middle')
+          .attr('x', rect_width / 2).attr('y', rect_height * -0.5)
           .text(function(n) {
             return UI.mapUnicode(n.system.id, Data.advisories[n.system.id] );
           });
 
-        node_groups.append("rect")
-          .attr("width", rect_width)
-          .attr("height", rect_height)
-          .attr("rx", 2).attr("ry", 2)
-          .attr("class", function(n) { return SystemMap.system_classes(n.system); });
+        node_groups.append('rect')
+          .attr('width', rect_width)
+          .attr('height', rect_height)
+          .attr('rx', 2).attr('ry', 2)
+          .attr('class', function(n) { return SystemMap.system_classes(n.system); });
 
-        node_groups.append("text")
-          .attr("class", "system-name")
-          .attr("text-anchor", "middle")
-          .attr("alignment-baseline", "middle")
-          .attr("x", rect_width / 2)
-          .attr("y", 10)
+        node_groups.append('text')
+          .attr('class', 'system-name')
+          .attr('text-anchor', 'middle')
+          .attr('alignment-baseline', 'middle')
+          .attr('x', rect_width / 2)
+          .attr('y', 10)
           .text(function(n) { return n.system.name; });
 
         node_groups.on('click', function(n) {
           SystemMap.updateInfo( n.system.name );
         });
 
-        link_groups.attr("x1", function(d) {return d.source.x;})
-          .attr("y1", function(d) {return d.source.y;})
-          .attr("x2", function(d) {return d.target.x;})
-          .attr("y2", function(d) {return d.target.y;});
+        link_groups.filter(function(l) { return l.type == 'wormhole'; }).on('click', function(l) {
+          SystemMap.updateWormholeJump( l );
+        });
 
-        node_groups.attr("transform", function(d) {
-          return "translate(" + (d.x - rect_width / 2) + "," + (d.y - rect_height / 2) + ")";
+        link_groups.attr('x1', function(d) {return d.source.x;})
+          .attr('y1', function(d) {return d.source.y;})
+          .attr('x2', function(d) {return d.target.x;})
+          .attr('y2', function(d) {return d.target.y;});
+
+        node_groups.attr('transform', function(d) {
+          return 'translate(' + (d.x - rect_width / 2) + ',' + (d.y - rect_height / 2) + ')';
         });
       });
 
@@ -239,57 +278,58 @@ var SystemMap = {
 
     SystemMap.zoom = d3.behavior.zoom()
       .scaleExtent([0.4, 1])
-      .on("zoom", zoomHandler)
+      .on('zoom', zoomHandler)
       .scale(scale);
 
-    var root = svg.append("g");
+    var root = svg.append('g');
 
     function zoomHandler() {
-      root.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+      root.attr('transform', 'translate(' + d3.event.translate + ')scale(' + d3.event.scale + ')');
     }
 
-    SystemMap.zoom(d3.select("#system-map"));
+    SystemMap.zoom(d3.select('#system-map'));
 
-    var link = root.selectAll(".link"),
-      node = root.selectAll(".node");
+    var link = root.selectAll('.link'),
+      node = root.selectAll('.node');
 
     // fetch data about our current system
-    system = Data.systems[ Data.state.self.systemId ];
+    if (!Data.systems) return;
+    system = Data.systems[ Data.state.vicinity.systemId ];
 
     SystemMap.systems = [];
     SystemMap.nodes = [];
     SystemMap.jumps = [];
     SystemMap.links = [];
 
-    var nodes = SystemMap._system_nodes = {};
+    var nodes = {};
 
-    // Only draw systems that are in our current region
     SystemMap.systems = $.map(Data.systems, function(s) {
-      if (system && (s.regionID === system.regionID)) {
-        var node = { system: s, x: s.x, y: s.y };
-        nodes[s.id] = node;
-        return node;
-      }
+      var node = { system: s, x: s.x, y: s.y };
+      nodes[s.id] = node;
+      return node;
     });
 
-    Data.gates.forEach(function(gate) {
+    Data.jumps.forEach(function(gate) {
       var jump, node;
-      var from = Data.systems[gate.from];
-      var to = Data.systems[gate.to];
-      if(from.regionID == system.regionID || to.regionID == system.regionID) {
-        if(from.regionID != system.regionID && !nodes.hasOwnProperty(from.id)) {
-          node = { system: from, x: from.x, y: from.y };
-          nodes[from.id] = node;
-          SystemMap.systems.push(node);
+      var from = Data.systems[gate.fromSystem];
+      var to = Data.systems[gate.toSystem];
+      jump = {source: nodes[from.id], target: nodes[to.id], type: gate.type};
+      if (gate.type == 'wormhole') {
+
+        // pin the wormhole close to the connecting node
+        if (to.y === undefined && to.x === undefined) {
+          to.y = from.y;
+          to.x = from.x;
+        } else if ( from.y === undefined && from.x === undefined) {
+          from.y = to.y;
+          from.x = to.x;
         }
-        if( to.regionID != system.regionID && !nodes.hasOwnProperty(to.id)) {
-          node = { system: to, x: to.x, y: to.y };
-          nodes[to.id] = node;
-          SystemMap.systems.push(node);
-        }
-        SystemMap.jumps.push(jump = {source: nodes[from.id], target: nodes[to.id]});
-        SystemMap.links.push(jump);
+
+        jump.updated_at = gate.updated_at;
+        jump.wormhole_data = gate.wormhole_data;
       }
+      SystemMap.jumps.push(jump);
+      SystemMap.links.push(jump);
     });
 
     SystemMap.systems.forEach(function (system) {
@@ -297,8 +337,10 @@ var SystemMap = {
       system.x *= SCALING_FACTOR;
       system.y *= SCALING_FACTOR;
       SystemMap.nodes.push(system);
-      SystemMap.nodes.push(anchor = { x: system.x, y: system.y, fixed: true });
-      SystemMap.links.push({ source: system, target: anchor });
+      if (!Util.is_wormhole(system.system)) {
+        SystemMap.nodes.push(anchor = { x: system.x, y: system.y, fixed: true });
+        SystemMap.links.push({ source: system, target: anchor });
+      }
     });
 
     force
@@ -308,16 +350,13 @@ var SystemMap = {
       .charge(function(d) {return d.fixed ? 0 : -1250 * SCALING_FACTOR;})
       .chargeDistance(200 * SCALING_FACTOR)
       .linkDistance(function(l) {
-        if(l.source.fixed || l.target.fixed) {
-          return 0;
-        }
+        if (l.source.fixed || l.target.fixed) return 0;
+        if (l.type == 'wormhole') return 75 * SCALING_FACTOR;
         var dx = l.source.x - l.target.x, dy = l.source.y - l.target.y;
         return Math.min(50 * SCALING_FACTOR, Math.sqrt(dx * dx + dy * dy));
       })
       .linkStrength(function(l) {
-        if(l.source.fixed || l.target.fixed) {
-          return 0.1;
-        }
+        if (l.source.fixed || l.target.fixed) return 0.1;
         return 0.25;
       });
     force.start();
@@ -328,38 +367,30 @@ var SystemMap = {
 
     SystemMap.zoom.translate([(Data.ui.map.width() / 2 - nodes[system.id].x * scale), (Data.ui.map.height() / 2 - nodes[system.id].y * scale)]);
     SystemMap.zoom.event(root);
+
+    Data.ui.currentSystem
+    .data('system-id', Data.state.vicinity.systemId)
+    .text( Data.state.vicinity.systemName );
+
+    Data.ui.currentRegion
+    .data('region-id', Data.state.vicinity.regionId)
+    .text( Data.state.vicinity.regionName );
   },
 
   updateHud: function(system_object) {
+    if (system_object === undefined) return;
     Server.systemInformation(system_object.name, function(error, system) {
       if (system === null) return;
       system.status = SystemMap.system_color(system);
-      
+
       if (system.status == 'clear') {
         if ($.inArray('hostile', $.map(system.vicinity, function(s) { return SystemMap.system_color(s); })) > -1) {
           system.status = 'warning';
-        }        
+        }
       }
 
       Data.ui.hud.html( Data.templates.hud(system) );
     });
-  },
-
-  updateCurrent: function() {
-    d3.selectAll('g.node .system')
-      .attr("class", function(n) { return SystemMap.system_classes(n.system); });
-
-    var node = SystemMap._system_nodes[Data.state.self.systemId];
-    var scale = SystemMap.zoom.scale();
-
-    SystemMap.zoom.translate([(Data.ui.map.width() / 2 - node.x * scale), (Data.ui.map.height() / 2 - node.y * scale)]);
-    SystemMap.zoom.event(d3.select('#system-map'));
-
-    Data.ui.currentSystem
-      .data('system-id', Data.state.self.systemId)
-      .text( Data.systems[ Data.state.self.systemId ].name );
-
-    SystemMap.updateHud( Data.systems[ Data.state.self.systemId ] );
   },
 
   updateInfo: function(system_name) {
@@ -368,16 +399,21 @@ var SystemMap = {
       var system = { name: results.name,
                      systemId: results.id,
                      region: Data.regions[ results.regionID ].name,
-                     hostiles: HostileList.findHostileBySystemId( results.id ),
-                     hostile_count: SystemMap.hostile_count( results ),
+                     hostiles: results.hostiles,
+                     hostile_count: results.hostiles.length,
+                     security_class: results.security_class,
+                     security: results.security,
                      faded_count: SystemMap.faded_count( results ),
                      gates: $.map( results.jumps, function(j) { return Data.systems[ j.to ]; })
       };
 
+      if (results.wormhole_class) system.wormhole_class = results.wormhole_class;
+      if (results.wormhole_effect) system.wormhole_effect = results.wormhole_effect;
+
       system.last_report = (results.reports.length) ? Util.formatTime(results.reports.pop().ts) : 'Never';
       system.advisories = AdvisoryList.lookup(results.id);
       system.active_advisories = $.grep(system.advisories, function(a) { return a.present === true; });
-      if (results.id == Data.state.self.systemId) system.allow_report = true;
+      if (results.id == Data.state.vicinity.systemId) system.allow_report = true;
 
       Data.ui.mapInfo.html( $(Data.templates.system_info(system)) );
       Data.ui.mapInfo.children('div.details')
@@ -385,12 +421,24 @@ var SystemMap = {
         .delay(Data.config.alertStay)
         .fadeOut(Data.config.uiSpeed * 8);
     });
+  },
 
+  updateWormholeJump: function(link) {
+    Data.ui.mapInfo.html( $(Data.templates.wormhole_link_info(link)) );
+    Data.ui.mapInfo.children('div.wormhole-link-details')
+      .fadeIn(Data.config.uiSpeed)
+      .delay(Data.config.alertStay)
+      .fadeOut(Data.config.uiSpeed * 8);
   },
 
   refreshSystems: function() {
     d3.selectAll('g.node .system')
-      .attr("class", function(n) { return SystemMap.system_classes(n.system); });
+      .attr('class', function(n) { return SystemMap.system_classes(n.system); });
+
+    d3.selectAll('g.node rect.advisories')
+      .attr('class', function(n) {
+        return (SystemMap.advisory_count(n.system) > 0) ? 'advisories present' : 'advisories vacant';
+      });
 
     d3.selectAll('g.node text.advisories')
       .text(function(n) {
@@ -398,48 +446,58 @@ var SystemMap = {
       });
 
     d3.selectAll('g.node rect.hostiles')
-      .attr("class", function(n) {
-        return (SystemMap.hostile_count(n.system) > 0) ? "hostiles present" : "hostiles vacant";
+      .attr('class', function(n) {
+        return (SystemMap.hostile_count(n.system) > 0) ? 'hostiles present' : 'hostiles vacant';
       })
-      .attr("width", function(n) {
+      .attr('width', function(n) {
         return (SystemMap.hostile_count(n.system) > 9) ? 27 : 20;
       });
 
     d3.selectAll('g.node text.hostiles')
       .text(function(n) {
         var count = SystemMap.hostile_count(n.system);
-        return (count > 0) ? count : "";
+        return (count > 0) ? count : '';
       });
 
     d3.selectAll('g.node rect.faded')
-      .attr("class", function(n) {
-        return (SystemMap.faded_count(n.system) > 0) ? "faded present" : "faded vacant";
+      .attr('class', function(n) {
+        return (SystemMap.faded_count(n.system) > 0) ? 'faded present' : 'faded vacant';
       })
-      .attr("width", function(n) {
+      .attr('width', function(n) {
         return (SystemMap.faded_count(n.system) > 9) ? 27 : 20;
       });
 
     d3.selectAll('g.node text.faded')
       .text(function(n) {
         var count = SystemMap.faded_count(n.system);
-        return (count > 0) ? count : "";
+        return (count > 0) ? count : '';
       });
 
-    SystemMap.updateHud( Data.systems[ Data.state.self.systemId ] );
+    SystemMap.updateHud( Data.systems[ Data.state.vicinity.systemId ] );
+  },
+
+  updateCurrent: function(pilot) {
+    Data.state.vicinity.systemId = pilot.systemId;
+    Data.state.vicinity.systemName = pilot.systemName;
+
+    Data.ui.currentSystem
+      .data('system-id', Data.state.vicinity.systemId)
+      .text( Data.state.vicinity.systemName );
   },
 
   redraw: function() {
-    log("Redrawing System Map...");
-    $("#system-map > svg").remove();
-    SystemMap.draw();
-    SystemMap.updateHud( Data.systems[ Data.state.self.systemId ] );
+    log('Redrawing System Map...');
+    Data.populate(function() {
+      Server.status(function(error, data) {
+        SystemMap.draw();
+        EventHandler.dispatchEvents(data.events);
+      });
+    });
   },
 
   init: function() {
-    log("Initializing System Map...");
-
+    log('Initializing System Map...');
     SystemMap.draw();
-    SystemMap.updateCurrent();
   }
 
 };

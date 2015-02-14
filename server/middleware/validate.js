@@ -19,7 +19,7 @@ var moment = require('moment')
 var headers = function (req, res, next) {
   var fleet = (req.session.linked) ? req.session.linked : header_parser(req);
 
-  if (fleet.trusted && fleet.trusted.toLowerCase() === 'no') return response.error(res, 'trust', 'To use Standing Fleet, you need to enable trust for this domain. Please enable trust and refresh.');
+  if (fleet.trusted !== 'Yes') return response.error(res, 'trust', 'To use Standing Fleet, you need to enable trust for this domain. Please enable trust and refresh.');
   if (!checks.igb_request(fleet)) {
     return response.error(res, 'request', 'You do not seem to be running the IGB, or your request was corrupted.');
   }

@@ -8,6 +8,10 @@ var gulp = require('gulp')
   , wrap = require('gulp-wrap')
   , declare = require('gulp-declare')
   , gutil = require('gulp-util')
+  , download = require('gulp-download')
+  , decompress = require('decompress-bzip2')
+  , rimraf = require('gulp-rimraf')
+  , sequence = require('run-sequence')
 
 gulp.task('prepare', function() {
   gulp.src('app/**/*.css')
@@ -79,16 +83,6 @@ gulp.task('default', function() {
   gulp.start('prepare');
 });
 
-gulp.task('heroku:staging', function() {
-  gutil.env.type = 'development';
-  gulp.start('prepare');
-});
-
-gulp.task('heroku:production', function() {
-  gutil.env.type = 'production';
-  gulp.start('prepare');
-});
-
 gulp.task('watch', function () {
    gulp.watch('app/**', ['default']);
 });
@@ -122,19 +116,91 @@ gulp.task('db:seed', function(done) {
   db.models.System.remove().execQ();
   db.models.Region.remove().execQ();
   db.models.Jump.remove().execQ();
-  _.forEach(map_data.Regions, function(data) {
-    var region = new Region(data);
-    region.save();
-  });
-
   _.forEach(map_data.Systems, function(data) {
     var system = new System(data);
     system.save();
   });
 
-  _.forEach(map_data.Gates, function(data) {
-    var jump = new Jump(data);
-    jump.save();
+  db.disconnect(done);
+});
+
+gulp.task('db:purge:jumps', function(done) {
+  var mongoose = require('mongoose')
+  , Jump = require('./server/models/jump')
+  
+  var db = mongoose.connect(process.env.MONGODB_URL);
+  mongoose.set('debug', true);
+  
+  db.models.Jump.remove().execQ();
+  
+  db.disconnect(done);  
+});
+
+gulp.task('sde:clean', function() {
+  return gulp.src('./sde/*', { read: false }).pipe(rimraf());
+});
+
+gulp.task('sde:download', function() {
+  return download('https://www.fuzzwork.co.uk/dump/sqlite-latest.sqlite.bz2')
+           .pipe(gulp.dest('./sde/'));
+});
+
+gulp.task('sde:extract', function() {
+  return gulp.src('./sde/sqlite-latest.sqlite.bz2')
+           .pipe(decompress())
+           .pipe(gulp.dest('./sde/'));
+});
+
+gulp.task('sde:update', function(done) {
+  sequence('sde:clean', 'sde:download', 'sde:extract', done);
+});
+
+gulp.task('sde:refresh', function(done) {
+  var sqlite3 = require('sqlite3').verbose()
+  , mongoose = require('mongoose')
+  , _ = require('lodash')
+  , System = require('./server/models/system')
+  , Region = require('./server/models/region')
+  , Jump = require('./server/models/jump')
+  , Ship = require('./server/models/ship')
+  , wormholes = require('./test/fixtures/wormholes.json')
+
+  var sde = new sqlite3.Database('./sde/sqlite-latest.sqlite')
+  , db = mongoose.connect(process.env.MONGODB_URL);
+  mongoose.set('debug', true);
+  
+  // map data
+  db.models.Jump.remove().execQ();
+
+  sde.each('select * from mapSolarSystemJumps', function(err, row) {
+    jump = {toSystem: row.toSolarSystemID, fromSystem: row.fromSolarSystemID,
+            toRegion: row.toRegionID, fromRegion: row.fromRegionID,
+            toConstellation: row.toConstellationID, fromConstellation: row.fromConstellationID};
+    Jump.updateQ({toSystem: jump.toSystem, fromSystem: jump.fromSystem}, jump, {upsert: true});
+  });
+  
+  sde.each('select * from mapSolarSystems', function(err, row) {
+    system = {id: row.solarSystemID, regionID: row.regionID, constellationID: row.constellationID, name: row.solarSystemName,
+              security: row.security, security_class: row.securityClass};
+    System.updateQ({id: system.id}, system, {upsert: true});
+  });
+  
+  sde.each('select * from mapRegions', function(err, row) {
+    region = {id: row.regionID, name: row.regionName};
+    Region.updateQ({id: region.id}, region, {upsert: true});
+  });
+  
+  _.forEach(wormholes.wormholes, function(wormhole) {
+    System.updateQ({name: wormhole.name}, {wormhole_data: {class: wormhole.class}}, {upsert: true});
   });
 
+  // ship data
+  sde.each('SELECT i.typeID id, i.typeName name, g.groupName class, IFNULL(img.metaGroupName, "Tech I") as meta FROM invTypes i INNER JOIN invGroups g ON i.groupID = g.groupID LEFT JOIN invMetaTypes imt ON i.typeID = imt.typeID LEFT JOIN invMetaGroups img ON imt.metaGroupID = img.metaGroupID WHERE g.categoryID = 6 AND i.published = 1 ORDER BY i.typeID ASC', function(err, row) {
+    ship = {id: row.id, name: row.name, class: row.class, meta: row.meta};
+    Ship.updateQ({id: ship.id}, ship, {upsert: true});
+  });
+  
+  sde.close(function() {
+    db.disconnect(done);
+  });
 });

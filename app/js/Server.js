@@ -7,9 +7,10 @@ var Server = {
       dataType: 'json',
 
       success: function (data) {
-        if (data.success === undefined && data.error === undefined) callback(null, data);
         setTimeout(function () {
-          if (data.success) {
+          if (data.success === undefined && data.error === undefined) {
+            callback(null, data);
+          } else if (data.success) {
             callback(null, data);
           } else {
             callback(data.error, null);
@@ -90,8 +91,16 @@ var Server = {
     Server.ajaxGet('/fleets/leave', callback);
   },
 
+  vicinity: function(callback) {
+    Server.ajaxGet('/map/vicinity', callback);
+  },
+
   systemInformation: function(system_name, callback) {
     Server.ajaxGet('/map/systems/' + system_name, callback);
+  },
+  
+  ships: function(callback) {
+    Server.ajaxGet('/ships', callback);
   },
 
   postScan: function (scanData, callback) {

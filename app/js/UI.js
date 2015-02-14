@@ -22,7 +22,7 @@ var UI = {
     if ($('.menu-button.active').attr('id') === Data.ui.topMenu_map.attr('id')) {
       Data.ui.mapLegend.hide();
       var help = $(Data.templates.map_legend());
-      help.find('span').text( Data.systems[ Data.state.self.systemId ].name );
+      help.find('span').text( Data.state.vicinity.systemName );
       Data.ui.mapLegend.html( help );
       Data.ui.mapLegend.fadeIn(Data.config.uiSpeed)
         .delay(Data.config.alertStay)

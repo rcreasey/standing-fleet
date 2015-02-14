@@ -25,6 +25,7 @@ var routes = require(__dirname + '/routes/index')
   , fleet  = require(__dirname + '/routes/fleet')
   , map    = require(__dirname + '/routes/map')
   , scans  = require(__dirname + '/routes/scans')
+  , ships  = require(__dirname + '/routes/ships')
   , docs  = require(__dirname + '/routes/docs')
 
 var app = express();
@@ -69,6 +70,7 @@ app.use('/', routes);
 app.use('/api/fleets', fleet);
 app.use('/api/scans', scans);
 app.use('/api/map', map);
+app.use('/api/ships', ships);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
