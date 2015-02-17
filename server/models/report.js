@@ -66,7 +66,9 @@ ReportSchema.methods.parse_standings = function parse_standings(whitelist) {
           if (character.characterID === 0) return false;
           if (character.characterName === '') return false;
           
-          return Hostile.prepare(fleetKey, reporter, character).toObject();
+          var hostile = Hostile.prepare(fleetKey, reporter, character);
+          if (!hostile) throw 'Invalid hostile: ' + character;
+          return hostile.toObject();
         });
         
         batch.resolve(_.where(resolved));

@@ -57,6 +57,7 @@ exports.join = function(req, res, next){
           }
 
           var member = Member.prepare(fleet.key, req.session.fleet);
+          if (!member) throw 'Invalid session: ' + req.session.fleet;
           var event = Event.prepare('memberJoined', fleet.key, member.toObject());
 
           member.saveQ()
@@ -98,12 +99,11 @@ exports.leave = function(req, res, next){
 
     Member.findOneQ({key: key})
       .then(function(member) {
-        if (member) {
-          var event = Event.prepare('memberLeft', member.fleetKey, member.toObject());
-          event.saveQ();
-          member.removeQ();
-
-        }
+        if (!member) throw 'Invalid member key: ' + key;
+         
+        var event = Event.prepare('memberLeft', member.fleetKey, member.toObject());
+        event.saveQ();
+        member.removeQ();
 
         return response.success(res);
       })
@@ -124,6 +124,7 @@ exports.status = function(req, res, next) {
 
   if (!req.session.fleetKey || !req.session.memberKey) {
     var self = Member.prepare('none', header_parser(req));
+    if (!self) return response.error(res, 'status', 'Invalid session: ' + req.session.memberKey);
     var event = Event.prepare('statusSelf', 'none', self.toObject());
 
     return response.success(res, [ event ]);
@@ -133,7 +134,7 @@ exports.status = function(req, res, next) {
 
   Member.findOneQ({key: req.session.memberKey})
     .then(function(member) {
-      if (!member) throw 'Invalid Member key.';
+      if (!member) throw 'Invalid member key: ' + req.session.memberKey;
       events.push( Event.prepare('statusSelf', member.fleetKey, member.toObject()) );
 
       return Fleet.findOne({key: member.fleetKey}).execQ();
@@ -192,6 +193,7 @@ exports.poll = function(req, res, next) {
 
   var tasks = [
     Member.findOne({key: req.session.memberKey}).execQ().then(function(member) {
+      if (!member) throw 'Invalid member key: ' + req.session.memberKey;
       var events = [];
       var self = req.session.fleet;
       var previous = _.clone(member.toObject());
@@ -308,7 +310,9 @@ exports.create = function(req, res, next) {
   // enforce premade fleets only
   return response.error(res, 'create', 'Creating fleets is currently prohibited.');
 
-  if (req.session.fleetKey || req.session.memberKey) return response.error(res, 'state', 'Please leave your current fleet before creating a new one');
+  if (req.session.fleetKey || req.session.memberKey) { 
+    return response.error(res, 'state', 'Please leave your current fleet before creating a new one');
+  }
 
   var fleetName = req.body.fleetName || false;
   if ( !fleetName ) {
@@ -417,6 +421,7 @@ exports.add_scan = function(req, res, next) {
     .then(function(reporter) {
       var scan = Scan.prepare(reporter.fleetKey, reporter, req.body);
 
+      if (!scan) throw 'Invalid scan data.';
       if (!scan.shipTypes.length) return response.error(res, 'report', 'Invalid scan data.');
       if (!scan.shipClasses.length) return response.error(res, 'report', 'Invalid scan data.');
 
@@ -438,10 +443,11 @@ exports.update_hostile = function(req, res, next) {
   var update_data = req.body;
 
   if (!update_data.is_docked) {
-    if (!update_data.shipType) return response.error(res, 'details', 'Invalid hostile details');
+    if (!update_data.shipType) return response.error(res, 'report', 'Invalid hostile details');
   }
 
-  hostile = Hostile.prepare(req.session.fleetKey, req.session.fleet, update_data);
+  var hostile = Hostile.prepare(req.session.fleetKey, req.session.fleet, update_data);
+  if (!hostile) return response.error(res, 'report', 'Invalid hostile details: ' + update_data);
   if (settings.ships[ update_data.shipType ]) hostile.shipTypeId = settings.ships[ hostile.shipType ].id;
 
   Hostile.updateQ({key: hostile.key}, hostile.toObject(), {upsert: true})
@@ -450,6 +456,7 @@ exports.update_hostile = function(req, res, next) {
 
       Hostile.findOneQ({key: hostile.key})
         .then(function(updated_hostile) {
+          if (!updated_hostile) throw 'Invalid hostile key: ' + hostile.key;
           Event.prepare('updateHostile', req.session.fleetKey, updated_hostile.toObject()).saveQ();
 
           return response.success(res);
