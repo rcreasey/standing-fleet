@@ -6,8 +6,7 @@ var mongoose = require('mongoose-q')()
   , Q = require('q')
   , moment = require('moment')
   , settings = require(__dirname + '/../config/settings')
-
-var Hostile = require('./hostile')
+  , Hostile = require('./hostile');
 
 var ReportSchema  = new Schema({
   ts: { type: Number, default: function() { return moment().unix(); } },
@@ -64,8 +63,8 @@ ReportSchema.methods.parse_standings = function parse_standings(whitelist) {
         
         resolved = _.map(results.characters, function(character) {
           if (is_whitelisted(whitelist, character)) return false;
-          if (character.characterID == 0) return false;
-          if (character.characterName == '') return false;
+          if (character.characterID === 0) return false;
+          if (character.characterName === '') return false;
           
           return Hostile.prepare(fleetKey, reporter, character).toObject();
         });
@@ -84,10 +83,10 @@ ReportSchema.methods.parse_standings = function parse_standings(whitelist) {
     response.resolve(_.flatten(results)); 
   })
   .catch(function(error) {
-    console.error(error)
-    response.reject('CCP API data corrupt: ' + error)
+    console.error(error);
+    response.reject('CCP API data corrupt: ' + error);
   })
-  .done()
+  .done();
 
   return response.promise;
 };

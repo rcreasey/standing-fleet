@@ -81,6 +81,10 @@ exports.join = function(req, res, next){
         .done();
 
     })
+    .catch(function(error) {
+      console.log(error);
+      return response.error(res, 'state', 'CCP API Error: ' + error);
+    })
     .done();
 
 };
