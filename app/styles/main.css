@@ -10,11 +10,55 @@ nav,section{display:block}body{line-height:1.5}ol,ul{list-style:none}blockquote,
 q:after{content:none}table{border-collapse:collapse;border-spacing:0}
 
   /*/
+ / /  FONTS
+ */
+
+@font-face {
+  font-family: 'Aldrich';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Aldrich'), url(/fonts/Aldrich.woff2) format('woff2'), url('/fonts/Aldrich-Regular.ttf') format('truetype');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+@font-face {
+  font-family: 'Droid Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Droid Sans'), local('DroidSans'), url(/fonts/DroidSans.woff2) format('woff2'), url('/fonts/DroidSans.ttf') format('truetype');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+@font-face {
+  font-family: 'Droid Sans Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Droid Sans Mono'), local('DroidSansMono'), url(/fonts/DroidSansMono.woff2) format('woff2'), url('/fonts/DroidSansMono.ttf') format('truetype');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+@font-face {
+  font-family: 'Droid Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Droid Sans Bold'), local('DroidSans-Bold'), url(/fonts/DroidSans-Bold.woff2) format('woff2'), url('/fonts/DroidSans-Bold.ttf') format('truetype');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lato Regular'), local('Lato-Regular'), url(/fonts/Lato-Regular.woff2) format('woff2'), url('/fonts/Lato-Regular.ttf') format('truetype');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+
+  /*/
  / /  BASE
  */
 
 html {
-  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-family: 'Droid Sans', sans-serif;
   font-size: 11px;
   color: #bbb;
   background-color: #111;
@@ -229,7 +273,7 @@ div#page, div#content-wrapper { position: relative; height: 100%; width: 100%; b
   display: inline-block;
   height: 2rem;
   margin-left: 0.5rem;
-  padding: 0.3rem 1rem 0rem 1rem;
+  padding: 0.4rem 1rem 0rem 1rem;
   cursor: pointer;
   background-color: #111;
   border-top: 0.16rem solid transparent;
@@ -266,7 +310,7 @@ div#page, div#content-wrapper { position: relative; height: 100%; width: 100%; b
 }
 
 #bottom-menu-pilot-key {
-  font-family: monospace;
+  font-family: 'Droid Sans Mono', monospace;
   color: #ffcc2a;
   display: inline-block;
   height: 2rem;
@@ -285,7 +329,7 @@ input.info-string {
   display: inline-block;
   padding: 0 !important;
   color: #888 !important;
-  font-family: monospace !important;
+  font-family: 'Droid Sans Mono', monospace !important;
   font-size: 1.5rem !important;
   text-align: center !important;
   width: 100% !important;
@@ -913,7 +957,7 @@ a.button:hover,
 .panel input,
 .panel .textinput {
   font-size: 1rem;
-  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-family: 'Droid Sans', sans-serif;
   background-color: #111;
   width: 14.1rem;
   color: #ccc;
@@ -1589,7 +1633,7 @@ border-top: 0.16rem solid #333;
   #dim { padding-top: 0; }
   .panel { max-width: none }
 
-  #hud { font-size: 1.5rem; padding-top: 0.5rem; }
+  #hud { font-size: 1.5rem; }
   #hud h2 { font-size: 2.5rem; height: 2.5rem; margin-bottom: 1rem; }
   #hud h3 { display: none; }
   #status-clear span, #status-hostile span, .menu-button span { display: none }
