@@ -60,6 +60,12 @@ gulp.task('prepare', function() {
     .pipe(gulp.dest('public'))
     .pipe(gulp.dest('client'));
 
+  gulp.src('vendor/fontawesome/css/font-awesome.css')
+    .pipe(concat('css/dist.css'))
+    .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
+    .pipe(gulp.dest('public'))
+    .pipe(gulp.dest('client'));
+
   gulp.src('node_modules/faye/browser/faye-browser.js')
     .pipe(concat('js/data-client.js'))
     .pipe(uglify())
