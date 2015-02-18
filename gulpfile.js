@@ -1,5 +1,6 @@
 var gulp = require('gulp')
   , minifycss = require('gulp-minify-css')
+  , filter = require('gulp-filter')
   , concat = require('gulp-concat')
   , uglify = require('gulp-uglify')
   , order = require('gulp-order')
@@ -55,16 +56,25 @@ gulp.task('prepare', function() {
     .pipe(gulp.dest('client'));
 
   gulp.src(mainBowerFiles())
+    .pipe(filter(['*.js']))
     .pipe(concat('js/lib.js'))
     .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
     .pipe(gulp.dest('public'))
     .pipe(gulp.dest('client'));
 
-  gulp.src('vendor/fontawesome/css/font-awesome.css')
+  // gulp.src('vendor/fontawesome/css/font-awesome.css')
+  gulp.src(mainBowerFiles())
+    .pipe(filter(['*.css']))
     .pipe(concat('css/dist.css'))
     .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
     .pipe(gulp.dest('public'))
     .pipe(gulp.dest('client'));
+
+  // gulp.src('vendor/fontawesome/fonts/*')
+  gulp.src(mainBowerFiles())
+    .pipe(filter(['*.eot', '*.svg', '*.ttf', '*.woff', '*.woff2']))
+    .pipe(gulp.dest('public/fonts'))
+    .pipe(gulp.dest('client/fonts'));
 
   gulp.src('node_modules/faye/browser/faye-browser.js')
     .pipe(concat('js/data-client.js'))
