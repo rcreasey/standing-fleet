@@ -347,7 +347,10 @@ var SystemMap = {
       .nodes(SystemMap.nodes)
       .links(SystemMap.links)
       .gravity(0)
-      .charge(function(d) {return d.fixed ? 0 : -1250 * SCALING_FACTOR;})
+      .charge(function(d) {
+        if (d.system && d.system.wormhole_data) return 0;
+        return d.fixed ? 0 : -1250 * SCALING_FACTOR;
+      })
       .chargeDistance(200 * SCALING_FACTOR)
       .linkDistance(function(l) {
         if (l.source.fixed || l.target.fixed) return 0;
