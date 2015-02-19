@@ -31,6 +31,7 @@ var JumpSchema = new Schema({
   fromConstellation: Number,
   updated_at: Number,
   wormhole_data: {
+    signature: String,
     mass_estimate: {type: String, enum: massEstimates},
     lifespan_estimate: {type: String, enum: lifespanEstimates},
     discovered_on: Number,

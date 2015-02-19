@@ -13,4 +13,8 @@ router.route('/regions/:region_name')
 router.route('/systems/:system_name')
   .get(map.show_system);
 
+router.route('/jumps/:from_id/:to_id')
+  .post(validate.headers, validate.session)
+  .post(map.update_jump)
+    
 module.exports = router;

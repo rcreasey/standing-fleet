@@ -222,6 +222,20 @@ exports.vicinity = function(req, res, next){
       console.log(error);
       return response.error(res, 'map', error);
     });
+};
 
-
+exports.update_jump = function(req, res, next){
+  var to_id = req.body.to;
+  var from_id = req.body.from;
+  var wormhole_details = req.body.wormhole_details;
+  
+  Jump.updateQ({fromSystem: req.body.from, toSystem: req.body.to}, {wormhole_details: wormhole_details})
+    .then(function(result) {
+      debugger;
+      return res.jsonp(result);
+    })
+    .catch(function(error) {
+      console.log(error);
+      return response.error(res, 'map', error);
+    });
 };
