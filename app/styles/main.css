@@ -681,7 +681,8 @@ g.node {
 }
 
 /* Link line styles */
-.link { stroke: #ccc; stroke-width: 2px; }
+marker { display: none; fill: transparent; }
+.link { stroke: #ccc; fill: none; stroke-width: 2px; }
 .link.region { stroke: #ed9c28; stroke-dasharray: 4,4; stroke-width: 3px; }
 .link.constellation { stroke-dasharray: 2,4; }
 .link.jumpbridge { stroke: #2a9fd6; stroke-dasharray: 2,2; }
