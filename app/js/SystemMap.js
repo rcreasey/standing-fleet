@@ -98,12 +98,11 @@ var SystemMap = {
     
     // Setup marker types for directed links
     var defs = svg.append("svg:defs").selectAll("marker")
-      .data(["wormhole-end"])
+      .data(["wormhole"])
     .enter().append("svg:marker")
       .attr("id", String)
       .attr("viewBox", "0 -5 10 10")
-      .attr("refX", 15)
-      .attr("refY", -1.5)
+      .attr("refX", 5)
       .attr("markerWidth", 3)
       .attr("markerHeight", 3)
       .attr("orient", "auto")
@@ -168,7 +167,7 @@ var SystemMap = {
           .enter().append('g')
           .attr('class', function(j) { return 'link ' + j.type; })
           .append('path')
-            .attr("marker-end", "url(#wormhole-end)");
+            .attr("marker-mid", "url(#wormhole)");
 
         var node_groups = node.data(SystemMap.systems)
           .enter().append('g')
@@ -289,10 +288,21 @@ var SystemMap = {
         });
         
         path_groups.attr('d', function(d) {
+          // var dx = d.target.x - d.source.x,
+          //     dy = d.target.y - d.source.y,
+          //     dr = Math.sqrt(dx * dx + dy * dy);
+          // return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
+        
           var dx = d.target.x - d.source.x,
               dy = d.target.y - d.source.y,
-              dr = Math.sqrt(dx * dx + dy * dy);
-          return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
+              dr = Math.sqrt(dx * dx + dy * dy)/8,
+              mx = d.source.x + dx,
+              my = d.source.y + dy;
+          return [
+            "M",d.source.x,d.source.y,
+            "A",dr,dr,0,0,1,mx,my,
+            "A",dr,dr,0,0,1,d.target.x,d.target.y
+          ].join(" ");
         });
 
         node_groups.attr('transform', function(d) {
