@@ -68,7 +68,7 @@ var Data = {
     topMenu_scans: $('#top-menu-scans'),
 
     bottomMenu: $('#bottom-menu'),
-    bottomMenu_pilotKey: $('#bottom-menu-pilot-key'),
+    bottomMenu_pilotKey: $('#bottom-menu-pilot-key input'),
     bottomMenu_spinner: $('#bottom-menu-spinner'),
     bottomMenu_dataClient: $('#bottom-menu-data-client'),
     bottomMenu_dataClient_icon: $('#bottom-menu-data-client i'),
