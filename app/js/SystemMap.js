@@ -95,6 +95,19 @@ var SystemMap = {
       .attr('width', Data.ui.map.width())
       .attr('height', Data.ui.map.height())
       .append('svg');
+    
+    // Setup marker types for directed links
+    var defs = svg.append("svg:defs").selectAll("marker")
+      .data(["wormhole"])
+    .enter().append("svg:marker")
+      .attr("id", String)
+      .attr("viewBox", "0 -5 10 10")
+      .attr("refX", 5)
+      .attr("markerWidth", 3)
+      .attr("markerHeight", 3)
+      .attr("orient", "auto")
+    .append("svg:path")
+      .attr("d", "M0,-5L10,0L0,5");
 
     var rect_height = 17;
     var rect_width = 60;
@@ -145,10 +158,16 @@ var SystemMap = {
 
         SystemMap.updateHud( system );
 
-        var link_groups = link.data(SystemMap.jumps)
+        var link_groups = link.data( $.grep(SystemMap.jumps, function(l) { return l.type != 'wormhole'}))
           .enter().append('g')
           .attr('class', function(j) { return 'link ' + j.type; })
           .append('line');
+          
+        var path_groups = link.data( $.grep(SystemMap.jumps, function(l) { return l.type == 'wormhole'}))
+          .enter().append('g')
+          .attr('class', function(j) { return 'link ' + j.type; })
+          .append('path')
+            .attr("marker-mid", "url(#wormhole)");
 
         var node_groups = node.data(SystemMap.systems)
           .enter().append('g')
@@ -259,14 +278,33 @@ var SystemMap = {
           SystemMap.updateInfo( n.system.name );
         });
 
-        link_groups.filter(function(l) { return l.type == 'wormhole'; }).on('click', function(l) {
-          SystemMap.updateWormholeJump( l );
-        });
-
         link_groups.attr('x1', function(d) {return d.source.x;})
           .attr('y1', function(d) {return d.source.y;})
           .attr('x2', function(d) {return d.target.x;})
           .attr('y2', function(d) {return d.target.y;});
+
+        path_groups.filter(function(l) { return l.type == 'wormhole'; }).on('click', function(l) {
+          SystemMap.updateWormholeJump( l );
+        });
+        
+        path_groups.attr('d', function(d) {
+          // var dx = d.target.x - d.source.x,
+          //     dy = d.target.y - d.source.y,
+          //     dr = Math.sqrt(dx * dx + dy * dy);
+          // return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
+        
+          var dx = d.target.x - d.source.x,
+              dy = d.target.y - d.source.y,
+              dr = Math.sqrt(dx * dx + dy * dy) / 1.45,
+              mx = d.source.x + dx,
+              my = d.source.y + dy;
+              
+          return [
+            "M",d.source.x,d.source.y,
+            "A",dr,dr,0,0,1,mx,my,
+            "A",dr,dr,0,0,1,d.target.x,d.target.y
+          ].join(" ");
+        });
 
         node_groups.attr('transform', function(d) {
           return 'translate(' + (d.x - rect_width / 2) + ',' + (d.y - rect_height / 2) + ')';
@@ -315,7 +353,6 @@ var SystemMap = {
       var to = Data.systems[gate.toSystem];
       jump = {source: nodes[from.id], target: nodes[to.id], type: gate.type};
       if (gate.type == 'wormhole') {
-
         // pin the wormhole close to the connecting node
         if (to.y === undefined && to.x === undefined) {
           to.y = from.y;
@@ -325,6 +362,7 @@ var SystemMap = {
           from.x = to.x;
         }
 
+        jump.id = gate._id;
         jump.updated_at = gate.updated_at;
         jump.wormhole_data = gate.wormhole_data;
       }
@@ -347,7 +385,10 @@ var SystemMap = {
       .nodes(SystemMap.nodes)
       .links(SystemMap.links)
       .gravity(0)
-      .charge(function(d) {return d.fixed ? 0 : -1250 * SCALING_FACTOR;})
+      .charge(function(d) {
+        if (d.system && d.system.wormhole_data) return 0;
+        return d.fixed ? 0 : -1250 * SCALING_FACTOR;
+      })
       .chargeDistance(200 * SCALING_FACTOR)
       .linkDistance(function(l) {
         if (l.source.fixed || l.target.fixed) return 0;
@@ -428,7 +469,7 @@ var SystemMap = {
     Data.ui.mapInfo.children('div.wormhole-link-details')
       .fadeIn(Data.config.uiSpeed)
       .delay(Data.config.alertStay)
-      .fadeOut(Data.config.uiSpeed * 8);
+      .fadeOut(Data.config.uiSpeed * 10);
   },
 
   refreshSystems: function() {

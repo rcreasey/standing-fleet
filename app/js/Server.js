@@ -117,5 +117,9 @@ var Server = {
 
   postDetails: function(detailsData, callback) {
     Server.ajaxPost('/fleets/details', detailsData, callback);
+  },
+
+  postWormholeLinkUpdate: function(from, to, linkData, callback) {
+    Server.ajaxPost('/map/jumps/' + from + '/' + to + '/', linkData, callback);
   }
 };

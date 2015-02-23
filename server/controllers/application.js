@@ -36,6 +36,9 @@ exports.link_pilot = function(req, res, next) {
         req.flash('success', 'Linking pilot ' + member.characterName);
 
         member.link_to_session(req.session);
+        
+        if (!member) throw 'Invalid session: ' + req.session;
+        
         req.session.linked = member.toObject();
         req.session.linked.trusted = 'Yes';
         req.session.linked.isLinked = true;

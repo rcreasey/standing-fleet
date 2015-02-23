@@ -315,7 +315,7 @@ var EventHandler = {
     Data.state.self.characterName = self.characterName;
     Data.state.self.characterId = self.characterId;
     Data.state.self.key = self.key;
-    Data.ui.bottomMenu_pilotKey.html('<i class="fa fa-key"></i>  ' + Data.state.self.key);
+    Data.ui.bottomMenu_pilotKey.val(Data.state.self.key);
   },
 
   statusFleet: function (fleet) {
@@ -354,6 +354,10 @@ var EventHandler = {
     ScanList.addScan(scan);
   },
 
+  refreshSystems: function() {
+    this.updateSystemMap(Data.state.self);
+  },
+  
   updateSystemMap: function (pilot) {
     if (Util.isMe(pilot)) {
       

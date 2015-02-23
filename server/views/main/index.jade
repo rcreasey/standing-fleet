@@ -49,11 +49,14 @@ block content
           span Clear
         a#status-hostile.btn.btn-hostile(target='_blank')
           i.fa.fa-crosshairs
-          span Report Local
+          span Report
     #bottom-menu.sub-bar.right
       #bottom-menu-spinner.menu-button
         img(src='/images/spinner.gif', alt='Processing...')
-      #bottom-menu-pilot-key
+      #bottom-menu-pilot-key.input-group(title="Pilot Key")
+        span.input-group-addon
+          i.fa.fa-key.fa-fw
+        input.form-control(placeholder="Pilot Key", title="Pilot Key")
       #bottom-menu-data-client.menu-button
         i.fa
       #bottom-menu-scan.menu-button

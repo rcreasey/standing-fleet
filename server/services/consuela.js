@@ -128,7 +128,10 @@ var clean_hostiles = function() {
 var clean_wormhole_jumps = function() {
   console.log('Consuela: Cleaning Wormhole Jumps');
 
-  Jump.removeQ({"wormhole_data.expires_on": {$lte: moment().unix()}});  
+  Jump.removeQ({"wormhole_data.expires_on": {$lte: moment().unix()}})
+    .then(function(jumps) {
+      Event.prepare('refreshSystems', 'all').saveQ();
+    });  
 };
 
 var clean_loop = function() {
