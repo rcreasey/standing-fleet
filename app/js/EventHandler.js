@@ -354,6 +354,10 @@ var EventHandler = {
     ScanList.addScan(scan);
   },
 
+  refreshSystems: function() {
+    this.updateSystemMap(Data.state.self);
+  },
+  
   updateSystemMap: function (pilot) {
     if (Util.isMe(pilot)) {
       

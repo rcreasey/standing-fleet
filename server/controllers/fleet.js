@@ -288,7 +288,7 @@ exports.poll = function(req, res, next) {
 
       return events;
     }),
-    Event.find({fleetKey: req.session.fleetKey, ts: { $lte: moment().unix(), $gte: +req.params.lastPollTs }})
+    Event.find({$or: [{fleetKey: req.session.fleetKey}, {fleetKey: 'all'}], ts: { $lte: moment().unix(), $gte: +req.params.lastPollTs }})
       .sort({date: 'descending'}).execQ().then(function(events) {
       return events;
     })

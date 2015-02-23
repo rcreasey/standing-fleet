@@ -263,29 +263,20 @@ function updateWormholeLink(button, action, from, to, data) {
   var state = ! $( button ).hasClass('present');  
   $(button).removeAttr('onclick');
 
-  EventList.addEvent({type: 'info', 
-                      alert: true, 
-                      text: 'Wormhole jump from ' +
-                            '<a href="javascript:CCPEVE.showInfo(5, ' + from + ')">' + Data.systems[from].name + '</a> ' + 
-                            ' to ' +
-                            '<a href="javascript:CCPEVE.showInfo(5, ' + to + ')">' + Data.systems[to].name + '</a> ' + 
-                            ' updated by you.'});
-
-  
-  // Server.postWormholeLinkUpdate(advisory, function(error, data) {
-  //   if (error) {
-  //     handleError(error);
-  //     return;
-  //   }
-  //   
-  //   EventList.addEvent({type: 'info', 
-  //                       alert: true, 
-  //                       text: 'Wormhole jump from ' +
-  //                             '<a href="javascript:CCPEVE.showInfo(5, ' + from + ')">' + Data.systems[from].name + '</a> ' + 
-  //                             ' to ' +
-  //                             '<a href="javascript:CCPEVE.showInfo(5, ' + to + ')">' + Data.systems[to].name + '</a> ' + 
-  //                             ' updated by you.'});
-  // });
+  Server.postWormholeLinkUpdate(from, to, {info: data}, function(error, data) {
+    if (error) {
+      handleError(error);
+      return;
+    }
+    
+    EventList.addEvent({type: 'info', 
+                        alert: true, 
+                        text: 'Wormhole jump from ' +
+                              '<a href="javascript:CCPEVE.showInfo(5, ' + from + ')">' + Data.systems[from].name + '</a> ' + 
+                              ' to ' +
+                              '<a href="javascript:CCPEVE.showInfo(5, ' + to + ')">' + Data.systems[to].name + '</a> ' + 
+                              ' updated by you.'});    
+  });
 }
 
 function leaveFleet() {

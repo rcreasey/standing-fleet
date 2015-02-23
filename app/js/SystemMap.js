@@ -295,9 +295,10 @@ var SystemMap = {
         
           var dx = d.target.x - d.source.x,
               dy = d.target.y - d.source.y,
-              dr = Math.sqrt(dx * dx + dy * dy)/8,
+              dr = Math.sqrt(dx * dx + dy * dy) / 1.45,
               mx = d.source.x + dx,
               my = d.source.y + dy;
+              
           return [
             "M",d.source.x,d.source.y,
             "A",dr,dr,0,0,1,mx,my,
@@ -464,7 +465,6 @@ var SystemMap = {
   },
 
   updateWormholeJump: function(link) {
-    console.log(link);
     Data.ui.mapInfo.html( $(Data.templates.wormhole_link_info(link)) );
     Data.ui.mapInfo.children('div.wormhole-link-details')
       .fadeIn(Data.config.uiSpeed)

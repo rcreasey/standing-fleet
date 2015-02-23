@@ -1,5 +1,6 @@
 var Q = require('q')
   , _ = require('lodash')
+  , moment = require('moment')
   , response = require(__dirname + '/../response')
   , Advisory = require(__dirname + '/../models/advisory')
   , Region = require(__dirname + '/../models/region')
@@ -225,13 +226,12 @@ exports.vicinity = function(req, res, next){
 };
 
 exports.update_jump = function(req, res, next){
-  var to_id = req.body.to;
-  var from_id = req.body.from;
-  var wormhole_details = req.body.wormhole_details;
+  var wormhole_data = Jump.parseWormholeInfo(req.body.info);
   
-  Jump.updateQ({fromSystem: req.body.from, toSystem: req.body.to}, {wormhole_details: wormhole_details})
+  Jump.updateQ({fromSystem: req.params.from_id, toSystem: req.params.to_id}, {updated_at: moment().utc().unix(), wormhole_data: wormhole_data})
     .then(function(result) {
-      debugger;
+      
+      // should emit a updateSystemInfo event
       return res.jsonp(result);
     })
     .catch(function(error) {
