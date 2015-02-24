@@ -288,11 +288,6 @@ var SystemMap = {
         });
         
         path_groups.attr('d', function(d) {
-          // var dx = d.target.x - d.source.x,
-          //     dy = d.target.y - d.source.y,
-          //     dr = Math.sqrt(dx * dx + dy * dy);
-          // return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
-        
           var dx = d.target.x - d.source.x,
               dy = d.target.y - d.source.y,
               dr = Math.sqrt(dx * dx + dy * dy) / 1.45,
@@ -305,6 +300,10 @@ var SystemMap = {
             "A",dr,dr,0,0,1,d.target.x,d.target.y
           ].join(" ");
         });
+        
+        path_groups.filter(function(l) { return l.wormhole_data.signature; })
+          .append('title')
+          .text(function(d) { return d.wormhole_data.signature; });
 
         node_groups.attr('transform', function(d) {
           return 'translate(' + (d.x - rect_width / 2) + ',' + (d.y - rect_height / 2) + ')';
