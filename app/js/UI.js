@@ -220,7 +220,7 @@ Handlebars.registerHelper('ui_icon', function(icon) {
   if (icon == 'fleetCreated') return 'fighter-jet';
   if (icon == 'hostileFaded') return 'clock-o';
   if (icon == 'hostileTimeout') return 'clock-o';
-  if (icon == 'info') return 'question';
+  if (icon == 'info') return 'info-circle';
   if (icon == 'member') return 'user';
   if (icon == 'memberJoined') return 'user';
   if (icon == 'memberLeft') return 'user';

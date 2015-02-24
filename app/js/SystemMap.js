@@ -167,7 +167,7 @@ var SystemMap = {
           .enter().append('g')
           .attr('class', function(j) { return 'link ' + j.type; })
           .append('path')
-            .attr("marker-mid", "url(#wormhole)");
+            .attr('marker-mid', 'url(#wormhole)');
 
         var node_groups = node.data(SystemMap.systems)
           .enter().append('g')

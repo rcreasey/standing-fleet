@@ -259,11 +259,19 @@ function reportAdvisory(button, systemId, type) {
   });
 }
 
-function updateWormholeLink(button, action, from, to, data) {
+function updateWormholeLink(button, from, to, data) {
   var state = ! $( button ).hasClass('present');  
-  $(button).removeAttr('onclick');
+  var payload = {};
 
-  Server.postWormholeLinkUpdate(from, to, {info: data}, function(error, data) {
+  if (!data) {
+    payload.info = $('#wormhole-info-text').val();
+    payload.signature_id = $('#signature').val();
+    UIPanels.hidePanel();
+  } else {
+    payload.info = data;
+  }
+
+  Server.postWormholeLinkUpdate(from, to, payload, function(error, data) {
     if (error) {
       handleError(error);
       return;

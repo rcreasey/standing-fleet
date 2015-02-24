@@ -3,6 +3,7 @@ var Q = require('q')
   , moment = require('moment')
   , response = require(__dirname + '/../response')
   , Advisory = require(__dirname + '/../models/advisory')
+  , Event = require(__dirname + '/../models/event')
   , Region = require(__dirname + '/../models/region')
   , System = require(__dirname + '/../models/system')
   , Jump = require(__dirname + '/../models/jump')
@@ -226,15 +227,15 @@ exports.vicinity = function(req, res, next){
 };
 
 exports.update_jump = function(req, res, next){
-  var wormhole_data = Jump.parseWormholeInfo(req.body.info);
+  var info = Jump.parseWormholeInfo(req.body);
   
-  Jump.updateQ({fromSystem: req.params.from_id, toSystem: req.params.to_id}, {updated_at: moment().utc().unix(), wormhole_data: wormhole_data})
+  Jump.updateQ({fromSystem: req.params.from_id, toSystem: req.params.to_id}, {$set: info})
     .then(function(result) {
-      
-      // should emit a updateSystemInfo event
+      Event.prepare('refreshSystems', 'all').saveQ();
       return res.jsonp(result);
     })
     .catch(function(error) {
+      debugger;
       console.log(error);
       return response.error(res, 'map', error);
     });

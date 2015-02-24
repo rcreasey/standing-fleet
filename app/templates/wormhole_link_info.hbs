@@ -33,9 +33,11 @@
   </dl>
   
   <h4>Update Link Actions</h4>
-  <a class="btn" onclick="updateWormholeLink(this, 'expire', '{{ source.system.id }}', '{{ target.system.id}}', 'Wormhole collapsed')" title="Close">
-    <i class="fa fa-{{ui_icon 'close'}}"></i>
+  <a class="btn" onclick="UIPanels.updateWormholeLinkPanel(this, '{{ source.system.id }}', '{{ target.system.id}}')" title="Update">
+    <i class="fa fa-{{ui_icon 'info'}}"></i>
   </a>
 
-  
+  <a class="btn" onclick="updateWormholeLink(this, '{{ source.system.id }}', '{{ target.system.id}}', 'Wormhole collapsed')" title="Close">
+    <i class="fa fa-{{ui_icon 'close'}}"></i>
+  </a>  
 </div>

@@ -141,6 +141,25 @@ var UIPanels = {
       source: UIPanels.substringMatcher($.map(Data.ships, function(s) { return s.name; }))
     });
   },
+  
+  updateWormholeLinkPanel: function (button, from_id, to_id) {
+    var from_system = Data.systems[ from_id ];
+    var to_system = Data.systems[ to_id ];
+
+    var panel = {
+      type: 'info',
+      icon: 'info',
+      title: from_system.name + ' -> ' + to_system.name,
+      formitems: [
+        {input:  {legend: 'Signature ID', label: 'AAA-123', id: 'signature'}},
+        {textinput:  {legend: 'Paste Wormhole Info Text Here', id: 'wormhole-info-text', class: 'status-data'}},
+        {submit: {text: 'Update Jump Link', onClick: 'updateWormholeLink(this,' + from_id + ',' + to_id +')'}}        
+      ],
+      closeable: true
+    };
+
+    UIPanels.showPanel(panel);
+  },
 
   showStatusPanel: function (callback) {
     var panel = {
