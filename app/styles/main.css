@@ -696,9 +696,9 @@ marker { stroke: #000; fill: #d9534f; stroke-width: 2px; }
 .link.wormhole { stroke: #d9534f; stroke-width: 4px; cursor: pointer; }
 
 .anchorLink {
-    stroke: #00aaff;
-    stroke-width: 1px;
-    stroke-dasharray: 2,2,4,2;
+  stroke: #00aaff;
+  stroke-width: 1px;
+  stroke-dasharray: 2,2,4,2;
 }
 
   /*/

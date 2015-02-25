@@ -170,14 +170,29 @@ gulp.task('sde:refresh', function(done) {
     Region.updateQ({id: region.id}, region, {upsert: true});
   });
   
-  sde.each('SELECT solarsystemname,wormholeclassid FROM mapSolarSystems JOIN mapLocationWormholeClasses ON regionid=locationid WHERE regionID >= 11000001 ORDER by wormholeclassid;', function(err, row) {
-    System.updateQ({name: row.solarsystemname}, {wormhole_data: {class: row.wormholeclassid}}, {upsert: true});
-  });
-  
   // ship data
   sde.each('SELECT i.typeID id, i.typeName name, g.groupName class, IFNULL(img.metaGroupName, "Tech I") as meta FROM invTypes i INNER JOIN invGroups g ON i.groupID = g.groupID LEFT JOIN invMetaTypes imt ON i.typeID = imt.typeID LEFT JOIN invMetaGroups img ON imt.metaGroupID = img.metaGroupID WHERE g.categoryID = 6 AND i.published = 1 ORDER BY i.typeID ASC', function(err, row) {
     ship = {id: row.id, name: row.name, class: row.class, meta: row.meta};
     Ship.updateQ({id: ship.id}, ship, {upsert: true});
+  });
+  
+  sde.close(function() {
+    db.disconnect(done);
+  });
+});
+
+gulp.task('sde:refresh:wormhole_classes', function(done) {
+  var sqlite3 = require('sqlite3').verbose()
+  , mongoose = require('mongoose')
+  , System = require('./server/models/system')
+
+  var db = mongoose.connect(process.env.MONGODB_URL)
+    , sde = new sqlite3.Database('./sde/sqlite-latest.sqlite')
+  
+  mongoose.set('debug', true);
+  
+  sde.each('SELECT solarsystemname,wormholeclassid FROM mapSolarSystems JOIN mapLocationWormholeClasses ON regionid=locationid WHERE regionID >= 11000001 ORDER by wormholeclassid;', function(err, row) {
+    System.updateQ({name: row.solarSystemName}, {wormhole_data: {class: row.wormholeClassID}}, {upsert: true});
   });
   
   sde.close(function() {
