@@ -644,27 +644,29 @@ g.node {
 .node text.wormhole-class { fill: #222; }
 
 .node rect.security-class.class-10,
-.node rect.wormhole-class.class-10 { fill: #2fefef; }
+.node rect.wormhole-class.class-1 { fill: #2fefef; }
 .node rect.security-class.class-9,
-.node rect.wormhole-class.class-9 { fill: #48f0c0; }
+.node rect.wormhole-class.class-2 { fill: #48f0c0; }
 .node rect.security-class.class-8,
-.node rect.wormhole-class.class-8 { fill: #00ef47; }
+.node rect.wormhole-class.class-3 { fill: #00ef47; }
 .node rect.security-class.class-7,
-.node rect.wormhole-class.class-7 { fill: #00f000; }
+.node rect.wormhole-class.class-4 { fill: #00f000; }
 .node rect.security-class.class-6,
-.node rect.wormhole-class.class-6 { fill: #8fef2f; }
+.node rect.wormhole-class.class-5 { fill: #8fef2f; }
 .node rect.security-class.class-5,
-.node rect.wormhole-class.class-5 { fill: #efef00; }
+.node rect.wormhole-class.class-6 { fill: #efef00; }
 .node rect.security-class.class-4,
-.node rect.wormhole-class.class-4 { fill: #d77700; }
+.node rect.wormhole-class.class-7 { fill: #d77700; }
 .node rect.security-class.class-3,
-.node rect.wormhole-class.class-3 { fill: #f06000; }
+.node rect.wormhole-class.class-8 { fill: #f06000; }
 .node rect.security-class.class-2,
-.node rect.wormhole-class.class-2 { fill: #f04800; }
+.node rect.wormhole-class.class-9 { fill: #f04800; }
 .node rect.security-class.class-1,
-.node rect.wormhole-class.class-1 { fill: #d73000; }
+.node rect.wormhole-class.class-10,
+.node rect.wormhole-class.class-11,
+.node rect.wormhole-class.class-12 { fill: #d73000; }
 .node rect.security-class.class-0,
-.node rect.wormhole-class.class-0 { fill: #f00000; }
+.node rect.wormhole-class.class-13 { fill: #f00000; }
 
 .node text {
   font-family: 'Droid Sans', sans-serif;

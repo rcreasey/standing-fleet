@@ -183,8 +183,8 @@ gulp.task('sde:refresh', function(done) {
 
 gulp.task('sde:refresh:wormhole_classes', function(done) {
   var sqlite3 = require('sqlite3').verbose()
-  , mongoose = require('mongoose')
-  , System = require('./server/models/system')
+    , mongoose = require('mongoose')
+    , System = require('./server/models/system')
 
   var db = mongoose.connect(process.env.MONGODB_URL)
     , sde = new sqlite3.Database('./sde/sqlite-latest.sqlite')
@@ -192,10 +192,14 @@ gulp.task('sde:refresh:wormhole_classes', function(done) {
   mongoose.set('debug', true);
   
   sde.each('SELECT solarsystemname,wormholeclassid FROM mapSolarSystems JOIN mapLocationWormholeClasses ON regionid=locationid WHERE regionID >= 11000001 ORDER by wormholeclassid;', function(err, row) {
-    System.updateQ({name: row.solarSystemName}, {wormhole_data: {class: row.wormholeClassID}}, {upsert: true});
+    var data = {$set: {wormhole_class: row.wormholeClassID}, $unset: {security_class: 1}};
+    System.update({name: row.solarSystemName}, data, { multi: true }, function (err, numberAffected, raw) {
+      console.log(raw)
+    });
+    
   });
   
-  sde.close(function() {
-    db.disconnect(done);
-  });
+  // sde.close(function() {
+  //   // db.disconnect(done);
+  // });
 });

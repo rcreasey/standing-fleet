@@ -10,11 +10,7 @@ var SystemSchema  = new Schema({
   y: Number,
   security: Number,
   security_class: String,
-  wormhole_data: {
-    effectId: Number,
-    effectName: String,
-    class: Number
-  }
+  wormhole_class: String,
 });
 
 SystemSchema.index({ id: 1, regionID: 1 });

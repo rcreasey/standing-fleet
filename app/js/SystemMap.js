@@ -198,7 +198,7 @@ var SystemMap = {
 
         node_groups.append('rect')
           .attr('class', function(n) {
-            return (n.system.wormhole_data) ? 'wormhole-class class-' + n.system.wormhole_data.class :
+            return (n.system.wormhole_class) ? 'wormhole-class class-' + n.system.wormhole_class :
               (n.system.security > 0) ? 'security-class class-' + parseInt(n.system.security * 10) : 'security-class vacant';
           })
           .attr('width', 20)
@@ -208,7 +208,7 @@ var SystemMap = {
 
         node_groups.append('text')
           .attr('class', function(n) {
-            return (n.system.wormhole_data) ? 'wormhole-class class-' + n.system.wormhole_data.class :
+            return (n.system.wormhole_class) ? 'wormhole-class class-' + n.system.wormhole_class :
               (n.system.security > 0) ? 'security-class class-' + parseInt(n.system.security * 10) : 'security-class';
           })
           .attr('text-anchor', 'center')
@@ -216,7 +216,7 @@ var SystemMap = {
           .attr('vector-effect', 'non-scaling-stroke')
           .attr('x', rect_width / 2.5).attr('y', 29)
           .text(function(n) {
-            return (n.system.wormhole_data) ? 'C' + n.system.wormhole_data.class :
+            return (n.system.wormhole_class) ? 'C' + n.system.wormhole_class :
               (n.system.security > 0) ? n.system.security.toFixed(1) : '';
           });
 
@@ -385,7 +385,7 @@ var SystemMap = {
       .links(SystemMap.links)
       .gravity(0)
       .charge(function(d) {
-        if (d.system && d.system.wormhole_data) return 0;
+        if (d.system && d.system.wormhole_class) return 0;
         return d.fixed ? 0 : -1250 * SCALING_FACTOR;
       })
       .chargeDistance(200 * SCALING_FACTOR)
@@ -441,12 +441,12 @@ var SystemMap = {
                      region: Data.regions[ results.regionID ].name,
                      hostiles: results.hostiles,
                      hostile_count: results.hostiles.length,
-                     security_class: results.security_class,
                      security: results.security,
                      faded_count: SystemMap.faded_count( results ),
                      gates: $.map( results.jumps, function(j) { return Data.systems[ j.to ]; })
       };
 
+      if (results.security_class) system.security_class = results.security_class;
       if (results.wormhole_class) system.wormhole_class = results.wormhole_class;
       if (results.wormhole_effect) system.wormhole_effect = results.wormhole_effect;
 
