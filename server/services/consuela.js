@@ -130,7 +130,7 @@ var clean_wormhole_jumps = function() {
 
   Jump.removeQ({"wormhole_data.expires_on": {$lte: moment().unix()}})
     .then(function(jumps) {
-      Event.prepare('refreshSystems', 'all').saveQ();
+      if (jumps) Event.prepare('refreshSystems', 'all').saveQ();
     });  
 };
 

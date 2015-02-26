@@ -13,13 +13,13 @@ exports.update = function(whitelist) {
 
           whitelist.corporations = _.filter(standings.eveapi.result[0].rowset[0].row, function(s) {
             return parseFloat(s.$.standing) >= whitelist.threshold;
-          })
-          whitelist.corporations = _.map(whitelist.corporations, function(e) { return e.$.contactID });
+          });
+          whitelist.corporations = _.map(whitelist.corporations, function(e) { return e.$.contactID; });
 
           whitelist.alliances = _.filter(standings.eveapi.result[0].rowset[1].row, function(s) {
             return parseFloat(s.$.standing) >= whitelist.threshold;
-          })
-          whitelist.alliances = _.map(whitelist.alliances, function(e) { return e.$.contactID });
+          });
+          whitelist.alliances = _.map(whitelist.alliances, function(e) { return e.$.contactID; });
 
           console.log('Standings: ' + whitelist.alliances.length + ' alliances whitelisted.');
           console.log('Standings: ' + whitelist.corporations.length + ' corporations whitelisted.');

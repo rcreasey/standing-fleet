@@ -93,16 +93,13 @@ exports.show_system = function(req, res, next){
         name: result.name,
         regionID: result.regionID,
         constellationID: result.constellationID,
-        security_class: result.security_class,
         security: result.security,
         x: result.x,
         y: result.y
       };
       
-      if (result.wormhole_data) {
-        if (result.wormhole_data.effectName) system.wormhole_effect = result.wormhole_data.effectName;
-        if (result.wormhole_data.class) system.wormhole_class = result.wormhole_data.class;
-      }
+      if (result.security_class) system.security_class = result.security_class;
+      if (result.wormhole_class) system.wormhole_class = result.wormhole_class;
 
       return system;
     })
