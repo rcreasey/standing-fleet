@@ -12,19 +12,6 @@
     <dt>To</dt>
     <dd class="system">{{ target.system.name }}</dd>
 
-    <!-- <dt>Discovered</dt>
-    <dd class="discovered-on">{{ format_ts_short wormhole_data.discovered_on }}</dd> -->
-    
-    {{#if wormhole_data.lifespan_estimate}}
-    <dt>Lifespan</dt>
-    <dd class="lifespan">{{ wormhole_data.lifespan_estimate }}</dd>
-    {{/if}}
-
-    {{#if wormhole_data.mass_estimate}}
-    <dt>Mass</dt>
-    <dd class="mass">{{ wormhole_data.mass_estimate }}</dd>
-    {{/if}}
-
     <dt>Expires</dt>
     <dd class="expires-on">{{ format_ts_short wormhole_data.expires_on }}</dd>
     
@@ -32,12 +19,36 @@
     <dd class="updated-at">{{ format_ts_short updated_at }}</dd>
   </dl>
   
+  {{log this}}
+  <h4>Jump Estimates</h4>
+  <dl>
+    {{#if wormhole_data.code}}
+    <dt>Jump Code</dt>
+    <dd class="code">{{ wormhole_data.code }}</dd>
+    {{/if}}
+
+    {{#if wormhole_data.lifespan_estimate}}
+    <dt>Lifespan</dt>
+    <dd class="lifespan">{{ wormhole_data.lifespan_estimate }}</dd>
+    {{/if}}
+
+    {{#if wormhole_data.mass_total}}
+    <dt>Mass Left</dt>
+    <dd class="mass">{{ wormhole_data.mass_total }}KG</dd>
+    {{/if}}
+    
+    {{#if wormhole_data.jump_mass}}
+    <dt>Jump Limit</dt>
+    <dd class="jump-mass">{{ wormhole_data.jump_mass }}KG</dd>
+    {{/if}}
+  </dl>
+  
   <h4>Update Link Actions</h4>
   <a class="btn" onclick="UIPanels.updateWormholeLinkPanel(this, '{{ source.system.id }}', '{{ target.system.id}}')" title="Update">
-    <i class="fa fa-{{ui_icon 'info'}}"></i>
+    <i class="fa fa-{{ui_icon 'info'}}"></i> Update
   </a>
 
   <a class="btn" onclick="updateWormholeLink(this, '{{ source.system.id }}', '{{ target.system.id}}', 'Wormhole collapsed')" title="Close">
-    <i class="fa fa-{{ui_icon 'close'}}"></i>
+    <i class="fa fa-{{ui_icon 'close'}}"></i> Clear
   </a>  
 </div>

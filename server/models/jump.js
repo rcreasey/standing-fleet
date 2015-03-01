@@ -2,6 +2,7 @@ var mongoose = require('mongoose-q')()
   , Schema = mongoose.Schema
   , moment = require('moment')
 
+
 var lifespanEstimates = [
   'Unknown',
   'Not yet begun (>24h)',
@@ -16,16 +17,11 @@ exports.lifespanEstimates = lifespanEstimates;
 var massEstimates = [
   'Unknown',
   'Not disrupted (>50%)',
-  'Beginning to decay (4-24h)',
   'Under half remaining (<50%)',
   'Critical (<10%)'
 ];
 
 exports.massEstimates = massEstimates;
-
-var jumpCodes = ['A239','A641','A982','B041','B274','B449','B520','C125','C140','C247','C248','C391','D364','D382','D792','D845','E175','E545','G024','H121','H296','H900','I182','J244','K329','K346','L477','L614','M267','M555','M609','N062','N110','N290','N432','N766','N770','N944','N968','O128','O477','O883','P060','Q317','R051','R474','R943','S047','S199','S804','T405','U210','U319','U574','V283','V301','V753','V911','W237','X702','X877','Y683','Y790','Z060','Z142','Z457','Z647','Z971','K162'];
-
-exports.jumpCodes = jumpCodes;
 
 var JumpSchema = new Schema({
   toSystem: Number,
@@ -37,7 +33,7 @@ var JumpSchema = new Schema({
   updated_at: Number,
   wormhole_data: {
     signature: String,
-    code: {type: String, enum: jumpCodes},
+    code: String,
     mass_estimate: {type: String, enum: massEstimates},
     mass_total: String,
     jump_mass: String,
@@ -57,7 +53,22 @@ JumpSchema.methods.type = function() {
 };
 
 JumpSchema.statics.parseWormholeInfo = function(body) {
+  var _ = require('lodash')
+    , static_data = require(__dirname + '/../../public/data/wormhole_types.json')
+    
   var info = {};
+  
+  if (/^[A-Za-z]{3}-\d{3}$/.test(body.signature_id)) info['wormhole_data.signature'] = body.signature_id.toUpperCase();
+  if (_.include(_.map(static_data.wormhole_types, 'code'), body.code)) info['wormhole_data.code'] = body.code;
+  var type = _.find(static_data.wormhole_types, function(t) { return t.code == info['wormhole_data.code']; });
+  
+  if (type) {
+    info['wormhole_data.jump_mass'] = parseInt(type.jump_mass);
+    info['wormhole_data.mass_total'] = parseInt(type.lifetime_mass);
+  } else {
+    info['wormhole_data.jump_mass'] = _.min(static_data.wormhole_types, function(t) { return parseInt(t.jump_mass); });
+    info['wormhole_data.mass_total'] = _.min(static_data.wormhole_types, function(t) { return parseInt(t.lifetime_mass); });
+  }
   
   if (/not yet begun/.test(body.info)) {
     info['wormhole_data.lifespan_estimate'] = lifespanEstimates[1];
@@ -80,11 +91,11 @@ JumpSchema.statics.parseWormholeInfo = function(body) {
     info['wormhole_data.mass_estimate'] = massEstimates[1];
   } else if (/has had its stability reduced by ships passing through it/.test(body.info)) {
     info['wormhole_data.mass_estimate'] = massEstimates[2];
+    info['wormhole_data.mass_total'] = info['wormhole_data.mass_total'] * 0.5; 
   } else if (/has had its stability critically disrupted/.test(body.info)) {
     info['wormhole_data.mass_estimate'] = massEstimates[3];
+    info['wormhole_data.mass_total'] = info['wormhole_data.mass_total'] * 0.1;
   }
-
-  if (/^[A-Za-z]{3}-\d{3}$/.test(body.signature_id)) info['wormhole_data.signature'] = body.signature_id.toUpperCase();
   
   info.updated_at = moment().utc().unix();
 

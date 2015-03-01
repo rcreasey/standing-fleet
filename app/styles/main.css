@@ -542,7 +542,7 @@ input.log-path {
   line-height: 1rem;
   border-radius: 4px;
   padding: 5px;
-  width: 20px;
+  min-width: 20px;
 }
 
 #system-info a.btn:hover {
