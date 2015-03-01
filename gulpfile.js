@@ -62,7 +62,6 @@ gulp.task('prepare', function() {
     .pipe(gulp.dest('public'))
     .pipe(gulp.dest('client'));
 
-  // gulp.src('vendor/fontawesome/css/font-awesome.css')
   gulp.src(mainBowerFiles())
     .pipe(filter(['*.css']))
     .pipe(concat('css/dist.css'))
@@ -70,7 +69,6 @@ gulp.task('prepare', function() {
     .pipe(gulp.dest('public'))
     .pipe(gulp.dest('client'));
 
-  // gulp.src('vendor/fontawesome/fonts/*')
   gulp.src(mainBowerFiles())
     .pipe(filter(['*.eot', '*.svg', '*.ttf', '*.woff', '*.woff2']))
     .pipe(gulp.dest('public/fonts'))
@@ -95,7 +93,7 @@ gulp.task('prepare', function() {
 });
 
 gulp.task('default', function() {
-  gutil.env.type = 'development';
+  gutil.env.type = process.env.NODE_ENV;
   gulp.start('prepare');
 });
 

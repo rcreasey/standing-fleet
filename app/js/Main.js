@@ -27,6 +27,7 @@ function initialize() {
   ScanList.clear();
   
   Data.load_ships();
+  Data.load_wormhole_types();
 
   UIPanels.showLoadingPanel(false, function () {
     Server.status(function(error, data) {

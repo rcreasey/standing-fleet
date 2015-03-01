@@ -23,6 +23,10 @@ var massEstimates = [
 
 exports.massEstimates = massEstimates;
 
+var jumpCodes = ['A239','A641','A982','B041','B274','B449','B520','C125','C140','C247','C248','C391','D364','D382','D792','D845','E175','E545','G024','H121','H296','H900','I182','J244','K329','K346','L477','L614','M267','M555','M609','N062','N110','N290','N432','N766','N770','N944','N968','O128','O477','O883','P060','Q317','R051','R474','R943','S047','S199','S804','T405','U210','U319','U574','V283','V301','V753','V911','W237','X702','X877','Y683','Y790','Z060','Z142','Z457','Z647','Z971','K162'];
+
+exports.jumpCodes = jumpCodes;
+
 var JumpSchema = new Schema({
   toSystem: Number,
   fromSystem: Number,
@@ -33,7 +37,10 @@ var JumpSchema = new Schema({
   updated_at: Number,
   wormhole_data: {
     signature: String,
+    code: {type: String, enum: jumpCodes},
     mass_estimate: {type: String, enum: massEstimates},
+    mass_total: String,
+    jump_mass: String,
     lifespan_estimate: {type: String, enum: lifespanEstimates},
     discovered_on: Number,
     expires_on: Number
