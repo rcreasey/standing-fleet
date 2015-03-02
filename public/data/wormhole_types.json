@@ -1,0 +1,480 @@
+{
+  "wormhole_types": [
+    {
+      "code": "A239",
+      "destination": "Low Sec",
+      "lifetime": "24",
+      "jump_mass": "300000000",
+      "lifetime_mass": "2000000000"
+    },
+    {
+      "code": "A641",
+      "destination": "High Sec",
+      "lifetime": "16",
+      "jump_mass": "1000000000",
+      "lifetime_mass": "2000000000"
+    },
+    {
+      "code": "A982",
+      "destination": "Class 6",
+      "lifetime": "24",
+      "jump_mass": "300000000",
+      "lifetime_mass": "2147483647"
+    },
+    {
+      "code": "B041",
+      "destination": "Class 6",
+      "lifetime": "48",
+      "jump_mass": "300000000",
+      "lifetime_mass": "2147483647"
+    },
+    {
+      "code": "B274",
+      "destination": "High Sec",
+      "lifetime": "24",
+      "jump_mass": "300000000",
+      "lifetime_mass": "2000000000"
+    },
+    {
+      "code": "B449",
+      "destination": "High Sec",
+      "lifetime": "16",
+      "jump_mass": "1000000000",
+      "lifetime_mass": "2000000000"
+    },
+    {
+      "code": "B520",
+      "destination": "High Sec",
+      "lifetime": "24",
+      "jump_mass": "300000000",
+      "lifetime_mass": "2147483647"
+    },
+    {
+      "code": "C125",
+      "destination": "Class 2",
+      "lifetime": "16",
+      "jump_mass": "20000000",
+      "lifetime_mass": "1000000000"
+    },
+    {
+      "code": "C140",
+      "destination": "Low Sec",
+      "lifetime": "24",
+      "jump_mass": "1350000000",
+      "lifetime_mass": "2147483647"
+    },
+    {
+      "code": "C247",
+      "destination": "Class 3",
+      "lifetime": "16",
+      "jump_mass": "300000000",
+      "lifetime_mass": "2000000000"
+    },
+    {
+      "code": "C248",
+      "destination": "Null Sec",
+      "lifetime": "24",
+      "jump_mass": "1800000000",
+      "lifetime_mass": "2147483647"
+    },
+    {
+      "code": "C391",
+      "destination": "Low Sec",
+      "lifetime": "24",
+      "jump_mass": "1800000000",
+      "lifetime_mass": "2147483647"
+    },
+    {
+      "code": "D364",
+      "destination": "Class 2",
+      "lifetime": "16",
+      "jump_mass": "300000000",
+      "lifetime_mass": "1000000000"
+    },
+    {
+      "code": "D382",
+      "destination": "Class 2",
+      "lifetime": "16",
+      "jump_mass": "300000000",
+      "lifetime_mass": "2000000000"
+    },
+    {
+      "code": "D792",
+      "destination": "High Sec",
+      "lifetime": "24",
+      "jump_mass": "1000000000",
+      "lifetime_mass": "2147483647"
+    },
+    {
+      "code": "D845",
+      "destination": "High Sec",
+      "lifetime": "24",
+      "jump_mass": "300000000",
+      "lifetime_mass": "2147483647"
+    },
+    {
+      "code": "E175",
+      "destination": "Class 4",
+      "lifetime": "16",
+      "jump_mass": "300000000",
+      "lifetime_mass": "2000000000"
+    },
+    {
+      "code": "E545",
+      "destination": "Null Sec",
+      "lifetime": "24",
+      "jump_mass": "300000000",
+      "lifetime_mass": "2000000000"
+    },
+    {
+      "code": "G024",
+      "destination": "Class 2",
+      "lifetime": "16",
+      "jump_mass": "300000000",
+      "lifetime_mass": "2000000000"
+    },
+    {
+      "code": "H121",
+      "destination": "Class 1",
+      "lifetime": "16",
+      "jump_mass": "20000000",
+      "lifetime_mass": "500000000"
+    },
+    {
+      "code": "H296",
+      "destination": "Class 5",
+      "lifetime": "24",
+      "jump_mass": "1350000000",
+      "lifetime_mass": "2147483647"
+    },
+    {
+      "code": "H900",
+      "destination": "Class 5",
+      "lifetime": "24",
+      "jump_mass": "300000000",
+      "lifetime_mass": "2147483647"
+    },
+    {
+      "code": "I182",
+      "destination": "Class 2",
+      "lifetime": "16",
+      "jump_mass": "300000000",
+      "lifetime_mass": "2000000000"
+    },
+    {
+      "code": "J244",
+      "destination": "Low Sec",
+      "lifetime": "24",
+      "jump_mass": "20000000",
+      "lifetime_mass": "1000000000"
+    },
+    {
+      "code": "K329",
+      "destination": "Null Sec",
+      "lifetime": "24",
+      "jump_mass": "1800000000",
+      "lifetime_mass": "2147483647"
+    },
+    {
+      "code": "K346",
+      "destination": "Null Sec",
+      "lifetime": "24",
+      "jump_mass": "300000000",
+      "lifetime_mass": "2147483647"
+    },
+    {
+      "code": "L477",
+      "destination": "Class 3",
+      "lifetime": "16",
+      "jump_mass": "300000000",
+      "lifetime_mass": "2000000000"
+    },
+    {
+      "code": "L614",
+      "destination": "Class 5",
+      "lifetime": "24",
+      "jump_mass": "20000000",
+      "lifetime_mass": "1000000000"
+    },
+    {
+      "code": "M267",
+      "destination": "Class 3",
+      "lifetime": "16",
+      "jump_mass": "300000000",
+      "lifetime_mass": "1000000000"
+    },
+    {
+      "code": "M555",
+      "destination": "Class 5",
+      "lifetime": "24",
+      "jump_mass": "1000000000",
+      "lifetime_mass": "2147483647"
+    },
+    {
+      "code": "M609",
+      "destination": "Class 4",
+      "lifetime": "16",
+      "jump_mass": "20000000",
+      "lifetime_mass": "1000000000"
+    },
+    {
+      "code": "N062",
+      "destination": "Class 5",
+      "lifetime": "24",
+      "jump_mass": "300000000",
+      "lifetime_mass": "2147483647"
+    },
+    {
+      "code": "N110",
+      "destination": "High Sec",
+      "lifetime": "24",
+      "jump_mass": "20000000",
+      "lifetime_mass": "1000000000"
+    },
+    {
+      "code": "N290",
+      "destination": "Low Sec",
+      "lifetime": "24",
+      "jump_mass": "1800000000",
+      "lifetime_mass": "2147483647"
+    },
+    {
+      "code": "N432",
+      "destination": "Class 5",
+      "lifetime": "24",
+      "jump_mass": "1350000000",
+      "lifetime_mass": "2147483647"
+    },
+    {
+      "code": "N766",
+      "destination": "Class 2",
+      "lifetime": "16",
+      "jump_mass": "300000000",
+      "lifetime_mass": "2000000000"
+    },
+    {
+      "code": "N770",
+      "destination": "Class 5",
+      "lifetime": "24",
+      "jump_mass": "300000000",
+      "lifetime_mass": "2147483647"
+    },
+    {
+      "code": "N944",
+      "destination": "Low Sec",
+      "lifetime": "24",
+      "jump_mass": "1350000000",
+      "lifetime_mass": "2147483647"
+    },
+    {
+      "code": "N968",
+      "destination": "Class 3",
+      "lifetime": "16",
+      "jump_mass": "300000000",
+      "lifetime_mass": "2000000000"
+    },
+    {
+      "code": "O128",
+      "destination": "Class 4",
+      "lifetime": "24",
+      "jump_mass": "300000000",
+      "lifetime_mass": "1000000000"
+    },
+    {
+      "code": "O477",
+      "destination": "Class 3",
+      "lifetime": "16",
+      "jump_mass": "300000000",
+      "lifetime_mass": "2000000000"
+    },
+    {
+      "code": "O883",
+      "destination": "Class 3",
+      "lifetime": "16",
+      "jump_mass": "20000000",
+      "lifetime_mass": "1000000000"
+    },
+    {
+      "code": "P060",
+      "destination": "Class 1",
+      "lifetime": "16",
+      "jump_mass": "20000000",
+      "lifetime_mass": "500000000"
+    },
+    {
+      "code": "Q317",
+      "destination": "Class 1",
+      "lifetime": "16",
+      "jump_mass": "20000000",
+      "lifetime_mass": "500000000"
+    },
+    {
+      "code": "R051",
+      "destination": "Low Sec",
+      "lifetime": "16",
+      "jump_mass": "1000000000",
+      "lifetime_mass": "2147483647"
+    },
+    {
+      "code": "R474",
+      "destination": "Class 6",
+      "lifetime": "24",
+      "jump_mass": "300000000",
+      "lifetime_mass": "2147483647"
+    },
+    {
+      "code": "R943",
+      "destination": "Class 2",
+      "lifetime": "16",
+      "jump_mass": "300000000",
+      "lifetime_mass": "750000000"
+    },
+    {
+      "code": "S047",
+      "destination": "High Sec",
+      "lifetime": "24",
+      "jump_mass": "300000000",
+      "lifetime_mass": "2147483647"
+    },
+    {
+      "code": "S199",
+      "destination": "Null Sec",
+      "lifetime": "24",
+      "jump_mass": "1350000000",
+      "lifetime_mass": "2147483647"
+    },
+    {
+      "code": "S804",
+      "destination": "Class 6",
+      "lifetime": "24",
+      "jump_mass": "20000000",
+      "lifetime_mass": "1000000000"
+    },
+    {
+      "code": "T405",
+      "destination": "Class 4",
+      "lifetime": "16",
+      "jump_mass": "300000000",
+      "lifetime_mass": "2000000000"
+    },
+    {
+      "code": "U210",
+      "destination": "Low Sec",
+      "lifetime": "24",
+      "jump_mass": "300000000",
+      "lifetime_mass": "2147483647"
+    },
+    {
+      "code": "U319",
+      "destination": "Class 6",
+      "lifetime": "48",
+      "jump_mass": "1800000000",
+      "lifetime_mass": "2147483647"
+    },
+    {
+      "code": "U574",
+      "destination": "Class 6",
+      "lifetime": "24",
+      "jump_mass": "300000000",
+      "lifetime_mass": "2147483647"
+    },
+    {
+      "code": "V283",
+      "destination": "Null Sec",
+      "lifetime": "24",
+      "jump_mass": "1000000000",
+      "lifetime_mass": "2147483647"
+    },
+    {
+      "code": "V301",
+      "destination": "Class 1",
+      "lifetime": "16",
+      "jump_mass": "20000000",
+      "lifetime_mass": "500000000"
+    },
+    {
+      "code": "V753",
+      "destination": "Class 6",
+      "lifetime": "24",
+      "jump_mass": "1350000000",
+      "lifetime_mass": "2147483647"
+    },
+    {
+      "code": "V911",
+      "destination": "Class 5",
+      "lifetime": "24",
+      "jump_mass": "1350000000",
+      "lifetime_mass": "2147483647"
+    },
+    {
+      "code": "W237",
+      "destination": "Class 6",
+      "lifetime": "24",
+      "jump_mass": "1350000000",
+      "lifetime_mass": "2147483647"
+    },
+    {
+      "code": "X702",
+      "destination": "Class 3",
+      "lifetime": "24",
+      "jump_mass": "300000000",
+      "lifetime_mass": "1000000000"
+    },
+    {
+      "code": "X877",
+      "destination": "Class 4",
+      "lifetime": "16",
+      "jump_mass": "300000000",
+      "lifetime_mass": "2000000000"
+    },
+    {
+      "code": "Y683",
+      "destination": "Class 4",
+      "lifetime": "16",
+      "jump_mass": "300000000",
+      "lifetime_mass": "2000000000"
+    },
+    {
+      "code": "Y790",
+      "destination": "Class 1",
+      "lifetime": "16",
+      "jump_mass": "20000000",
+      "lifetime_mass": "500000000"
+    },
+    {
+      "code": "Z060",
+      "destination": "Null Sec",
+      "lifetime": "24",
+      "jump_mass": "20000000",
+      "lifetime_mass": "1000000000"
+    },
+    {
+      "code": "Z142",
+      "destination": "Null Sec",
+      "lifetime": "24",
+      "jump_mass": "1350000000",
+      "lifetime_mass": "2147483647"
+    },
+    {
+      "code": "Z457",
+      "destination": "Class 4",
+      "lifetime": "16",
+      "jump_mass": "300000000",
+      "lifetime_mass": "2000000000"
+    },
+    {
+      "code": "Z647",
+      "destination": "Class 1",
+      "lifetime": "16",
+      "jump_mass": "20000000",
+      "lifetime_mass": "500000000"
+    },
+    {
+      "code": "Z971",
+      "destination": "Class 1",
+      "lifetime": "16",
+      "jump_mass": "20000000",
+      "lifetime_mass": "100000000"
+    }
+  ]
+}

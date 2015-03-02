@@ -38,10 +38,10 @@ var Util = {
 
     if (Util.isShip(shipName)){
       for (var i in Data.ships[shipName].class) {
-        returnElement.append($('<img src="/images/ship-icons/ship-icon-' + Data.ships[shipName].icons[i] + '.gif" alt="" />'));
+        returnElement.append($('<img src="/images/ship-icons/' + Data.ships[shipName].icons[i] + '.png" title="' + shipName +'" alt="' + shipName + '" />'));
       }
     } else {
-      returnElement.append($('<img src="/images/ship-icons/ship-icon-other.gif" alt="Ship type" />'));
+      returnElement.append($('<img src="/images/ship-icons/ship-icon-other.gif" title="No Visual" alt="No Visual" />'));
     }
 
     return $('<div/>').append(returnElement).html();

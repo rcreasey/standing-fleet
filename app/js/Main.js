@@ -27,6 +27,7 @@ function initialize() {
   ScanList.clear();
   
   Data.load_ships();
+  Data.load_wormhole_types();
 
   UIPanels.showLoadingPanel(false, function () {
     Server.status(function(error, data) {
@@ -266,6 +267,7 @@ function updateWormholeLink(button, from, to, data) {
   if (!data) {
     payload.info = $('#wormhole-info-text').val();
     payload.signature_id = $('#signature').val();
+    payload.code = $('#wormhole-code-text').val();
     UIPanels.hidePanel();
   } else {
     payload.info = data;
