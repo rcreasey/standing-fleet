@@ -11,7 +11,7 @@ var gulp = require('gulp')
   , gutil = require('gulp-util')
   , download = require('gulp-download')
   , decompress = require('decompress-bzip2')
-  , rimraf = require('gulp-rimraf')
+  , del = require('gulp-del')
   , sequence = require('run-sequence')
 
 gulp.task('prepare', function() {
@@ -116,7 +116,7 @@ gulp.task('build', function() {
 });
 
 gulp.task('sde:clean', function() {
-  return gulp.src('./sde/*', { read: false }).pipe(rimraf());
+  return del(['./sde/*']);
 });
 
 gulp.task('sde:download', function() {
