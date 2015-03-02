@@ -11,7 +11,7 @@ var gulp = require('gulp')
   , gutil = require('gulp-util')
   , download = require('gulp-download')
   , decompress = require('decompress-bzip2')
-  , del = require('gulp-del')
+  , del = require('del')
   , sequence = require('run-sequence')
 
 gulp.task('prepare', function() {
