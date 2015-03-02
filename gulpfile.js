@@ -65,7 +65,6 @@ gulp.task('prepare', function() {
   gulp.src(mainBowerFiles())
     .pipe(filter(['*.css']))
     .pipe(concat('css/dist.css'))
-    .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
     .pipe(gulp.dest('public'))
     .pipe(gulp.dest('client'));
 
@@ -92,9 +91,7 @@ gulp.task('prepare', function() {
     .pipe(gulp.dest('client'));
 });
 
-gulp.task('default', function() {
-  gulp.start('prepare');
-});
+gulp.task('default', ['prepare']);
 
 gulp.task('watch', function () {
    gulp.watch('app/**', ['default']);
