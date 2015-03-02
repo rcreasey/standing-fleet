@@ -19,7 +19,6 @@
     <dd class="updated-at">{{ format_ts_short updated_at }}</dd>
   </dl>
   
-  {{log this}}
   <h4>Jump Estimates</h4>
   <dl>
     {{#if wormhole_data.code}}
@@ -31,15 +30,24 @@
     <dt>Lifespan</dt>
     <dd class="lifespan">{{ wormhole_data.lifespan_estimate }}</dd>
     {{/if}}
-
-    {{#if wormhole_data.mass_total}}
-    <dt>Mass Left</dt>
-    <dd class="mass">{{ wormhole_data.mass_total }}KG</dd>
-    {{/if}}
     
     {{#if wormhole_data.jump_mass}}
     <dt>Jump Limit</dt>
-    <dd class="jump-mass">{{ wormhole_data.jump_mass }}KG</dd>
+    <dd class="jump-mass">{{ add_commas wormhole_data.jump_mass }} KG</dd>
+    {{/if}}
+    
+    {{#if wormhole_data.mass_total}}
+    <dt>Mass Left</dt>
+    <dd class="mass">{{ add_commas wormhole_data.mass_total }} KG</dd>
+    {{/if}}
+
+    {{#if wormhole_data.mass_total}}
+    <dt>Allowed Ships</dt>
+    <dd class="permitted-ships">
+      {{#each permitted_ships }}
+      <img src="/images/ship-icons/{{this}}.png" title="{{this}}" alt="{{this}}" />
+      {{/each}}
+    </dd>
     {{/if}}
   </dl>
   

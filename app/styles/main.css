@@ -782,9 +782,8 @@ marker { stroke: #000; fill: #d9534f; stroke-width: 2px; }
 .hostile .ship-type { min-width: 10rem; cursor: pointer; }
 .hostile .ship-name { cursor: pointer; }
 
-.hostile .ship-icon { vertical-align: top }
-
-.hostile .ship-icon { width: 2.4rem; padding: 0rem }
+.hostile .ship-icon { vertical-align: top; width: 2.4rem; padding: 0rem; }
+.hostile .ship-icon img { border: dotted 1px #555; }
 .hostile .actions { width: 4rem; text-align: center }
 .hostile .actions a { text-align: center; }
 .hostile .actions a:hover { color: #fff; }
