@@ -124,6 +124,16 @@ var Data = {
 
   ships: {},
   
+  load_wormhole_types: function(callback) {
+    $.ajax({
+      url: '/data/wormhole_types.json',
+      dataType: 'json',
+
+      success: function( data ) { Data.wormhole_types = data.wormhole_types; },
+      error: function(data, error, errorstring) {  if (error) console.log("Error: " + errorString); }
+    });
+  },
+  
   load_ships: function(callback) {
     log('Populating Ship Types...');
     Server.ships(function(error, data) {

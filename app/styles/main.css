@@ -542,7 +542,7 @@ input.log-path {
   line-height: 1rem;
   border-radius: 4px;
   padding: 5px;
-  width: 20px;
+  min-width: 20px;
 }
 
 #system-info a.btn:hover {
@@ -782,9 +782,8 @@ marker { stroke: #000; fill: #d9534f; stroke-width: 2px; }
 .hostile .ship-type { min-width: 10rem; cursor: pointer; }
 .hostile .ship-name { cursor: pointer; }
 
-.hostile .ship-icon { vertical-align: top }
-
-.hostile .ship-icon { width: 2.4rem; padding: 0rem }
+.hostile .ship-icon { vertical-align: top; width: 2.4rem; padding: 0rem; }
+.hostile .ship-icon img { border: dotted 1px #555; }
 .hostile .actions { width: 4rem; text-align: center }
 .hostile .actions a { text-align: center; }
 .hostile .actions a:hover { color: #fff; }

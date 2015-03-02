@@ -250,6 +250,27 @@ Handlebars.registerHelper('ui_icon', function(icon) {
   return 'exclamation';
 });
 
+Handlebars.registerHelper('add_commas', function(number) {
+  return (number + '').replace(/(\d)(?=(\d{3})+$)/g, '$1,')
+});
+
+Handlebars.registerHelper('jump_permitted_ships', function(mass) {
+  var ships = [];
+  
+  if (mass >= 1000000) ships.push('frigate');
+  if (mass >= 1200000) ships.push('destroyer');
+  if (mass >= 12000000) ships.push('cruiser');
+  if (mass >= 13000000) ships.push('battlecruiser');
+  if (mass >= 40000000) ships.push('mining-barge');
+  if (mass >= 12500000) ships.push('industrial');
+  if (mass >= 100000000) ships.push('battleship');
+  if (mass >= 250000000) ships.push('industrial-command');
+  if (mass >= 1200000000) ships.push('carrier');
+  if (mass >= 1200000000) ships.push('dreadnaught');
+  
+  return ships;
+});
+
 $.fn.pulse = function(options) {
   
   var options = $.extend({

@@ -464,11 +464,13 @@ var SystemMap = {
   },
 
   updateWormholeJump: function(link) {
+    link.permitted_ships = Handlebars.helpers.jump_permitted_ships(link.wormhole_data.mass_total);
+
     Data.ui.mapInfo.html( $(Data.templates.wormhole_link_info(link)) );
     Data.ui.mapInfo.children('div.wormhole-link-details')
       .fadeIn(Data.config.uiSpeed)
       .delay(Data.config.alertStay)
-      .fadeOut(Data.config.uiSpeed * 10);
+      .fadeOut(Data.config.uiSpeed * 15);
   },
 
   refreshSystems: function() {

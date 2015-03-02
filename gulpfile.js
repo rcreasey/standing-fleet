@@ -11,7 +11,7 @@ var gulp = require('gulp')
   , gutil = require('gulp-util')
   , download = require('gulp-download')
   , decompress = require('decompress-bzip2')
-  , rimraf = require('gulp-rimraf')
+  , del = require('del')
   , sequence = require('run-sequence')
 
 gulp.task('prepare', function() {
@@ -62,15 +62,12 @@ gulp.task('prepare', function() {
     .pipe(gulp.dest('public'))
     .pipe(gulp.dest('client'));
 
-  // gulp.src('vendor/fontawesome/css/font-awesome.css')
   gulp.src(mainBowerFiles())
     .pipe(filter(['*.css']))
     .pipe(concat('css/dist.css'))
-    .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
     .pipe(gulp.dest('public'))
     .pipe(gulp.dest('client'));
 
-  // gulp.src('vendor/fontawesome/fonts/*')
   gulp.src(mainBowerFiles())
     .pipe(filter(['*.eot', '*.svg', '*.ttf', '*.woff', '*.woff2']))
     .pipe(gulp.dest('public/fonts'))
@@ -94,10 +91,7 @@ gulp.task('prepare', function() {
     .pipe(gulp.dest('client'));
 });
 
-gulp.task('default', function() {
-  gutil.env.type = 'development';
-  gulp.start('prepare');
-});
+gulp.task('default', ['prepare']);
 
 gulp.task('watch', function () {
    gulp.watch('app/**', ['default']);
@@ -119,7 +113,7 @@ gulp.task('build', function() {
 });
 
 gulp.task('sde:clean', function() {
-  return gulp.src('./sde/*', { read: false }).pipe(rimraf());
+  return del(['./sde/*']);
 });
 
 gulp.task('sde:download', function() {

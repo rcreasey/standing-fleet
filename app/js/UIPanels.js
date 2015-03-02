@@ -151,14 +151,25 @@ var UIPanels = {
       icon: 'info',
       title: from_system.name + ' -> ' + to_system.name,
       formitems: [
-        {input:  {legend: 'Signature ID', label: 'AAA-123', id: 'signature'}},
-        {textinput:  {legend: 'Paste Wormhole Info Text Here', id: 'wormhole-info-text', class: 'status-data'}},
+        {input:  {legend: 'Signature ID', id: 'signature'}},
+        {input:  {legend: 'Wormhole Code', max: 4, id: 'wormhole-code-text'}},
+        {textinput:  {legend: 'Paste Wormhole Info Text', id: 'wormhole-info-text', class: 'status-data'}},
         {submit: {text: 'Update Jump Link', onClick: 'updateWormholeLink(this,' + from_id + ',' + to_id +')'}}        
       ],
       closeable: true
     };
 
     UIPanels.showPanel(panel);
+    
+    $('#wormhole-code-text').typeahead({
+      hint: true,
+      highlight: true,
+      minLength: 1
+    },
+    {
+      displayKey: 'value',
+      source: UIPanels.substringMatcher($.map(Data.wormhole_types, function(t) { return t.code; }))
+    });  
   },
 
   showStatusPanel: function (callback) {
