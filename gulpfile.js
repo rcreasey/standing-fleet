@@ -93,7 +93,7 @@ gulp.task('prepare', function() {
 });
 
 gulp.task('default', function() {
-  gutil.env.type = process.env.NODE_ENV;
+  if (!gutil.env.type) gutil.env.type = 'development';
   gulp.start('prepare');
 });
 
