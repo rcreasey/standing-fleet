@@ -35,16 +35,31 @@ var Util = {
 
   getShipIcon: function (shipName) {
     var returnElement   = $('<div/>');
-
+    
     if (Util.isShip(shipName)){
       for (var i in Data.ships[shipName].class) {
-        returnElement.append($('<img src="/images/ship-icons/' + Data.ships[shipName].icons[i] + '.png" title="' + shipName +'" alt="' + shipName + '" />'));
+        var file_name = Util.getShipClass(Data.ships[shipName].icons[i]).replace(/ /gi, '_');
+        returnElement.append($('<img src="/images/ship-icons/' + file_name + '.png" title="' + shipName +'" alt="' + shipName + '" />'));
       }
     } else {
       returnElement.append($('<img src="/images/ship-icons/ship-icon-other.gif" title="No Visual" alt="No Visual" />'));
     }
 
     return $('<div/>').append(returnElement).html();
+  },
+  
+  getShipClass: function (shipName) {
+    if (shipName == 'Rookie Ship') return 'Rookie';
+    else if (shipName == 'Covert Ops') return 'Frigate';
+    else if (shipName == 'Stealth Bomber') return 'Frigate';
+    else if (shipName == 'Blockade Runner') return 'Industrial';
+    else if (shipName == 'Logistics') return 'Cruiser';
+    else if (shipName == 'Heavy Assault Cruiser') return 'Cruiser';
+    else if (shipName == 'Force Recon Ship') return 'Cruiser';
+    else if (shipName == 'Combat Recon Ship') return 'Cruiser';
+    else if (shipName == 'Combat Battlecruiser') return 'Battlecruiser';
+    else if (shipName == 'Marauder') return 'Battleship';
+    else return shipName;
   },
 
   getTime: function () {
