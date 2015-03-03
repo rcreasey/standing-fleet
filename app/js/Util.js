@@ -38,7 +38,7 @@ var Util = {
     
     if (Util.isShip(shipName)){
       for (var i in Data.ships[shipName].class) {
-        var file_name = Util.getShipClass(Data.ships[shipName].icons[i]).replace(/ /gi, '_');
+        var file_name = Util.getShipClass(Data.ships[shipName].icons[i]).toLowerCase().replace(/ /gi, '_');
         returnElement.append($('<img src="/images/ship-icons/' + file_name + '.png" title="' + shipName +'" alt="' + shipName + '" />'));
       }
     } else {
