@@ -300,8 +300,7 @@ exports.poll = function(req, res, next) {
       return response.success(res, _.flatten(events, true));
     })
     .catch(function(error) {
-      console.log(error);
-      return response.error(res, 'state', 'Error fetching fleet poll.');
+      return response.error(res, 'state', 'Error fetching fleet poll: ' + error);
     })
     .done();
 
