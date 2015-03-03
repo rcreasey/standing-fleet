@@ -10,21 +10,35 @@ var Q = require('q')
   , Report = require(__dirname + '/../models/report')
   , Hostile = require(__dirname + '/../models/hostile')
 
-exports.show_region = function(req, res, next){
+exports.show_regions = function(req, res, next) {
+  Region.findQ({}, '-_id')
+    .then(function(results) {
+      return res.jsonp({regions: results});
+    })
+    .catch(function(error) {
+      console.log(error);
+      return response.error(res, 'map', error);
+    })
+    .done();
+};
+
+exports.show_region = function(req, res, next) {
 
   Region.findOneQ({name: req.params.region_name})
-    .then(function(region) {
-      if (!region) throw 'Invalid region name ' + req.params.region_name;
-      return {
-        id: region.id,
-        name: region.name,
-        bounds: {
-          left: region.bounds.left,
-          top: region.bounds.top,
-          bottom: region.bounds.bottom,
-          right: region.bounds.right
-        }
+    .then(function(result) {
+      if (!result) throw 'Invalid region name ' + req.params.region_name;
+      var region = {
+        id: result.id,
+        name: result.name
       };
+      
+      if (result.bounds) {
+        region.top = result.bounds.top;
+        region.right = result.bounds.right;
+        region.bottom = result.bounds.bottom;
+        region.left = result.bounds.left;
+      }
+      return region;
     })
     .then(function(region) {
       System.findQ({regionID: region.id})
@@ -48,23 +62,18 @@ exports.show_region = function(req, res, next){
         })
         .spread(function(region, systems, system_ids) {
           var locals = { regions: {}, systems: {}, jumps: [] };
-          locals.tegions[ region.id ] = region;
+          locals.regions[ region.id ] = region;
 
           _.forEach(systems, function(system) {
             locals.systems[ system.id ] = system;
           });
 
-          Jump.findQ({ $or: [ {to: {$in: system_ids} }, {from: {$in: system_ids}} ] })
+          Jump.findQ({ $or: [ {toSystem: {$in: system_ids} }, {fromSystem: {$in: system_ids}} ] }, '-_id')
             .then(function(jumps) {
               if (!jumps) throw 'Unable to find jumps for region ' + region.name;
 
-              locals.jumps = _.map(jumps, function(jump) {
-                return {
-                  to: jump.to,
-                  from: jump.from,
-                  type: jump.type
-                };
-              });
+              locals.jumps = _.filter(jumps, function(j) { return j.toObject().wormhole_data === undefined; });
+              locals.wormholes = _.filter(jumps, function(j) { return j.toObject().wormhole_data !== undefined; });
 
               return res.jsonp(locals);
             })
@@ -84,7 +93,9 @@ exports.show_region = function(req, res, next){
 exports.show_system = function(req, res, next){
   var system = {};
 
-  System.findOneQ({name: req.params.system_name})
+  System.findOne({name: req.params.system_name})
+    .cache()
+    .execQ()
     .then(function(result) {
       if (!system) throw 'Invalid system name ' + req.params.system_name;
 
@@ -106,12 +117,14 @@ exports.show_system = function(req, res, next){
     .then(function(system) {
 
       var tasks = [
-        Jump.findQ({ $or: [ {toSystem: system.id}, {fromSystem: system.id} ] }).then(function(jumps) {
-          return _.map(jumps, function(jump) { return {to: jump.toSystem, from: jump.fromSystem, type: jump.type}; });
-        }),
-        Report.findQ({systemId: system.id}).then(function(reports) { return reports; }),
-        Advisory.findQ({systemId: system.id}).then(function(advisories) { return advisories; }),
-        Hostile.findQ({systemId: system.id}).then(function(hostiles) { return hostiles; })
+        Jump.find({ $or: [ {toSystem: system.id}, {fromSystem: system.id} ] }, '-_id')
+          .cache().execQ().then(function(jumps) { return jumps; }),          
+        Report.find({systemId: system.id})
+          .cache().execQ().then(function(reports) { return reports; }),
+        Advisory.find({systemId: system.id})
+          .cache().execQ().then(function(advisories) { return advisories; }),
+        Hostile.find({systemId: system.id})
+          .cache().execQ().then(function(hostiles) { return hostiles; })
       ];
 
       Q.all(tasks)
@@ -124,15 +137,16 @@ exports.show_system = function(req, res, next){
           return system;
         })
         .then(function(system) {
-          var plus_one = _.unique( _.flatten( _.map(system.jumps, function(jump) { return [jump.to, jump.from]; }) ));
+          var plus_one = _.unique( _.flatten( _.map(system.jumps, function(jump) { return [jump.toSystem, jump.fromSystem]; }) ));
 
-          Jump.findQ({ $or: [ {to: {$in: plus_one}}, {from: {$in: plus_one}} ] })
+          Jump.find({ $or: [ {toSystem: {$in: plus_one}}, {fromSystem: {$in: plus_one}} ] }, '-_id')
+            .cache().execQ()
             .then(function(result) {
+              plus_two = _.unique( _.flatten( _.map(result, function(jump) { return [jump.toSystem, jump.fromSystem]; }) ));
 
-              plus_two = _.unique( _.flatten( _.map(result, function(jump) { return [jump.to, jump.from]; }) ));
-
-              System.find({ id: {$in: _.union(plus_one, plus_two)} }, 'id name constellationID regionID')
+              System.find({ id: {$in: _.union(plus_one, plus_two)} }, '-_id id name constellationID regionID')
               .sort('name')
+              .cache()
               .execQ()
               .then(function(vicinity) {
                 system.vicinity = vicinity;
@@ -162,7 +176,8 @@ exports.vicinity = function(req, res, next){
                       regionName: req.session.fleet.regionName};
 
   // Find the region
-  Region.findOneQ({name: req.session.fleet.regionName})
+  Region.findOne({name: req.session.fleet.regionName})
+    .cache().execQ()
     .then(function(region) {
       if (!region) throw 'Invalid Region: ' + req.session.fleet.regionName;
       vicinity.current.regionId = region.id;
@@ -172,8 +187,8 @@ exports.vicinity = function(req, res, next){
     })
     .then(function(region) {
       var tasks = [
-        System.findQ({regionID: region.id}),
-        Jump.findQ({ $or: [ {toRegion: region.id}, {fromRegion: region.id} ] })
+        System.find({regionID: region.id}).cache().execQ(),
+        Jump.find({ $or: [ {toRegion: region.id}, {fromRegion: region.id} ] }).cache().execQ()
       ];
 
       // Concurrently find the systems and jumps in that region
@@ -203,8 +218,8 @@ exports.vicinity = function(req, res, next){
           var region_ids = _.unique( _.flatten( _.map(systems, function(jump) { return [jump.toRegion, jump.fromRegion]; }) ));
 
           var tasks = [
-            System.findQ({ id: {$in: system_ids} }),
-            Region.findQ({ id: {$in: region_ids} })
+            System.find({ id: {$in: system_ids} }).cache().execQ(),
+            Region.find({ id: {$in: region_ids} }).cache().execQ()
           ];
 
           Q.all(tasks)
@@ -232,7 +247,6 @@ exports.update_jump = function(req, res, next){
       return res.jsonp(result);
     })
     .catch(function(error) {
-      debugger;
       console.log(error);
       return response.error(res, 'map', error);
     });

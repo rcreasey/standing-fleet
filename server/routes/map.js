@@ -7,6 +7,9 @@ router.route('/vicinity')
   .get(validate.headers)
   .get(map.vicinity);
 
+router.route('/regions')
+  .get(map.show_regions);
+
 router.route('/regions/:region_name')
   .get(map.show_region);
 

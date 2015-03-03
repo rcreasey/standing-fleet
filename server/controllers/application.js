@@ -70,3 +70,8 @@ exports.unlink = function(req, res, next) {
 
   return next();
 };
+
+exports.overview = function(req, res, next) {
+
+  res.render('overview', { user: req.user, success: req.flash('success'), error: req.flash('error') });
+};
