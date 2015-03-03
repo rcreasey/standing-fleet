@@ -385,7 +385,7 @@ var SystemMap = {
       .links(SystemMap.links)
       .gravity(0)
       .charge(function(d) {
-        if (d.system && d.system.wormhole_class) return 0;
+        if (d.system && d.system.wormhole_class) return -1250 * SCALING_FACTOR * 0.5;
         return d.fixed ? 0 : -1250 * SCALING_FACTOR;
       })
       .chargeDistance(200 * SCALING_FACTOR)
@@ -469,8 +469,8 @@ var SystemMap = {
     Data.ui.mapInfo.html( $(Data.templates.wormhole_link_info(link)) );
     Data.ui.mapInfo.children('div.wormhole-link-details')
       .fadeIn(Data.config.uiSpeed)
-      .delay(Data.config.alertStay)
-      .fadeOut(Data.config.uiSpeed * 15);
+      .delay(Data.config.alertStay * 3)
+      .fadeOut(Data.config.uiSpeed);
   },
 
   refreshSystems: function() {
