@@ -31,6 +31,11 @@ router.route('/unlink')
   .get(validate.is_authenticated)
   .get(application.unlink)
   .get(application.link);
+  
+router.route('/overview')
+  .get(validate.is_authenticated)
+  // .get(validate.is_authorized)
+  .get(application.overview);
 
 router.route('/:fleetKey/?')
   .get(application.index);

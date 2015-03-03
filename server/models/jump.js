@@ -46,9 +46,9 @@ var JumpSchema = new Schema({
 JumpSchema.index({ toSystem: 1, fromSystem: 1 });
 
 JumpSchema.methods.type = function() {
-  if (this.wormhole_data.expires_on !== undefined) return 'wormhole';
-  else if (this.toRegion != this.fromRegion) return 'region';
-  else if (this.toConstellation != this.fromConstellation) return 'constellation';
+  if (this.toObject().wormhole_data !== undefined) return 'wormhole';
+  else if (this.toObject().toRegion != this.toObject().fromRegion) return 'region';
+  else if (this.toObject().toConstellation != this.toObject().fromConstellation) return 'constellation';
   else return 'normal';
 };
 
