@@ -38,7 +38,7 @@ var Util = {
     
     if (Util.isShip(shipName)){
       for (var i in Data.ships[shipName].class) {
-        var file_name = Util.getShipClass(Data.ships[shipName].icons[i]).toLowerCase().replace(/ /gi, '_');
+        var file_name = Util.getShipClass(Data.ships[shipName].icons[i]).toLowerCase().replace(/ /gi, '-');
         returnElement.append($('<img src="/images/ship-icons/' + file_name + '.png" title="' + shipName +'" alt="' + shipName + '" />'));
       }
     } else {
@@ -53,6 +53,7 @@ var Util = {
     else if (shipName == 'Covert Ops') return 'Frigate';
     else if (shipName == 'Stealth Bomber') return 'Frigate';
     else if (shipName == 'Blockade Runner') return 'Industrial';
+    else if (shipName == 'Exhumer') return 'Mining-Barge';
     else if (shipName == 'Logistics') return 'Cruiser';
     else if (shipName == 'Heavy Assault Cruiser') return 'Cruiser';
     else if (shipName == 'Force Recon Ship') return 'Cruiser';
