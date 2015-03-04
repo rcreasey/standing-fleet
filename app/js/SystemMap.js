@@ -214,7 +214,14 @@ var SystemMap = {
           .attr('text-anchor', 'center')
           .attr('alignment-baseline', 'center')
           .attr('vector-effect', 'non-scaling-stroke')
-          .attr('x', rect_width / 2.5).attr('y', 29)
+          .attr('x', function(n) {
+            if (n.system.wormhole_class && n.system.wormhole_class > 9) {
+              return rect_width / 2.85;
+            } else {
+              return rect_width / 2.5;              
+            }
+          })
+          .attr('y', 29)
           .text(function(n) {
             return (n.system.wormhole_class) ? 'C' + n.system.wormhole_class :
               (n.system.security > 0) ? n.system.security.toFixed(1) : '';
