@@ -1,165 +1,21 @@
 extends ../layout/default
 
-block content
-  script.
-    document.documentElement.classList.add('overview');
-    
+block content    
   #top-bar
     span#current
       span.system Standing Fleet
       span.separator // 
       span.region Intel Overview
       span.separator //
-      span.fleet-name >> TOP SECRET <<
+      span.fleet-name Known Wormholes
   #content-wrapper
-    #overview      
-      h3 Known Wormholes
-      table
-        thead
-          tr
-            th Origin
-        tbody
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
-          tr
-            td System A
+    #system-map.main-content.active
+      #legend
+      #system-info
+  #bottom-bar
+  #alert-container
+
+
+  script(type='text/javascript', src='/js/lib.js')
+  script(type='text/javascript', src='/js/templates.js')
+  script(type='text/javascript', src='/js/app-overview.js')

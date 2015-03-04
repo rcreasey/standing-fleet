@@ -1633,32 +1633,6 @@ border-top: 0.16rem solid #333;
 }
 
 /*/
-/ /  OVERVIEW
-*/
-#overview {
-  background: linear-gradient(#333, #222 1%);
-  margin: 0 auto;
-  padding: 0.5rem;
-  text-align: left;
-}
-
-#overview h1,
-#overview h2,
-#overview h3 {
-  color: #ffcc2a;
-  font-family: 'Lato', sans-serif !important;
-  font-weight: 700;
-  line-height: 25px;
-  padding: 0.5rem 0.4rem 0.5rem 0;
-  text-transform: uppercase;
-  text-shadow: 0 0 0.2em #ffcc2a;
-}
-
-#overview h1 { font-size: 3rem; }
-#overview h2 { font-size: 2.25rem; }
-#overview h3 { font-size: 2rem; }
-
-/*/
 / /  MEDIA QUERY
 */
 

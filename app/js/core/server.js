@@ -95,6 +95,10 @@ var Server = {
     Server.ajaxGet('/map/vicinity', callback);
   },
 
+  wormholes: function(callback) {
+    Server.ajaxGet('/map/wormholes', callback);
+  },
+
   systemInformation: function(system_name, callback) {
     Server.ajaxGet('/map/systems/' + system_name, callback);
   },
