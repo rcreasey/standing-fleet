@@ -470,10 +470,14 @@ var SystemMap = {
     });
   },
 
-  updateWormholeJump: function(link) {
-    link.permitted_ships = Handlebars.helpers.jump_permitted_ships(link.wormhole_data.mass_total);
-
-    Data.ui.mapInfo.html( $(Data.templates.wormhole_link_info(link)) );
+  updateWormholeJump: function(link_a) {
+    link_b = $.grep(SystemMap.links, function(l) { 
+      if (l.wormhole_data) return l.source.system.id == link_a.target.system.id && l.target.system.id == link_a.source.system.id; })[0];
+    
+    link_a.permitted_ships = Handlebars.helpers.jump_permitted_ships(link_a.wormhole_data.mass_total);
+    link_b.permitted_ships = Handlebars.helpers.jump_permitted_ships(link_b.wormhole_data.mass_total);
+    
+    Data.ui.mapInfo.html( $(Data.templates.wormhole_link_info({link_a: link_a, link_b: link_b})) );
     Data.ui.mapInfo.children('div.wormhole-link-details')
       .fadeIn(Data.config.uiSpeed)
       .delay(Data.config.alertStay * 3)

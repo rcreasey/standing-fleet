@@ -243,23 +243,39 @@ exports.poll = function(req, res, next) {
                   var currentSystem  = _.find(results, function(s) { if (s.id == member.systemId) return s; });
 
                   if (currentSystem.is_wspace() || previousSystem.is_wspace()) {
-                    var jump = {toSystem: currentSystem.id, fromSystem: previousSystem.id,
-                                toRegion: currentSystem.regionID, fromRegion: previousSystem.regionID,
-                                toConstellation: currentSystem.constellationID, fromConstellation: previousSystem.constellationID,
-                                updated_at: moment().unix()};
-
+                    
+                    var jump_a = {toSystem: currentSystem.id, fromSystem: previousSystem.id,
+                                  toRegion: currentSystem.regionID, fromRegion: previousSystem.regionID,
+                                  toConstellation: currentSystem.constellationID, fromConstellation: previousSystem.constellationID,
+                                  updated_at: moment().unix()};
+                    var jump_b = {toSystem: previousSystem.id, fromSystem: currentSystem.id,
+                                  toRegion: previousSystem.regionID, fromRegion: currentSystem.regionID,
+                                  toConstellation: previousSystem.constellationID, fromConstellation: currentSystem.constellationID,
+                                  updated_at: moment().unix()};
+                                
                     var wormhole_data = {mass_estimate: 'Unknown', lifespan_estimate: 'Unknown',
-                                         discovered_on: moment().unix(), expires_on: moment().add(24, 'hours').unix()}
+                                         discovered_on: moment().unix(), expires_on: moment().add(24, 'hours').unix()};
+                                         
+                    var tasks = [
+                      Jump.updateQ({toSystem: jump_a.toSystem, fromSystem: jump_a.fromSystem},
+                                   {$set: jump_a, $setOnInsert: {wormhole_data: wormhole_data}}, {upsert: true}),
+                      Jump.updateQ({toSystem: jump_b.toSystem, fromSystem: jump_b.fromSystem},
+                                   {$set: jump_b, $setOnInsert: {wormhole_data: wormhole_data}}, {upsert: true})
+                    ];
 
-                    Jump.updateQ({toSystem: jump.toSystem, fromSystem: jump.fromSystem},
-                                 {$set: jump, $setOnInsert: {wormhole_data: wormhole_data}}, {upsert: true})
+                    Q.all(tasks)
                       .then(function(jump) {
-                        advisory = Advisory.format(req.session.fleetKey, 
-                                                  (currentSystem.is_wspace()) ? previousSystem.id : currentSystem.id, 
-                                                  'Wormhole Detected');
+                        advisory_a = Advisory.format(req.session.fleetKey, 
+                                                    (currentSystem.is_wspace()) ? previousSystem.id : currentSystem.id, 
+                                                    'Wormhole Detected');
+                        advisory_b = Advisory.format(req.session.fleetKey, 
+                                                    (previousSystem.is_wspace()) ? currentSystem.id : previousSystem.id, 
+                                                    'Wormhole Detected');
                        
-                        Advisory.updateQ({type: advisory.type, systemId: advisory.systemId}, advisory, {upsert: true});
-                        Event.prepare('addAdvisory', req.session.fleetKey, advisory).saveQ();
+                        Advisory.updateQ({type: advisory_a.type, systemId: advisory_a.systemId}, advisory_a, {upsert: true});
+                        Event.prepare('addAdvisory', req.session.fleetKey, advisory_a).saveQ();
+                        Advisory.updateQ({type: advisory_b.type, systemId: advisory_b.systemId}, advisory_b, {upsert: true});
+                        Event.prepare('addAdvisory', req.session.fleetKey, advisory_b).saveQ();
                        });
 
                   }

@@ -65,9 +65,6 @@ JumpSchema.statics.parseWormholeInfo = function(signature_id, code, text) {
   if (type) {
     info['wormhole_data.jump_mass'] = parseInt(type.jump_mass);
     info['wormhole_data.mass_total'] = parseInt(type.lifetime_mass);
-  } else {
-    info['wormhole_data.jump_mass'] = _.min(static_data.wormhole_types, function(t) { return parseInt(t.jump_mass); });
-    info['wormhole_data.mass_total'] = _.min(static_data.wormhole_types, function(t) { return parseInt(t.lifetime_mass); });
   }
   
   if (/not yet begun/.test(text)) {
@@ -91,10 +88,10 @@ JumpSchema.statics.parseWormholeInfo = function(signature_id, code, text) {
     info['wormhole_data.mass_estimate'] = massEstimates[1];
   } else if (/has had its stability reduced by ships passing through it/.test(text)) {
     info['wormhole_data.mass_estimate'] = massEstimates[2];
-    info['wormhole_data.mass_total'] = info['wormhole_data.mass_total'] * 0.5; 
+    if (info['wormhole_data.mass_total']) info['wormhole_data.mass_total'] = info['wormhole_data.mass_total'] * 0.5; 
   } else if (/has had its stability critically disrupted/.test(text)) {
     info['wormhole_data.mass_estimate'] = massEstimates[3];
-    info['wormhole_data.mass_total'] = info['wormhole_data.mass_total'] * 0.1;
+    if (info['wormhole_data.mass_total']) info['wormhole_data.mass_total'] = info['wormhole_data.mass_total'] * 0.1;
   }
   
   info.updated_at = moment().utc().unix();
