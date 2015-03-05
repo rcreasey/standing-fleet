@@ -239,9 +239,15 @@ exports.vicinity = function(req, res, next){
 };
 
 exports.update_jump = function(req, res, next){
-  var info = Jump.parseWormholeInfo(req.body);
+
+  var tasks = [
+    Jump.updateQ({fromSystem: req.params.from_id, toSystem: req.params.to_id}, 
+                 {$set: Jump.parseWormholeInfo(req.body.sig_a, req.body.type_a, req.body.info)}),
+    Jump.updateQ({fromSystem: req.params.to_id, toSystem: req.params.from_id}, 
+                 {$set: Jump.parseWormholeInfo(req.body.sig_b, req.body.type_b, req.body.info)})
+  ];
   
-  Jump.updateQ({fromSystem: req.params.from_id, toSystem: req.params.to_id}, {$set: info})
+  Q.all(tasks)
     .then(function(result) {
       Event.prepare('refreshSystems', 'all').saveQ();
       return res.jsonp(result);
@@ -253,7 +259,6 @@ exports.update_jump = function(req, res, next){
 };
 
 exports.show_wormholes = function(req, res, next) {
-  
   Jump.findQ({"wormhole_data": {$ne: null}}, '-_id')
     .then(function(results) {
       return [

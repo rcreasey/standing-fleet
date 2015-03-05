@@ -1,0 +1,42 @@
+<div class="panel wormhole-update">
+  <div class="header">
+    {{#if closeable}}<i class="close fa fa-times fa-2x" onClick="UIPanels.hidePanel()"></i>{{/if}}
+    {{#if icon}}<i class="fa fa-{{ui_icon icon}} fa-3x"></i>{{/if}}
+    <div class="text title">Update Wormhole Link</div>
+  </div>
+  <div class="content">
+    <div class="form">
+      <input id="to" type="hidden" value="{{ to.id }}" />
+      <input id="from" type="hidden" value="{{ from.id }}" />
+
+      <span class="legend">{{ from.name }} <i class="fa fa-long-arrow-right"></i> {{ to.name }}</span>
+      <div class="group inline">
+        <label for="sig-a" autofocus>Signature ID</label>
+        <input id="sig-a" max="7" type="text" />
+      </div>
+      
+      <div class="group inline">
+        <label for="type-a">Wormhole Code</label>
+        <input id="type-a" max="4" type="text" />
+      </div>
+      
+      <span class="legend">{{ to.name }} <i class="fa fa-long-arrow-right"></i> {{ from.name }}</span>
+      <div class="group inline">
+        <label for="sig-b">Signature ID</label>
+        <input id="sig-b" max="7" type="text" />
+      </div>
+      
+      <div class="group inline">
+        <label for="type-b">Wormhole Code</label>
+        <input id="type-b" max="4" type="text" />
+      </div>
+
+      <span class="legend">Wormhole Info Text</span>
+      <textarea id="wormhole-info" class="textinput wormhole-info"></textarea>
+
+      <div class="submit">
+        <a target="_blank" class="button" onClick="updateWormholeLink(this, {{from.id}}, {{to.id}})">Update Jump Link</a>
+      </div>
+    </div>
+  </div>
+</div>

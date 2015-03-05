@@ -158,12 +158,12 @@ var SystemMap = {
 
         SystemMap.updateHud( system );
 
-        var link_groups = link.data( $.grep(SystemMap.jumps, function(l) { return l.type != 'wormhole'}))
+        var link_groups = link.data( $.grep(SystemMap.jumps, function(l) { return l.type != 'jumpbridge'}))
           .enter().append('g')
           .attr('class', function(j) { return 'link ' + j.type; })
           .append('line');
           
-        var path_groups = link.data( $.grep(SystemMap.jumps, function(l) { return l.type == 'wormhole'}))
+        var path_groups = link.data( $.grep(SystemMap.jumps, function(l) { return l.type == 'jumpbridge'}))
           .enter().append('g')
           .attr('class', function(j) { return 'link ' + j.type; })
           .append('path')
@@ -290,7 +290,7 @@ var SystemMap = {
           .attr('x2', function(d) {return d.target.x;})
           .attr('y2', function(d) {return d.target.y;});
 
-        path_groups.filter(function(l) { return l.type == 'wormhole'; }).on('click', function(l) {
+        link_groups.filter(function(l) { return l.type == 'wormhole'; }).on('click', function(l) {
           SystemMap.updateWormholeJump( l );
         });
         

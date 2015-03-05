@@ -475,6 +475,13 @@
       "lifetime": "16",
       "jump_mass": "20000000",
       "lifetime_mass": "100000000"
+    },
+    {
+      "code": "K162",
+      "destination": "Generic Exit",
+      "lifetime": "24",
+      "jump_mass": "20000000",
+      "lifetime_mass": "100000000"
     }
   ]
 }

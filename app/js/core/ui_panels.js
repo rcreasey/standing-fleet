@@ -147,21 +147,16 @@ var UIPanels = {
     var to_system = Data.systems[ to_id ];
 
     var panel = {
-      type: 'info',
-      icon: 'info',
-      title: from_system.name + ' -> ' + to_system.name,
-      formitems: [
-        {input:  {legend: 'Signature ID', id: 'signature'}},
-        {input:  {legend: 'Wormhole Code', max: 4, id: 'wormhole-code-text'}},
-        {textinput:  {legend: 'Paste Wormhole Info Text', id: 'wormhole-info-text', class: 'status-data'}},
-        {submit: {text: 'Update Jump Link', onClick: 'updateWormholeLink(this,' + from_id + ',' + to_id +')'}}        
-      ],
+      type: 'wormhole-update',
+      icon: 'wormhole',
+      from: from_system,
+      to: to_system,
       closeable: true
     };
 
     UIPanels.showPanel(panel);
     
-    $('#wormhole-code-text').typeahead({
+    $('#type-a').typeahead({
       hint: true,
       highlight: true,
       minLength: 1
@@ -170,6 +165,18 @@ var UIPanels = {
       displayKey: 'value',
       source: UIPanels.substringMatcher($.map(Data.wormhole_types, function(t) { return t.code; }))
     });  
+    
+    $('#type-b').typeahead({
+      hint: true,
+      highlight: true,
+      minLength: 1
+    },
+    {
+      displayKey: 'value',
+      source: UIPanels.substringMatcher($.map(Data.wormhole_types, function(t) { return t.code; }))
+    });
+    
+    $("#sig-a").focus();
   },
 
   showStatusPanel: function (callback) {
@@ -227,7 +234,8 @@ var UIPanels = {
 
   showPanel: function (params, callback) {
     var compiledPanel = (params.type === 'start') ? $(Data.templates.start(params)) : $(Data.templates.panel(params));
-
+    if (params.type === 'wormhole-update') compiledPanel = $(Data.templates.wormhole_update_panel(params));
+    
     if (Data.ui.dim.children().length) {
 
       Data.ui.dim.children().remove();

@@ -88,16 +88,10 @@ var WormholeMap = {
       .linkDistance(link_distance * SCALING_FACTOR)
       .on('end', function(){
 
-        var link_groups = link.data( $.grep(WormholeMap.jumps, function(l) { return l.type != 'wormhole'}))
+        var link_groups = link.data( $.grep(WormholeMap.jumps, function(l) { return l.type == 'wormhole'}))
           .enter().append('g')
           .attr('class', function(j) { return 'link ' + j.type; })
           .append('line');
-          
-        var path_groups = link.data( $.grep(WormholeMap.jumps, function(l) { return l.type == 'wormhole'}))
-          .enter().append('g')
-          .attr('class', function(j) { return 'link ' + j.type; })
-          .append('path')
-            .attr('marker-mid', 'url(#wormhole)');
 
         var node_groups = node.data(WormholeMap.systems)
           .enter().append('g')
@@ -158,27 +152,9 @@ var WormholeMap = {
           .attr('x2', function(d) {return d.target.x;})
           .attr('y2', function(d) {return d.target.y;});
 
-        path_groups.filter(function(l) { return l.type == 'wormhole'; }).on('click', function(l) {
+        link_groups.filter(function(l) { return l.type == 'wormhole'; }).on('click', function(l) {
           WormholeMap.updateWormholeJump( l );
         });
-        
-        path_groups.attr('d', function(d) {
-          var dx = d.target.x - d.source.x,
-              dy = d.target.y - d.source.y,
-              dr = Math.sqrt(dx * dx + dy * dy) / 1.45,
-              mx = d.source.x + dx,
-              my = d.source.y + dy;
-              
-          return [
-            "M",d.source.x,d.source.y,
-            "A",dr,dr,0,0,1,mx,my,
-            "A",dr,dr,0,0,1,d.target.x,d.target.y
-          ].join(" ");
-        });
-        
-        path_groups.filter(function(l) { return l.wormhole_data.signature; })
-          .append('title')
-          .text(function(d) { return d.wormhole_data.signature; });
 
         node_groups.attr('transform', function(d) {
           return 'translate(' + (d.x - rect_width / 2) + ',' + (d.y - rect_height / 2) + ')';
@@ -286,6 +262,17 @@ var WormholeMap = {
 
     WormholeMap.zoom.translate([(Data.ui.map.width() / 2 - nodes[system.id].x * scale), (Data.ui.map.height() / 2 - nodes[system.id].y * scale)]);
     WormholeMap.zoom.event(root);
+  },
+  
+  updateWormholeJump: function(link) {
+    link.permitted_ships = Handlebars.helpers.jump_permitted_ships(link.wormhole_data.mass_total);
+    link.read_only = true;
+    
+    Data.ui.mapInfo.html( $(Data.templates.wormhole_link_info(link)) );
+    Data.ui.mapInfo.children('div.wormhole-link-details')
+      .fadeIn(Data.config.uiSpeed)
+      .delay(Data.config.alertStay * 3)
+      .fadeOut(Data.config.uiSpeed);
   },
 
   init: function() {

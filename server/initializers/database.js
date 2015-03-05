@@ -10,7 +10,7 @@ module.exports = function () {
         maxAge: 5000,
         debug: process.env.NODE_ENV === 'development'
     };
-    require('mongoose-cache').install(mongoose, cacheOpts)
+    // require('mongoose-cache').install(mongoose, cacheOpts)
   };
 
   return pub;
