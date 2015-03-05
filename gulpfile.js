@@ -19,38 +19,53 @@ gulp.task('prepare', function() {
     .pipe(gutil.env.type === 'production' ? minifycss() : gutil.noop())
     .pipe(concat('css/style.css'))
     .pipe(gulp.dest('public'))
-    .pipe(gulp.dest('client'));
-
-  gulp.src('app/js/*.js')
+    .pipe(gulp.dest('client'));  
+  
+  gulp.src(['app/js/core/*.js', 'app/js/lists/*.js', 'app/js/maps/system_map.js', 'app/js/app.js'])
     .pipe(order([
-      'js/Util.js',
-      'js/UI.js',
-      'js/UIPanels.js',
-      'js/Data.js',
-      'js/Server.js',
-      'js/SystemMap.js',
-      'js/AdvisoryList.js',
-      'js/MemberList.js',
-      'js/HostileList.js',
-      'js/EventList.js',
-      'js/ScanList.js',
-      'js/EventHandler.js',
-      'js/Main.js'
+      'js/core/util.js',
+      'js/core/ui.js',
+      'js/core/ui_panels.js',
+      'js/core/data.js',
+      'js/core/server.js',
+      'js/map/system_map.js',
+      'js/lists/advisory_list.js',
+      'js/lists/member_list.js',
+      'js/lists/hostile_list.js',
+      'js/lists/event_list.js',
+      'js/lists/scan_list.js',
+      'js/core/event_handler.js',
+      'js/app.js'
     ]))
     .pipe(concat('js/app.js'))
     .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
-    .pipe(gulp.dest('public'))
+    .pipe(gulp.dest('public'));
+
+  gulp.src(['app/js/core/*.js', 'app/js/maps/wormhole_map.js', 'app/js/overview.js'])
+    .pipe(order([
+      'js/core/util.js',
+      'js/core/ui.js',
+      'js/core/ui_panels.js',
+      'js/core/data.js',
+      'js/core/server.js',
+      'js/map/wormhole_map.js',
+      'js/core/event_handler.js',
+      'js/overview.js'
+    ]))
+    .pipe(concat('js/app-overview.js'))
+    .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
+    .pipe(gulp.dest('public'));
 
   gulp.src('app/js/client/*.js')
     .pipe(order([
-      'js/client/Util.js',
-      'js/client/UI.js',
-      'js/client/UIPanels.js',
-      'js/client/Data.js',
-      'js/client/Parser.js',
-      'js/client/Clipboard.js',
-      'js/client/Logs.js',
-      'js/client/Main.js'
+      'js/client/util.js',
+      'js/client/ui.js',
+      'js/client/ui_panels.js',
+      'js/client/data.js',
+      'js/client/parser.js',
+      'js/client/clipboard.js',
+      'js/client/logs.js',
+      'js/client/app.js'
     ]))
     .pipe(concat('js/client.js'))
     .pipe(gulp.dest('client'));
@@ -188,7 +203,7 @@ gulp.task('sde:refresh:wormhole_classes', function(done) {
   sde.each('SELECT solarsystemname,wormholeclassid FROM mapSolarSystems JOIN mapLocationWormholeClasses ON regionid=locationid WHERE regionID >= 11000001 ORDER by wormholeclassid;', function(err, row) {
     var data = {$set: {wormhole_class: row.wormholeClassID}, $unset: {security_class: 1}};
     System.update({name: row.solarSystemName}, data, { multi: true }, function (err, numberAffected, raw) {
-      console.log(raw)
+      console.log(raw);
     });
     
   });

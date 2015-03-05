@@ -52,14 +52,14 @@ JumpSchema.methods.type = function() {
   else return 'normal';
 };
 
-JumpSchema.statics.parseWormholeInfo = function(body) {
+JumpSchema.statics.parseWormholeInfo = function(signature_id, code, text) {
   var _ = require('lodash')
     , static_data = require(__dirname + '/../../public/data/wormhole_types.json')
     
   var info = {};
   
-  if (/^[A-Za-z]{3}-\d{3}$/.test(body.signature_id)) info['wormhole_data.signature'] = body.signature_id.toUpperCase();
-  if (_.include(_.map(static_data.wormhole_types, 'code'), body.code)) info['wormhole_data.code'] = body.code;
+  if (/^[A-Za-z]{3}-\d{3}$/.test(signature_id)) info['wormhole_data.signature'] = signature_id.toUpperCase();
+  if (_.include(_.map(static_data.wormhole_types, 'code'), code)) info['wormhole_data.code'] = code;
   var type = _.find(static_data.wormhole_types, function(t) { return t.code == info['wormhole_data.code']; });
   
   if (type) {
@@ -70,29 +70,29 @@ JumpSchema.statics.parseWormholeInfo = function(body) {
     info['wormhole_data.mass_total'] = _.min(static_data.wormhole_types, function(t) { return parseInt(t.lifetime_mass); });
   }
   
-  if (/not yet begun/.test(body.info)) {
+  if (/not yet begun/.test(text)) {
     info['wormhole_data.lifespan_estimate'] = lifespanEstimates[1];
     info['wormhole_data.expires_on'] = moment().add(24, 'hours').utc().unix();
-  } else if (/beginning to decay/.test(body.info)) { 
+  } else if (/beginning to decay/.test(text)) { 
     info['wormhole_data.lifespan_estimate'] = lifespanEstimates[2];
     info['wormhole_data.expires_on'] = moment().add(12, 'hours').utc().unix();
-  } else if (/reaching the ende/.test(body.info)) {
+  } else if (/reaching the ende/.test(text)) {
     info['wormhole_data.lifespan_estimate'] = lifespanEstimates[3];
     info['wormhole_data.expires_on'] = moment().add(4, 'hours').utc().unix();
-  } else if (/on the verge/.test(body.info)) {
+  } else if (/on the verge/.test(text)) {
     info['wormhole_data.lifespan_estimate'] = lifespanEstimates[4];
     info['wormhole_data.expires_on'] = moment().add(1, 'hour').utc().unix();
-  } else if (/collapsed/.test(body.info)) {
+  } else if (/collapsed/.test(text)) {
     info['wormhole_data.lifespan_estimate'] = lifespanEstimates[5];
     info['wormhole_data.expires_on'] = moment().utc().unix();
   }
     
-  if (/has not yet had its stability significantly disrupted/.test(body.info)) {
+  if (/has not yet had its stability significantly disrupted/.test(text)) {
     info['wormhole_data.mass_estimate'] = massEstimates[1];
-  } else if (/has had its stability reduced by ships passing through it/.test(body.info)) {
+  } else if (/has had its stability reduced by ships passing through it/.test(text)) {
     info['wormhole_data.mass_estimate'] = massEstimates[2];
     info['wormhole_data.mass_total'] = info['wormhole_data.mass_total'] * 0.5; 
-  } else if (/has had its stability critically disrupted/.test(body.info)) {
+  } else if (/has had its stability critically disrupted/.test(text)) {
     info['wormhole_data.mass_estimate'] = massEstimates[3];
     info['wormhole_data.mass_total'] = info['wormhole_data.mass_total'] * 0.1;
   }

@@ -10,6 +10,10 @@ router.route('/vicinity')
 router.route('/regions')
   .get(map.show_regions);
 
+router.route('/wormholes')
+// .get(validate.is_authorized)
+  .get(map.show_wormholes);
+
 router.route('/regions/:region_name')
   .get(map.show_region);
 

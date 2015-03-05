@@ -144,13 +144,16 @@ var UI = {
       "EFT warrioring",
       "Smacktalking",
       "Shitpoasting",
-      "Lemming'ing",
       "Clicking jump instead of bridge",
       "Overheating guns",
       "Bumping the titan",
       "Fitting a windicator",
       "Burning point",
       "Posting gudfites",
+      "o7 m8 m8 m8",
+      "7o 8m 8m 8m",
+      "HAT GONS",
+      "Gevlon Goblin will rule the world",
       "Z0r",
       "Whoring on the pod"
     ];
@@ -238,6 +241,7 @@ Handlebars.registerHelper('ui_icon', function(icon) {
   if (icon == 'sourcedHostile') return 'crosshairs';
   if (icon == 'updateHostile') return 'crosshairs';
   if (icon == 'updateSystemMap') return 'sitemap';
+  if (icon == 'wormhole') return 'chevron-circle-right';
   if (icon == 'youJoined') return 'user';
 
   if (icon == 'Wormhole Detected') return 'chevron-circle-right';

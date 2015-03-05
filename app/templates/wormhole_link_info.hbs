@@ -50,13 +50,15 @@
     </dd>
     {{/if}}
   </dl>
-  
-  <h4>Update Link Actions</h4>
-  <a class="btn" onclick="UIPanels.updateWormholeLinkPanel(this, '{{ source.system.id }}', '{{ target.system.id}}')" title="Update">
-    <i class="fa fa-{{ui_icon 'info'}}"></i> Update
-  </a>
 
-  <a class="btn" onclick="updateWormholeLink(this, '{{ source.system.id }}', '{{ target.system.id}}', 'Wormhole collapsed')" title="Close">
-    <i class="fa fa-{{ui_icon 'close'}}"></i> Clear
-  </a>  
+  {{#unless read_only }}
+    <h4>Update Link Actions</h4>
+    <a class="btn btn-info" onclick="UIPanels.updateWormholeLinkPanel(this, '{{ source.system.id }}', '{{ target.system.id}}')" title="Update">
+      <i class="fa fa-{{ui_icon 'info'}}"></i> Update
+    </a>
+
+    <a class="btn btn-danger" onclick="updateWormholeLink(this, '{{ source.system.id }}', '{{ target.system.id}}', 'Wormhole collapsed')" title="Close">
+      <i class="fa fa-{{ui_icon 'close'}}"></i> Clear
+    </a>  
+  {{/unless}}
 </div>

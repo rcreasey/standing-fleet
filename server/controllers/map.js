@@ -239,9 +239,15 @@ exports.vicinity = function(req, res, next){
 };
 
 exports.update_jump = function(req, res, next){
-  var info = Jump.parseWormholeInfo(req.body);
+
+  var tasks = [
+    Jump.updateQ({fromSystem: req.params.from_id, toSystem: req.params.to_id}, 
+                 {$set: Jump.parseWormholeInfo(req.body.sig_a, req.body.type_a, req.body.info)}),
+    Jump.updateQ({fromSystem: req.params.to_id, toSystem: req.params.from_id}, 
+                 {$set: Jump.parseWormholeInfo(req.body.sig_b, req.body.type_b, req.body.info)})
+  ];
   
-  Jump.updateQ({fromSystem: req.params.from_id, toSystem: req.params.to_id}, {$set: info})
+  Q.all(tasks)
     .then(function(result) {
       Event.prepare('refreshSystems', 'all').saveQ();
       return res.jsonp(result);
@@ -250,4 +256,37 @@ exports.update_jump = function(req, res, next){
       console.log(error);
       return response.error(res, 'map', error);
     });
+};
+
+exports.show_wormholes = function(req, res, next) {
+  Jump.findQ({"wormhole_data": {$ne: null}}, '-_id')
+    .then(function(results) {
+      return [
+        _.map(results, function(jump) { return _.merge(jump.toObject(), {'type': jump.type()}); }),
+        _.unique( _.flatten( _.map(results, function(j) { return [ j.toSystem, j.fromSystem ]; }) )),
+        _.unique( _.flatten( _.map(results, function(j) { return [ j.toRegion, j.fromRegion ]; }) ))
+      ];
+    })
+    .spread(function(jumps, systems, regions) {
+      var locals = { regions: {}, systems: {}, jumps: jumps };
+      
+      var tasks = [
+        System.find({id: { $in: systems }}, '-_id').execQ(),
+        Region.find({id: { $in: regions }}, '-_id').execQ(),
+      ];
+
+      Q.all(tasks)
+        .then(function(results) {
+          _.each(results[0], function(system) { locals.systems[system.id] = system.toObject(); });
+          _.each(results[1], function(region) { locals.regions[region.id] = region.toObject(); });
+          
+          return res.jsonp(locals);
+        });
+
+    })
+    .catch(function(error) {
+      console.log(error);
+      return response.error(res, 'map', error);
+    })
+    .done();
 };

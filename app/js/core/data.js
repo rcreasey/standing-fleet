@@ -119,7 +119,8 @@ var Data = {
     scan: Templates.scan,
     start: Templates.start,
     system_info: Templates.system_info,
-    wormhole_link_info: Templates.wormhole_link_info
+    wormhole_link_info: Templates.wormhole_link_info,
+    wormhole_update_panel: Templates.wormhole_update_panel
   },
 
   ships: {},
