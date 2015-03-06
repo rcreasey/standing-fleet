@@ -1,5 +1,6 @@
 var header_parser = require('./header-parser')
   , passport = require('passport')
+  , _ = require('lodash')
   , response = require(__dirname + '/../response')
   , settings = require(__dirname + '/../config/settings')
   , checks = require(__dirname + '/../middleware/checks')
@@ -25,7 +26,7 @@ var headers = function (req, res, next) {
   }
 
   req.session.fleet = fleet;
-  next();
+  return next();
 };
 module.exports.headers = headers;
 
@@ -67,31 +68,23 @@ var is_authenticated = function(req, res, next) {
 };
 module.exports.is_authenticated = is_authenticated;
 
+var is_authorized = function(req, res, next) {
+  if (!req.user ||
+      !req.user.groups ||
+      _.intersection(req.user.groups, settings.clearance).length === 0) {
+    req.flash('error', 'UNAUTHORIZED: You are not cleared for this data.');
+    return res.redirect('/link');
+  }
+  
+  return next();
+};
+module.exports.is_authorized = is_authorized;
+
 var authentication = function(req, res, next) {
   if (process.env.NODE_ENV === 'development') {
     passport.authenticate('local', { failureRedirect:'/login', failureFlash:"Invalid username or password." }) (req, res, next);
   } else {
-    // passport.authenticate('atlassian-crowd', { failureRedirect:'/login', failureFlash:"Invalid username or password." }) (req, res, next);
-    
-    passport.authenticate('atlassian-crowd', function(err, user, info) {
-      if (err) { return next(err) }
-      
-      if (!user) {
-        req.flash('error', "Invalid username or password.");
-        return res.redirect('/login')
-      }
-      
-      console.log('user:')
-      console.log(user)
-      
-      return next();
-      // req.logIn(user, function(err) {
-      //   if (err) { return next(err); }
-      //   return res.redirect('/users/' + user.username);
-      // });
-      // 
-    }) (req, res, next);
-
+    passport.authenticate('atlassian-crowd', { failureRedirect:'/login', failureFlash:"Invalid username or password." }) (req, res, next);
   }
 
 };
