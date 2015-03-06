@@ -84,7 +84,7 @@ var authentication = function(req, res, next) {
       console.log('user:')
       console.log(user)
       
-      return next;
+      return next();
       // req.logIn(user, function(err) {
       //   if (err) { return next(err); }
       //   return res.redirect('/users/' + user.username);
