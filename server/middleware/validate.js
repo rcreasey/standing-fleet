@@ -69,10 +69,13 @@ module.exports.is_authenticated = is_authenticated;
 
 var authentication = function(req, res, next) {
   if (process.env.NODE_ENV === 'development') {
-    passport.authenticate('local', { failureRedirect:'/login', failureFlash:"Invalid username or password." })(req, res, next);
+    passport.authenticate('local', { failureRedirect:'/login', failureFlash:"Invalid username or password." }) (req, res, next);
   } else {
-    passport.authenticate('atlassian-crowd', { failureRedirect:'/login', failureFlash:"Invalid username or password." })(req, res, next);
+    passport.authenticate('atlassian-crowd', { failureRedirect:'/login', failureFlash:"Invalid username or password." }) (req, res, next);
   }
+  
+  console.log("response:")
+  console.log(res)
 
 };
 module.exports.authentication = authentication;

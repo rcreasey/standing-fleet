@@ -40,9 +40,7 @@ module.exports = function () {
       crowdApplicationPassword: process.env.CROWD_PASSWORD,
       retrieveGroupMemberships: process.env.CROWD_GROUPS
     },
-    function (userprofile, done) {
-      console.log(userprofile)
-      
+    function (userprofile, done) {      
       process.nextTick(function () {
         var exists = _.any(users, function (user) {
           return user.id == userprofile.id;
