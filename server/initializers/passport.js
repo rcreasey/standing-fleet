@@ -38,7 +38,7 @@ module.exports = function () {
       crowdServer: process.env.CROWD_URL || "https://crowd.goonfleet.com/crowd/",
       crowdApplication: process.env.CROWD_USERNAME,
       crowdApplicationPassword: process.env.CROWD_PASSWORD,
-      retrieveGroupMemberships: false
+      retrieveGroupMemberships: process.env.CROWD_GROUPS
     },
     function (userprofile, done) {
       process.nextTick(function () {

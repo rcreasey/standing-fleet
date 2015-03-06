@@ -63,7 +63,7 @@ function Strategy(options, verify) {
   passport.Strategy.call(this);
   this.name = 'atlassian-crowd';
   this._verify = verify;
-  this._retrieveGroupMemberships = options.retrieveGroupMemberships;
+  this._retrieveGroupMemberships = options.retrieveGroupMemberships || false;
 }
 
 /**
@@ -207,6 +207,9 @@ Strategy.prototype.authenticate = function (req, options) {
             "Authorization":applicationAuth
           }
         }, function (response) {
+          console.log("CROWD Groups: ")
+          console.log(response)
+          console.log("-----")
           _handleResponse(response, function (response, groupResult) {
             userprofile.groups = handleGroupResponse(response, groupResult);
             return self._verify(userprofile, verified);
