@@ -56,10 +56,10 @@
     {{/if}}
     
     <dt>Expires</dt>
-    <dd class="expires-on">{{ format_ts_short link_a.wormhole_data.expires_on }}</dd>
+    <dd class="expires-on">{{ format_ts link_a.wormhole_data.expires_on }}</dd>
     
     <dt>Last Updated</dt>
-    <dd class="updated-at">{{ format_ts_short link_a.updated_at }}</dd>
+    <dd class="updated-at">{{ format_ts link_a.updated_at }}</dd>
   </dl>
 
   {{#unless read_only }}

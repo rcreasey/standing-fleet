@@ -136,6 +136,15 @@ var WormholeMap = {
           .attr('class', function(n) { return WormholeMap.system_classes(n.system); });
 
         node_groups.append('text')
+          .attr('class', 'region')
+          .attr('text-anchor', 'middle')
+          .attr('alignment-baseline', 'middle')
+          .attr('x', rect_width / 2).attr('y', rect_height * -0.5)
+          .text(function(n) {
+            return Data.regions[n.system.regionID].name;
+          });
+
+        node_groups.append('text')
           .attr('class', 'system-name')
           .attr('text-anchor', 'middle')
           .attr('alignment-baseline', 'middle')
@@ -262,6 +271,32 @@ var WormholeMap = {
 
     WormholeMap.zoom.translate([(Data.ui.map.width() / 2 - nodes[system.id].x * scale), (Data.ui.map.height() / 2 - nodes[system.id].y * scale)]);
     WormholeMap.zoom.event(root);
+  },
+  
+  updateInfo: function(system_name) {
+    Server.systemInformation(system_name, function(error, results) {
+      if (results === null) return;
+      var system = { name: results.name,
+                     systemId: results.id,
+                     region: Data.regions[ results.regionID ].name,
+                     hostiles: results.hostiles,
+                     hostile_count: results.hostiles.length,
+                     security: results.security,
+                     gates: $.map( results.jumps, function(j) { return Data.systems[ j.to ]; })
+      };
+
+      if (results.security_class) system.security_class = results.security_class;
+      if (results.wormhole_class) system.wormhole_class = results.wormhole_class;
+      if (results.wormhole_effect) system.wormhole_effect = results.wormhole_effect;
+
+      system.last_report = (results.reports.length) ? Util.formatTime(results.reports.pop().ts) : 'Never';
+      
+      Data.ui.mapInfo.html( $(Data.templates.system_info(system)) );
+      Data.ui.mapInfo.children('div.details')
+        .fadeIn(Data.config.uiSpeed)
+        .delay(Data.config.alertStay)
+        .fadeOut(Data.config.uiSpeed * 8);
+    });
   },
   
   updateWormholeJump: function(link_a) {

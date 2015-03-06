@@ -69,6 +69,8 @@ var is_authenticated = function(req, res, next) {
 module.exports.is_authenticated = is_authenticated;
 
 var is_authorized = function(req, res, next) {
+  if (process.env.NODE_ENV === 'development') return next();
+
   if (!req.user ||
       !req.user.groups ||
       _.intersection(req.user.groups, settings.clearance).length === 0) {
