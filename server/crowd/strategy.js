@@ -170,10 +170,10 @@ Strategy.prototype.authenticate = function (req, options) {
       resultObject.groups.forEach(function (group) {
         // JIRA uses an older version of the Crowd REST API
         if (group.GroupEntity) {
-        groups.push(group.GroupEntity.name);
+          groups.push(group.GroupEntity.name);
         }
         else {
-        groups.push(group.name);
+          groups.push(group.name);
         }
       });
 
@@ -207,11 +207,11 @@ Strategy.prototype.authenticate = function (req, options) {
             "Authorization":applicationAuth
           }
         }, function (response) {
-          console.log("CROWD Groups: ")
-          console.log(response)
-          console.log("-----")
           _handleResponse(response, function (response, groupResult) {
             userprofile.groups = handleGroupResponse(response, groupResult);
+            console.log("CROWD Groups: ")
+            console.log(userprofile.groups)
+            console.log("-----")
             return self._verify(userprofile, verified);
           });
         });
