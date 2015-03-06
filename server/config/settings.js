@@ -32,7 +32,14 @@ module.exports = function () {
     scanMinShips: 1,
 
     whitelist: { url: 'https://standings.goonfleet.com', threshold: 0.1, alliances: ['1354830081'], corporations: [] },
-    clearance: ['[SIG] GARPA']
+    clearance: [
+      '[SIG] GARPA', 
+      '[SIG] Directors', 
+      '[SIG] GSF Ops',
+      '[SIG] The War Room',
+      '[SIG] Recon',
+      '[A] Directors of Finance'
+    ]
   };
 
   settings.root = require('path').normalize(__dirname + '/..');
