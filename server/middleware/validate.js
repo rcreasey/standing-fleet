@@ -71,11 +71,27 @@ var authentication = function(req, res, next) {
   if (process.env.NODE_ENV === 'development') {
     passport.authenticate('local', { failureRedirect:'/login', failureFlash:"Invalid username or password." }) (req, res, next);
   } else {
-    passport.authenticate('atlassian-crowd', { failureRedirect:'/login', failureFlash:"Invalid username or password." }) (req, res, next);
+    // passport.authenticate('atlassian-crowd', { failureRedirect:'/login', failureFlash:"Invalid username or password." }) (req, res, next);
+    
+    passport.authenticate('atlassian-crowd', function(err, user, info) {
+      if (err) { return next(err) }
+      
+      if (!user) {
+        req.flash('error', "Invalid username or password.");
+        return res.redirect('/login')
+      }
+      
+      console.log('user:')
+      console.log(user)
+      
+      // req.logIn(user, function(err) {
+      //   if (err) { return next(err); }
+      //   return res.redirect('/users/' + user.username);
+      // });
+      // 
+    }) (req, res, next);
+
   }
-  
-  console.log("response:")
-  console.log(res)
 
 };
 module.exports.authentication = authentication;
