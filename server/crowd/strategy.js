@@ -63,7 +63,7 @@ function Strategy(options, verify) {
   passport.Strategy.call(this);
   this.name = 'atlassian-crowd';
   this._verify = verify;
-  this._retrieveGroupMemberships = options.retrieveGroupMemberships;
+  this._retrieveGroupMemberships = options.retrieveGroupMemberships || false;
 }
 
 /**
@@ -170,10 +170,10 @@ Strategy.prototype.authenticate = function (req, options) {
       resultObject.groups.forEach(function (group) {
         // JIRA uses an older version of the Crowd REST API
         if (group.GroupEntity) {
-        groups.push(group.GroupEntity.name);
+          groups.push(group.GroupEntity.name);
         }
         else {
-        groups.push(group.name);
+          groups.push(group.name);
         }
       });
 

@@ -11,10 +11,14 @@ block content
           
           if error != ''
             span.error=error
-            
+          
+          a.logout.button(href='/overview')
+            i.fa.fa-sitemap
+            |  Overview  
+
           a.logout.button(href='/logout')
-            i.fa.fa-sign-out.fa-large
-              |  Logout  
+            i.fa.fa-sign-out
+            |  Logout  
               
           h2 Client Download
           dl.download
@@ -25,7 +29,6 @@ block content
               a(href='/clients/client-1.0.6.zip') client-1.0.6.zip
               
           h2 Link Session To Pilot
-
           p.field
             input(type='text', name='key', placeholder='Pilot Key')
             i.fa.fa-fighter-jet.fa-large
