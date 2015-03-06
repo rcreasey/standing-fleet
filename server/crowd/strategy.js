@@ -209,9 +209,6 @@ Strategy.prototype.authenticate = function (req, options) {
         }, function (response) {
           _handleResponse(response, function (response, groupResult) {
             userprofile.groups = handleGroupResponse(response, groupResult);
-            console.log("CROWD Groups: ")
-            console.log(userprofile.groups)
-            console.log("-----")
             return self._verify(userprofile, verified);
           });
         });

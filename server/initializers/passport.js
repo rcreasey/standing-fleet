@@ -41,6 +41,8 @@ module.exports = function () {
       retrieveGroupMemberships: process.env.CROWD_GROUPS
     },
     function (userprofile, done) {
+      console.log(userprofile)
+      
       process.nextTick(function () {
         var exists = _.any(users, function (user) {
           return user.id == userprofile.id;
