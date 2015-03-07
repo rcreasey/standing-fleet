@@ -38,6 +38,7 @@ module.exports = function () {
       '[SIG] GSF Ops',
       '[SIG] The War Room',
       '[SIG] Recon',
+      '[SIG-L] Reavers',
       '[A] Directors of Finance'
     ]
   };
