@@ -1,5 +1,6 @@
 var mongoose = require('mongoose-q')()
   , Schema = mongoose.Schema
+  , _ = require('lodash')
 
 var ShipSchema  = new Schema({
   id: Number,
@@ -9,5 +10,38 @@ var ShipSchema  = new Schema({
 });
 
 ShipSchema.index({ id: 1, name: 1 });
+
+ShipSchema.statics.is_jumpcapable = function(ship_name) {
+  return _.include([
+    'Redeemer', 
+    'Widow', 
+    'Sin', 
+    'Panther',
+    'Rorqual',
+    'Archon',
+    'Chimera', 
+    'Thanatos', 
+    'Nidhoggur',
+    'Revelation',
+    'Phoenix', 
+    'Moros', 
+    'Naglfar',
+    'Ark', 
+    'Rhea', 
+    'Anshar', 
+    'Nomad',
+    'Aeon', 
+    'Wyvern', 
+    'Nyx', 
+    'Hel', 
+    'Revenant',
+    'Avatar', 
+    'Leviathan', 
+    'Erebus', 
+    'Ragnarok'
+  ], ship_name);
+}
+
+// Blops: [
 
 module.exports = mongoose.model('Ship', ShipSchema);
