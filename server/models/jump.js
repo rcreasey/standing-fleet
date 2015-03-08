@@ -40,6 +40,18 @@ var JumpSchema = new Schema({
     lifespan_estimate: {type: String, enum: lifespanEstimates},
     discovered_on: Number,
     expires_on: Number
+  },
+  jumpbridge_data: {
+    fromPlanet: Number,
+    fromMoon: Number,
+    toPlanet: Number,
+    toMoon: Number,
+    status: String,
+    owner: String,
+    password: String,
+    distance: String,
+    route: String,
+    friendly: Boolean
   }
 });
 
@@ -47,6 +59,7 @@ JumpSchema.index({ toSystem: 1, fromSystem: 1 });
 
 JumpSchema.methods.type = function() {
   if (this.toObject().wormhole_data !== undefined) return 'wormhole';
+  else if (this.toObject().jumpbridge_data !== undefined) return 'jumpbridge';
   else if (this.toObject().toRegion != this.toObject().fromRegion) return 'region';
   else if (this.toObject().toConstellation != this.toObject().fromConstellation) return 'constellation';
   else return 'normal';

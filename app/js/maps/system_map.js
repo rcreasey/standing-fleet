@@ -83,6 +83,32 @@ var SystemMap = {
     return cadb >= 0 && cadb <= a2b2;
   },
 
+  collide: function(alpha) {
+    var quadtree = d3.geom.quadtree(SystemMap.nodes);
+    return function(d) {
+      var rb = 20,
+          nx1 = d.x - rb,
+          nx2 = d.x + rb,
+          ny1 = d.y - rb,
+          ny2 = d.y + rb;
+      quadtree.visit(function(quad, x1, y1, x2, y2) {
+        if (quad.point && (quad.point !== d)) {
+          var x = d.x - quad.point.x,
+              y = d.y - quad.point.y,
+              l = Math.sqrt(x * x + y * y);
+            if (l < rb) {
+            l = (l - rb) / l * alpha;
+            d.x -= x *= l;
+            d.y -= y *= l;
+            quad.point.x += x;
+            quad.point.y += y;
+          }
+        }
+        return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
+      });
+    };
+  },
+  
   draw: function() {
     // Change this to globally adjust minimum node distance and system [x,y] scale
     var SCALING_FACTOR = 0.95;
@@ -95,19 +121,6 @@ var SystemMap = {
       .attr('width', Data.ui.map.width())
       .attr('height', Data.ui.map.height())
       .append('svg');
-    
-    // Setup marker types for directed links
-    var defs = svg.append("svg:defs").selectAll("marker")
-      .data(["wormhole"])
-    .enter().append("svg:marker")
-      .attr("id", String)
-      .attr("viewBox", "0 -5 10 10")
-      .attr("refX", 5)
-      .attr("markerWidth", 3)
-      .attr("markerHeight", 3)
-      .attr("orient", "auto")
-    .append("svg:path")
-      .attr("d", "M0,-5L10,0L0,5");
 
     var rect_height = 17;
     var rect_width = 60;
@@ -145,6 +158,8 @@ var SystemMap = {
             systemNode.y -= dy * k * 0.15;
           });
         });
+        
+        SystemMap.nodes.forEach(SystemMap.collide(0.5));
       })
       .on('end', function(){
 
@@ -167,7 +182,6 @@ var SystemMap = {
           .enter().append('g')
           .attr('class', function(j) { return 'link ' + j.type; })
           .append('path')
-            .attr('marker-mid', 'url(#wormhole)');
 
         var node_groups = node.data(SystemMap.systems)
           .enter().append('g')
@@ -293,6 +307,10 @@ var SystemMap = {
         link_groups.filter(function(l) { return l.type == 'wormhole'; }).on('click', function(l) {
           SystemMap.updateWormholeJump( l );
         });
+
+        path_groups.filter(function(l) { return l.type == 'jumpbridge'; }).on('click', function(l) {
+          SystemMap.showJumpbridgeInfo( l );
+        });
         
         path_groups.attr('d', function(d) {
           var dx = d.target.x - d.source.x,
@@ -307,10 +325,6 @@ var SystemMap = {
             "A",dr,dr,0,0,1,d.target.x,d.target.y
           ].join(" ");
         });
-        
-        path_groups.filter(function(l) { return l.wormhole_data.signature; })
-          .append('title')
-          .text(function(d) { return d.wormhole_data.signature; });
 
         node_groups.attr('transform', function(d) {
           return 'translate(' + (d.x - rect_width / 2) + ',' + (d.y - rect_height / 2) + ')';
@@ -372,6 +386,9 @@ var SystemMap = {
         jump.updated_at = gate.updated_at;
         jump.wormhole_data = gate.wormhole_data;
       }
+      
+      if (gate.type == 'jumpbridge') jump.jumpbridge_data = gate.jumpbridge_data;
+      
       SystemMap.jumps.push(jump);
       SystemMap.links.push(jump);
     });
@@ -397,8 +414,9 @@ var SystemMap = {
       })
       .chargeDistance(200 * SCALING_FACTOR)
       .linkDistance(function(l) {
-        if (l.source.fixed || l.target.fixed) return 0;
+        if (l.type == 'jumpbridge') return 0;
         if (l.type == 'wormhole') return 75 * SCALING_FACTOR;
+        if (l.source.fixed || l.target.fixed) return 0;
         var dx = l.source.x - l.target.x, dy = l.source.y - l.target.y;
         return Math.min(50 * SCALING_FACTOR, Math.sqrt(dx * dx + dy * dy));
       })
@@ -479,6 +497,14 @@ var SystemMap = {
     
     Data.ui.mapInfo.html( $(Data.templates.wormhole_link_info({link_a: link_a, link_b: link_b})) );
     Data.ui.mapInfo.children('div.wormhole-link-details')
+      .fadeIn(Data.config.uiSpeed)
+      .delay(Data.config.alertStay * 3)
+      .fadeOut(Data.config.uiSpeed);
+  },
+  
+  showJumpbridgeInfo: function(link) {
+    Data.ui.mapInfo.html( $(Data.templates.jumpbridge_link_info(link)) );
+    Data.ui.mapInfo.children('div.jumpbridge-link-details')
       .fadeIn(Data.config.uiSpeed)
       .delay(Data.config.alertStay * 3)
       .fadeOut(Data.config.uiSpeed);
