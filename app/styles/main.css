@@ -645,8 +645,8 @@ g.node {
 marker { stroke: #000; fill: #2a9fd6; stroke-width: 2px; }
 .link { stroke: #ccc; fill: none; stroke-width: 2px; }
 .link.region { stroke: #ed9c28; stroke-dasharray: 4,4; stroke-width: 3px; }
-.link.constellation { stroke-dasharray: 2,4; }
-.link.jumpbridge { stroke: #2a9fd6; stroke-width: 3px; cursor: pointer; }
+.link.constellation { stroke: #666; }
+.link.jumpbridge { stroke: #2a9fd6; stroke-dasharray: 2,4; cursor: pointer; }
 .link.wormhole { stroke: #d9534f; stroke-width: 4px; cursor: pointer; }
 
 .anchorLink {

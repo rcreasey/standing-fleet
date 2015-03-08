@@ -172,16 +172,16 @@ var SystemMap = {
           .text( Data.regions[ system.regionID ].name );
 
         SystemMap.updateHud( system );
-
-        var link_groups = link.data( $.grep(SystemMap.jumps, function(l) { return l.type != 'jumpbridge'}))
-          .enter().append('g')
-          .attr('class', function(j) { return 'link ' + j.type; })
-          .append('line');
-          
+        
         var path_groups = link.data( $.grep(SystemMap.jumps, function(l) { return l.type == 'jumpbridge'}))
           .enter().append('g')
           .attr('class', function(j) { return 'link ' + j.type; })
           .append('path')
+          
+        var link_groups = link.data( $.grep(SystemMap.jumps, function(l) { return l.type != 'jumpbridge'}))
+          .enter().append('g')
+          .attr('class', function(j) { return 'link ' + j.type; })
+          .append('line');
 
         var node_groups = node.data(SystemMap.systems)
           .enter().append('g')
@@ -314,16 +314,9 @@ var SystemMap = {
         
         path_groups.attr('d', function(d) {
           var dx = d.target.x - d.source.x,
-              dy = d.target.y - d.source.y,
-              dr = Math.sqrt(dx * dx + dy * dy) / 1.45,
-              mx = d.source.x + dx,
-              my = d.source.y + dy;
-              
-          return [
-            "M",d.source.x,d.source.y,
-            "A",dr,dr,0,0,1,mx,my,
-            "A",dr,dr,0,0,1,d.target.x,d.target.y
-          ].join(" ");
+          dy = d.target.y - d.source.y,
+          dr = Math.sqrt(dx * dx + dy * dy);
+          return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
         });
 
         node_groups.attr('transform', function(d) {
