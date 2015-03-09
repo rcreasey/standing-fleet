@@ -423,6 +423,30 @@ input.log-path {
   z-index: 4;
 }
 
+#lookup {
+  position: absolute;
+  left: 0.5rem;
+  top: 3rem;
+  z-index: 4;
+  width: 150px !important;
+}
+
+#lookup input {
+  font-size: 1rem;
+  font-family: 'Droid Sans', sans-serif;
+  background-color: #111;
+  color: #ffcc2a;
+  background-color: #333;
+  font-weight: normal;
+  text-align: left;
+  border-top: 0.16rem solid #444;
+  border-right: 0.16rem solid #999;
+  border-bottom: 0.16rem solid #999;
+  border-left: 0.16rem solid #444;
+  width: 145px;
+}
+
+#lookup,
 #system-info .jumpbridge-link-details,
 #system-info .wormhole-link-details,
 #system-info .details {
