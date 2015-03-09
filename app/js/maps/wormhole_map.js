@@ -339,12 +339,11 @@ var WormholeMap = {
       var selected = node.filter(function (d, i) {
         return (Data.regions[d.system.regionID].name != selectedVal) && (d.system.name != selectedVal);
       });
-      console.log(selected)
       selected.style("opacity", "0");
       var link = d3.selectAll(".link")
       link.style("opacity", "0");
       d3.selectAll(".node, .link").transition()
-        .duration(8000)
+        .duration(15000)
         .style("opacity", 1);
     }
   },
