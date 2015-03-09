@@ -1,0 +1,30 @@
+<div class="jumpbridge-link-details">
+  <h3>{{ source.system.name }} <i class="fa fa-arrows-h"></i> {{ target.system.name }}</h3>
+  
+  <h4>Locations</h4>
+  <dl>
+    <dt>{{ source.system.name }}</dt>
+    <dd>{{ jumpbridge_data.fromPlanet }} - {{ jumpbridge_data.fromMoon }}</dd>
+    
+    <dt>{{ target.system.name }}</dt>
+    <dd>{{ jumpbridge_data.toPlanet }} - {{ jumpbridge_data.toMoon }}</dd>
+  </dl>
+  
+  <h4>Details</h4>
+  <dl>
+    <dt>Owner</dt>
+    <dd>{{ jumpbridge_data.owner }}</dd>
+
+    <dt>Password</dt>
+    <dd>{{ jumpbridge_data.password }}</dd>
+
+    <dt>Designation</dt>
+    <dd>{{ jumpbridge_data.route }}</dd>
+    
+    <dt>Distance</dt>
+    <dd>{{ jumpbridge_data.distance }}ly</dd>
+
+    <dt>Friendly</dt>
+    <dd>{{ jumpbridge_data.friendly }}</dd>
+  </dl>  
+</div>

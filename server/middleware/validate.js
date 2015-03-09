@@ -1,12 +1,11 @@
 var header_parser = require('./header-parser')
   , passport = require('passport')
   , _ = require('lodash')
+  , moment = require('moment')
   , response = require(__dirname + '/../response')
   , settings = require(__dirname + '/../config/settings')
   , checks = require(__dirname + '/../middleware/checks')
   , Member = require(__dirname + '/../models/member')
-
-var moment = require('moment')
 
 /**
  * Parse IGB headers and populate `req.session.fleet`

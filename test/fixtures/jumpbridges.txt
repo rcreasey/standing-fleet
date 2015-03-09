@@ -1,0 +1,263 @@
+Jump bridge
+Part of a series on
+Travel in Eve
+vacationbee.png
+Essential Travel Information
+Maps
+Podjumping · Jump Clones
+Safespots · Jump Bridges
+Travel Techniques
+Insta-Undocking · Short Warp · MWD trick
+Running the Pipe · Escaping Gatecamps
+Security Ratings · Cyno Arrays
+General Travel Guides
+Basic Survival In Null-Sec
+Travel In Null-Sec
+Other Guides
+View Full Travel Guides Index
+Contents [hide] 
+1 Attention
+2 Jump Bridges
+3 Known Jump Bridges
+4 Using a Jump Bridge
+4.1 Your Ship's Mass and You
+4.2 Things to note
+5 Jump Bridge Fuel Calculators
+6 Current Maps
+6.1 Regional maps
+6.2 DOTLAN-based maps
+7 Out of Date Maps
+Attention[edit]
+
+REMEMBER TO KEEP YOUR GARPA Topographical Survey (GTS) up to date!
+Jump Bridges[edit]
+
+A Jump Bridge is module that links two systems up to 5 light years apart. Players can use them to navigate between star systems and jump much like a capital ship.
+Only members of the alliance the JB belongs to can fuel it or see how much fuel it has, so as of now if a bridge is unfueled you're SOL. Ask the alliance living in the region for help. In our space in Deklein, it is a good idea to carry some extra ozone just in case a bridge is empty.
+WARNING: Use of a jump bridge now incurs jump fatigue. Once used, a jump bridge cannot be used again until your jump cooldown wears off. If you need to cover a large distance with jump bridges, consider using a T1 or T2 Industrial or other bonused hull, or avoiding the bridges altogether in favor of using an Interceptor to travel.
+Known Jump Bridges[edit]
+
+Grouped by region (see maps below). Format for tower locations is System @ Planet-Moon.
+Jump Bridge access is based on standings.
+If you are adding new jump bridges to this list, and want to use a new color, make sure to pick a valid [HTML Color Name] to use, or it won't show up. If you don't know the jump bridge ly distance, use the dotlan jump route planer to find out.
+The Webway
+Region	System / POS	System / POS	Status	Owner	Password	Dist (ly)	Route	Friendly
+Branch	1G-MJE @ 8-1	5LJ-MD @ 7-1	Online	FCON	-	3.95	Chartreuse	Yes
+Branch	1IX-C0 @ 13-1	9F-7PZ @ 10-1	Online	FCON	-	4.11	Chartreuse	Yes
+Branch	4DTQ-K @ 7-16	S-B7IT @ 4-3	Online	FCON	-	4.47	Chartreuse	Yes
+Branch	5-0WB9 @ 7-5	EQI2-2 @ 6-1	Online	FCON	-	4.62	Chartreuse	Yes
+Branch	52G-NZ @ 6-16	4-BE0M @ 6-1	Online	FCON	-	3.69	Chartreuse	Yes
+Branch	6-O5GY @ 7-1	D4R-H7 @ 7-1	Online	FCON	-	4.03	Chartreuse	Yes
+Branch	A-G1FM @ 8-1	T-Q2DD @ 11-12	Online	FCON	-	3.05	Chartreuse	Yes
+Branch	B8O-KJ @ 5-9	QXQ-BA @ 8-1	Online	FCON	-	2.95	Chartreuse	Yes
+Branch	BWI1-9 @ 5-16	SVB-RE @ 8-1	Online	PBLRD	-	3.28	Chartreuse	Yes
+Branch	CS-ZGD @ 8-14	C-LP3N @ 6-7	Online	FCON	-	4.33	Chartreuse	Yes
+Branch	I-7RIS @ 4-1	KL3O-J @ 11-5	Online	FCON	-	2.98	Chartreuse	Yes
+Branch	J7YR-1 @ 4-1	V8W-QS @ 4-2	Online	FCON	-	4.55	Chartreuse	Yes
+Branch	K-8SQS @ 5-1	RO90-H @ 6-1	Online	FCON	-	3.41	Chartreuse	Yes
+Branch	LXWN-W @ 5-1	C-HCGU @ 4-8	Online	FCON	-	3.49	Chartreuse	Yes
+Branch	NTV0-1 @ 1-2	3-N3OO @ 8-9	Online	FCON	-	4.56	Chartreuse	Yes
+Branch	O94U-A @ 4-3	J9-5MQ @ 7-1	Online	FCON	-	4.08	Chartreuse	Yes
+Branch	P7Z-R3 @ 9-7	Z-K495 @ 10-7	Online	FCON	-	4.24	Chartreuse	Yes
+Branch	OJ-A8M @ 7-11	ZIU-EP @ 8-8	Online	FCON	-	3.635	Chartreuse	Yes
+Branch	PUWL-4 @ 6-2	C-VGYO @ 4-2	Online	FCON	-	2.89	Chartreuse	Yes
+Branch	QCWA-Z @ 5-15	XW-2XP @ 8-1	Online	FCON	-	3.712	Chartreuse	Yes
+Branch	Q-FEEJ @ 2-1	UQ9-3C @ 7-1	Online	FCON	-	3.59	Chartreuse	Yes
+Branch	W-4FA9 @ 8-6	8-4GQM @ 4-1	Online	FCON	-	4.74	Chartreuse	Yes
+Branch	BKG-Q2 @ 9-20	WO-AIJ @ 5-1	Online	Goonwaffe	420	3.1	Violet	Yes
+Branch	Y-1918 @ 10-12	MA-VDX @ 7-2	Online	Goonwaffe	420	4.2	Violet	Yes
+Branch/Tenal	X4UV-Z @ 8-5	EOY-BG @ 5-1	Online	Goonwaffe	420	3.54	Violet	Yes
+Cloud Ring	77-KDQ @ 5-2	B-DBYQ @ 4-2	Online	Goonwaffe	420	3.77	Violet	Yes
+Cloud Ring	9-4RP2 @ 4-3	00TY-J @ 6-7	Online	EXE	-	3.17	Violet	Yes
+Cloud Ring	G8AD-C @ 11-2	YI-8ZM @ 7-17	Online	EXE	-	2.82	Violet	Yes
+Cloud Ring	O-BDXB @ 13-1	CX7-70 @ 2-1	Online	EXE	-	2.56	Violet	Yes
+Cloud Ring	O-ZXUV @ 10-1	1-3HWZ @ 6-2	Online	EXE	-	4.71	Violet	Yes
+Cloud Ring	TN-T7T @ 3-1	6-4V20 @ 5-1	Online	Goonwaffe	420	2.4	Violet	Yes
+Cloud Ring	XG-D1L @ 5-2	F7C-H0 @ 4-9	Online	EXE	-	4.79	Violet	Yes
+Cloud Ring	XZH-4X @ 7-5	O-IVNH @ 2-1	Online	EXE	-	4.75	Violet	Yes
+Cloud Ring	1-NW2G @ 4-1	28O-JY @ 4-1	Online	EXE	-	4.73	Violet	Yes
+Deklein	2O9G-D @ 7-1	K5F-Z2 @ 8-3	Online	TNT	420	4.48	Orange	Yes
+Deklein	4U90-Z @ 7-1	CU9-T0 @ 1-1	Online	TNT	420	2.6	Orange	Yes
+Deklein	R8S-1K @ 5-1	FMB-JP @ 1-1	Online	TNT	420	4.72	Orange	Yes
+Deklein	33RB-O @ 5-5	MXX5-9 @ 6-22	Online	GoonWaffe	420	4.22	Green	Yes
+Deklein	3JN9-Q @ 5-2	7T6P-C @ 9-5	Online	GoonWaffe	420	2.18	Green	Yes
+Deklein	3QE-9Q @ 4-8	E3UY-6 @ 3-1	Online	GoonWaffe	420	1.72	Green	Yes
+Deklein	9CK-KZ @ 9-1	J1AU-9 @ 8-12	Online	GoonWaffe	420	3.27	Green	Yes
+Deklein	CCP-US @ 8-1	JU-OWQ @ 9-1	Online	GoonWaffe	420	1.72	Green	Yes
+Deklein	DKUK-G @ 8-2	2R-CRW @ 8-7	Online	GoonWaffe	420	3.88	Green	Yes
+Deklein	E-FIC0 @ 6-6	YA0-XJ @ 7-20	Online	GoonWaffe	420	4.65	Green	Yes
+Deklein	GY5-26 @ 11-6	43B-O1 @ 7-1	Online	GoonWaffe	420	1.73	Green	Yes
+Deklein	LEK-N5 @ 5-1	A4L-A2 @ 2-1	Online	GoonWaffe	420	1.90	Green	Yes
+Deklein	LT-DRO @ 6-6	I30-3A @ 4-1	Online	GoonWaffe	420	4.77	Green	Yes
+Deklein	MZ1E-P @ 9-15	CZDJ-1 @ 10-1	Online	GoonWaffe	420	3.98	Green	Yes
+Deklein	N-TFXK @ 2-1	NC-N3F @ 4-4	Online	GoonWaffe	420	1.58	Green	Yes
+Deklein	O-2RNZ @ 8-10	5S-KXA @ 12-1	Online	GoonWaffe	420	2.47	Green	Yes
+Deklein	OWXT-5 @ 1-2	4N-BUI @ 8-4	Online	GoonWaffe	420	4.50	Green	Yes
+Deklein	QPO-WI @ 4-1	TXME-A @ 7-1	Online	GoonWaffe	420	4.66	Green	Yes
+Deklein	S-DN5M @ 10-12	85-B52 @ 5-11	Online	GoonWaffe	420	4.21	Green	Yes
+Deklein	VFK-IV @ 6-19	ZZZR-5 @ 5-1	Online	GoonWaffe	420	3.55	Green	Yes
+Deklein	VPLL-N @ 6-2	UEJX-G @ 11-4	Online	GoonWaffe	420	4.15	Green	Yes
+Deklein	X3-PBC @ 8-1	RG9-7U @ 2-1	Online	GoonWaffe	420	3.08	Green	Yes
+Deklein	XCBK-X @ 8-1	8S28-3 @ 4-15	Online	GoonWaffe	420	4.25	Green	Yes
+Deklein	YZ-UKA @ 1-1	5W3-DG @ 5-5	Online	GoonWaffe	420	2.28	Green	Yes
+Deklein	ZOYW-O @ 5-2	0V0R-R @ 6-1	Online	GoonWaffe	420	3.56	Green	Yes
+Deklein/Tribute	FO8M-2 @ 4-1	0-YMBJ @ 7-10	Online	GoonWaffe	420	4.97	Cyan	Yes
+Fade	FIO1-8 @ 3-15	O1Y-ED @ 8-11	Online	SMA	-	3.14	Orange	Yes
+Fade	K4YZ-Y @ 11-2	I-UUI5 @ 4-1	Online	SMA	-	4.36	Orange	Yes
+Fade	P-33KR @ 2-4	L-C3O7 @ 7-18	Online	SMA	-	3.63	Orange	Yes
+Fade/Pure Blind	DO6H-Q @ 4-1	6GWE-A @ 8-2	Online	Goonwaffe	420	4.73	Violet	Yes
+Fountain	15U-JY @ 6-3	APM-6K @ 8-1	Online	FA	-	4.81	BlueViolet	Yes
+Fountain	6F-H3W @ 10-1	9R4-EJ @ 4-15	Online	FA	-	4.853	BlueViolet	Yes
+Fountain	6VDT-H @ 8-2	Z30S-A @ 11-3	Online	FA	-	4.106	BlueViolet	Yes
+Fountain	EI-O0O @ 7-1	00GD-D @ 2-1	Online	FA	-	1.597	BlueViolet	Yes
+Fountain	J5A-IX @ 9-1	C-N4OD @ 6-6	Online	Goonwaffe	420	4.30	BlueViolet	Yes
+Fountain	KCT-0A @ 8-1	BYXF-Q @ 7-1	Online	FA	-	3.066	BlueViolet	Yes
+Fountain	KVN-36 @ 4-1	Y-2ANO @ 7-2	Online	Goonwaffe	420	2.75	BlueViolet	Yes
+Fountain	14YI-D @ 5-1	R-BGSU @ 2-2	Online	FA	-	3.965	BlueViolet	Yes
+Fountain	L-1SW8 @ 3-1	7BX-6F @ 2-1	Online	FA	-	2.54	BlueViolet	Yes
+Fountain	NDH-NV @ 6-2	I-CUVX @ 7-2	Online	FA	-	4.68	BlueViolet	Yes
+Fountain	NY6-FH @ 7-7	V6-NY1 @ 8-3	Online	FA	-	4.862	BlueViolet	Yes
+Fountain	XJP-Y7 @ 7-1	D4KU-5 @ 6-7	Online	FA	-	3.875	BlueViolet	Yes
+Fountain	J-RQMF @ 5-4	9DQW-W @ 7-2	Online	FA	-	3.772	BlueViolet	Yes
+Fountain	XUW-3X @ 2-1	HMF-9D @ 5-1	Online	LAWN	-	4.221	Green	Yes
+Fountain	ZUE-NS @ 8-1	OL3-78 @ 6-4	Online	LAWN	-	3.955	Green	Yes
+Pure Blind	3V8-LJ @ 4-2	CR-AQH @ 8-1	Online	GoonWaffe	420	3.34	LawnGreen	Yes
+Pure Blind	R-LW2I @ 4-1	EC-P8R @ 7-1	Online	GoonWaffe	420	3.19	LawnGreen	Yes
+Pure Blind/Deklein	4-ABS8 @ 5-2	2-KF56 @ 11-1	Online	GoonWaffe	420	4.99	LawnGreen	Yes
+Pure Blind/Cloud Ring	93PI-4 @ 5-2	6RCQ-V @ 7-5	Online	EXE	-	3.76	Violet	Yes
+Pure Blind/Cloud Ring	J-OK0C @ 4-10	W-4NUU @ 4-1	Online	Goonwaffe	420	4.73	Violet	Yes
+Pure Blind	UC3H-Y @ 5-12	MI6O-6 @ 10-7	Online	SMA	-	2.035	Orange	Yes
+Pure Blind	KU5R-W @ 5-1	F-NMX6 @ 1-1	Online	TNT	-	3.69	Orange	Yes
+Pure Blind	7RM-N0 @ 9-1	RQH-MY @ 5-1	Online	TNT	-	3.95	Orange	Yes
+Pure Blind	N-H32Y @ 5-2	C-H9X7 @ 11-12	Online	Goonwaffe	-	4.02	Orange	Yes
+Pure Blind/Tribute	D7T-C0 @ 8-1	A-DDGY @ 5-2	Online	TNT	420	4.32	Orange	Yes
+Pure Blind/Deklein	2D-0SO @ 8-1	0P-F3K @ 11-11	Online	TNT	-	4.90	Orange	Yes
+Tenal	30-D5G @ 6-1	6OYQ-Z @ 3-1	Online	-RZR-	-	2.47	DarkBlue	Yes
+Tenal	A1RR-M @ 4-1	O36A-P @ 5-1	Online	-RZR-	-	4.88	DarkBlue	Yes
+Tenal	EN-GTB @ 7-8	V7-MID @ 8-10	Online	-RZR-	-	2.95	DarkBlue	Yes
+Tenal	G06-8Y @ 10-1	Z-LO6I @ 8-2	Online	-RZR-	-	4.15	DarkBlue	Yes
+Tenal	HB-FSO @ 7-1	V-LDEJ @ 4-1	Online	-RZR-	-	4.87	DarkBlue	Yes
+Tenal	OE-4HB @ 5-4	Z-SR1I @ 8-2	Online	-RZR-	-	1.66	DarkBlue	Yes
+Tenal	PNS7-J @ 4-2	ZK-YQ3 @ 6-6	Online	-RZR-	-	4.28	DarkBlue	Yes
+Tenal	RLTG-3 @ 8-3	RKE-CP @ 8-2	Online	-RZR-	-	4.78	DarkBlue	Yes
+Tenal	S-1LIO @ 1-1	SF-XJS @ 11-1	Online	-RZR-	-	3.41	DarkBlue	Yes
+Tenal	S-EVIQ @ 7-1	R-YWID @ 8-10	Online	-RZR-	-	4.08	DarkBlue	Yes
+Tenal	JI-1UQ @ 7-2	WV-0R2 @ 6-1	Online	-RZR-	-	3.74	DarkBlue	Yes
+Tribute	2CG-5V @ 4-1	O-0ERG @ 6-2	Online	GoonWaffe	420	4.89	Cyan	Yes
+Tribute	UMI-KK @ 8-1	15W-GC @ 5-7	Online	GoonWaffe	420	4.55	Cyan	Yes
+Tribute	AW1-2I @ 5-4	D7-ZAC @ 9-1	Online	GoonWaffe	420	4.55	Cyan	Yes
+Tribute	9GI-FB @ 8-1	F-749O @ 8-3	Online	TNT	-	2.1	Orange	Yes
+Tribute	PNDN-V @ 7-15	L-1HKR @ 7-3	Online	TNT	-	1.48	Orange	Yes
+Tribute	GIH-ZG @ 6-6	DL1C-E @ 5-4	Online	CO2	-	3.31	Red	Yes
+Tribute	M-OEE8 @ 12-2	H-W9TY @ 12-4	Online	CO2	420	4.27	Red	Yes
+Tribute	MSHD-4 @ 7-1	Q-CAB2 @ 5-17	Online	CO2	420	4.27	Red	Yes
+Tribute	W6VP-Y @ 5-1	QFF-O6 @ 6-1	Online	CO2	420	3.31	Red	Yes
+Tribute	XD-TOV @ 3-6	J-GAMP @ 9-3	Online	CO2	-	4.93	Red	Yes
+Vale of the Silent	0MV-4W @ 7-14	05R-7A @ 8-1	Online	BASTN	-	4.00	BlueViolet	Yes
+Vale of the Silent	Y0-BVN @ 8-9	N-HSK0 @ 3-1	Online	BASTN	-	1.30	BlueViolet	Yes
+Vale of the Silent	2DWM-2 @ 5-5	VI2K-J @ 1-1	Online	PBLRD	-	3.392	BlueViolet	Yes
+Vale of the Silent	7G-H7D @ 4-1	FH-TTC @ 4-1	Online	PBLRD	-	4.14	BlueViolet	Yes
+Vale of the Silent	9-GBPD @ 3-1	VORM-W @ 7-13	Online	PBLRD	-	2.52	BlueViolet	Yes
+Vale of the Silent	AZBR-2 @ 9-2	ZA0L-U @ 5-1	Online	BASTN	-	3.93	BlueViolet	Yes
+Vale of the Silent	FS-RFL @ 7-7	YXIB-I @ 6-6	Online	BASTN	-	4.93	BlueViolet	Yes
+Vale of the Silent	FMBR-8 @ 4-1	NCGR-Q @ 1-1	Online	PBLRD	-	4.95	BlueViolet	Yes
+Vale of the Silent	LS-JEP @ 9-22	Y5J-EU @ 4-1	Online	PBLRD	-	4.32	BlueViolet	Yes
+Vale of the Silent	MC6O-F @ 2-1	MA-XAP @ 5-5	Online	PBLRD	-	2.95	BlueViolet	Yes
+Vale of the Silent	MGAM-4 @ 4-2	1W-0KS @ 3-1	Online	PBLRD	-	4.55	BlueViolet	Yes
+Vale of the Silent	MQ-O27 @ 3-1	F-D49D @ 4-1	Online	PBLRD	-	3.78	BlueViolet	Yes
+Vale of the Silent	PM-DWE @ 8-1	H-5GUI @ 6-9	Online	BASTN	-	4.10	BlueViolet	Yes
+Vale of the Silent	T-GCGL @ 8-19	3HX-DL @ 2-1	Online	BASTN	-	3.8	BlueViolet	Yes
+Vale of the Silent	TVN-FM @ 7-1	P3EN-E @ 10-11	Online	BASTN	-	3.63	BlueViolet	Yes
+Vale of the Silent	GEKJ-9 @ 7-3	8TPX-N @ 5-1	Online	Goonwaffe	-	4.6	BlueViolet	Yes
+Vale of the Silent	NFM-0V @ 5-1	Y-ZXIO @ 7-3	Online	Goonwaffe	-	4.7	BlueViolet	Yes
+Vale of the Silent	G5ED-Y @ 6-6	JZV-F4 @ 5-1	Online	PBLRD	-	3.08	BlueViolet	Yes
+Vale of the Silent	IFJ-EL @ 6-3	0R-F2F @ 5-1	Online	PBLRD	-	4.818	BlueViolet	Yes
+Vale of the Silent	S-NJBB @ 5-1	MC6O-F @ 2-1	Online	PBLRD	-	4.407	BlueViolet	Yes
+Vale of the Silent	LZ-6SU @ 7-3	MA-XAP @ 5-5	Online	PBLRD	-	3.528	BlueViolet	Yes
+Vale of the Silent/Tribute	IPAY-2 @ 7-2	C2X-M5 @ 5-1	Online	Goonwaffe	-	4.7	BlueViolet	Yes
+Vale of the Silent/Tribute	WBR5-R @ 5-1	WH-JCA @ 6-17	Online	BASTN	-	4.85	BlueViolet	Yes
+Using a Jump Bridge[edit]
+
+Note: (especially newbies:) Jump bridges now appear in corporate bookmarks. Right-clicking in space should show you a bookmark for the jump bridge in that system.
+Fly to POS Jumpbridge in space
+Newbies: The first time, you need to right-click in space, choose the Planets submenu, then the appropriate planet from the list, then the Moons submenu and finally "Warp to within 100 KM" on the correct moon. This will allow you to then target and warp to the jump bridge instead of slow boating over to it.
+Once there, right-click the bridge and bookmark it, since it will likely be a fair way from the warpin point and a bookmark will allow you to warp directly within range of the bridge from elsewhere within the system
+Approach the bridge within 2500m
+If using our own JBs if/when we have any, right click on the module, access resources, and use shift+drag to add in the ozone you need to jump (see calculator below)
+Right click the module and choose "Jump through to xxxxx"
+Once you are through, bookmark the jumpbridge on that side as well.
+
+Your Ship's Mass and You[edit]
+Your ship mass affects the amount of ozone needed for your ship to jump. There are two things that can increase your ship's mass. Be aware of them when traveling through jumpbridges.
+Any online armor plates (1600mm reinforced rolled tungsten, for example) will increase your ship's mass. Offline them if possible.
+Having your MWD active will increase your ship's mass. Make sure it's not running.
+(Nanofibers/Polycarbs don't affect mass as of Quantum Rise)
+Things to note[edit]
+Don't go AFK or park empty ships in a jumpbridge POS. Every faggot and spy in the alliance knows the jumpbridge POS passwords, and your ship will probably be bumped out or stolen by some random hostile.
+When you spawn at your destination, you do NOT have the cloak you get jumping through a stargate. Be wary of landing on the far side of a JB where a hostile engagement might be.
+You do however still get a 30-sec invulnerability when jumping through a bridge - you are visible but unlockable for 30 seconds or until you move, whichever comes first. If you did just jump into hostiles make the most of that time to look for a way out.
+No racial isotopes are required to use an array, only liquid ozone within the jump bridge.
+The liquid ozone is required in the array you are jumping FROM, and not your destination.
+Jump bridges have to be 45km from the tower, which means you jump in around 15km outside the shields. All these pos's have guns but if you don't trust that cover, then don't use them.
+Freighters CAN load ozone into the array provided they are within 49.9km of the tower. Note that it is possible to be stuck if the freighter is on the far side of the bridge from the tower - in that situation they will need to slowly move around the jumpbridge. Edit: For fucks sake, bookmark the bridge, warp to a celestial and warp back. *WTF don't do this with a freighter you mongoloids. A GSOL-operated rorqual is your friend, but if you just happen to run across one that's dry, use a t1 hauler or something.
+Jump Bridge Fuel Calculators[edit]
+
+Evemap-import.png
+
+GARPA Topographical Survey (formerly known as EVE-Map) has a built-in ozone calculator and can also import this wiki page, populating all goonfleet bridges within the program. Once you have imported jumpbridge data it will automatically factor them into its route finding.
+http://apps.goonfleet.com/evetools/route.html - Firefox-only route calculator. Automatically pulls in goonfleet jump bridges from this page, no import needed.
+To calculate the ozone required yourself, multiply your ship's mass (in millions, so a merlin is 1.45) by half the distance the bridge crosses in lightyears, listed in the tables above.
+http://apps.eve-razor.com - IGB route planer including ozone calculator and tons of other features
+Current Maps[edit]
+
+We have access to Fade / Pure Blind / Deklein / Cloud Ring / Fountain / Branch / Tenal.
+Check the date on the map before traveling.
+Regional maps[edit]
+Complete Northern map by Sascha Ales
+Complete SouthWestern map by Sascha Ales
+Deklein map by Sascha Ales
+Branch map By Dominatingone
+Tenal map by Sascha Ales
+Honey Badger Coalition JB Network by Manzinus
+Deklein by Fly8oy, August 7, 2014
+DOTLAN-based maps[edit]
+DOTLAN map of all jump bridges in this article - Updated January 29, 2015, based on this page.
+Note: This entry will no longer be updated. Start using Confluence, you Luddites.
+Nevermind. We're using this wiki after all. Forget Confluence.
+Out of Date Maps[edit]
+
+Use these at your own risk.
+Fountain, April 25th 2012
+CFC Jumpbridge FA all in one Jumpbridge map, May 16th 2012 (missing deklein bridges)
+Fade/Pure Blind allied network
+Deklein Jumpbridge Deklein Post Jump Bridge Nerf.
+Sascha and Sirius project, Northern Coalition - Google maps style
+All the null-sec maps made by Sascha Ales
+-A- JB router and map post-incarna
+IRC JB map post-incarna
+Categories: TravelArticles To Be Kept Updated
+Navigation menu
+page discussion edit history move watch
+Tarei talk preferences watchlist contributions log out
+navigation
+Main page
+Directors
+Current events
+Recent changes
+Random page
+Help
+search
+    
+tools
+What links here
+Related changes
+Upload file
+Special pages
+Printable version
+Permanent link
+Page information
+in other languages
+Русский
+English
+Powered by MediaWiki
+This page was last modified on 1 March 2015, at 14:00. This page has been accessed 261,464 times. Privacy policy About Goonwiki Disclaimers

@@ -113,6 +113,7 @@ var Data = {
     event: Templates.event,
     hostile: Templates.hostile,
     hud: Templates.hud,
+    jumpbridge_link_info: Templates.jumpbridge_link_info,
     map_legend: Templates.map_legend,
     member: Templates.member,
     panel: Templates.panel,

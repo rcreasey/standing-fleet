@@ -423,6 +423,7 @@ input.log-path {
   z-index: 4;
 }
 
+#system-info .jumpbridge-link-details,
 #system-info .wormhole-link-details,
 #system-info .details {
   font-family: 'Droid Sans', sans-serif;
@@ -456,6 +457,13 @@ input.log-path {
   display: block;
 }
 
+#system-info h3 { 
+  color: #ffcc2a;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+}
+
 #system-info h4 {
   background-color: #ffcc2a;
   color: #000;
@@ -465,6 +473,7 @@ input.log-path {
   margin: 0.5rem 0;
 }
 
+#system-info h3:first-child { margin: 0; }
 #system-info h4:first-child { margin: 0; }
 
 #system-info a.btn:first-child { margin: 0; }
@@ -633,11 +642,11 @@ g.node {
 }
 
 /* Link line styles */
-marker { stroke: #000; fill: #d9534f; stroke-width: 2px; }
+marker { stroke: #000; fill: #2a9fd6; stroke-width: 2px; }
 .link { stroke: #ccc; fill: none; stroke-width: 2px; }
 .link.region { stroke: #ed9c28; stroke-dasharray: 4,4; stroke-width: 3px; }
-.link.constellation { stroke-dasharray: 2,4; }
-.link.jumpbridge { stroke: #2a9fd6; stroke-dasharray: 2,2; }
+.link.constellation { stroke: #666; }
+.link.jumpbridge { stroke: #2a9fd6; stroke-dasharray: 2,4; cursor: pointer; }
 .link.wormhole { stroke: #d9534f; stroke-width: 4px; cursor: pointer; }
 
 .anchorLink {

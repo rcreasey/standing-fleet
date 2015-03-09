@@ -1,6 +1,7 @@
 var Q = require('q')
   , moment = require('moment')
   , _ = require('lodash')
+  , fs = require('fs')
 
 var settings = require(__dirname + '/../config/settings')
   , standings = require(__dirname + '/standings')
@@ -12,6 +13,7 @@ var settings = require(__dirname + '/../config/settings')
   , Hostile = require(__dirname + '/../models/hostile')
   , Report = require(__dirname + '/../models/report')
   , Scan = require(__dirname + '/../models/scan')
+  , System = require(__dirname + '/../models/system')
 
 var clean_timer = 0;
 
@@ -35,6 +37,47 @@ var update_standings = function() {
   console.log('Consuela: Updating Standings');
 
   standings.update(settings.whitelist);
+};
+
+var update_jumpbridges = function() {
+  console.log('Consuela: Updating Jumpbridges');
+
+  var pathToFile = __dirname + '/../../test/fixtures/jumpbridges.txt';
+   
+  fs.readFile(pathToFile, function (err, data) {
+    var parser = /(.+)\t([A-Z0-9\-]+) \@ (\d+)-(\d+)\t([A-Z0-9\-]+) \@ (\d+)-(\d+)\t(\w+)\t(.*)\t(.*)\t([\d\.]+)\t(\w+)\t(\w+)/;
+    
+    _.each(data.toString().split('\n'), function(line) {
+      var result = parser.exec(line);
+      if (result) {
+
+        System.findQ({$or: [{name: result[2]}, {name: result[5]}] })
+          .spread(function(from_system, to_system) {
+            
+            var jumpbridge_data = {
+              fromPlanet: result[3],
+              fromMoon: result[4],
+              toPlanet: result[6],
+              toMoon: result[7],
+              status: result[8],
+              owner: result[9],
+              password: result[10],
+              distance: result[11],
+              route:  result[12],
+              friendly: result[13]
+            };
+            
+            var jump = {toSystem: to_system.id, fromSystem: from_system.id,
+                        toRegion: to_system.regionID, fromRegion: from_system.regionID,
+                        toConstellation: to_system.constellationID, fromConstellation: from_system.constellationID,
+                        jumpbridge_data: jumpbridge_data};
+            
+            Jump.updateQ({toSystem: to_system.id, fromSystem: from_system.id}, jump, {upsert: true});
+          });
+
+      }  
+    }); 
+  });  
 };
 
 var clean_fleets = function() {
@@ -149,6 +192,7 @@ var clean_loop = function() {
 
     ensure_fleets();
     update_standings();
+    update_jumpbridges();
 
     clean_loop();
   }, settings.cleanInterval);
