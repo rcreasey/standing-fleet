@@ -50,6 +50,32 @@ var WormholeMap = {
     }
     return cadb >= 0 && cadb <= a2b2;
   },
+  
+  collide: function(alpha) {
+    var quadtree = d3.geom.quadtree(WormholeMap.nodes);
+    return function(d) {
+      var rb = 20,
+          nx1 = d.x - rb,
+          nx2 = d.x + rb,
+          ny1 = d.y - rb,
+          ny2 = d.y + rb;
+      quadtree.visit(function(quad, x1, y1, x2, y2) {
+        if (quad.point && (quad.point !== d)) {
+          var x = d.x - quad.point.x,
+              y = d.y - quad.point.y,
+              l = Math.sqrt(x * x + y * y);
+            if (l < rb) {
+            l = (l - rb) / l * alpha;
+            d.x -= x *= l;
+            d.y -= y *= l;
+            quad.point.x += x;
+            quad.point.y += y;
+          }
+        }
+        return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
+      });
+    };
+  },
 
   draw: function() {
     // Change this to globally adjust minimum node distance and system [x,y] scale
@@ -63,19 +89,6 @@ var WormholeMap = {
       .attr('width', Data.ui.map.width())
       .attr('height', Data.ui.map.height())
       .append('svg');
-    
-    // Setup marker types for directed links
-    var defs = svg.append("svg:defs").selectAll("marker")
-      .data(["wormhole"])
-    .enter().append("svg:marker")
-      .attr("id", String)
-      .attr("viewBox", "0 -5 10 10")
-      .attr("refX", 5)
-      .attr("markerWidth", 3)
-      .attr("markerHeight", 3)
-      .attr("orient", "auto")
-    .append("svg:path")
-      .attr("d", "M0,-5L10,0L0,5");
 
     var rect_height = 17;
     var rect_width = 60;
@@ -86,6 +99,9 @@ var WormholeMap = {
       .size([Data.ui.map.width(), Data.ui.map.height()])
       .charge(-250 * SCALING_FACTOR)
       .linkDistance(link_distance * SCALING_FACTOR)
+      .on('tick', function() {
+        WormholeMap.nodes.forEach(WormholeMap.collide(1));
+      })
       .on('end', function(){
 
         var link_groups = link.data( $.grep(WormholeMap.jumps, function(l) { return l.type == 'wormhole'}))
@@ -312,10 +328,48 @@ var WormholeMap = {
       .delay(Data.config.alertStay * 3)
       .fadeOut(Data.config.uiSpeed);
   },
+  
+  searchNodes: function() {
+    //find the node
+    var selectedVal = document.getElementById('search').value;
+    var node = d3.selectAll(".node");
+    if (selectedVal == "none") {
+      node.style("stroke", "white").style("stroke-width", "1");
+    } else {
+      var selected = node.filter(function (d, i) {
+        return (Data.regions[d.system.regionID].name != selectedVal) && (d.system.name != selectedVal);
+      });
+      console.log(selected)
+      selected.style("opacity", "0");
+      var link = d3.selectAll(".link")
+      link.style("opacity", "0");
+      d3.selectAll(".node, .link").transition()
+        .duration(8000)
+        .style("opacity", 1);
+    }
+  },
 
   init: function() {
-    log('Initializing System Map...');
+    log('Initializing Wormhole Map...');
     WormholeMap.draw();
+    $('#search').typeahead({
+      hint: false,
+      highlight: true,
+      minLength: 1
+    },
+    {
+      source: UIPanels.substringMatcher($.merge(
+          $.map(Data.regions, function(r) { return r.name; }),
+          $.map(Data.systems, function(s) { return s.name; })
+        ))
+    });
+    
+    $('#search').focus().on('keydown', function (event) {
+      if (event.keyCode == 13) {
+        WormholeMap.searchNodes();
+        return false;
+      }
+    });
   }
 
 };
