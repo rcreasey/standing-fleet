@@ -344,7 +344,7 @@ var WormholeMap = {
       var link = d3.selectAll(".link")
       link.style("opacity", "0");
       d3.selectAll(".node, .link").transition()
-        .duration(8000)
+        .duration(15000)
         .style("opacity", 1);
     }
   },
