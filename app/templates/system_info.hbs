@@ -66,4 +66,10 @@
   <a class="btn {{#if present}}present{{/if}}" onclick="reportAdvisory(this, '{{ systemId }}', '{{ type }}')" title="{{ type }}"><i class="fa fa-{{ui_icon type}}"></i></a>
   {{/each}}
   {{/if}}
+
+  <h4 class="external">External Resources</h4>  
+  <a class="btn" target="_blank" href="http://evemaps.dotlan.net/system/{{ name }}">
+    Dotlan
+    <i class="fa fa-external-link-square"></i>
+  </a>
 </div>
