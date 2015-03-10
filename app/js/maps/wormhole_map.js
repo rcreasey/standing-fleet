@@ -331,7 +331,8 @@ var WormholeMap = {
   
   searchNodes: function() {
     //find the node
-    var selectedVal = document.getElementById('search').value;
+    var selectedVal = $('#search').val();
+    $('#search').removeAttr('value');
     var node = d3.selectAll(".node");
     if (selectedVal == "none") {
       node.style("stroke", "white").style("stroke-width", "1");
@@ -340,10 +341,10 @@ var WormholeMap = {
         return (Data.regions[d.system.regionID].name != selectedVal) && (d.system.name != selectedVal);
       });
       selected.style("opacity", "0");
-      var link = d3.selectAll(".link")
+      var link = d3.selectAll(".link");
       link.style("opacity", "0");
       d3.selectAll(".node, .link").transition()
-        .duration(15000)
+        .duration(10000)
         .style("opacity", 1);
     }
   },
