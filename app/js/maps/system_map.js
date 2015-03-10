@@ -421,14 +421,14 @@ var SystemMap = {
       .chargeDistance(200 * SCALING_FACTOR)
       .linkDistance(function(l) {
         if (l.type == 'jumpbridge') return 0;
-        // if (l.type == 'wormhole') return -1000;
+        if (l.type == 'wormhole') return 0;
         if (l.source.fixed || l.target.fixed) return 0;
         var dx = l.source.x - l.target.x, dy = l.source.y - l.target.y;
         return Math.min(50 * SCALING_FACTOR, Math.sqrt(dx * dx + dy * dy));
       })
       .linkStrength(function(l) {
         if (l.type == 'jumpbridge') return 0;
-        // if (l.type == 'wormhole') return 0;
+        if (l.type == 'wormhole') return 0;
         if (l.source.fixed || l.target.fixed) return 0.1;
         return 0.25;
       });
