@@ -13,6 +13,7 @@ ShipSchema.index({ id: 1, name: 1 });
 
 ShipSchema.statics.is_jumpcapable = function(ship_name) {
   return _.include([
+    'Capsule',
     'Redeemer', 
     'Widow', 
     'Sin', 
