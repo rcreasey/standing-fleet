@@ -218,6 +218,7 @@ var WormholeMap = {
     WormholeMap.links = [];
 
     var nodes = {};
+    var exclude = [];
 
     WormholeMap.systems = $.map(Data.systems, function(s) {
       // var node = { system: s, x: s.x, y: s.y };
@@ -231,6 +232,16 @@ var WormholeMap = {
       var from = Data.systems[gate.fromSystem];
       var to = Data.systems[gate.toSystem];
       jump = {source: nodes[from.id], target: nodes[to.id], type: gate.type};
+      if (from.regionID == system.regionID && to.regionID != system.regionID) {
+        exclude.push(to.id);
+        delete to.x;
+        delete to.y;
+      } 
+      else if (to.regionID == system.regionID && from.regionID != system.regionID) {
+        exclude.push(from.id);
+        delete from.x;
+        delete from.y;
+      }
       
       if (gate.type == 'wormhole') {
         if (to.y === undefined && to.x === undefined) {
@@ -254,7 +265,7 @@ var WormholeMap = {
       system.x *= SCALING_FACTOR;
       system.y *= SCALING_FACTOR;
       WormholeMap.nodes.push(system);
-      if (!Util.is_wormhole(system.system)) {
+      if (!Util.is_wormhole(system.system) || $.grep(exclude, function(id) { return id == system.id; })) {
         WormholeMap.nodes.push(anchor = { x: system.x, y: system.y, fixed: true });
         WormholeMap.links.push({ source: system, target: anchor });
       }

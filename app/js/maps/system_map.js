@@ -368,13 +368,19 @@ var SystemMap = {
       jump = {type: gate.type};
       if (gate.type == 'wormhole') {
         // exclude nodes that are outside this region from being anchored
-        if (from.system.regionID == Data.state.vicinity.regionId && to.system.regionID != Data.state.vicinity.regionId) {
+        if (from.system.regionID == system.regionID && to.system.regionID != system.regionID) {
           exclude.push(to.system.id);
+          delete to.x;
+          delete to.y;
+          delete to.system.x;
+          delete to.system.y;
         } 
-        else if (to.system.regionID == Data.state.vicinity.regionId && from.system.regionID != Data.state.vicinity.regionId) {
+        else if (to.system.regionID == system.regionID && from.system.regionID != system.regionID) {
           exclude.push(from.system.id);
-          console.log(to)
-
+          delete from.x;
+          delete from.y;
+          delete from.system.x;
+          delete from.system.y;
         }
         
         // pin the wormhole close to the connecting node
@@ -423,14 +429,14 @@ var SystemMap = {
       .chargeDistance(200 * SCALING_FACTOR)
       .linkDistance(function(l) {
         if (l.type == 'jumpbridge') return 0;
-        if (l.type == 'wormhole') return 0;
+        if (l.type == 'wormhole') return 20;
         if (l.source.fixed || l.target.fixed) return 0;
         var dx = l.source.x - l.target.x, dy = l.source.y - l.target.y;
         return Math.min(50 * SCALING_FACTOR, Math.sqrt(dx * dx + dy * dy));
       })
       .linkStrength(function(l) {
         if (l.type == 'jumpbridge') return 0;
-        if (l.type == 'wormhole') return 0;
+        if (l.type == 'wormhole') return 0.2;
         if (l.source.fixed || l.target.fixed) return 0.1;
         return 0.25;
       });
