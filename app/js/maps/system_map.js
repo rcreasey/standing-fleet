@@ -353,7 +353,8 @@ var SystemMap = {
     SystemMap.links = [];
 
     var nodes = {};
-
+    var exclude = [];
+    
     SystemMap.systems = $.map(Data.systems, function(s) {
       var node = { system: s, x: s.x, y: s.y };
       nodes[s.id] = node;
@@ -366,15 +367,16 @@ var SystemMap = {
       var to = SystemMap.systems.filter(function(s) { return s.system.id == gate.toSystem; })[0];
       jump = {type: gate.type};
       if (gate.type == 'wormhole') {
-        // pin nodes not in this region to this region's system
-        // if (from.regionID == Data.state.vicinity.regionId && to.regionId != Data.state.vicinity.regionId) {
-        //   to.y = from.y;
-        //   to.x = from.x;
-        // } 
-        // else if (to.regionId == Data.state.vicinity.regionId && from.regionId != Data.state.vicinity.regionId) {
-        //   from.y = to.y;
-        //   from.x = to.x;
-        // }
+        // exclude nodes that are outside this region from being anchored
+        if (from.system.regionID == Data.state.vicinity.regionId && to.system.regionID != Data.state.vicinity.regionId) {
+          exclude.push(to.system.id);
+        } 
+        else if (to.system.regionID == Data.state.vicinity.regionId && from.system.regionID != Data.state.vicinity.regionId) {
+          exclude.push(from.system.id);
+          console.log(to)
+
+        }
+        
         // pin the wormhole close to the connecting node
         if (to.y === undefined && to.x === undefined) {
           to.y = from.y;
@@ -404,7 +406,7 @@ var SystemMap = {
       system.x *= SCALING_FACTOR;
       system.y *= SCALING_FACTOR;
       SystemMap.nodes.push(system);
-      if (!Util.is_wormhole(system.system)) {
+      if (!Util.is_wormhole(system.system) || $.grep(exclude, function(id) { return id == system.id; })) {
         SystemMap.nodes.push(anchor = { x: system.x, y: system.y, fixed: true });
         SystemMap.links.push({ source: system, target: anchor });
       }
@@ -421,14 +423,14 @@ var SystemMap = {
       .chargeDistance(200 * SCALING_FACTOR)
       .linkDistance(function(l) {
         if (l.type == 'jumpbridge') return 0;
-        if (l.type == 'wormhole') return 20;
+        if (l.type == 'wormhole') return 0;
         if (l.source.fixed || l.target.fixed) return 0;
         var dx = l.source.x - l.target.x, dy = l.source.y - l.target.y;
         return Math.min(50 * SCALING_FACTOR, Math.sqrt(dx * dx + dy * dy));
       })
       .linkStrength(function(l) {
         if (l.type == 'jumpbridge') return 0;
-        if (l.type == 'wormhole') return 0.15;
+        if (l.type == 'wormhole') return 0;
         if (l.source.fixed || l.target.fixed) return 0.1;
         return 0.25;
       });
