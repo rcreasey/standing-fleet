@@ -367,6 +367,7 @@ var SystemMap = {
       var to = SystemMap.systems.filter(function(s) { return s.system.id == gate.toSystem; })[0];
       jump = {type: gate.type};
       if (gate.type == 'wormhole') {
+        console.log(system)
         // exclude nodes that are outside this region from being anchored
         if (from.system.regionID == system.regionID && to.system.regionID != system.regionID) {
           exclude.push(to.system.id);

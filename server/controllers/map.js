@@ -193,10 +193,10 @@ exports.vicinity = function(req, res, next){
     })
     .then(function(region) {
       var tasks = [
-        System.find({regionID: region.id})
+        System.find({regionID: region.id}, '-_id')
         // .cache()
         .execQ(),
-        Jump.find({ $or: [ {toRegion: region.id}, {fromRegion: region.id} ] })
+        Jump.find({ $or: [ {toRegion: region.id}, {fromRegion: region.id} ] }, '-_id -x -y')
         // .cache()
         .execQ()
       ];
@@ -204,7 +204,27 @@ exports.vicinity = function(req, res, next){
       // Concurrently find the systems and jumps in that region
       Q.all(tasks)
         .then(function(results) {
-          vicinity.jumps = _.map(results[1], function(jump) { return _.merge(jump.toObject(), {'type': jump.type()}); });
+          // debugger 
+          vicinity.current.constellationID = _.find(results[0], function(system) { return system.id == vicinity.current.systemId; }).constellationID;
+          
+          vicinity.jumps = _.map(results[1], function(jump) {
+            return _.merge(jump.toObject(), {'type': jump.type()});              
+          });
+          
+          // filter out wormhole jumps that do not match the current constellation
+          vicinity.jumps = _.filter(vicinity.jumps, function(j) {
+            if (j.type == 'wormhole') {
+              if (j.toConstellation == vicinity.current.constellationID || 
+                  j.fromConstellation == vicinity.current.constellationID) {
+                    return true;
+              } else {
+                return false;
+              }
+                  
+            } else {
+              return true;
+            }
+          });
           
           // filter out wormholes that are not connected to anything (other than the current system)
           _.each(results[0], function(system) { 
@@ -246,10 +266,10 @@ exports.vicinity = function(req, res, next){
         });
 
     })
-    .catch(function(error) {
-      console.log(error);
-      return response.error(res, 'map', error);
-    });
+    // .catch(function(error) {
+    //   console.log(error);
+    //   return response.error(res, 'map', error);
+    // });
 };
 
 exports.update_jump = function(req, res, next){
