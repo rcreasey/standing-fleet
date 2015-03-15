@@ -367,7 +367,6 @@ var SystemMap = {
       var to = SystemMap.systems.filter(function(s) { return s.system.id == gate.toSystem; })[0];
       jump = {type: gate.type};
       if (gate.type == 'wormhole') {
-        console.log(system)
         // exclude nodes that are outside this region from being anchored
         if (from.system.regionID == system.regionID && to.system.regionID != system.regionID) {
           exclude.push(to.system.id);
@@ -512,7 +511,12 @@ var SystemMap = {
     link_a.permitted_ships = Handlebars.helpers.jump_permitted_ships(link_a.wormhole_data.mass_total);
     link_b.permitted_ships = Handlebars.helpers.jump_permitted_ships(link_b.wormhole_data.mass_total);
     
-    Data.ui.mapInfo.html( $(Data.templates.wormhole_link_info({link_a: link_a, link_b: link_b})) );
+    var locals = {link_a: link_a, link_b: link_b};
+    
+    if (link_a.source.system.id != Data.state.vicinity.systemId &&
+        link_b.source.system.id != Data.state.vicinity.systemId) locals.read_only = true;
+        
+    Data.ui.mapInfo.html( $(Data.templates.wormhole_link_info(locals)) );
     Data.ui.mapInfo.children('div.wormhole-link-details')
       .fadeIn(Data.config.uiSpeed)
       .delay(Data.config.alertStay * 3)
