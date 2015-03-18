@@ -394,14 +394,15 @@ exports.create = function(req, res, next) {
 };
 
 exports.report = function(req, res, next) {
-  var report = Report.prepare(req.session.fleetKey, req.body);
+  var report = Report.prepare('report', req.body);
   if (!report.data.length) return response.error(res, 'report', 'Invalid report data.');
 
-  if (report.text === 'clear') {
+  if (report.operation === 'clear') {
     Hostile.updateQ({systemId: report.systemId}, {systemId: null, systemName: null, is_faded: true}, {upsert: true})
       .then(function(hostile) {
         var event = Event.prepare('reportClear', report.fleetKey, report.toObject());
         event.saveQ();
+        report.saveQ();
 
         return response.success(res, event);
       })
@@ -424,7 +425,8 @@ exports.report = function(req, res, next) {
             .then(function(result) {
               if (!result) throw 'Error updating hostile: ' + hostile.characterName;
 
-              report.hostiles.push(hostile);
+              report.hostiles.push(result.toObject());
+              report.saveQ();
               batch.resolve(result.toObject());
             })
             .catch(function(error) {
