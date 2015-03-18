@@ -1,5 +1,6 @@
 var Q = require('q')
   , moment = require('moment')
+  , morgan = require('morgan')
   , _ = require('lodash')
   , fs = require('fs')
 
@@ -177,7 +178,7 @@ var clean_wormhole_jumps = function() {
     });  
 };
 
-var clean_loop = function() {
+var clean_loop = function(logger) {
   clean_timer = setTimeout(function() {
     if (process.env.CONSUELA !== 'disable') {
       clean_advisories();
@@ -198,9 +199,9 @@ var clean_loop = function() {
   }, settings.cleanInterval);
 };
 
-exports.start_cleaning = function() {
+exports.start_cleaning = function(logger) {
   clearTimeout(clean_timer);
-  clean_loop();
+  clean_loop(logger);
 };
 
 exports.stop_cleaning = function() {

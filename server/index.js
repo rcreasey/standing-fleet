@@ -4,7 +4,7 @@ var express = require('express')
   , debug = require('debug')('server')
   , path = require('path')
   , favicon = require('serve-favicon')
-  , logger = require('morgan')
+  , morgan = require('morgan')
   , mongoose = require('mongoose-q')()
   , compression = require('compression')
   , cookieParser = require('cookie-parser')
@@ -46,7 +46,11 @@ app.use(checks.static_rewrite);
 app.set('trust proxy', 1);
 
 app.use(favicon(__dirname + '/../public/favicon.ico'));
-if (app.get('env') !== 'test') app.use(logger('dev'));
+if (app.get('env') == 'production') {
+  app.use(morgan('combined'));  
+} else if (app.get('env') != 'test') {
+  app.use(morgan('dev'));
+}
 app.use(cookieParser());
 
 app.set('views', path.join(__dirname,'views'));
@@ -59,7 +63,7 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
   store: require('mongoose-session')(mongoose)
-}))
+}));
 
 app.use(flash());
 app.use(passport.initialize());

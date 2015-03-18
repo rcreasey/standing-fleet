@@ -54,7 +54,7 @@
     "mongoose-cache": "^0.1.2",
     "mongoose-q": "0.0.13",
     "mongoose-session": "0.0.1",
-    "morgan": "~1.0.0",
+    "morgan": "^1.5.2",
     "neow": "1.0.0",
     "newrelic": "^1.11.2",
     "passport": "^0.2.0",
