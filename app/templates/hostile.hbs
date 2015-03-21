@@ -1,30 +1,28 @@
-<table id="hostile-{{characterId}}" class="hostile {{#if is_faded}}faded{{/if}}">
-  <tr>
-    <td class="ship-icon">{{{shipIcon}}}</td>
-    <td class="name"><a href="javascript:CCPEVE.showInfo(1377, {{characterId}});">{{characterName}}</a></td>
-    <td class="alliance">
-      {{#if allianceName}}
-        <a href="javascript:CCPEVE.showInfo(16159, {{allianceId}});">&lt;{{allianceName}}&gt;</a>
+<tr id="hostile-{{characterId}}" class="hostile {{#if is_faded}}faded{{/if}}">
+  <td class="ship-icon">{{{shipIcon}}}</td>
+  <td class="name"><a href="javascript:CCPEVE.showInfo(1377, {{characterId}});">{{characterName}}</a></td>
+  <td class="alliance">
+    {{#if allianceName}}
+      <a href="javascript:CCPEVE.showInfo(16159, {{allianceId}});">&lt;{{allianceName}}&gt;</a>
+    {{else}}
+      No Alliance
+    {{/if}}
+  </td>
+  <td class="ship-type" onClick="UIPanels.updateHostileDetailsPanel('{{characterId}}');">
+    {{#if is_docked}}
+    <i class="fa fa-university"></i> Docked
+    {{else}}
+      {{#if shipTypeId}}
+        <i class="fa fa-fighter-jet"></i> <a href="javascript:CCPEVE.showInfo({{shipTypeId}});">{{shipType}}</a>
       {{else}}
-        No Alliance
+        Non Visual
       {{/if}}
-    </td>
-    <td class="ship-type" onClick="UIPanels.updateHostileDetailsPanel('{{characterId}}');">
-      {{#if is_docked}}
-      <i class="fa fa-university"></i> Docked
-      {{else}}
-        {{#if shipTypeId}}
-          <i class="fa fa-fighter-jet"></i> <a href="javascript:CCPEVE.showInfo({{shipTypeId}});">{{shipType}}</a>
-        {{else}}
-          Non Visual
-        {{/if}}
-      {{/if}}
-    </td>
-    <td class="system"><a href="javascript:CCPEVE.showInfo(5,{{systemId}});">{{systemName}}</a></td>
-    <td class="reported-at"><a title="Reported by {{reporterName}}">{{format_ts_short ts}}</a></td>
-    <td class="actions">
-      <a title="Set Destination" onClick="CCPEVE.setDestination({{systemId}})"><i class="fa fa-map-marker" title="Set Destination"></i></a>
-      <a title="Killboard: {{characterName}}" target="_blank" href="https://zkillboard.com/character/{{characterId}}/"><i class="fa fa-crosshairs" title="Killboard"></i></a>
-    </td>
-  </tr>
-</table>
+    {{/if}}
+  </td>
+  <td class="system"><a href="javascript:CCPEVE.showInfo(5,{{systemId}});">{{systemName}}</a></td>
+  <td class="reported-at"><a title="Reported by {{reporterName}}">{{format_ts_short ts}}</a></td>
+  <td class="actions">
+    <a title="Set Destination" onClick="CCPEVE.setDestination({{systemId}})"><i class="fa fa-map-marker" title="Set Destination"></i></a>
+    <a title="Killboard: {{characterName}}" target="_blank" href="https://zkillboard.com/character/{{characterId}}/"><i class="fa fa-crosshairs" title="Killboard"></i></a>
+  </td>
+</tr>

@@ -204,7 +204,6 @@ exports.vicinity = function(req, res, next){
       // Concurrently find the systems and jumps in that region
       Q.all(tasks)
         .then(function(results) {
-          // debugger 
           vicinity.current.constellationID = _.find(results[0], function(system) { return system.id == vicinity.current.systemId; }).constellationID;
           
           vicinity.jumps = _.map(results[1], function(jump) {
@@ -273,7 +272,7 @@ exports.vicinity = function(req, res, next){
 };
 
 exports.update_jump = function(req, res, next){
-  var report = Report.prepare('wormhole_update', {data: [_.merge({fromSystem: req.params.from_id, toSystem: req.params.to_id}, req.body)]});
+  var report = Report.prepare('wormhole_update', req.session.fleetKey, {data: [_.merge({fromSystem: req.params.from_id, toSystem: req.params.to_id}, req.body)]});
 
   var tasks = [
     Jump.updateQ({fromSystem: req.params.from_id, toSystem: req.params.to_id}, 

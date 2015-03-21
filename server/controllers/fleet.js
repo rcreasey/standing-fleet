@@ -256,7 +256,7 @@ exports.poll = function(req, res, next) {
                               result.saveQ();
                             }
                           });
-                          
+
                           // else continue
                         } else {
                           // this is a new connection, first check if the ship is jump capable
@@ -276,7 +276,7 @@ exports.poll = function(req, res, next) {
                                                  reporterId: member.characterId, reporterName: member.characterName,
                                                  discovered_on: moment().unix(), expires_on: moment().add(24, 'hours').unix()};
 
-                            var report = Report.prepare('wormhole', {
+                            var report = Report.prepare('wormhole', req.session.fleetKey, {
                               reporterId: member.characterId,
                               reporterName: member.characterName,
                               data: [_.merge({}, jump_a, jump_b, wormhole_data)]
@@ -403,7 +403,7 @@ exports.create = function(req, res, next) {
 };
 
 exports.report = function(req, res, next) {
-  var report = Report.prepare('report', req.body);
+  var report = Report.prepare('report', req.session.fleetKey, req.body);
   if (!report.data.length) return response.error(res, 'report', 'Invalid report data.');
 
   if (report.operation === 'clear') {
