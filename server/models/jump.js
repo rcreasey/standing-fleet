@@ -32,6 +32,8 @@ var JumpSchema = new Schema({
   fromConstellation: Number,
   updated_at: Number,
   wormhole_data: {
+    reporterId: Number,
+    reporterName: String,
     signature: String,
     code: String,
     mass_estimate: {type: String, enum: massEstimates},

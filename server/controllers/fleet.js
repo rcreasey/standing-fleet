@@ -232,90 +232,99 @@ exports.poll = function(req, res, next) {
             events.push(event);
             event.saveQ();
           }
-        }
 
-        if (previous.systemId != member.systemId) {
-          if (!member.isLinked) {
+          if (previous.systemId != member.systemId) {
+            if (!member.isLinked) {
 
-            // look up the new system
-            System.findQ({ id: {$in: [previous.systemId, member.systemId]} })
-              .then(function(results) {
-                  if (!results) throw 'Unable to find system.';
-                  var previousSystem = _.find(results, function(s) { if (s.id == previous.systemId) return s; });
-                  var currentSystem  = _.find(results, function(s) { if (s.id == member.systemId) return s; });
-                  
-                  // check for an existing link of type not wormhole
-                  Jump.findQ({ $or: [ 
-                    {fromSystem: previousSystem.id, toSystem: currentSystem.id},
-                    {fromSystem: currentSystem.id, toSystem: previousSystem.id} ] })
-                    .then(function(results) {
-                                            
-                      if (results.length) {
-                        _.each(results, function(result) {
-                          if (result.type() == 'wormhole') {
-                            result.updated_at = moment().unix();
-                            result.saveQ();
+              // look up the new system
+              System.findQ({ id: {$in: [previous.systemId, member.systemId]} })
+                .then(function(results) {
+                    if (!results) throw 'Unable to find system.';
+                    var previousSystem = _.find(results, function(s) { if (s.id == previous.systemId) return s; });
+                    var currentSystem  = _.find(results, function(s) { if (s.id == member.systemId) return s; });
+                    
+                    // check for an existing link of type not wormhole
+                    Jump.findQ({ $or: [ 
+                      {fromSystem: previousSystem.id, toSystem: currentSystem.id},
+                      {fromSystem: currentSystem.id, toSystem: previousSystem.id} ] })
+                      .then(function(results) {
+                                              
+                        if (results.length) {
+                          _.each(results, function(result) {
+                            if (result.type() == 'wormhole') {
+                              result.updated_at = moment().unix();
+                              result.saveQ();
+                            }
+                          });
+                          
+                          // else continue
+                        } else {
+                          // this is a new connection, first check if the ship is jump capable
+
+                          if (!Ship.is_jumpcapable(member.shipType)) {
+                            // setup a bi-directional link between the two systems
+                            var jump_a = {toSystem: currentSystem.id, fromSystem: previousSystem.id,
+                                          toRegion: currentSystem.regionID, fromRegion: previousSystem.regionID,
+                                          toConstellation: currentSystem.constellationID, fromConstellation: previousSystem.constellationID,
+                                          updated_at: moment().unix()};
+                            var jump_b = {toSystem: previousSystem.id, fromSystem: currentSystem.id,
+                                          toRegion: previousSystem.regionID, fromRegion: currentSystem.regionID,
+                                          toConstellation: previousSystem.constellationID, fromConstellation: currentSystem.constellationID,
+                                          updated_at: moment().unix()};
+                                        
+                            var wormhole_data = {mass_estimate: 'Unknown', lifespan_estimate: 'Unknown', 
+                                                 reporterId: member.characterId, reporterName: member.characterName,
+                                                 discovered_on: moment().unix(), expires_on: moment().add(24, 'hours').unix()};
+
+                            var report = Report.prepare('wormhole', {
+                              reporterId: member.characterId,
+                              reporterName: member.characterName,
+                              data: [_.merge({}, jump_a, jump_b, wormhole_data)]
+                            });
+                            
+                            var tasks = [
+                              Jump.updateQ({toSystem: jump_a.toSystem, fromSystem: jump_a.fromSystem},
+                                           {$set: jump_a, $setOnInsert: {wormhole_data: wormhole_data}}, {upsert: true}),
+                              Jump.updateQ({toSystem: jump_b.toSystem, fromSystem: jump_b.fromSystem},
+                                           {$set: jump_b, $setOnInsert: {wormhole_data: wormhole_data}}, {upsert: true}),
+                              report.saveQ()
+                            ];
+
+                            Q.all(tasks)
+                              .then(function(jump) {
+                                advisory_a = Advisory.format(req.session.fleetKey, 
+                                                            (currentSystem.is_wspace()) ? previousSystem.id : currentSystem.id, 
+                                                            'Wormhole Detected');
+                                advisory_b = Advisory.format(req.session.fleetKey, 
+                                                            (previousSystem.is_wspace()) ? currentSystem.id : previousSystem.id, 
+                                                            'Wormhole Detected');
+                               
+                                Advisory.updateQ({type: advisory_a.type, systemId: advisory_a.systemId}, advisory_a, {upsert: true});
+                                Event.prepare('addAdvisory', req.session.fleetKey, advisory_a).saveQ();
+                                Advisory.updateQ({type: advisory_b.type, systemId: advisory_b.systemId}, advisory_b, {upsert: true});
+                                Event.prepare('addAdvisory', req.session.fleetKey, advisory_b).saveQ();
+                               });
                           }
-                        })
-                        // else continue
-                      } else {
-                        // this is a new connection, first check if the ship is jump capable
-
-                        if (!Ship.is_jumpcapable(member.shipType)) {
-                          // setup a bi-directional link between the two systems
-                          var jump_a = {toSystem: currentSystem.id, fromSystem: previousSystem.id,
-                                        toRegion: currentSystem.regionID, fromRegion: previousSystem.regionID,
-                                        toConstellation: currentSystem.constellationID, fromConstellation: previousSystem.constellationID,
-                                        updated_at: moment().unix()};
-                          var jump_b = {toSystem: previousSystem.id, fromSystem: currentSystem.id,
-                                        toRegion: previousSystem.regionID, fromRegion: currentSystem.regionID,
-                                        toConstellation: previousSystem.constellationID, fromConstellation: currentSystem.constellationID,
-                                        updated_at: moment().unix()};
-                                      
-                          var wormhole_data = {mass_estimate: 'Unknown', lifespan_estimate: 'Unknown',
-                                               discovered_on: moment().unix(), expires_on: moment().add(24, 'hours').unix()};
-                                               
-                          var tasks = [
-                            Jump.updateQ({toSystem: jump_a.toSystem, fromSystem: jump_a.fromSystem},
-                                         {$set: jump_a, $setOnInsert: {wormhole_data: wormhole_data}}, {upsert: true}),
-                            Jump.updateQ({toSystem: jump_b.toSystem, fromSystem: jump_b.fromSystem},
-                                         {$set: jump_b, $setOnInsert: {wormhole_data: wormhole_data}}, {upsert: true})
-                          ];
-
-                          Q.all(tasks)
-                            .then(function(jump) {
-                              advisory_a = Advisory.format(req.session.fleetKey, 
-                                                          (currentSystem.is_wspace()) ? previousSystem.id : currentSystem.id, 
-                                                          'Wormhole Detected');
-                              advisory_b = Advisory.format(req.session.fleetKey, 
-                                                          (previousSystem.is_wspace()) ? currentSystem.id : previousSystem.id, 
-                                                          'Wormhole Detected');
-                             
-                              Advisory.updateQ({type: advisory_a.type, systemId: advisory_a.systemId}, advisory_a, {upsert: true});
-                              Event.prepare('addAdvisory', req.session.fleetKey, advisory_a).saveQ();
-                              Advisory.updateQ({type: advisory_b.type, systemId: advisory_b.systemId}, advisory_b, {upsert: true});
-                              Event.prepare('addAdvisory', req.session.fleetKey, advisory_b).saveQ();
-                             });
+                          
                         }
                         
-                      }
-                      
-                    })
-                  
-              })
-              .done(function() {
-                var event = Event.prepare('updateSystemMap', req.session.fleetKey,
-                            {
-                              characterName: member.characterName,
-                              characterId: member.characterId,
-                              systemName: member.systemName,
-                              systemId: member.systemId
-                            });
-                events.push(event);
-                event.saveQ();
+                      });
+                    
+                })
+                .done(function() {
+                  var event = Event.prepare('updateSystemMap', req.session.fleetKey,
+                              {
+                                characterName: member.characterName,
+                                characterId: member.characterId,
+                                systemName: member.systemName,
+                                systemId: member.systemId
+                              });
+                  events.push(event);
+                  event.saveQ();
 
-              });
+                });
 
+            }
           }
         }
       }
@@ -394,14 +403,15 @@ exports.create = function(req, res, next) {
 };
 
 exports.report = function(req, res, next) {
-  var report = Report.prepare(req.session.fleetKey, req.body);
+  var report = Report.prepare('report', req.body);
   if (!report.data.length) return response.error(res, 'report', 'Invalid report data.');
 
-  if (report.text === 'clear') {
+  if (report.operation === 'clear') {
     Hostile.updateQ({systemId: report.systemId}, {systemId: null, systemName: null, is_faded: true}, {upsert: true})
       .then(function(hostile) {
         var event = Event.prepare('reportClear', report.fleetKey, report.toObject());
         event.saveQ();
+        report.saveQ();
 
         return response.success(res, event);
       })
@@ -424,7 +434,8 @@ exports.report = function(req, res, next) {
             .then(function(result) {
               if (!result) throw 'Error updating hostile: ' + hostile.characterName;
 
-              report.hostiles.push(hostile);
+              report.hostiles.push(result.toObject());
+              report.saveQ();
               batch.resolve(result.toObject());
             })
             .catch(function(error) {

@@ -187,7 +187,7 @@ var clean_loop = function(logger) {
       clean_hostiles();
       clean_events();
       clean_scans();
-      clean_reports();
+      // clean_reports();
       clean_wormhole_jumps();
     }
 

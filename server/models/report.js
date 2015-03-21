@@ -10,26 +10,26 @@ var mongoose = require('mongoose-q')()
 
 var ReportSchema  = new Schema({
   ts: { type: Number, default: function() { return moment().unix(); } },
-  fleetKey: { type: String },
+  type: String,
   reporterId: Number,
   reporterName: String,
   systemId: Number,
   systemName: String,
-  text: { type: String, default: 'validate' },
+  operation: { type: String, default: 'validate' },
   data: [ Schema.Types.Mixed ],
   hostiles: [ Schema.Types.Mixed ],
 });
 
 ReportSchema.index({ ts: 1, fleetKey: 1 }, { expireAfterSeconds: settings.reportTtl });
 
-ReportSchema.statics.prepare = function prepare(fleetKey, report) {
+ReportSchema.statics.prepare = function prepare(type, report) {
   return new this({
-    fleetKey: fleetKey,
+    type: type,
     reporterId: report.reporterId,
     reporterName: report.reporterName,
     systemId: report.systemId,
     systemName: report.systemName,
-    text: report.text,
+    operation: report.operation || report.text,
     data: report.data || [],
     hostiles: []
   });
