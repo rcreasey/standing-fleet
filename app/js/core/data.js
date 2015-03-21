@@ -91,7 +91,7 @@ var Data = {
     hud: $('#hud'),
     map: $('#system-map'),
     hostiles: $('#hostiles'),
-    hostiles_list: $('#hostiles > .list'),
+    hostiles_list: $('#hostiles tbody:last'),
     members: $('#members'),
     members_list: $('#members > .list'),
     events: $('#events'),

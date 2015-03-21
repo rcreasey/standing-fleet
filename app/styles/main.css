@@ -90,7 +90,7 @@ div#page, div#content-wrapper { position: relative; height: 100%; width: 100%; b
 .sub-bar.left { left: 0 }
 .sub-bar.right { right: 0 }
 
-#top-bar, #top-menu, #bottom-bar, #bottom-menu, .sub-bar.left, .sub-bar.right, .member td, .hostile td, .description td {
+#top-bar, #top-menu, #bottom-bar, #bottom-menu, .sub-bar.left, .sub-bar.right, .member td, #hostiles th, #hostiles td, .description td {
   background-color:#222;
   border-bottom: 0.2rem solid #181818;
   height: 2.4rem
@@ -724,13 +724,13 @@ marker { stroke: #000; fill: #2a9fd6; stroke-width: 2px; }
  / /  HOSTILE
  */
 
-.hostile {
+#hostiles table {
   width: 100%;
   table-layout: fixed
 }
 
-.hostile th,
-.hostile td {
+#hostiles th,
+#hostiles td {
   vertical-align: middle;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -739,37 +739,40 @@ marker { stroke: #000; fill: #2a9fd6; stroke-width: 2px; }
   border-top: 0.16rem solid #333;
 }
 
-.hostile th {
+#hostiles th {
   color: #fff;
   font-weight: bold;
+  text-align: left;
 }
 
-.hostile.faded td { opacity: 0.5; }
-.hostile .system, .hostile .ship-type, .hostile .actions, .hostile .alliance,
-.hostile .name { padding-left: 0.6rem; text-align: left; }
+#hostiles .faded td { opacity: 0.5; }
+#hostiles .system, 
+#hostiles .ship-type, 
+#hostiles .actions, 
+#hostiles .alliance,
+#hostiles .name { padding-left: 0.6rem; text-align: left; }
 
-.hostile .system.docked a,
-.hostile .ship-name { color: #888 }
+#hostiles .system.docked a,
+#hostiles .ship-name { color: #888 }
 
-.hostile .reported-at { width: 5rem; }
-.hostile .reporter { width: 7rem; }
+#hostiles .reported-at { width: 7rem; }
 
-.hostile .system { width: 6rem; }
-.hostile .ship-type { min-width: 10rem; cursor: pointer; }
-.hostile .ship-name { cursor: pointer; }
+#hostiles .system { width: 8rem; }
+#hostiles .ship-type { min-width: 10rem; cursor: pointer; }
+#hostiles .ship-name { cursor: pointer; }
 
-.hostile .ship-icon { vertical-align: top; width: 2.4rem; padding: 0rem; }
-.hostile .ship-icon img { border: dotted 1px #555; }
-.hostile .actions { width: 4rem; text-align: center }
-.hostile .actions a { text-align: center; }
-.hostile .actions a:hover { color: #fff; }
-.hostile .actions a i { width: 1.5rem; cursor: pointer; }
+#hostiles .ship-icon { vertical-align: top; width: 2.4rem; padding: 0rem; }
+#hostiles .ship-icon img { border: dotted 1px #555; }
+#hostiles .actions { width: 6rem; text-align: center }
+#hostiles .actions a { text-align: center; }
+#hostiles .actions a:hover { color: #fff; }
+#hostiles .actions a i { width: 1.5rem; cursor: pointer; }
 
-.hostile .ship-icon div { position: relative; }
-.hostile .ship-icon img { position: absolute; top: 0.3rem ; left: 0.3rem }
+#hostiles .ship-icon div { position: relative; }
+#hostiles .ship-icon img { position: absolute; top: 0.3rem ; left: 0.3rem }
 
-.hostile .actions img { width: 1rem; height: 1rem; opacity: 0.6; cursor: pointer }
-.hostile .actions:hover img { opacity: 1 }
+#hostiles .actions img { width: 1rem; height: 1rem; opacity: 0.6; cursor: pointer }
+#hostiles .actions:hover img { opacity: 1 }
 
   /*/
  / /  EVENT
@@ -1740,7 +1743,7 @@ border-top: 0.16rem solid #333;
   .member td.ship-name { width: 0rem; }
   .member td.ship-icon img { width: 2rem; height:2rem; }
 
-  .hostile td.corp, .hostile td.alliance, .hostile td.ship-name { width: 0rem; }
+  #hostiles td.corp, #hostiles td.alliance, #hostiles td.ship-name { width: 0rem; }
 
   #top-menu-scans.menu-button,
   #top-menu-events.menu-button,
