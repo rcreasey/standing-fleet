@@ -60,8 +60,13 @@
     
     <dt>Last Updated</dt>
     <dd class="updated-at">{{ format_ts link_a.updated_at }}</dd>
+    
+    {{#if link_a.wormhole_data.reporterId }}
+    <dt>Reported By</dt>
+    <dd><a href="javascript:CCPEVE.showInfo(1377, {{link_a.wormhole_data.reporterId}});">{{link_a.wormhole_data.reporterName}}</a></dd>
+    {{/if}}
   </dl>
-
+  
   {{#unless read_only }}
     <h4>Update Link Actions</h4>
     <a class="btn btn-info" onclick="UIPanels.updateWormholeLinkPanel(this, '{{ link_a.source.system.id }}', '{{ link_a.target.system.id}}')" title="Update">

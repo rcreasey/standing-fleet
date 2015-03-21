@@ -266,19 +266,21 @@ exports.vicinity = function(req, res, next){
         });
 
     })
-    // .catch(function(error) {
-    //   console.log(error);
-    //   return response.error(res, 'map', error);
-    // });
+    .catch(function(error) {
+      console.log(error);
+      return response.error(res, 'map', error);
+    });
 };
 
 exports.update_jump = function(req, res, next){
+  var report = Report.prepare('wormhole_update', {data: [_.merge({fromSystem: req.params.from_id, toSystem: req.params.to_id}, req.body)]});
 
   var tasks = [
     Jump.updateQ({fromSystem: req.params.from_id, toSystem: req.params.to_id}, 
                  {$set: Jump.parseWormholeInfo(req.body.sig_a, req.body.type_a, req.body.info)}),
     Jump.updateQ({fromSystem: req.params.to_id, toSystem: req.params.from_id}, 
-                 {$set: Jump.parseWormholeInfo(req.body.sig_b, req.body.type_b, req.body.info)})
+                 {$set: Jump.parseWormholeInfo(req.body.sig_b, req.body.type_b, req.body.info)}),
+    report.saveQ()
   ];
   
   Q.all(tasks)

@@ -256,7 +256,8 @@ exports.poll = function(req, res, next) {
                             result.updated_at = moment().unix();
                             result.saveQ();
                           }
-                        })
+                        });
+                        
                         // else continue
                       } else {
                         // this is a new connection, first check if the ship is jump capable
@@ -272,14 +273,22 @@ exports.poll = function(req, res, next) {
                                         toConstellation: previousSystem.constellationID, fromConstellation: currentSystem.constellationID,
                                         updated_at: moment().unix()};
                                       
-                          var wormhole_data = {mass_estimate: 'Unknown', lifespan_estimate: 'Unknown',
+                          var wormhole_data = {mass_estimate: 'Unknown', lifespan_estimate: 'Unknown', 
+                                               reporterId: member.characterId, reporterName: member.characterName,
                                                discovered_on: moment().unix(), expires_on: moment().add(24, 'hours').unix()};
-                                               
+
+                          var report = Report.prepare('wormhole', {
+                            reporterId: member.characterId,
+                            reporterName: member.characterName,
+                            data: [_.merge({}, jump_a, jump_b, wormhole_data)]
+                          });
+                          
                           var tasks = [
                             Jump.updateQ({toSystem: jump_a.toSystem, fromSystem: jump_a.fromSystem},
                                          {$set: jump_a, $setOnInsert: {wormhole_data: wormhole_data}}, {upsert: true}),
                             Jump.updateQ({toSystem: jump_b.toSystem, fromSystem: jump_b.fromSystem},
-                                         {$set: jump_b, $setOnInsert: {wormhole_data: wormhole_data}}, {upsert: true})
+                                         {$set: jump_b, $setOnInsert: {wormhole_data: wormhole_data}}, {upsert: true}),
+                            report.saveQ()
                           ];
 
                           Q.all(tasks)
@@ -300,7 +309,7 @@ exports.poll = function(req, res, next) {
                         
                       }
                       
-                    })
+                    });
                   
               })
               .done(function() {
