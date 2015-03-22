@@ -165,29 +165,37 @@ gulp.task('sde:refresh', function(done) {
     jump = {toSystem: row.toSolarSystemID, fromSystem: row.fromSolarSystemID,
             toRegion: row.toRegionID, fromRegion: row.fromRegionID,
             toConstellation: row.toConstellationID, fromConstellation: row.fromConstellationID};
-    Jump.updateQ({toSystem: jump.toSystem, fromSystem: jump.fromSystem}, jump, {upsert: true});
+    Jump.updateQ({toSystem: jump.toSystem, fromSystem: jump.fromSystem}, jump, {upsert: true}, function (err, numberAffected, raw) {
+      console.log(raw);
+    });
   });
   
   sde.each('select * from mapSolarSystems', function(err, row) {
     system = {id: row.solarSystemID, regionID: row.regionID, constellationID: row.constellationID, name: row.solarSystemName,
               security: row.security, security_class: row.securityClass};
-    System.updateQ({id: system.id}, system, {upsert: true});
+    System.updateQ({id: system.id}, system, {upsert: true}, function (err, numberAffected, raw) {
+      console.log(raw);
+    });
   });
   
   sde.each('select * from mapRegions', function(err, row) {
     region = {id: row.regionID, name: row.regionName};
-    Region.updateQ({id: region.id}, region, {upsert: true});
+    Region.updateQ({id: region.id}, region, {upsert: true}, function (err, numberAffected, raw) {
+      console.log(raw);
+    });
   });
   
   // ship data
   sde.each('SELECT i.typeID id, i.typeName name, g.groupName class, IFNULL(img.metaGroupName, "Tech I") as meta FROM invTypes i INNER JOIN invGroups g ON i.groupID = g.groupID LEFT JOIN invMetaTypes imt ON i.typeID = imt.typeID LEFT JOIN invMetaGroups img ON imt.metaGroupID = img.metaGroupID WHERE g.categoryID = 6 AND i.published = 1 ORDER BY i.typeID ASC', function(err, row) {
     ship = {id: row.id, name: row.name, class: row.class, meta: row.meta};
-    Ship.updateQ({id: ship.id}, ship, {upsert: true});
+    Ship.updateQ({id: ship.id}, ship, {upsert: true}, function (err, numberAffected, raw) {
+      console.log(raw);
+    });
   });
   
-  sde.close(function() {
-    db.disconnect(done);
-  });
+  // sde.close(function() {
+  //   db.disconnect(done);
+  // });
 });
 
 gulp.task('sde:refresh:wormhole_classes', function(done) {
@@ -263,7 +271,9 @@ gulp.task('db:repair:2', function(done) {
   sde.each('select * from mapSolarSystems', function(err, row) {
     system = {id: row.solarSystemID, regionID: row.regionID, constellationID: row.constellationID, name: row.solarSystemName,
               security: row.security, security_class: row.securityClass};
-    System.updateQ({id: system.id}, system, {upsert: true});
+    System.updateQ({id: system.id}, system, {upsert: true}, function (err, numberAffected, raw) {
+      console.log(raw);
+    });
   });
 
   // sde.close(function() {
@@ -281,7 +291,9 @@ gulp.task('db:repair:3', function(done) {
   mongoose.set('debug', true);
 
   _.forEach(wormholes.wormholes, function(wormhole) {
-    System.updateQ({name: wormhole.name}, {wormhole_data: {class: wormhole.class}}, {upsert: true});
+    System.updateQ({name: wormhole.name}, {wormhole_data: {class: wormhole.class}}, {upsert: true}, function (err, numberAffected, raw) {
+      console.log(raw);
+    });
   });
 
   // db.disconnect(done);
