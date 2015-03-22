@@ -213,18 +213,35 @@ gulp.task('sde:refresh:wormhole_classes', function(done) {
   // });
 });
 
-gulp.task('db:repair:1', function(done) {
+gulp.task('db:repair:0', function(done) {
   var mongoose = require('mongoose')
     , _ = require('lodash')
     , System = require('./server/models/system')
     , Region = require('./server/models/region')
+    , Jump = require('./server/models/jump')
     , map_data = require('./public/data/map.json')
 
   var db = mongoose.connect(process.env.MONGODB_URL);
   mongoose.set('debug', true);
 
+  db.models.Jump.remove().execQ();
   db.models.System.remove().execQ();
   db.models.Region.remove().execQ();
+  
+    // db.disconnect(done);
+});
+
+gulp.task('db:repair:1', function(done) {
+  var mongoose = require('mongoose')
+    , _ = require('lodash')
+    , System = require('./server/models/system')
+    , Region = require('./server/models/region')
+    , Jump = require('./server/models/jump')
+    , map_data = require('./public/data/map.json')
+
+  var db = mongoose.connect(process.env.MONGODB_URL);
+  mongoose.set('debug', true);
+
   _.forEach(map_data.Systems, function(data) {
     var system = new System(data);
     system.save();
