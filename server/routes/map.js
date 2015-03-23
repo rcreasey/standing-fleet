@@ -22,6 +22,6 @@ router.route('/systems/:system_name')
 
 router.route('/jumps/:from_id/:to_id')
   .post(validate.headers, validate.session)
-  .post(map.update_jump)
+  .post(map.update_jump);
     
 module.exports = router;

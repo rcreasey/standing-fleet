@@ -16,6 +16,29 @@ function initialize() {
 
     WormholeMap.init();
   });
+  
+  Server.reports(function(error, data) {
+    Data.config.maxEvents = 10000;
+    $.each(data.reports, function(i, report) {
+      
+      var event = {type: 'wormhole', 
+                  text: '<a href="javascript:CCPEVE.showInfo(5, ' + report.fromSystemId + ')">' + report.fromSystemName + '</a> ' + 
+                        ' <i class="fa fa-arrows-h"></i> ' +
+                        '<a href="javascript:CCPEVE.showInfo(5, ' + report.toSystemId + ')">' + report.toSystemName + '</a> '};
+
+      if (report.cleared) {
+        event.text += ' was cleared';
+      } else if (report.type == 'wormhole_updated') {
+        event.text += ' was updated';
+      } else {
+        event.text += ' was discovered';
+      }
+      
+      event.text += ' by <a href="javascript:CCPEVE.showInfo(1377, ' + report.reporterId + ');">' + report.reporterName + '</a>';
+
+      EventList.addEvent(event);
+    });
+  });
 
 }
 
