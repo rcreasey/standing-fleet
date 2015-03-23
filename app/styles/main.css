@@ -209,6 +209,10 @@ html.overview #content-wrapper {
 
 #top-logo { padding: 0.6rem; height: 1rem }
 
+.hidden {
+  display: none;
+}
+
 .menu-button {
   opacity: 0.5;
   color: #fff;
@@ -796,7 +800,7 @@ marker { stroke: #000; fill: #2a9fd6; stroke-width: 2px; }
   margin-left: 0.5rem;
 }*/
 
-.event i,
+.event i:first-child,
 .event img.icon {
   position: absolute;
   top: 0.7rem;

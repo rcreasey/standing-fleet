@@ -69,9 +69,11 @@
   
   {{#unless read_only }}
     <h4>Update Link Actions</h4>
+    {{#unless clear_only }}
     <a class="btn btn-info" onclick="UIPanels.updateWormholeLinkPanel(this, '{{ link_a.source.system.id }}', '{{ link_a.target.system.id}}')" title="Update">
       <i class="fa fa-{{ui_icon 'info'}}"></i> Update
     </a>
+    {{/unless}}
 
     <a class="btn btn-danger" onclick="updateWormholeLink(this, '{{ link_a.source.system.id }}', '{{ link_a.target.system.id}}', 'Wormhole collapsed')" title="Close">
       <i class="fa fa-{{ui_icon 'close'}}"></i> Clear

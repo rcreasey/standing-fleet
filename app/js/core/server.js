@@ -103,6 +103,10 @@ var Server = {
     Server.ajaxGet('/map/systems/' + system_name, callback);
   },
   
+  reports: function(callback) {
+    Server.ajaxGet('/reports', callback);
+  },
+  
   ships: function(callback) {
     Server.ajaxGet('/ships', callback);
   },

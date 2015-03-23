@@ -41,7 +41,7 @@ gulp.task('prepare', function() {
     .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
     .pipe(gulp.dest('public'));
 
-  gulp.src(['app/js/core/*.js', 'app/js/maps/wormhole_map.js', 'app/js/overview.js'])
+  gulp.src(['app/js/core/*.js', 'app/js/maps/wormhole_map.js', 'app/js/lists/event_list.js', 'app/js/overview.js'])
     .pipe(order([
       'js/core/util.js',
       'js/core/ui.js',
@@ -49,6 +49,7 @@ gulp.task('prepare', function() {
       'js/core/data.js',
       'js/core/server.js',
       'js/map/wormhole_map.js',
+      'js/lists/event_list.js',
       'js/core/event_handler.js',
       'js/overview.js'
     ]))
