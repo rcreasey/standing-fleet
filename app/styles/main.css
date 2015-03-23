@@ -209,6 +209,10 @@ html.overview #content-wrapper {
 
 #top-logo { padding: 0.6rem; height: 1rem }
 
+.hidden {
+  display: none;
+}
+
 .menu-button {
   opacity: 0.5;
   color: #fff;

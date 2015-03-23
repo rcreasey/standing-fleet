@@ -9,12 +9,20 @@ block content
       span.separator //
       span.fleet-name Known Wormholes
     #top-menu.sub-bar.right
+      #top-menu-system-map.menu-button.system-map.active
+        i.fa.fa-sitemap
+        span MAP
+      #top-menu-events.menu-button.events
+        i.fa.fa-list
+        span LOGS
   #content-wrapper
     #system-map.main-content.active
       #lookup
         input#search(placeholder="System or Region Name")
       #legend
       #system-info
+    #events.main-content
+      .log
   #bottom-bar
   #alert-container
 

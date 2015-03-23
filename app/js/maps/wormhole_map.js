@@ -333,7 +333,7 @@ var WormholeMap = {
     link_a.permitted_ships = Handlebars.helpers.jump_permitted_ships(link_a.wormhole_data.mass_total);
     link_b.permitted_ships = Handlebars.helpers.jump_permitted_ships(link_b.wormhole_data.mass_total);
     
-    Data.ui.mapInfo.html( $(Data.templates.wormhole_link_info({link_a: link_a, link_b: link_b, read_only: true})) );
+    Data.ui.mapInfo.html( $(Data.templates.wormhole_link_info({link_a: link_a, link_b: link_b, clear_only: true})) );
     Data.ui.mapInfo.children('div.wormhole-link-details')
       .fadeIn(Data.config.uiSpeed)
       .delay(Data.config.alertStay * 3)
