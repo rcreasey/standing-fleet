@@ -62,7 +62,8 @@ function updateWormholeLink(button, from, to, data) {
                               ' to ' +
                               '<a href="javascript:CCPEVE.showInfo(5, ' + to + ')">' + Data.systems[to].name + '</a> '}); 
 
-    setTimeout(WormholeMap.init(), 60000);
+    $('#link-'+ to + '-' + from).remove();
+    $('#link-'+ from + '-' + to).remove()
   });
 }
 

@@ -106,6 +106,7 @@ var WormholeMap = {
 
         var link_groups = link.data( $.grep(WormholeMap.jumps, function(l) { return l.type == 'wormhole'}))
           .enter().append('g')
+          .attr('id', function(j) { return 'link-' + j.source.system.id + '-' + j.target.system.id; })
           .attr('class', function(j) { return 'link ' + j.type; })
           .append('line');
 
