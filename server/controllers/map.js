@@ -284,8 +284,12 @@ exports.update_jump = function(req, res, next){
   
   Q.all(tasks)
     .then(function(result) {
-      Event.prepare('refreshSystems', 'all').saveQ();
-      return res.jsonp(result);
+      if (result[0] && result[1]) {
+        Event.prepare('refreshSystems', 'all').saveQ();
+        return response.success(res);
+      } else {
+        throw 'Unable to update jump data.';
+      }
     })
     .catch(function(error) {
       console.log(error);

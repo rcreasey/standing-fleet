@@ -359,27 +359,35 @@ var WormholeMap = {
         .style("opacity", 1);
     }
   },
-
+  
   init: function() {
     log('Initializing Wormhole Map...');
-    WormholeMap.draw();
-    $('#search').typeahead({
-      hint: false,
-      highlight: true,
-      minLength: 1
-    },
-    {
-      source: UIPanels.substringMatcher($.merge(
-          $.map(Data.regions, function(r) { return r.name; }),
-          $.map(Data.systems, function(s) { return s.name; })
-        ))
-    });
     
-    $('#search').focus().on('keydown', function (event) {
-      if (event.keyCode == 13) {
-        WormholeMap.searchNodes();
-        return false;
-      }
+    Server.wormholes(function(error, data) {
+      Data.state.vicinity = data.current;
+      Data.regions = data.regions;
+      Data.systems = data.systems;
+      Data.jumps   = data.jumps;
+
+      WormholeMap.draw();
+      $('#search').typeahead({
+        hint: false,
+        highlight: true,
+        minLength: 1
+      },
+      {
+        source: UIPanels.substringMatcher($.merge(
+            $.map(Data.regions, function(r) { return r.name; }),
+            $.map(Data.systems, function(s) { return s.name; })
+          ))
+      });
+      
+      $('#search').focus().on('keydown', function (event) {
+        if (event.keyCode == 13) {
+          WormholeMap.searchNodes();
+          return false;
+        }
+      });  
     });
   }
 

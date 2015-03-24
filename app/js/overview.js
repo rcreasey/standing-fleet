@@ -8,14 +8,7 @@ function initialize() {
   log('Init...');
 
   Data.load_wormhole_types();
-  Server.wormholes(function(error, data) {
-    Data.state.vicinity = data.current;
-    Data.regions = data.regions;
-    Data.systems = data.systems;
-    Data.jumps   = data.jumps;
-
-    WormholeMap.init();
-  });
+  WormholeMap.init();
   
   Server.reports(function(error, data) {
     Data.config.maxEvents = 10000;
@@ -64,11 +57,12 @@ function updateWormholeLink(button, from, to, data) {
     
     EventList.addEvent({type: 'info', 
                         alert: true, 
-                        text: 'Wormhole jump from ' +
+                        text: 'Scheulding update for jump from ' +
                               '<a href="javascript:CCPEVE.showInfo(5, ' + from + ')">' + Data.systems[from].name + '</a> ' + 
                               ' to ' +
-                              '<a href="javascript:CCPEVE.showInfo(5, ' + to + ')">' + Data.systems[to].name + '</a> ' + 
-                              ' updated by you.'});    
+                              '<a href="javascript:CCPEVE.showInfo(5, ' + to + ')">' + Data.systems[to].name + '</a> '}); 
+
+    setTimeout(WormholeMap.init(), 60000);
   });
 }
 
