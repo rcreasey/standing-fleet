@@ -270,7 +270,7 @@ Handlebars.registerHelper('jump_permitted_ships', function(mass) {
   if (mass >= 100000000) ships.push('battleship');
   if (mass >= 250000000) ships.push('industrial-command');
   if (mass >= 1200000000) ships.push('carrier');
-  if (mass >= 1200000000) ships.push('dreadnaught');
+  if (mass >= 1200000000) ships.push('dreadnought');
   
   return ships;
 });
