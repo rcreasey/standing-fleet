@@ -30,8 +30,9 @@ var headers = function (req, res, next) {
 module.exports.headers = headers;
 
 var session = function(req, res, next) {
+  if (req.user) return next();
   if (!checks.for_existing_fleet(req)) return response.error(res, 'session', 'Invalid or no session.');
-
+  
   Member.findOneQ({fleetKey: req.session.fleetKey, key: req.session.memberKey})
     .then(function(result) {
       return next();
@@ -42,6 +43,12 @@ var session = function(req, res, next) {
     .done();
 };
 module.exports.session = session;
+
+var logged_in = function(req, res, next) {
+  if (!req.user) return res.redirect('/login');
+  return next();
+}
+module.exports.logged_in = logged_in;
 
 var poll = function(req, res, next) {
   var msSinceLastPoll = (moment().unix() - req.session.lastPollTs);
