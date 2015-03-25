@@ -67,6 +67,14 @@ function updateWormholeLink(button, from, to, data) {
   });
 }
 
+function handleError (error) {
+  log(error.message);
+  if (error.message) UI.showAlert({
+    type: 'error',
+    text: error.message
+  });
+}
+
 function log(message) {
   console.log('[' + moment().unix() + '] - ' + message);
 }
