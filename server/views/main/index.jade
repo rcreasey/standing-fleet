@@ -36,24 +36,9 @@ block content
       #legend
       #system-info
     #hostiles.main-content
-      table
-        thead
-          tr
-            th.ship-icon
-            th.name Name
-            th.alliance Alliance
-            th.ship-type Ship Type
-            th.system System
-            th.reported-at Last Reported
-            th.actions Actions
-        tbody.list
+      include ../tables/hostiles
     #members.main-content
-      table
-        thead
-          tr
-            th.name Name
-            th.actions Actions
-        tbody.list
+      include ../tables/members
     #events.main-content
       .list
     #scans.main-content
