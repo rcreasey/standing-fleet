@@ -36,11 +36,10 @@ block content
       #legend
       #system-info
     #hostiles.main-content
-      .list
       table
         thead
           tr
-            td.ship-icon
+            th.ship-icon
             th.name Name
             th.alliance Alliance
             th.ship-type Ship Type
@@ -49,7 +48,12 @@ block content
             th.actions Actions
         tbody.list
     #members.main-content
-      .list
+      table
+        thead
+          tr
+            th.name Name
+            th.actions Actions
+        tbody.list
     #events.main-content
       .list
     #scans.main-content

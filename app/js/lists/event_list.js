@@ -53,7 +53,7 @@ var EventList = {
   },
 
   preParse: function (event) {
-    if (!event.id) event.id = 'internal-' + Math.floor(Math.random() * 10000)
+    if (!event.id) event.id = 'internal-' + Math.floor(Math.random() * 10000);
     event.time = Util.getTime();
   },
 

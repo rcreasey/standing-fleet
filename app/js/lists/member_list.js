@@ -1,13 +1,11 @@
 var MemberList = {
 
   clear: function () {
-    // log('Clearing member list...');
     Data.members = [];
     Data.ui.members_list.empty();
   },
 
   addMember: function (member) {
-    // log('Adding member: ' + member.characterName + '...');
     if (!Util.compareRegion(member)) return;
     MemberList.removeMember(member.characterId);
     Data.members.push(member);
@@ -16,7 +14,6 @@ var MemberList = {
   removeMember: function (memberToRemoveId) {
     var memberToRemove = MemberList.findMember(memberToRemoveId);
     if (memberToRemove) {
-      // log('Removing member: ' + memberToRemove.characterName + '...');
       Data.members.splice(Data.members.indexOf(memberToRemove), 1);
     }
   },
@@ -34,7 +31,6 @@ var MemberList = {
   },
 
   renderSingleMember: function (member) {
-    // log('Rendering member: ' + member.characterName + ' (single)...');
     if (!Util.compareRegion(member)) return;
     MemberList.addUiProperties(member);
     var existingMemberElement = Data.ui.members_list.find('#member-' + member.characterId);
@@ -46,8 +42,6 @@ var MemberList = {
   },
 
   sortAndRenderAll: function () {
-    // log('Sorting and rendering all members...');
-
     Data.members.sort(function (member1, member2) {
       if (member1[Data.state.memberSortOrder.property] < member2[Data.state.memberSortOrder.property]) {
         return Data.state.memberSortOrder.order === 'asc' ? -1 : 1;
@@ -60,7 +54,6 @@ var MemberList = {
 
     Data.ui.members_list.empty();
     Data.members.forEach(function (member) {
-      // log('Rendering member: ' + member.characterName + ' (batch)...');
       if (!Util.compareRegion(member)) return;
       MemberList.addUiProperties(member);
       Data.ui.members_list.append($(member.html));

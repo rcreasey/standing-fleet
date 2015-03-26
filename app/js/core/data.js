@@ -93,7 +93,7 @@ var Data = {
     hostiles: $('#hostiles'),
     hostiles_list: $('#hostiles tbody:last'),
     members: $('#members'),
-    members_list: $('#members > .list'),
+    members_list: $('#members tbody:last'),
     events: $('#events'),
     events_list: $('#events > .list'),
     scans: $('#scans'),

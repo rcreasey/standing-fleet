@@ -79,11 +79,11 @@ var UI = {
   },
 
   update_scrollables: function() {
-    Data.ui.hostiles.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
-    Data.ui.members_list.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
-    Data.ui.scans_list.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
-    Data.ui.events_list.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
-    Data.ui.fleet_list.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
+    // Data.ui.hostiles.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
+    // Data.ui.members.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
+    // Data.ui.scans_list.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
+    // Data.ui.events_list.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
+    // Data.ui.fleet_list.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
   },
 
   data_client_check: function() {
