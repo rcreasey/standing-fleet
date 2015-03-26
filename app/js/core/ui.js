@@ -14,6 +14,14 @@ var UI = {
     return UI;
   },
 
+  fadeIn: function(element) {
+    element.fadeIn(Data.config.uiSpeed)
+  },
+
+  fadeOut: function(element) {
+    element.fadeOut(Data.config.uiSpeed)
+  },
+  
   toggle: function(element) {
     element.toggle();
   },
@@ -74,12 +82,14 @@ var UI = {
 
     Data.ui.statusClear.on('click', $.proxy(UI.submitStatusClear, null));
     Data.ui.statusHostile.on('click', $.proxy(UIPanels.showStatusPanel, null, false));
-
+    
+    Data.ui.pilot_key_toggle.hover($.proxy(UI.fadeIn, null, Data.ui.pilot_key),
+                                   $.proxy(UI.fadeOut, null, Data.ui.pilot_key));
     UI.update_scrollables();
   },
 
   update_scrollables: function() {
-    // Data.ui.hostiles.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
+    Data.ui.hostiles.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
     // Data.ui.members.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
     // Data.ui.scans_list.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
     // Data.ui.events_list.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});

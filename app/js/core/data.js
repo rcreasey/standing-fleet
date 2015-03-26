@@ -98,6 +98,9 @@ var Data = {
     events_list: $('#events > .list'),
     scans: $('#scans'),
     scans_list: $('#scans > .list'),
+    
+    pilot_key_toggle: $('#bottom-menu-pilot-key'),
+    pilot_key: $('#bottom-menu-pilot-key input'),
 
     hud_scanline: $('#hud .screen .scanline'),
     scanline: {
