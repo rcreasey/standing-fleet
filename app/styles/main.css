@@ -594,6 +594,15 @@ input.log-path {
   padding: 0.15rem 0.75rem;
 }
 
+#system-map #legend hr {
+  display: inline-block;
+  width: 51px;
+  border-width: 1px;
+  border-style: solid;
+  margin-right: 0.75rem;
+  vertical-align: middle;
+}
+
 #system-map #legend span.system-unknown { border: solid 1px #666666; background-color: #333333; }
 #system-map #legend span.system-blue    { border: solid 1px #0079a1; background-color: #0b5168; }
 #system-map #legend span.system-clear   { border: solid 1px #5cb85c; background-color: #366436; }
@@ -682,11 +691,11 @@ g.node {
 
 /* Link line styles */
 marker { stroke: #000; fill: #2a9fd6; stroke-width: 2px; }
-.link { stroke: #ccc; fill: none; stroke-width: 2px; }
-.link.region { stroke: #ed9c28; stroke-dasharray: 4,4; stroke-width: 3px; }
-.link.constellation { stroke: #666; }
-.link.jumpbridge { stroke: #2a9fd6; stroke-dasharray: 2,4; cursor: pointer; }
-.link.wormhole { stroke: #d9534f; stroke-width: 4px; cursor: pointer; }
+.link { stroke: #ccc; fill: none; stroke-width: 2px; border-color: ccc; }
+.link.region { stroke: #ed9c28; stroke-dasharray: 4,4; stroke-width: 3px; border-color: #ed9c28; border-style: dashed !important; }
+.link.constellation { stroke: #666; color: #666; }
+.link.jumpbridge { stroke: #2a9fd6; stroke-dasharray: 2,4; cursor: pointer; border-color: #2a9fd6; border-style: dashed !important; }
+.link.wormhole { stroke: #d9534f; stroke-width: 4px; cursor: pointer; border-color: #d9534f; }
 
 .anchorLink {
   stroke: #00aaff;
