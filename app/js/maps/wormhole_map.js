@@ -393,3 +393,6 @@ var WormholeMap = {
   }
 
 };
+
+var SystemMap = {
+};
