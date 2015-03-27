@@ -5,6 +5,7 @@ var express = require('express')
 
 router.route('/vicinity')
   .get(validate.headers)
+  .get(validate.session)
   .get(map.vicinity);
 
 router.route('/regions')

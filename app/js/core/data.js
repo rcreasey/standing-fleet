@@ -36,7 +36,7 @@ var Data = {
       systemId: '',
       systemName: '',
       regionId: '',
-      regionName: ''
+      regionName: '',
     },
     alertCount: 0,
     data_client: null,
@@ -50,7 +50,8 @@ var Data = {
       property: 'characterName',
       order: 'asc'
     },
-    pollLoop: 0
+    pollLoop: 0,
+    remote_region: false
   },
 
   ui: {
@@ -81,6 +82,7 @@ var Data = {
     mapInfo: $('#system-info'),
     mapLegend: $('#system-map #legend'),
     mapLegend_systems: $('#system-map .legend span'),
+    mapReset: $('#system-map .reset'),
     currentSystem: $('#current .system'),
     currentRegion: $('#current .region'),
     fleetName: $('#current .fleet-name'),
@@ -98,6 +100,10 @@ var Data = {
     events_list: $('#events > .list'),
     scans: $('#scans'),
     scans_list: $('#scans > .list'),
+    
+    region_lookup_toggle: $('#current .region'),
+    region_lookup: $('#lookup'),
+    region_lookup_search: $('#lookup input'),
     
     pilot_key_toggle: $('#bottom-menu-pilot-key'),
     pilot_key: $('#bottom-menu-pilot-key input'),

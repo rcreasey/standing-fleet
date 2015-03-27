@@ -15,15 +15,17 @@ var UI = {
   },
 
   fadeIn: function(element) {
-    element.fadeIn(Data.config.uiSpeed)
+    element.fadeIn(Data.config.uiSpeed);
   },
 
   fadeOut: function(element) {
-    element.fadeOut(Data.config.uiSpeed)
+    element.fadeOut(Data.config.uiSpeed);
   },
   
   toggle: function(element) {
-    element.toggle();
+    element.fadeIn(Data.config.uiSpeed)
+      .delay(Data.config.alertStay)
+      .fadeOut(Data.config.uiSpeed * 5);
   },
 
   toggleHelp: function() {
@@ -85,6 +87,10 @@ var UI = {
     
     Data.ui.pilot_key_toggle.hover($.proxy(UI.fadeIn, null, Data.ui.pilot_key),
                                    $.proxy(UI.fadeOut, null, Data.ui.pilot_key));
+                                   
+    Data.ui.region_lookup_toggle.on('click', $.proxy(UI.regionLookup, null, false));
+    Data.ui.mapReset.on('click', $.proxy(SystemMap.resetRegion, null, false));
+    
     UI.update_scrollables();
   },
 
@@ -106,6 +112,32 @@ var UI = {
 
   submitStatusClear: function() {
     submitStatus('clear', Data.state.self.characterName);
+  },
+  
+  regionLookup: function() {
+    Server.regions(function(error, data) {
+
+      Data.ui.region_lookup_search.typeahead({
+        hint: false,
+        highlight: true,
+        minLength: 3
+      },
+      {
+        source: UIPanels.substringMatcher($.map(data.regions, function(r) { return r.name; }))
+      });
+      
+      Data.ui.region_lookup_search.focus().on('keydown', function (event) {
+        if (event.keyCode == 13) {
+          SystemMap.switchRegion();
+          return false;
+        }
+      });  
+      
+      Data.ui.region_lookup.fadeIn(Data.config.uiSpeed)
+        .delay(Data.config.alertStay * 2)
+        .fadeOut(Data.config.uiSpeed * 5);
+
+    });
   },
 
   showAlert: function (event) {

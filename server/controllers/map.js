@@ -177,15 +177,17 @@ exports.show_system = function(req, res, next){
 
 exports.vicinity = function(req, res, next){
   var vicinity = {regions: {}, systems: {}, jumps: []};
+  var region_name = (req.query.regionName === undefined) ? req.session.fleet.regionName : req.query.regionName;
+  
   vicinity.current = {systemName: req.session.fleet.systemName, systemId: req.session.fleet.systemId,
-                      regionName: req.session.fleet.regionName};
+                      regionName: region_name};
 
   // Find the region
-  Region.findOne({name: req.session.fleet.regionName})
+  Region.findOne({name: region_name})
     // .cache()
     .execQ()
     .then(function(region) {
-      if (!region) throw 'Invalid Region: ' + req.session.fleet.regionName;
+      if (!region) throw 'Invalid Region: ' + region_name;
       vicinity.current.regionId = region.id;
       vicinity.regions[region.id] = region.toObject();
 
@@ -204,7 +206,8 @@ exports.vicinity = function(req, res, next){
       // Concurrently find the systems and jumps in that region
       Q.all(tasks)
         .then(function(results) {
-          vicinity.current.constellationID = _.find(results[0], function(system) { return system.id == vicinity.current.systemId; }).constellationID;
+          var system = _.find(results[0], function(system) { return system.id == vicinity.current.systemId; });          
+          vicinity.current.constellationID = (system !== undefined) ? system.constellationID : null;
           
           vicinity.jumps = _.map(results[1], function(jump) {
             return _.merge(jump.toObject(), {'type': jump.type()});              
@@ -265,10 +268,10 @@ exports.vicinity = function(req, res, next){
         });
 
     })
-    .catch(function(error) {
-      console.log(error);
-      return response.error(res, 'map', error);
-    });
+    // .catch(function(error) {
+    //   console.log(error);
+    //   return response.error(res, 'map', error);
+    // });
 };
 
 exports.update_jump = function(req, res, next){

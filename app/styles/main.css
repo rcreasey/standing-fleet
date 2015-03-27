@@ -610,6 +610,13 @@ input.log-path {
 #system-map #legend span.system-hostile { border: solid 1px #d9534f; background-color: #74312f; }
 #system-map #legend span.current        { border: solid 2px #f39c12 !important; }
 
+#system-map .reset {
+  display: none;
+  position: absolute;
+  right: 1rem;
+  bottom: 3rem;
+}
+
 g.node {
   cursor: pointer;
 }

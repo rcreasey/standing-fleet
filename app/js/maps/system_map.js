@@ -163,10 +163,14 @@ var SystemMap = {
       })
       .on('end', function(){
 
-        Data.ui.currentSystem
-          .data('systemId', system.id)
-          .text( system.name );
-
+        if (system !== undefined) {
+          Data.ui.currentSystem
+            .data('systemId', system.id)
+            .text( system.name );
+        } else {
+          Data.ui.currentSystem.text('Viewing')
+        }
+        
         Data.ui.currentRegion
           .data('regionId', system.regionID)
           .text( Data.regions[ system.regionID ].name );
@@ -345,7 +349,9 @@ var SystemMap = {
 
     // fetch data about our current system
     if (!Data.systems) return;
-    system = Data.systems[ Data.state.vicinity.systemId ];
+    system = (Data.state.remote_region) ?
+      SystemMap.randomSystem() :
+      Data.systems[ Data.state.vicinity.systemId ];
 
     SystemMap.systems = [];
     SystemMap.nodes = [];
@@ -446,7 +452,9 @@ var SystemMap = {
     }
     force.stop();
 
-    SystemMap.zoom.translate([(Data.ui.map.width() / 2 - nodes[system.id].x * scale), (Data.ui.map.height() / 2 - nodes[system.id].y * scale)]);
+    var x_offset = (system !== undefined) ? nodes[system.id].x : 1;
+    var y_offset = (system !== undefined) ? nodes[system.id].y : 1;
+    SystemMap.zoom.translate([(Data.ui.map.width() / 2 - x_offset * scale), (Data.ui.map.height() / 2 - y_offset * scale)]);
     SystemMap.zoom.event(root);
 
     Data.ui.currentSystem
@@ -583,6 +591,24 @@ var SystemMap = {
     Data.ui.currentSystem
       .data('system-id', Data.state.vicinity.systemId)
       .text( Data.state.vicinity.systemName );
+  },
+  
+  randomSystem: function() {
+    var keys = Object.keys(Data.systems);
+    return Data.systems[keys[ keys.length * Math.random() << 0]];
+  },
+  
+  switchRegion: function() {
+    Data.state.vicinity.regionName = Data.ui.region_lookup_search.val();
+    Data.state.remote_region = true;
+    SystemMap.redraw();
+    Data.ui.mapReset.fadeIn(Data.config.uiSpeed);
+  },
+  
+  resetRegion: function() {
+    Data.state.remote_region = false;
+    SystemMap.redraw();
+    Data.ui.mapReset.fadeOut(Data.config.uiSpeed);
   },
 
   redraw: function() {

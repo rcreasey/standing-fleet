@@ -92,13 +92,22 @@ var Server = {
   },
 
   vicinity: function(callback) {
-    Server.ajaxGet('/map/vicinity', callback);
+    if (Data.state.remote_region) {
+      Server.ajaxGet('/map/vicinity?regionName=' + Data.state.vicinity.regionName, callback);
+    } else {
+      Server.ajaxGet('/map/vicinity', callback);      
+    }
+
   },
 
   wormholes: function(callback) {
     Server.ajaxGet('/map/wormholes', callback);
   },
-
+  
+  regions: function(callback) {
+    Server.ajaxGet('/map/regions', callback);
+  },
+  
   systemInformation: function(system_name, callback) {
     Server.ajaxGet('/map/systems/' + system_name, callback);
   },
