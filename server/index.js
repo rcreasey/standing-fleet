@@ -71,9 +71,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/docs', docs);
+app.use('/scans', scans);
 app.use('/', routes);
 app.use('/api/fleets', fleet);
-app.use('/api/scans', scans);
 app.use('/api/map', map);
 app.use('/api/reports', reports);
 app.use('/api/ships', ships);

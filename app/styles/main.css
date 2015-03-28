@@ -446,6 +446,13 @@ input.log-path {
   width: 150px !important;
 }
 
+#lookup span {
+  color: #ffcc2a;
+  font-size: 11px !important;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
 #lookup input {
   font-size: 1rem;
   font-family: 'Droid Sans', sans-serif;
