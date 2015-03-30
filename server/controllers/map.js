@@ -11,7 +11,9 @@ var Q = require('q')
   , Hostile = require(__dirname + '/../models/hostile')
 
 exports.show_regions = function(req, res, next) {
-  Region.findQ({}, '-_id')
+  Region.find({})
+    .cache(true, 3600)
+    .execQ()
     .then(function(results) {
       return res.jsonp({regions: results});
     })
@@ -94,7 +96,8 @@ exports.show_system = function(req, res, next){
   var system = {};
 
   System.findOne({name: req.params.system_name})
-    // .cache()
+    .lean()
+    .cache(true, 5)
     .execQ()
     .then(function(result) {
       if (!system) throw 'Invalid system name ' + req.params.system_name;
@@ -118,16 +121,16 @@ exports.show_system = function(req, res, next){
 
       var tasks = [
         Jump.find({ $or: [ {toSystem: system.id}, {fromSystem: system.id} ] }, '-_id')
-          // .cache()
+          .cache(true, 5)
           .execQ().then(function(jumps) { return jumps; }),          
         Report.find({systemId: system.id})
-          // .cache()
+          .cache(true, 5)
           .execQ().then(function(reports) { return reports; }),
         Advisory.find({systemId: system.id})
-          // .cache()
+          .cache(true, 5)
           .execQ().then(function(advisories) { return advisories; }),
         Hostile.find({systemId: system.id})
-          // .cache()
+          .cache(true, 5)
           .execQ().then(function(hostiles) { return hostiles; })
       ];
 
@@ -144,19 +147,19 @@ exports.show_system = function(req, res, next){
           var plus_one = _.unique( _.flatten( _.map(system.jumps, function(jump) { return [jump.toSystem, jump.fromSystem]; }) ));
 
           Jump.find({ $or: [ {toSystem: {$in: plus_one}}, {fromSystem: {$in: plus_one}} ] }, '-_id')
-            // .cache()
+            .cache(true, 5)
             .execQ()
             .then(function(result) {
               plus_two = _.unique( _.flatten( _.map(result, function(jump) { return [jump.toSystem, jump.fromSystem]; }) ));
 
               System.find({ id: {$in: _.union(plus_one, plus_two)} }, '-_id id name constellationID regionID')
-              .sort('name')
-              // .cache()
-              .execQ()
-              .then(function(vicinity) {
-                system.vicinity = vicinity;
-                return res.jsonp(system);
-              });
+                .sort('name')
+                .cache(true, 5)
+                .execQ()
+                .then(function(vicinity) {
+                  system.vicinity = vicinity;
+                  return res.jsonp(system);
+                });
 
             });
 
@@ -184,7 +187,7 @@ exports.vicinity = function(req, res, next){
 
   // Find the region
   Region.findOne({name: region_name})
-    // .cache()
+    .cache(true, 5)
     .execQ()
     .then(function(region) {
       if (!region) throw 'Invalid Region: ' + region_name;
@@ -196,10 +199,10 @@ exports.vicinity = function(req, res, next){
     .then(function(region) {
       var tasks = [
         System.find({regionID: region.id}, '-_id')
-        // .cache()
+        .cache(true, 5)
         .execQ(),
         Jump.find({ $or: [ {toRegion: region.id}, {fromRegion: region.id} ] }, '-_id -x -y')
-        // .cache()
+        .cache(true, 5)
         .execQ()
       ];
 
@@ -251,10 +254,10 @@ exports.vicinity = function(req, res, next){
 
           var tasks = [
             System.find({ id: {$in: system_ids} })
-            // .cache()
+            .cache(true, 5)
             .execQ(),
             Region.find({ id: {$in: region_ids} })
-            // .cache()
+            .cache(true, 5)
             .execQ()
           ];
 
@@ -268,10 +271,10 @@ exports.vicinity = function(req, res, next){
         });
 
     })
-    // .catch(function(error) {
-    //   console.log(error);
-    //   return response.error(res, 'map', error);
-    // });
+    .catch(function(error) {
+      console.log(error);
+      return response.error(res, 'map', error);
+    });
 };
 
 exports.update_jump = function(req, res, next){

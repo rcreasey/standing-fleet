@@ -1,4 +1,6 @@
 var mongoose = require('mongoose-q')()
+  , cache = require('mongoose-memcached')
+  , url = require('url')
 
 module.exports = function () {
   var pub = {};
@@ -6,11 +8,8 @@ module.exports = function () {
   pub.init = function() {
     mongoose.connect(process.env.MONGODB_URL);
     if (process.env.NODE_ENV === 'development') mongoose.set('debug', true);
-    var cacheOpts = {
-        maxAge: 5000,
-        debug: process.env.NODE_ENV === 'development'
-    };
-    // require('mongoose-cache').install(mongoose, cacheOpts)
+    cache(mongoose, {host: process.env.MEMCACHE_SERVERS, cache: false});
+    
   };
 
   return pub;

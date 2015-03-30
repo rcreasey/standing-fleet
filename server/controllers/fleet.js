@@ -338,7 +338,7 @@ exports.poll = function(req, res, next) {
     }),
     Event.find({$or: [{fleetKey: req.session.fleetKey}, {fleetKey: 'all'}], ts: { $lte: moment().unix(), $gte: +req.params.lastPollTs }})
       .sort({date: 'descending'})
-      // .cache()
+      .cache(true, 5)
       .execQ()
       .then(function(events) {
         return events;

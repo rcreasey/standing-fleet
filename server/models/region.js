@@ -1,5 +1,6 @@
-var mongoose = require('mongoose-q')()
+var mongoose = require('mongoose')
   , Schema = mongoose.Schema
+  
 
 var RegionSchema  = new Schema({
   id: Number,
