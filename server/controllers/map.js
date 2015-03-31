@@ -40,6 +40,7 @@ exports.show_region = function(req, res, next) {
         region.bottom = result.bounds.bottom;
         region.left = result.bounds.left;
       }
+      
       return region;
     })
     .then(function(region) {
@@ -84,11 +85,11 @@ exports.show_region = function(req, res, next) {
         })
         .done();
     })
-    .catch(function(error) {
-      console.log(error);
-      return response.error(res, 'map', error);
-    })
-    .done();
+    // .catch(function(error) {
+    //   console.log(error);
+    //   return response.error(res, 'map', error);
+    // })
+    // .done();
 
 };
 
@@ -187,14 +188,14 @@ exports.vicinity = function(req, res, next){
 
   // Find the region
   Region.findOne({name: region_name})
-    .cache(true, 5)
+    .lean()
     .execQ()
     .then(function(region) {
       if (!region) throw 'Invalid Region: ' + region_name;
       vicinity.current.regionId = region.id;
-      vicinity.regions[region.id] = region.toObject();
+      vicinity.regions[region.id] = region;
 
-      return region.toObject();
+      return region;
     })
     .then(function(region) {
       var tasks = [
