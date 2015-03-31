@@ -332,7 +332,7 @@ var SystemMap = {
     if( SystemMap.zoom ) scale = SystemMap.zoom.scale();
 
     SystemMap.zoom = d3.behavior.zoom()
-      .scaleExtent([0.4, 1])
+      .scaleExtent([0.5, 1.5])
       .on('zoom', zoomHandler)
       .scale(scale);
 
