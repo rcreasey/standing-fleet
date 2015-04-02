@@ -20,25 +20,25 @@ var UIPanels = {
       type: 'options',
       icon: 'settings',
       title: 'Standing Fleet Options',
-      footer: '&copy; 2014 Goonswarm Federation',
+      footer: '&copy; 2015 Goonswarm Federation',
       closeable: true,
       formitems: [
-        {checkbox: {legend: 'Clipboard Polling', checked: Data.state.poll.clipboard, onclick: 'UI.togglePolling(this, "clipboard");' }},
-        {checkbox: {legend: 'Log Polling', checked: Data.state.poll.logs, onclick: 'UI.togglePolling(this, "logs");' }}
+        {checkbox: {label: 'Clipboard Polling', checked: Data.state.poll.clipboard, onclick: 'UI.togglePolling(this, "clipboard");' }},
+        {checkbox: {label: 'Log Polling', checked: Data.state.poll.logs, onclick: 'UI.togglePolling(this, "logs");' }}
       ]
     };
 
     if (/^win/.test(process.platform)) {
-      panel.formitems.push({input: {legend: 'Log Path', label: 'Log Path', class: 'log-path', onblur: 'UI.updateLogPath(this);', value: Data.state.datasources.logs.path.win}})
+      panel.formitems.push({input: {legend: 'Log Path', label: 'Log Path', class: 'log-path', onblur: 'UI.updateLogPath(this);', value: Data.state.datasources.logs.path.win}});
     } else {
-      panel.formitems.push({input: {legend: 'Log Path', label: 'Log Path', class: 'log-path', onblur: 'UI.updateLogPath(this);', value: Data.state.datasources.logs.path.darwin}})
+      panel.formitems.push({input: {legend: 'Log Path', label: 'Log Path', class: 'log-path', onblur: 'UI.updateLogPath(this);', value: Data.state.datasources.logs.path.darwin}});
     }
 
     var channels = {group: {legend: 'Intel Channels', formitems: []}};
-    for (channel in Data.state.datasources.logs.channels) {
+    for (var channel in Data.state.datasources.logs.channels) {
       channels.group.formitems.push(
-        {checkbox: {legend: channel, checked: Data.state.datasources.logs.channels[channel], onclick: 'UI.toggleChannel(this, "' + channel + '");' }}
-      )
+        {checkbox: {label: channel, checked: Data.state.datasources.logs.channels[channel], onclick: 'UI.toggleChannel(this, "' + channel + '");' }}
+      );
     }
     panel.formitems.push(channels);
 

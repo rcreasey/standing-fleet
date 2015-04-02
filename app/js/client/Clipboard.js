@@ -1,14 +1,14 @@
-var clipboard = require('clipboard');
-
 function pollClipboard() {
+  var cb = require('clipboard');
+
   UI.startSpin();
   setTimeout(function() {
     if (Data.state.poll.clipboard) {
-      var text = clipboard.readText('text');
+      var text = cb.readText();
       if (text) {
-        var clipboard = document.getElementById('clipboard')
+        var clipboard = document.getElementById('clipboard');
         var event = {time: Util.getTime(), type: 'sourcedClipboard', data: text};
-        clipboard.clear();
+        cb.clear();
 
         var renderedEvent = $(Templates.event({time: event.time, text: event.data}));
         Data.ui.clipboard_list.prepend(renderedEvent);
@@ -20,4 +20,4 @@ function pollClipboard() {
     pollClipboard();
 
   }, Data.state.poll.loop);
-};
+}
