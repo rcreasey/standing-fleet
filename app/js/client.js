@@ -16,7 +16,7 @@ app.on('ready', function() {
     height: 445
   });
   
-  mainWindow.openDevTools({detach: true});
+  // mainWindow.openDevTools({detach: true});
   mainWindow.loadUrl(path.join('file://', __dirname, '../index.html'));
   mainWindow.on('closed', function() { mainWindow = null; });
 });
