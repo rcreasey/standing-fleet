@@ -143,7 +143,6 @@ gulp.task('build:clean', function(done) {
   var path = /^win/.test(require('os').platform()) ? './build/resources/' : './build/Atom.app/Contents/Resources/';
 
   return gulp.src([path + 'default_app', path + 'app'])
-    .pipe(debug({title: 'build:clean'}))
     .pipe(vinylPaths(del));
 });
 
