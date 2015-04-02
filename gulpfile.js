@@ -13,6 +13,7 @@ var gulp = require('gulp')
   , decompress = require('decompress-bzip2')
   , del = require('del')
   , sequence = require('run-sequence')
+  , vinylPaths = require('vinyl-paths')
   , debug = require('gulp-debug')
 
 // [ prepare ]------------------------------------------------------------------
@@ -21,8 +22,8 @@ gulp.task('prepare', function() {
     .pipe(gutil.env.type === 'production' ? minifycss() : gutil.noop())
     .pipe(concat('css/style.css'))
     .pipe(gulp.dest('public'))
-    .pipe(gulp.dest('client'));  
-  
+    .pipe(gulp.dest('client'));
+
   gulp.src(['app/js/core/*.js', 'app/js/lists/*.js', 'app/js/maps/system_map.js', 'app/js/app.js'])
     .pipe(order([
       'js/core/util.js',
@@ -72,7 +73,7 @@ gulp.task('prepare', function() {
     ]))
     .pipe(concat('js/app.js'))
     .pipe(gulp.dest('client'));
-  
+
   gulp.src('app/js/client.js')
     .pipe(concat('js/client.js'))
     .pipe(gulp.dest('client'));
@@ -82,7 +83,7 @@ gulp.task('prepare', function() {
     .pipe(concat('js/lib.js'))
     .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
     .pipe(gulp.dest('public'))
-  
+
   gulp.src(mainBowerFiles())
     .pipe(filter(['*.js', '!jquery.js', '!typeahead*']))
     .pipe(concat('js/lib.js'))
@@ -139,7 +140,11 @@ gulp.task('build:download', function(done) {
 });
 
 gulp.task('build:clean', function(done) {
-  return del(['./build/Atom.app/Contents/Resources/app/*'], done);
+  var path = /^win/.test(require('os').platform()) ? './build/resources/' : './build/Atom.app/Contents/Resources/';
+
+  return gulp.src([path + 'default_app', path + 'app'])
+    .pipe(debug({title: 'build:clean'}))
+    .pipe(vinylPaths(del));
 });
 
 gulp.task('build:prepare:fonts', function(done) {
@@ -148,8 +153,9 @@ gulp.task('build:prepare:fonts', function(done) {
 });
 
 gulp.task('build:prepare', function(done) {
-  return gulp.src('client/**')
-    .pipe(gulp.dest('./build/Atom.app/Contents/Resources/app'), done);
+  var path = /^win/.test(require('os').platform()) ? './build/resources/app' : './build/Atom.app/Contents/Resources/app';
+
+  return gulp.src('client/**').pipe(gulp.dest(path), done);
 });
 
 gulp.task('build', function(done) {
@@ -189,7 +195,7 @@ gulp.task('sde:refresh', function(done) {
   var db = mongoose.connect(process.env.MONGODB_URL)
     , sde = new sqlite3.Database('./sde/sqlite-latest.sqlite')
   mongoose.set('debug', true);
-  
+
   // map data
   sde.each('select * from mapSolarSystemJumps', function(err, row) {
     jump = {toSystem: row.toSolarSystemID, fromSystem: row.fromSolarSystemID,
@@ -199,7 +205,7 @@ gulp.task('sde:refresh', function(done) {
       console.log(raw);
     });
   });
-  
+
   sde.each('select * from mapSolarSystems', function(err, row) {
     system = {id: row.solarSystemID, regionID: row.regionID, constellationID: row.constellationID, name: row.solarSystemName,
               security: row.security, security_class: row.securityClass};
@@ -207,14 +213,14 @@ gulp.task('sde:refresh', function(done) {
       console.log(raw);
     });
   });
-  
+
   sde.each('select * from mapRegions', function(err, row) {
     region = {id: row.regionID, name: row.regionName};
     Region.updateQ({id: region.id}, region, {upsert: true}, function (err, numberAffected, raw) {
       console.log(raw);
     });
   });
-  
+
   // ship data
   sde.each('SELECT i.typeID id, i.typeName name, g.groupName class, IFNULL(img.metaGroupName, "Tech I") as meta FROM invTypes i INNER JOIN invGroups g ON i.groupID = g.groupID LEFT JOIN invMetaTypes imt ON i.typeID = imt.typeID LEFT JOIN invMetaGroups img ON imt.metaGroupID = img.metaGroupID WHERE g.categoryID = 6 AND i.published = 1 ORDER BY i.typeID ASC', function(err, row) {
     ship = {id: row.id, name: row.name, class: row.class, meta: row.meta};
@@ -222,7 +228,7 @@ gulp.task('sde:refresh', function(done) {
       console.log(raw);
     });
   });
-  
+
   // sde.close(function() {
   //   db.disconnect(done);
   // });
@@ -235,17 +241,17 @@ gulp.task('sde:refresh:wormhole_classes', function(done) {
 
   var db = mongoose.connect(process.env.MONGODB_URL)
     , sde = new sqlite3.Database('./sde/sqlite-latest.sqlite')
-  
+
   mongoose.set('debug', true);
-  
+
   sde.each('SELECT solarsystemname,wormholeclassid FROM mapSolarSystems JOIN mapLocationWormholeClasses ON regionid=locationid WHERE regionID >= 11000001 ORDER by wormholeclassid;', function(err, row) {
     var data = {$set: {wormhole_class: row.wormholeClassID}, $unset: {security_class: 1}};
     System.update({name: row.solarSystemName}, data, { multi: true }, function (err, numberAffected, raw) {
       console.log(raw);
     });
-    
+
   });
-  
+
   // sde.close(function() {
   //   // db.disconnect(done);
   // });
@@ -265,7 +271,7 @@ gulp.task('db:repair:0', function(done) {
   db.models.Jump.remove().execQ();
   db.models.System.remove().execQ();
   db.models.Region.remove().execQ();
-  
+
     // db.disconnect(done);
 });
 
