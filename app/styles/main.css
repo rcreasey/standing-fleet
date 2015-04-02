@@ -1401,7 +1401,7 @@ border-top: 0.16rem solid #333;
 #link,
 #login {
   width: 300px;
-  margin: 60px auto 30px;
+  margin: 0 auto 30px;
   padding: 10px;
   position: relative;
   background: linear-gradient(#444, #222 1%);
@@ -1420,7 +1420,7 @@ border-top: 0.16rem solid #333;
   left: 0px;
   top: 2px;
   position: absolute;
-  height: 33px;
+  height: 30px;
   width: 36px;
 
   border-right: 1px solid rgba(0, 0, 0, 0.1);
@@ -1428,7 +1428,7 @@ border-top: 0.16rem solid #333;
 
   color: #777777;
   text-align: center;
-  line-height: 36px;
+  line-height: 30px;
   transition: all 0.3s ease-out;
   pointer-events: none;
 }
@@ -1495,7 +1495,7 @@ border-top: 0.16rem solid #333;
   width: 35px;
   height: 38px;
   position: absolute;
-  bottom: 5px;
+  top: 127px;
   right: -25px;
   padding: 10px;
   z-index: 2;
