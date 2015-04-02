@@ -13,7 +13,9 @@ var gulp = require('gulp')
   , decompress = require('decompress-bzip2')
   , del = require('del')
   , sequence = require('run-sequence')
+  , debug = require('gulp-debug')
 
+// [ prepare ]------------------------------------------------------------------
 gulp.task('prepare', function() {
   gulp.src('app/**/*.css')
     .pipe(gutil.env.type === 'production' ? minifycss() : gutil.noop())
@@ -66,8 +68,12 @@ gulp.task('prepare', function() {
       'js/client/parser.js',
       'js/client/clipboard.js',
       'js/client/logs.js',
-      'js/client/app.js'
+      'js/client/initialize.js'
     ]))
+    .pipe(concat('js/app.js'))
+    .pipe(gulp.dest('client'));
+  
+  gulp.src('app/js/client.js')
     .pipe(concat('js/client.js'))
     .pipe(gulp.dest('client'));
 
@@ -76,6 +82,15 @@ gulp.task('prepare', function() {
     .pipe(concat('js/lib.js'))
     .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
     .pipe(gulp.dest('public'))
+  
+  gulp.src(mainBowerFiles())
+    .pipe(filter(['*.js', '!jquery.js', '!typeahead*']))
+    .pipe(concat('js/lib.js'))
+    .pipe(gulp.dest('client'));
+
+    gulp.src(mainBowerFiles())
+    .pipe(filter(['jquery.js']))
+    .pipe(concat('js/jquery.js'))
     .pipe(gulp.dest('client'));
 
   gulp.src(mainBowerFiles())
@@ -113,21 +128,35 @@ gulp.task('watch', function () {
    gulp.watch('app/**', ['default']);
 });
 
-gulp.task('build', function() {
-  var nwbuilder = require('node-webkit-builder')
+// [ build ]--------------------------------------------------------------------
+gulp.task('build:download', function(done) {
+  var downloadatomshell = require('gulp-download-atom-shell');
 
-  var nw = new nwbuilder({
-    files: './client/**/**',
-    platforms: ['win']
-  });
-
-  nw.build().then(function () {
-    console.log('all done!');
-  }).catch(function (error) {
-    console.error(error);
-  });
+  return downloadatomshell({
+    version: '0.20.1',
+    outputDir: 'build'
+  }, done);
 });
 
+gulp.task('build:clean', function(done) {
+  return del(['./build/Atom.app/Contents/Resources/app/*'], done);
+});
+
+gulp.task('build:prepare:fonts', function(done) {
+  return gulp.src('public/fonts/**')
+    .pipe(gulp.dest('client/fonts'), done);
+});
+
+gulp.task('build:prepare', function(done) {
+  return gulp.src('client/**')
+    .pipe(gulp.dest('./build/Atom.app/Contents/Resources/app'), done);
+});
+
+gulp.task('build', function(done) {
+  return sequence('prepare', 'build:download', 'build:clean', 'build:prepare:fonts', 'build:prepare', done);
+});
+
+// [ sde ]---------------------------------------------------------------------
 gulp.task('sde:clean', function() {
   return del(['./sde/*']);
 });

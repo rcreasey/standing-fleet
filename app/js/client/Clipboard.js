@@ -1,13 +1,14 @@
+var clipboard = require('clipboard');
+
 function pollClipboard() {
   UI.startSpin();
   setTimeout(function() {
     if (Data.state.poll.clipboard) {
-      var cb = gui.Clipboard.get();
-      var text = cb.get('text');
+      var text = clipboard.readText('text');
       if (text) {
         var clipboard = document.getElementById('clipboard')
         var event = {time: Util.getTime(), type: 'sourcedClipboard', data: text};
-        cb.clear();
+        clipboard.clear();
 
         var renderedEvent = $(Templates.event({time: event.time, text: event.data}));
         Data.ui.clipboard_list.prepend(renderedEvent);

@@ -1,23 +1,19 @@
-var gui = require('nw.gui')
-  , http = require('http')
+var http = require('http')
   , faye = require('faye')
   , moment = require('moment')
 
-window.onload = function () {
+  
+$(function () {
   initializeClient();
-};
-
-window.onresize = function() {
-  UI.update_scrollables();
-};
+});
 
 function initializeClient() {
   log('Client Init...');
   Data.ui = Data.build_ui();
   Data.templates = Data.build_templates();
 
-  log('Starting Server...')
-  var server = http.createServer()
+  log('Starting Server...');
+  var server = http.createServer();
   Data.state.datasources.local = new faye.NodeAdapter({mount: '/', timeout: 45});
 
   Data.state.datasources.local.attach(server);
@@ -31,11 +27,4 @@ function initializeClient() {
   log('Begin Polling...');
   pollClipboard();
   pollLogs();
-
-  gui.Window.get().show();
-};
-
-function log(message) {
-  if (!Data.config.log) return;
-  console.log('[' + moment().unix() + '] - ' + message)
 };
