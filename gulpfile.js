@@ -17,6 +17,7 @@ var gulp = require('gulp')
   , wrap = require('gulp-wrap')
   // , debug = require('gulp-debug')
 
+var VERSION = '1.2.0';
 
 // [ prepare ]------------------------------------------------------------------
 gulp.task('prepare', function() {
@@ -136,7 +137,7 @@ gulp.task('build:download', function(done) {
   var downloadatomshell = require('gulp-download-atom-shell');
 
   return downloadatomshell({
-    version: '0.20.1',
+    version: '0.22.3',
     outputDir: 'build'
   }, done);
 });
@@ -154,21 +155,29 @@ gulp.task('build:prepare:fonts', function(done) {
 });
 
 gulp.task('build:prepare', function(done) {
-  // var path = /^win/.test(require('os').platform()) ? './build/resources/app' : './build/Atom.app/Contents/Resources/app';
+  var path = /^win/.test(require('os').platform()) ? './build/resources/app' : './build/Atom.app/Contents/Resources/app';
 
   return gulp.src('client/**')
-    // .pipe(gulp.dest(path), done);    
+    .pipe(gulp.dest(path), done);
+});
+
+gulp.task('build:dist', function(done) {
+  return gulp.src('client/**')
     .pipe(atomshell({ 
       platform: require('os').platform(),
-      version: '0.20.1' 
+      version: '0.22.3' 
     }))
-    .pipe(atomshell.zfsdest('app.zip'));
-    
+    .pipe(atomshell.zfsdest('public/clients/client-' + require('os').platform() + '-' + VERSION + '.zip'), done);
 });
 
 gulp.task('build', function(done) {
-  return sequence('prepare', 'build:clean', 'build:prepare:fonts', 'build:prepare', done);
+  return sequence('prepare', 'build:download', 'build:clean', 'build:prepare:fonts', 'build:prepare', done);
 });
+
+gulp.task('build:release', function(done) {
+  return sequence('prepare', 'build:prepare:fonts', 'build:dist', done);
+});
+
 
 // [ sde ]---------------------------------------------------------------------
 gulp.task('sde:clean', function() {
