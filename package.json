@@ -67,6 +67,7 @@
     "run-sequence": "^1.0.2",
     "serve-favicon": "^2.1.5",
     "sqlite3": "^3.0.4",
+    "vinyl-paths": "^1.0.0",
     "xml2js": "0.4.4"
   },
   "devDependencies": {
@@ -80,7 +81,6 @@
     "superagent": "^0.20.0",
     "supertest": "^0.14.0",
     "supertest-session": "0.0.5",
-    "vinyl-paths": "^1.0.0",
     "winston": "^0.8.1"
   }
 }
