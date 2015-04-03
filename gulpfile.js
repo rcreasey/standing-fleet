@@ -1,5 +1,4 @@
 var gulp = require('gulp')
-  , atomshell = require('gulp-atom-shell')
   , concat = require('gulp-concat')
   , declare = require('gulp-declare')
   , decompress = require('decompress-bzip2')
@@ -161,6 +160,8 @@ gulp.task('build:prepare', function(done) {
 });
 
 gulp.task('build:dist', function(done) {
+  var atomshell = require('gulp-atom-shell');
+
   return gulp.src('client/**')
     .pipe(atomshell({ 
       platform: require('os').platform(),
