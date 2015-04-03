@@ -1,6 +1,6 @@
 exports.config = {
   app_name : ['Standing Fleet'],
-  license_key : '2e598f62459eb22e499159e8f0ee0843168643d4',
+  license_key : '4602045e161872109edaf1f351cb69f90c0534bc',
   logging : {
     level : 'info'
   }
