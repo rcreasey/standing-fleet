@@ -1,4 +1,33 @@
 {
+  "browser": true,
+  "camelcase": false,
+  "curly": true,
+  "devel": true,
+  "eqeqeq": true,
+  "eqnull": true,
+  "esnext": true,
+  "evil": false,
+  "immed": true,
+  "jasmine": true,
+  "latedef": true,
   "laxcomma": true,
-  "lastsemic": true
+  "lastsemic": true,
+  "newcap": true,
+  "node": true,
+  "noempty": true,
+  "noempty": true,
+  "nonbsp": true,
+  "nonew": true,
+  "quotmark": false,
+  "smarttabs": true,
+  "strict": false,
+  "trailing": true,
+  "undef": true,
+  "unused": true,
+  "globals": {
+    "define": true,
+    "jest": true,
+    "pit": true
+  },
+  "predef": [ "-Promise" ]
 }
