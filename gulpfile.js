@@ -1,11 +1,11 @@
 var gulp = require('gulp')
+  , atomshell = require('gulp-atom-shell')
   , concat = require('gulp-concat')
   , declare = require('gulp-declare')
   , decompress = require('decompress-bzip2')
   , del = require('del')
   , download = require('gulp-download')
   , filter = require('gulp-filter')
-  , asar = require('gulp-asar')
   , gutil = require('gulp-util')
   , handlebars = require('gulp-handlebars')
   , mainBowerFiles = require('main-bower-files')
@@ -154,14 +154,20 @@ gulp.task('build:prepare:fonts', function(done) {
 });
 
 gulp.task('build:prepare', function(done) {
-  var path = /^win/.test(require('os').platform()) ? './build/resources/app' : './build/Atom.app/Contents/Resources/app';
+  // var path = /^win/.test(require('os').platform()) ? './build/resources/app' : './build/Atom.app/Contents/Resources/app';
 
   return gulp.src('client/**')
-    .pipe(gulp.dest(path), done);
+    // .pipe(gulp.dest(path), done);    
+    .pipe(atomshell({ 
+      platform: require('os').platform(),
+      version: '0.20.1' 
+    }))
+    .pipe(atomshell.zfsdest('app.zip'));
+    
 });
 
 gulp.task('build', function(done) {
-  return sequence('prepare', 'build:download', 'build:clean', 'build:prepare:fonts', 'build:prepare', done);
+  return sequence('prepare', 'build:clean', 'build:prepare:fonts', 'build:prepare', done);
 });
 
 // [ sde ]---------------------------------------------------------------------

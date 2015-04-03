@@ -71,6 +71,7 @@
   },
   "devDependencies": {
     "blanket": "^1.1.6",
+    "gulp-atom-shell": "^0.2.0",
     "gulp-debug": "^2.0.1",
     "gulp-download-atom-shell": "0.0.4",
     "mocha": "^1.21.4",
