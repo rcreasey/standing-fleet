@@ -11,13 +11,12 @@ var gulp = require('gulp')
   , mainBowerFiles = require('main-bower-files')
   , minifycss = require('gulp-minify-css')
   , order = require('gulp-order')
+  , package = require('./package.json')
   , sequence = require('run-sequence')
   , uglify = require('gulp-uglify')
   , vinylPaths = require('vinyl-paths')
   , wrap = require('gulp-wrap')
   // , debug = require('gulp-debug')
-
-var VERSION = '1.2.0';
 
 // [ prepare ]------------------------------------------------------------------
 gulp.task('prepare', function() {
@@ -167,7 +166,7 @@ gulp.task('build:dist', function(done) {
       platform: require('os').platform(),
       version: '0.22.3' 
     }))
-    .pipe(atomshell.zfsdest('public/clients/client-' + require('os').platform() + '-' + VERSION + '.zip'), done);
+    .pipe(atomshell.zfsdest('public/clients/client-' + require('os').platform() + '-' + package.version + '.zip'), done);
 });
 
 gulp.task('build', function(done) {
