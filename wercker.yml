@@ -2,3 +2,5 @@ box: wercker/nodejs
 build:
   steps:
     - npm-install
+    - gulp-build
+    - gulp-build-release
