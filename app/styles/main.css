@@ -17,7 +17,7 @@ q:after{content:none}table{border-collapse:collapse;border-spacing:0}
   font-family: 'Aldrich';
   font-style: normal;
   font-weight: 400;
-  src: local('Aldrich'), url('/fonts/Aldrich.woff') format('woff'), url(/fonts/Aldrich.woff2) format('woff2'), url('/fonts/Aldrich-Regular.ttf') format('truetype'), url('/fonts/Aldrich.svg#Aldrich') format('svg');
+  src: local('Aldrich'), url('../fonts/Aldrich.woff') format('woff'), url(../fonts/Aldrich.woff2) format('woff2'), url('../fonts/Aldrich-Regular.ttf') format('truetype'), url('../fonts/Aldrich.svg#Aldrich') format('svg');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
 
@@ -25,7 +25,7 @@ q:after{content:none}table{border-collapse:collapse;border-spacing:0}
   font-family: 'Droid Sans';
   font-style: normal;
   font-weight: 400;
-  src: local('Droid Sans'), local('DroidSans'), url(/fonts/DroidSans.woff2) format('woff2'), url('/fonts/DroidSans.ttf') format('truetype');
+  src: local('Droid Sans'), local('DroidSans'), url(../fonts/DroidSans.woff2) format('woff2'), url('../fonts/DroidSans.ttf') format('truetype');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
 
@@ -33,7 +33,7 @@ q:after{content:none}table{border-collapse:collapse;border-spacing:0}
   font-family: 'Droid Sans Mono';
   font-style: normal;
   font-weight: 400;
-  src: local('Droid Sans Mono'), local('DroidSansMono'), url(/fonts/DroidSansMono.woff2) format('woff2'), url('/fonts/DroidSansMono.ttf') format('truetype');
+  src: local('Droid Sans Mono'), local('DroidSansMono'), url(../fonts/DroidSansMono.woff2) format('woff2'), url('../fonts/DroidSansMono.ttf') format('truetype');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
 
@@ -41,7 +41,7 @@ q:after{content:none}table{border-collapse:collapse;border-spacing:0}
   font-family: 'Droid Sans';
   font-style: normal;
   font-weight: 700;
-  src: local('Droid Sans Bold'), local('DroidSans-Bold'), url(/fonts/DroidSans-Bold.woff2) format('woff2'), url('/fonts/DroidSans-Bold.ttf') format('truetype');
+  src: local('Droid Sans Bold'), local('DroidSans-Bold'), url(../fonts/DroidSans-Bold.woff2) format('woff2'), url('../fonts/DroidSans-Bold.ttf') format('truetype');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
 
@@ -49,7 +49,7 @@ q:after{content:none}table{border-collapse:collapse;border-spacing:0}
   font-family: 'Lato';
   font-style: normal;
   font-weight: 400;
-  src: local('Lato Regular'), local('Lato-Regular'), url(/fonts/Lato-Regular.woff2) format('woff2'), url('/fonts/Lato-Regular.ttf') format('truetype');
+  src: local('Lato Regular'), local('Lato-Regular'), url(../fonts/Lato-Regular.woff2) format('woff2'), url('../fonts/Lato-Regular.ttf') format('truetype');
   unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
 }
 
@@ -173,6 +173,7 @@ html.overview #content-wrapper {
 }
 
 #dim.client {
+  display: none;
   background-image: none;
 }
 
@@ -1400,7 +1401,7 @@ border-top: 0.16rem solid #333;
 #link,
 #login {
   width: 300px;
-  margin: 60px auto 30px;
+  margin: 0 auto 30px;
   padding: 10px;
   position: relative;
   background: linear-gradient(#444, #222 1%);
@@ -1419,7 +1420,7 @@ border-top: 0.16rem solid #333;
   left: 0px;
   top: 2px;
   position: absolute;
-  height: 36px;
+  height: 30px;
   width: 36px;
 
   border-right: 1px solid rgba(0, 0, 0, 0.1);
@@ -1427,7 +1428,7 @@ border-top: 0.16rem solid #333;
 
   color: #777777;
   text-align: center;
-  line-height: 40px;
+  line-height: 30px;
   transition: all 0.3s ease-out;
   pointer-events: none;
 }
@@ -1494,7 +1495,7 @@ border-top: 0.16rem solid #333;
   width: 35px;
   height: 38px;
   position: absolute;
-  bottom: 5px;
+  top: 127px;
   right: -25px;
   padding: 10px;
   z-index: 2;

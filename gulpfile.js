@@ -1,26 +1,31 @@
 var gulp = require('gulp')
-  , minifycss = require('gulp-minify-css')
-  , filter = require('gulp-filter')
+  , atomshell = require('gulp-atom-shell')
   , concat = require('gulp-concat')
-  , uglify = require('gulp-uglify')
-  , order = require('gulp-order')
-  , mainBowerFiles = require('main-bower-files')
-  , handlebars = require('gulp-handlebars')
-  , wrap = require('gulp-wrap')
   , declare = require('gulp-declare')
-  , gutil = require('gulp-util')
-  , download = require('gulp-download')
   , decompress = require('decompress-bzip2')
   , del = require('del')
+  , download = require('gulp-download')
+  , filter = require('gulp-filter')
+  , gutil = require('gulp-util')
+  , handlebars = require('gulp-handlebars')
+  , mainBowerFiles = require('main-bower-files')
+  , minifycss = require('gulp-minify-css')
+  , order = require('gulp-order')
+  , package = require('./package.json')
   , sequence = require('run-sequence')
+  , uglify = require('gulp-uglify')
+  , vinylPaths = require('vinyl-paths')
+  , wrap = require('gulp-wrap')
+  // , debug = require('gulp-debug')
 
+// [ prepare ]------------------------------------------------------------------
 gulp.task('prepare', function() {
   gulp.src('app/**/*.css')
     .pipe(gutil.env.type === 'production' ? minifycss() : gutil.noop())
     .pipe(concat('css/style.css'))
     .pipe(gulp.dest('public'))
-    .pipe(gulp.dest('client'));  
-  
+    .pipe(gulp.dest('client'));
+
   gulp.src(['app/js/core/*.js', 'app/js/lists/*.js', 'app/js/maps/system_map.js', 'app/js/app.js'])
     .pipe(order([
       'js/core/util.js',
@@ -66,8 +71,12 @@ gulp.task('prepare', function() {
       'js/client/parser.js',
       'js/client/clipboard.js',
       'js/client/logs.js',
-      'js/client/app.js'
+      'js/client/initialize.js'
     ]))
+    .pipe(concat('js/app.js'))
+    .pipe(gulp.dest('client'));
+
+  gulp.src('app/js/client.js')
     .pipe(concat('js/client.js'))
     .pipe(gulp.dest('client'));
 
@@ -75,7 +84,16 @@ gulp.task('prepare', function() {
     .pipe(filter(['*.js']))
     .pipe(concat('js/lib.js'))
     .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
-    .pipe(gulp.dest('public'))
+    .pipe(gulp.dest('public'));
+
+  gulp.src(mainBowerFiles())
+    .pipe(filter(['*.js', '!jquery.js', '!typeahead*']))
+    .pipe(concat('js/lib.js'))
+    .pipe(gulp.dest('client'));
+
+    gulp.src(mainBowerFiles())
+    .pipe(filter(['jquery.js']))
+    .pipe(concat('js/jquery.js'))
     .pipe(gulp.dest('client'));
 
   gulp.src(mainBowerFiles())
@@ -113,21 +131,54 @@ gulp.task('watch', function () {
    gulp.watch('app/**', ['default']);
 });
 
-gulp.task('build', function() {
-  var nwbuilder = require('node-webkit-builder')
+// [ build ]--------------------------------------------------------------------
+gulp.task('build:download', function(done) {
+  var downloadatomshell = require('gulp-download-atom-shell');
 
-  var nw = new nwbuilder({
-    files: './client/**/**',
-    platforms: ['win']
-  });
-
-  nw.build().then(function () {
-    console.log('all done!');
-  }).catch(function (error) {
-    console.error(error);
-  });
+  return downloadatomshell({
+    version: '0.22.3',
+    outputDir: 'build'
+  }, done);
 });
 
+gulp.task('build:clean', function(done) {
+  var path = /^win/.test(require('os').platform()) ? './build/resources/' : './build/Atom.app/Contents/Resources/';
+
+  return gulp.src([path + 'default_app', path + 'app'])
+    .pipe(vinylPaths(del), done);
+});
+
+gulp.task('build:prepare:fonts', function(done) {
+  return gulp.src('public/fonts/**')
+    .pipe(gulp.dest('client/fonts'), done);
+});
+
+gulp.task('build:prepare', function(done) {
+  var path = /^win/.test(require('os').platform()) ? './build/resources/app' : './build/Atom.app/Contents/Resources/app';
+
+  return gulp.src('client/**')
+    .pipe(gulp.dest(path), done);
+});
+
+gulp.task('build:dist', function(done) {
+  return gulp.src('client/**')
+    .pipe(atomshell({ 
+      platform: require('os').platform(),
+      version: '0.22.3' 
+    }))
+    .pipe(atomshell.zfsdest('public/clients/client-' + require('os').platform() + '-' + package.version + '.zip'), done);
+});
+
+gulp.task('build', function(done) {
+  return sequence('prepare', 'build:download', 'build:clean', 'build:prepare:fonts', 'build:prepare', done);
+});
+
+gulp.task('build:release', function(done) {
+  return sequence('prepare', 'build:prepare:fonts', 'build:dist', done);
+});
+
+
+// [ sde ]---------------------------------------------------------------------
 gulp.task('sde:clean', function() {
   return del(['./sde/*']);
 });
@@ -160,7 +211,7 @@ gulp.task('sde:refresh', function(done) {
   var db = mongoose.connect(process.env.MONGODB_URL)
     , sde = new sqlite3.Database('./sde/sqlite-latest.sqlite')
   mongoose.set('debug', true);
-  
+
   // map data
   sde.each('select * from mapSolarSystemJumps', function(err, row) {
     jump = {toSystem: row.toSolarSystemID, fromSystem: row.fromSolarSystemID,
@@ -170,7 +221,7 @@ gulp.task('sde:refresh', function(done) {
       console.log(raw);
     });
   });
-  
+
   sde.each('select * from mapSolarSystems', function(err, row) {
     system = {id: row.solarSystemID, regionID: row.regionID, constellationID: row.constellationID, name: row.solarSystemName,
               security: row.security, security_class: row.securityClass};
@@ -178,14 +229,14 @@ gulp.task('sde:refresh', function(done) {
       console.log(raw);
     });
   });
-  
+
   sde.each('select * from mapRegions', function(err, row) {
     region = {id: row.regionID, name: row.regionName};
     Region.updateQ({id: region.id}, region, {upsert: true}, function (err, numberAffected, raw) {
       console.log(raw);
     });
   });
-  
+
   // ship data
   sde.each('SELECT i.typeID id, i.typeName name, g.groupName class, IFNULL(img.metaGroupName, "Tech I") as meta FROM invTypes i INNER JOIN invGroups g ON i.groupID = g.groupID LEFT JOIN invMetaTypes imt ON i.typeID = imt.typeID LEFT JOIN invMetaGroups img ON imt.metaGroupID = img.metaGroupID WHERE g.categoryID = 6 AND i.published = 1 ORDER BY i.typeID ASC', function(err, row) {
     ship = {id: row.id, name: row.name, class: row.class, meta: row.meta};
@@ -193,7 +244,7 @@ gulp.task('sde:refresh', function(done) {
       console.log(raw);
     });
   });
-  
+
   // sde.close(function() {
   //   db.disconnect(done);
   // });
@@ -206,17 +257,17 @@ gulp.task('sde:refresh:wormhole_classes', function(done) {
 
   var db = mongoose.connect(process.env.MONGODB_URL)
     , sde = new sqlite3.Database('./sde/sqlite-latest.sqlite')
-  
+
   mongoose.set('debug', true);
-  
+
   sde.each('SELECT solarsystemname,wormholeclassid FROM mapSolarSystems JOIN mapLocationWormholeClasses ON regionid=locationid WHERE regionID >= 11000001 ORDER by wormholeclassid;', function(err, row) {
     var data = {$set: {wormhole_class: row.wormholeClassID}, $unset: {security_class: 1}};
     System.update({name: row.solarSystemName}, data, { multi: true }, function (err, numberAffected, raw) {
       console.log(raw);
     });
-    
+
   });
-  
+
   // sde.close(function() {
   //   // db.disconnect(done);
   // });
@@ -236,7 +287,7 @@ gulp.task('db:repair:0', function(done) {
   db.models.Jump.remove().execQ();
   db.models.System.remove().execQ();
   db.models.Region.remove().execQ();
-  
+
     // db.disconnect(done);
 });
 

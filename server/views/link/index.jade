@@ -11,6 +11,14 @@ block content
           
           if error != ''
             span.error=error
+
+          h2 Link Session To Pilot
+          p.field
+            input(type='text', name='key', placeholder='Pilot Key')
+            i.fa.fa-fighter-jet.fa-large
+          p.submit
+            button(type='submit', name='submit')
+              i.fa.fa-arrow-right.fa-large
           
           a.logout.button(href='/overview')
             i.fa.fa-sitemap
@@ -26,15 +34,14 @@ block content
               i.fa.fa-windows 
               |  Windows
             dd
-              a(href='/clients/client-1.0.6.zip') client-1.0.6.zip
+              a(href='/clients/client-win-1.1.0.zip') client-win-1.1.0.zip
+            dt 
+              i.fa.fa-apple 
+              |  OSX
+            dd
+              a(href='/clients/client-darwin-1.1.0.zip') client-osx-1.1.0.zip
               
-          h2 Link Session To Pilot
-          p.field
-            input(type='text', name='key', placeholder='Pilot Key')
-            i.fa.fa-fighter-jet.fa-large
-          p.submit
-            button(type='submit', name='submit')
-              i.fa.fa-arrow-right.fa-large
+
 
       if linked  
         .linked.panel

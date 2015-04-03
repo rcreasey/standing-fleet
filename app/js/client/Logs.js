@@ -8,7 +8,7 @@ function pollLogs() {
   var log_dir = (/^win/.test(process.platform)) ? Data.state.datasources.logs.path.win : Data.state.datasources.logs.path.darwin;
   var channels = [];
 
-  for (channel in Data.state.datasources.logs.channels) {
+  for (var channel in Data.state.datasources.logs.channels) {
     if (Data.state.datasources.logs.channels[channel]) channels.push(channel);
   }
 
@@ -54,10 +54,10 @@ function pollLogs() {
     });
   });
 
-};
+}
 
 function resetLogPolling() {
-  log('Clearing log handles...')
+  log('Clearing log handles...');
   while (Data.state.datasources.logs.handles.length) {
     var handle = Data.state.datasources.logs.handles.pop();
     handle.stop();
@@ -65,4 +65,4 @@ function resetLogPolling() {
   }
 
   pollLogs();
-};
+}
