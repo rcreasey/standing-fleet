@@ -1,20 +1,22 @@
 var gulp = require('gulp')
-  , minifycss = require('gulp-minify-css')
-  , filter = require('gulp-filter')
   , concat = require('gulp-concat')
-  , uglify = require('gulp-uglify')
-  , order = require('gulp-order')
-  , mainBowerFiles = require('main-bower-files')
-  , handlebars = require('gulp-handlebars')
-  , wrap = require('gulp-wrap')
   , declare = require('gulp-declare')
-  , gutil = require('gulp-util')
-  , download = require('gulp-download')
   , decompress = require('decompress-bzip2')
   , del = require('del')
+  , download = require('gulp-download')
+  , filter = require('gulp-filter')
+  , asar = require('gulp-asar')
+  , gutil = require('gulp-util')
+  , handlebars = require('gulp-handlebars')
+  , mainBowerFiles = require('main-bower-files')
+  , minifycss = require('gulp-minify-css')
+  , order = require('gulp-order')
   , sequence = require('run-sequence')
+  , uglify = require('gulp-uglify')
   , vinylPaths = require('vinyl-paths')
-  , debug = require('gulp-debug')
+  , wrap = require('gulp-wrap')
+  // , debug = require('gulp-debug')
+
 
 // [ prepare ]------------------------------------------------------------------
 gulp.task('prepare', function() {
@@ -82,7 +84,7 @@ gulp.task('prepare', function() {
     .pipe(filter(['*.js']))
     .pipe(concat('js/lib.js'))
     .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
-    .pipe(gulp.dest('public'))
+    .pipe(gulp.dest('public'));
 
   gulp.src(mainBowerFiles())
     .pipe(filter(['*.js', '!jquery.js', '!typeahead*']))
@@ -143,7 +145,7 @@ gulp.task('build:clean', function(done) {
   var path = /^win/.test(require('os').platform()) ? './build/resources/' : './build/Atom.app/Contents/Resources/';
 
   return gulp.src([path + 'default_app', path + 'app'])
-    .pipe(vinylPaths(del));
+    .pipe(vinylPaths(del), done);
 });
 
 gulp.task('build:prepare:fonts', function(done) {
@@ -154,7 +156,8 @@ gulp.task('build:prepare:fonts', function(done) {
 gulp.task('build:prepare', function(done) {
   var path = /^win/.test(require('os').platform()) ? './build/resources/app' : './build/Atom.app/Contents/Resources/app';
 
-  return gulp.src('client/**').pipe(gulp.dest(path), done);
+  return gulp.src('client/**')
+    .pipe(gulp.dest(path), done);
 });
 
 gulp.task('build', function(done) {
