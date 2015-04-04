@@ -88,7 +88,7 @@ gulp.task('prepare', function() {
   gulp.src(mainBowerFiles())
     .pipe(filter(['*.js', '!es5-shim*']))
     .pipe(concat('js/lib.js'))
-    .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
+    // .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
     .pipe(gulp.dest('public'));
 
   gulp.src(mainBowerFiles())
