@@ -594,12 +594,7 @@ var SystemMap = {
   },
   
   randomSystem: function() {    
-    var keys = [];
-    for (var system in Data.systems) {
-      if (Data.systems.hasOwnProperty(system)) {
-        keys.push(system);
-      }
-    }
+    var keys = Object.keys(Data.systems);
     return Data.systems[keys[ keys.length * Math.random() << 0]];
   },
   
