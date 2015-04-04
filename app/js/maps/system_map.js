@@ -602,6 +602,7 @@ var SystemMap = {
     Data.state.vicinity.regionName = Data.ui.region_lookup_search.val();
     Data.state.remote_region = true;
     SystemMap.redraw();
+    Data.ui.region_lookup_search.typeahead('val', '');
     Data.ui.mapReset.fadeIn(Data.config.uiSpeed);
   },
   
