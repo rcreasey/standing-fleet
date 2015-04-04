@@ -155,6 +155,7 @@ var Data = {
   populate: function(callback) {
     log('Populating Region Data...');
     Server.vicinity(function(error, data) {
+      if (error) return callback(false);
       Data.state.vicinity = data.current;
       Data.regions = data.regions;
       Data.systems = data.systems;
