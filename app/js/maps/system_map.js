@@ -593,7 +593,7 @@ var SystemMap = {
       .text( Data.state.vicinity.systemName );
   },
   
-  randomSystem: function() {
+  randomSystem: function() {    
     var keys = Object.keys(Data.systems);
     return Data.systems[keys[ keys.length * Math.random() << 0]];
   },
