@@ -81,7 +81,7 @@ gulp.task('prepare', function() {
 
   gulp.src(['vendor/es5-shim/es5-shim.js', 'vendor/es5-shim/es5-sham.js'])
     .pipe(concat('js/es5.js'))
-    // .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
+    .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
     .pipe(gulp.dest('public'));
 
   gulp.src(mainBowerFiles())
