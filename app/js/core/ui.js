@@ -241,7 +241,7 @@ Handlebars.registerHelper('hud_neighbor_status', function(id, name) {
 
   if (status == 'clear') return 'check-circle';
   else if (status == 'warning') return 'exclamation-triangle';
-  else if (status == 'hostile') return 'crosshairs fa-spin fa-2x';
+  else if (status == 'hostile') return 'crosshairs fa-spin';
   else return 'question-circle';
 });
 

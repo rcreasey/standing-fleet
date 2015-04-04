@@ -593,7 +593,7 @@ var SystemMap = {
       .text( Data.state.vicinity.systemName );
   },
   
-  randomSystem: function() {
+  randomSystem: function() {    
     var keys = Object.keys(Data.systems);
     return Data.systems[keys[ keys.length * Math.random() << 0]];
   },
@@ -602,6 +602,7 @@ var SystemMap = {
     Data.state.vicinity.regionName = Data.ui.region_lookup_search.val();
     Data.state.remote_region = true;
     SystemMap.redraw();
+    Data.ui.region_lookup_search.typeahead('val', '');
     Data.ui.mapReset.fadeIn(Data.config.uiSpeed);
   },
   
