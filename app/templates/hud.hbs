@@ -4,20 +4,13 @@
 
     <div class="vicinity">
       <h3>Vicinity</h3>
-      <table>
-        <tbody>
+      <div class="systems">
         {{#each vicinity}}
-        <tr>
-          <td><i class="fa fa-{{{hud_neighbor_status id name}}}"></i></td>
-          <td>{{ name }}</td>
-        </tr>
+        <div><i class="fa fa-{{{hud_neighbor_status id name}}}"></i> {{ name }}</div>
         {{else}}
-        <tr>
-          <td colspan="2">No Connecting Systems</td>
-        </tr>
+        <div>No Connecting Systems</div>
         {{/each}}
-        </tbody>
-      </table>
+      </div>
     </div>
 
     <div class="hostiles">

@@ -1787,12 +1787,22 @@ border-top: 0.16rem solid #333;
   #hud .screen .console .advisories {
     display: none;
   }
-
+  
   #hud .screen .console .vicinity {
+    -webkit-column-count: 4;
+    -moz-column-count: 4;
+    column-count: 4;
     display: block;
     float: none;
     margin-bottom: 2rem;
+    padding: 0 1rem;
+    text-align: left;
     width: inherit;
+    height: 120px;
+  }
+  
+  #hud .screen .console .vicinity td {
+    max-height: 20px;
   }
 
   #hud .screen .console .vicinity ul li {
