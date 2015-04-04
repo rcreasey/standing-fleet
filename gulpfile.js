@@ -15,7 +15,7 @@ var gulp = require('gulp')
   , uglify = require('gulp-uglify')
   , vinylPaths = require('vinyl-paths')
   , wrap = require('gulp-wrap')
-  , debug = require('gulp-debug')
+  // , debug = require('gulp-debug')
 
 // [ prepare ]------------------------------------------------------------------
 gulp.task('prepare', function() {
