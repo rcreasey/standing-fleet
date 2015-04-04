@@ -15,7 +15,7 @@ var gulp = require('gulp')
   , uglify = require('gulp-uglify')
   , vinylPaths = require('vinyl-paths')
   , wrap = require('gulp-wrap')
-  // , debug = require('gulp-debug')
+  , debug = require('gulp-debug')
 
 // [ prepare ]------------------------------------------------------------------
 gulp.task('prepare', function() {
@@ -80,13 +80,19 @@ gulp.task('prepare', function() {
     .pipe(gulp.dest('client'));
 
   gulp.src(mainBowerFiles())
-    .pipe(filter(['*.js']))
+    .pipe(filter(['es5-shim.js']))
+    .pipe(concat('js/es5-shim.js'))
+    .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
+    .pipe(gulp.dest('public'));
+
+  gulp.src(mainBowerFiles())
+    .pipe(filter(['*.js', '!es5-shim*']))
     .pipe(concat('js/lib.js'))
     .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
     .pipe(gulp.dest('public'));
 
   gulp.src(mainBowerFiles())
-    .pipe(filter(['*.js', '!jquery.js', '!typeahead*']))
+    .pipe(filter(['*.js', '!es5-shim*', '!jquery.js', '!typeahead*']))
     .pipe(concat('js/lib.js'))
     .pipe(gulp.dest('client'));
 
