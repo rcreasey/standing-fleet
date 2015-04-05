@@ -1,0 +1,32 @@
+<div class="panel wormhole-update">
+  <div class="header">
+    {{#if closeable}}<i class="close fa fa-times fa-2x" onClick="UIPanels.hidePanel()"></i>{{/if}}
+    {{#if icon}}<i class="fa fa-{{ui_icon icon}} fa-3x"></i>{{/if}}
+    <div class="text title">Log Wormhole Traversal</div>
+  </div>
+  <div class="content">
+    <div class="form">
+      <input id="to" type="hidden" value="{{ to.id }}" />
+      <input id="from" type="hidden" value="{{ from.id }}" />
+
+      <div class="group inline">
+        <label for="mass" autofocus>Fleet Mass</label>
+        <input id="mass" type="text" />
+      </div>
+      
+      <div class="group inline">
+        <label for="name">Fleet Name</label>
+        <input id="name" type="text" />
+      </div>
+      
+      <div class="group inline">
+        <label for="fc">Fleet Commander</label>
+        <input id="fc" type="text" />
+      </div>
+
+      <div class="submit">
+        <a target="_blank" class="button" onClick="updateWormholeTraversal(this, {{from.id}}, {{to.id}})">Log Traversal</a>
+      </div>
+    </div>
+  </div>
+</div>
