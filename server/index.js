@@ -4,7 +4,7 @@ var express = require('express')
   , debug = require('debug')('server')
   , path = require('path')
   , favicon = require('serve-favicon')
-  , morgan = require('morgan')
+  , logging = require('winston')
   , mongoose = require('mongoose-q')()
   , compression = require('compression')
   , cookieParser = require('cookie-parser')
@@ -19,6 +19,7 @@ var settings = require(__dirname + '/config/settings')
   , consuela = require(__dirname + '/services/consuela')
 
 var database = require(__dirname + '/initializers/database')
+  , logger   = require(__dirname + '/initializers/logger')
   , strategy = require(__dirname + '/initializers/passport')
 
 var routes  = require(__dirname + '/routes/index')
@@ -32,6 +33,7 @@ var routes  = require(__dirname + '/routes/index')
 var app = express();
 
 database.init();
+logger.init(app);
 strategy.init();
 
 standings.update(settings.whitelist);
@@ -47,11 +49,7 @@ app.use(checks.static_rewrite);
 app.set('trust proxy', 1);
 
 app.use(favicon(__dirname + '/../public/favicon.ico'));
-if (app.get('env') == 'production') {
-  app.use(morgan('combined'));  
-} else if (app.get('env') != 'test') {
-  app.use(morgan('dev'));
-}
+
 app.use(cookieParser());
 
 app.set('views', path.join(__dirname,'views'));
