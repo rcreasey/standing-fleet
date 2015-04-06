@@ -1,6 +1,5 @@
 var Q = require('q')
   , moment = require('moment')
-  , morgan = require('morgan')
   , _ = require('lodash')
   , fs = require('fs')
 
