@@ -42,8 +42,8 @@ exports.link_pilot = function(req, res, next) {
         req.session.linked = member.toObject();
         req.session.linked.trusted = 'Yes';
         req.session.linked.isLinked = true;
-
-        return member;
+        
+        return member.saveQ();
       } else {
         throw 'Invalid Pilot Key \'' + member_key + '\'';
       }

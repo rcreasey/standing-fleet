@@ -188,11 +188,11 @@ var clean_loop = function(logger) {
       clean_scans();
       clean_reports();
       clean_wormhole_jumps();
+      update_jumpbridges();
+      ensure_fleets();
     }
 
-    ensure_fleets();
     update_standings();
-    update_jumpbridges();
 
     clean_loop();
   }, settings.cleanInterval);

@@ -32,7 +32,7 @@ MemberSchema.methods.link_to_session = function link_to_session(session, next) {
 };
 
 MemberSchema.statics.prepare = function prepare(key, fleet) {
-  return new this({
+  var m = new this({
     fleetKey: key,
     characterId: fleet.characterId,
     characterName: fleet.characterName,
@@ -44,6 +44,10 @@ MemberSchema.statics.prepare = function prepare(key, fleet) {
     systemId: fleet.systemId,
     isDocked: fleet.isDocked
   });
+  
+  if (fleet.key) { m.key = fleet.key };
+  
+  return m;
 };
 
 module.exports = mongoose.model('Member', MemberSchema);

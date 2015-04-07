@@ -12,6 +12,7 @@ var express = require('express')
   , flash = require('connect-flash')
   , passport = require('passport')
   , session = require('express-session')
+  , sessionStore = require('connect-mongo')(session)
 
 var settings = require(__dirname + '/config/settings')
   , checks = require(__dirname + '/middleware/checks')
@@ -59,9 +60,14 @@ app.use(express.static(path.join(__dirname,'..','public')));
 app.use(session({
   name: settings.session_name,
   secret: settings.session_secret,
-  resave: true,
   saveUninitialized: true,
-  store: require('mongoose-session')(mongoose)
+  resave: true, 
+  store: new sessionStore({ 
+    url: process.env.MONGODB_URL,
+    stringify: false,
+    mongoOptions: { debug: true },
+    ttl: settings.sessionTtl
+  })
 }));
 
 app.use(flash());

@@ -9,8 +9,6 @@ block content
           p.strong Hello, #{user.username}
           p In order to view a fleet, you need to link this session to a pilot that's logged in inside of Eve.
           
-          if error != ''
-            span.error=error
 
           h2 Link Session To Pilot
           p.field
@@ -20,6 +18,9 @@ block content
             button(type='submit', name='submit')
               i.fa.fa-arrow-right.fa-large
           
+          if error != ''
+            span.error=error
+
           a.logout.button(href='/overview')
             i.fa.fa-sitemap
             |  Overview  

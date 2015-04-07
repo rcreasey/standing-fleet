@@ -15,6 +15,7 @@ module.exports = function () {
     hostileFadeTtl: 600,
     hostileRemoveTtl: 1200,
     memberTtl: 600,
+    sessionTtl: 86400,
 
     fleets: [
       {name: 'CFC',  description: 'The Clusterfuck Coalition'}

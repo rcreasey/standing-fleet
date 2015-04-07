@@ -53,27 +53,27 @@ exports.join = function(req, res, next){
       Fleet.findOneQ({key: req.params.fleetKey})
         .then(function(fleet) {
 
-          if (fleet.password && req.params.fleetPassword != fleet.password) {
+          if (fleet.password && req.params.fleetPassword !== fleet.password) {
             return response.error(res, 'password', 'Invalid Password');
           }
 
           var member = Member.prepare(fleet.key, req.session.fleet);
-          if (!member) throw 'Invalid session: ' + req.session.fleet;
+          if (!member) { throw 'Invalid session: ' + req.session.fleet; }
           var event = Event.prepare('memberJoined', fleet.key, member.toObject());
 
           member.saveQ()
-          .then(function(member) {
-            member.link_to_session(req.session);
-            return event.saveQ();
-          })
-          .then(function(event) {
-            return response.success(res, event);
-          })
-          .catch(function(error) {
-            console.log(error);
-            return response.error(res, 'state', 'Error joining fleet');
-          })
-          .done();
+            .then(function(member) {
+              member.link_to_session(req.session);
+              return event.saveQ();
+            })
+            .then(function(event) {
+              return response.success(res, event);
+            })
+            .catch(function(error) {
+              console.log(error);
+              return response.error(res, 'state', 'Error joining fleet');
+            })
+            .done();
 
         })
         .catch(function(error) {
