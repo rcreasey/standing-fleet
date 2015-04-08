@@ -60,13 +60,13 @@ app.use(express.static(path.join(__dirname,'..','public')));
 app.use(session({
   name: settings.session_name,
   secret: settings.session_secret,
-  saveUninitialized: true,
-  resave: true, 
+  saveUninitialized: false,
+  resave: true,
   store: new sessionStore({ 
     url: process.env.MONGODB_URL,
     stringify: false,
-    mongoOptions: { debug: true },
-    ttl: settings.sessionTtl
+    autoRemove: 'disabled'
+    // ttl: settings.sessionTtl
   })
 }));
 

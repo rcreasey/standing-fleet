@@ -173,11 +173,11 @@ var clean_wormhole_jumps = function() {
 
   Jump.removeQ({"wormhole_data.expires_on": {$lte: moment().unix()}})
     .then(function(jumps) {
-      if (jumps) Event.prepare('refreshSystems', 'all').saveQ();
+      if (jumps) { Event.prepare('refreshSystems', 'all').saveQ(); }
     });  
 };
 
-var clean_loop = function(logger) {
+var clean_loop = function() {
   clean_timer = setTimeout(function() {
     if (process.env.CONSUELA !== 'disable') {
       clean_advisories();
