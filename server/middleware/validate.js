@@ -19,12 +19,14 @@ var header_parser = require('./header-parser')
 var headers = function (req, res, next) {
   var fleet = (req.session.linked) ? req.session.linked : header_parser(req);
 
-  if (fleet.trusted !== 'Yes') { return response.error(res, 'trust', 'To use Standing Fleet, you need to enable trust for this domain. Please enable trust and refresh.'); }
-  if (!checks.igb_request(fleet)) {
+  if (fleet.trusted !== 'Yes') { 
+    return response.error(res, 'trust', 'To use Standing Fleet, you need to enable trust for this domain. Please enable trust and refresh.'); 
+  } else if (!checks.igb_request(fleet)) {
     return response.error(res, 'request', 'You do not seem to be running the IGB, or your request was corrupted.');
   }
 
   req.session.fleet = fleet;
+
   return next();
 };
 module.exports.headers = headers;
@@ -33,9 +35,17 @@ var session = function(req, res, next) {
   if (req.user) { return next(); }
   if (!checks.for_existing_fleet(req)) { return response.error(res, 'session', 'Invalid or no session.'); }
   
-  Member.findOneQ({fleetKey: req.session.fleetKey, key: req.session.memberKey})
+  Member.findOne({fleetKey: req.session.fleetKey, key: req.session.memberKey})
+    .lean()
+    .cache(true, 3600)
     .then(function(result) {
       if (!result) { throw 'Error validating session.'; }
+      
+      if (req.session.fleetKey && req.session.memberKey) {
+        req.session.fleet.fleetKey = req.session.fleetKey;
+        req.session.fleet.key = req.session.memberKey;
+      }
+      
       return next();
     })
     .catch(function(error) {

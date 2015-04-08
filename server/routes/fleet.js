@@ -20,7 +20,7 @@ router.route('/leave')
   .get(fleet.leave);
 
 router.route('/status')
-  .get(validate.headers)
+  .get(validate.headers, validate.session)
   .get(fleet.status);
 
 router.route('/poll/:lastPollTs')

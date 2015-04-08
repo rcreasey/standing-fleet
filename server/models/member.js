@@ -45,7 +45,7 @@ MemberSchema.statics.prepare = function prepare(key, fleet) {
     isDocked: fleet.isDocked
   });
   
-  if (fleet.key) { m.key = fleet.key };
+  if (fleet.key) { m.key = fleet.key }
   
   return m;
 };

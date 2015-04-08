@@ -69,11 +69,11 @@ exports.join = function(req, res, next){
             .then(function(event) {
               return response.success(res, event);
             })
-            // .catch(function(error) {
-            //   console.log(error);
-            //   return response.error(res, 'state', 'Error joining fleet');
-            // })
-            // .done();
+            .catch(function(error) {
+              console.log(error);
+              return response.error(res, 'state', 'Error joining fleet');
+            })
+            .done();
 
         })
         .catch(function(error) {
@@ -83,11 +83,11 @@ exports.join = function(req, res, next){
         .done();
 
     })
-    // .catch(function(error) {
-    //   console.log(error);
-    //   return response.error(res, 'state', 'CCP API Error: ' + error);
-    // })
-    // .done();
+    .catch(function(error) {
+      console.log(error);
+      return response.error(res, 'state', 'CCP API Error: ' + error);
+    })
+    .done();
 
 };
 
@@ -451,18 +451,18 @@ exports.report = function(req, res, next) {
 
           return response.success(res);
         })
-        // .catch(function(error) {
-        //   console.log(error);
-        //   throw 'Error updating hostile: ' + error;
-        // })
-        // .done();
+        .catch(function(error) {
+          console.log(error);
+          throw 'Error updating hostile: ' + error;
+        })
+        .done();
 
       })
-      // .catch(function(error) {
-      //   console.log(error);
-      //   return response.error(res, 'report', 'Error reporting status: ' + error);
-      // })
-      // .done();
+      .catch(function(error) {
+        console.log(error);
+        return response.error(res, 'report', 'Error reporting status: ' + error);
+      })
+      .done();
 
   }
 };

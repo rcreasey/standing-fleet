@@ -23,6 +23,7 @@ exports.error = function(res, type, message) {
     }
   };
 
+  if (message.text !== null) { response.error.message = message.text; }
   if (_.contains(['session', 'igb-headers', 'trust'], type)) response.error.stopPoll = true;
 
   res.send(response);
