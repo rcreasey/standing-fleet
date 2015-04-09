@@ -429,7 +429,7 @@ exports.report = function(req, res, next) {
         })
         .catch(function(error) {
           console.log(error);
-          throw 'Error updating hostile: ' + error;
+          return response.error(res, 'report', 'Error reporting status: ' + error);
         })
         .done();
 
