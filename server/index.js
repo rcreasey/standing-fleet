@@ -65,8 +65,7 @@ app.use(session({
   store: new sessionStore({ 
     url: process.env.MONGODB_URL,
     stringify: false,
-    autoRemove: 'disabled'
-    // ttl: settings.sessionTtl
+    ttl: settings.sessionTtl
   })
 }));
 

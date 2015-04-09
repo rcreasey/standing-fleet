@@ -16,35 +16,29 @@ var header_parser = require('./header-parser')
  * @api public
  */
 
-var headers = function (req, res, next) {
-  var fleet = (req.session.linked) ? req.session.linked : header_parser(req);
-
+ module.exports.headers = function (req, res, next) {
+  var fleet = (req.session.isLinked) ? req.session.fleet : header_parser(req);
+  
   if (fleet.trusted !== 'Yes') { 
     return response.error(res, 'trust', 'To use Standing Fleet, you need to enable trust for this domain. Please enable trust and refresh.'); 
   } else if (!checks.igb_request(fleet)) {
     return response.error(res, 'request', 'You do not seem to be running the IGB, or your request was corrupted.');
   }
 
-  req.session.fleet = fleet;
-
   return next();
 };
-module.exports.headers = headers;
 
-var session = function(req, res, next) {
+module.exports.session = function(req, res, next) {
   if (req.user) { return next(); }
   if (!checks.for_existing_fleet(req)) { return response.error(res, 'session', 'Invalid or no session.'); }
-  
-  Member.findOne({fleetKey: req.session.fleetKey, key: req.session.memberKey})
-    .lean()
-    .cache(true, 3600)
+
+  var fleet = (req.session.isLinked) ? req.session.fleet : header_parser(req);
+
+  Member.findOneQ({fleetKey: req.session.fleetKey, key: req.session.memberKey})
     .then(function(result) {
       if (!result) { throw 'Error validating session.'; }
       
-      if (req.session.fleetKey && req.session.memberKey) {
-        req.session.fleet.fleetKey = req.session.fleetKey;
-        req.session.fleet.key = req.session.memberKey;
-      }
+      req.session.fleet = fleet;
       
       return next();
     })
@@ -52,16 +46,15 @@ var session = function(req, res, next) {
       return response.error(res, 'session', error);
     })
     .done();
+    
 };
-module.exports.session = session;
 
-var logged_in = function(req, res, next) {
+module.exports.logged_in = function(req, res, next) {
   if (!req.user) { return res.redirect('/login'); }
   return next();
 };
-module.exports.logged_in = logged_in;
 
-var poll = function(req, res, next) {
+module.exports.poll = function(req, res, next) {
   var msSinceLastPoll = (moment().unix() - req.session.lastPollTs);
   if (msSinceLastPoll < settings.minPollInterval) {
     return response.error(res, 'poll', 'You are polling too quickly.');
@@ -70,22 +63,25 @@ var poll = function(req, res, next) {
   req.session.lastPollTs = moment().unix();
   return next();
 };
-module.exports.poll = poll;
 
-var igb = function(req, res, next) {
+module.exports.igb = function(req, res, next) {
   if (!checks.igb_request( header_parser(req) )) { return res.redirect('/login'); }
 
   return next();
 };
-module.exports.igb = igb;
 
-var is_authenticated = function(req, res, next) {
+module.exports.is_trusted = function(req, res, next) {
+  if (req.session.fleet.trusted !== 'Yes') { return res.redirect('/trust'); }
+  
+  return next();
+};
+
+module.exports.is_authenticated = function(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   return res.redirect('/login');
 };
-module.exports.is_authenticated = is_authenticated;
 
-var is_authorized = function(req, res, next) {
+module.exports.is_authorized = function(req, res, next) {
   if (process.env.NODE_ENV === 'development') { return next(); }
 
   if (!req.user ||
@@ -97,9 +93,8 @@ var is_authorized = function(req, res, next) {
   
   return next();
 };
-module.exports.is_authorized = is_authorized;
 
-var authentication = function(req, res, next) {
+module.exports.authentication = function(req, res, next) {
   if (process.env.NODE_ENV === 'development') {
     passport.authenticate('local', { failureRedirect:'/login', failureFlash:"Invalid username or password." }) (req, res, next);
   } else {
@@ -107,4 +102,3 @@ var authentication = function(req, res, next) {
   }
 
 };
-module.exports.authentication = authentication;

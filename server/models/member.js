@@ -15,21 +15,10 @@ var MemberSchema  = new Schema({
   regionName: String,
   systemName: String,
   systemId: Number,
-  isDocked: Boolean,
-  isLinked: { type: Boolean, default: false }
+  isDocked: Boolean
 });
 
 MemberSchema.index({ ts: 1, key: 1, fleetKey: 1 }, { expireAfterSeconds: settings.memberTtl });
-
-MemberSchema.methods.link_to_session = function link_to_session(session, next) {
-  session.fleetKey = this.fleetKey;
-  session.memberKey = this.key;
-  session.lastPollTs = moment().unix() - settings.minPollInterval;
-  session.lastStatusTs = moment().unix() - settings.minPollInterval;
-
-  if (next) next();
-  return;
-};
 
 MemberSchema.statics.prepare = function prepare(key, fleet) {
   var m = new this({
@@ -44,9 +33,7 @@ MemberSchema.statics.prepare = function prepare(key, fleet) {
     systemId: fleet.systemId,
     isDocked: fleet.isDocked
   });
-  
-  if (fleet.key) { m.key = fleet.key }
-  
+    
   return m;
 };
 
