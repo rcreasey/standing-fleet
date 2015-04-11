@@ -293,13 +293,8 @@ function updateWormholeLink(button, from, to, data) {
 function leaveFleet() {
   UIPanels.showLoadingPanel('Leaving Standing Fleet...', function () {
     Server.leaveFleet(function(error, data) {
-      if (error) {
-        handleError(error);
-        UIPanels.hidePanel();
-        return;
-      }
-
       Util.redirectToBasePath();
+
     });
   });
 }

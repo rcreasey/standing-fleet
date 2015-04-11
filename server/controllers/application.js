@@ -7,31 +7,33 @@ var checks = require(__dirname + '/../middleware/checks')
 
 exports.join = function(req, res, next) {
   var fleet = (req.session.isLinked) ? req.session.fleet : header_parser(req);
-  var member = Member.prepare(req.params.fleetKey, fleet);
+  
+  Member.prepare(req.params.fleetKey, fleet, function(member) {
+    req.session.fleetKey = member.fleetKey;
+    req.session.memberKey = member.key;
+    req.session.lastPollTs = moment().unix() - settings.minPollInterval;
+    req.session.lastStatusTs = moment().unix() - settings.minPollInterval;
+    req.session.fleet = fleet;
 
-  req.session.fleetKey = member.fleetKey;
-  req.session.memberKey = member.key;
-  req.session.lastPollTs = moment().unix() - settings.minPollInterval;
-  req.session.lastStatusTs = moment().unix() - settings.minPollInterval;
-  req.session.fleet = fleet;
+    if (req.session.isLinked === true) { 
+      req.session.fleet.trusted = 'Yes';
+      return res.redirect('/' + req.params.fleetKey); 
+    }
+    
+    member.saveQ()
+      .then(function(member) {
+        if (!member) { throw 'Unable to join member to fleet.'; }
+        Event.prepare('memberJoined', fleet.key, member.toObject()).saveQ();
 
-  member.saveQ()
-    .then(function(member) {
-      if (!member) { throw 'Unable to join member to fleet.'; }
-      Event.prepare('memberJoined', fleet.key, member.toObject()).saveQ();
-      
-      return res.redirect('/' + req.params.fleetKey);
-    })
-    .catch(function(error) {
-      console.log(error);
-      return response.error(res, 'state', 'Error joining fleet: ' + error.text);
-    })
-    .done();
+        return res.redirect('/' + req.params.fleetKey);
+      })
+      .catch(function(error) {
+        req.flash('error', 'Error joining fleet: ' + error.text);
+        return res.redirect('/');
+      })
+      .done();  
+  });
 
-  // if (req.session.fleetKey && req.session.memberKey) {
-  //   req.session.fleet.fleetKey = req.session.fleetKey;
-  //   req.session.fleet.key = req.session.memberKey;
-  // }
 };
 
 exports.index = function(req, res, next) {

@@ -20,7 +20,7 @@ var MemberSchema  = new Schema({
 
 MemberSchema.index({ ts: 1, key: 1, fleetKey: 1 }, { expireAfterSeconds: settings.memberTtl });
 
-MemberSchema.statics.prepare = function prepare(key, fleet) {
+MemberSchema.statics.prepare = function prepare(key, fleet, callback) {
   var m = new this({
     fleetKey: key,
     characterId: fleet.characterId,
@@ -33,8 +33,13 @@ MemberSchema.statics.prepare = function prepare(key, fleet) {
     systemId: fleet.systemId,
     isDocked: fleet.isDocked
   });
+  
+  this.findOne({characterId: fleet.characterId, characterName: fleet.characterName}, function(err, member) {
+    if (member) { m.key = member.key; }
     
-  return m;
+    return callback(m);
+  });
+    
 };
 
 module.exports = mongoose.model('Member', MemberSchema);

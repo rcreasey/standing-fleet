@@ -54,25 +54,12 @@ exports.join = function(req, res, next){
           if (fleet.password && req.params.fleetPassword !== fleet.password) {
             return response.error(res, 'password', 'Invalid Password');
           }
-
           
-          var member = Member.prepare(fleet.key, req.session.fleet);
-          if (!member) { throw 'Invalid session: ' + req.session.fleet; }
-
-          member.saveQ()
-            .then(function(member) {
-              
-              var event = Event.prepare('memberJoined', fleet.key, member.toObject());
-              event.saveQ();
-
-              return response.success(res, event);
-            })
-            .catch(function(error) {
-              console.log(error);
-              return response.error(res, 'state', 'Error joining fleet');
-            })
-            .done();
-
+          var event = Event.prepare('memberJoined', fleet.key, req.session.fleet);
+          return event.saveQ();
+        })
+        .then(function(event) {
+          return response.success(res, event);
         })
         .catch(function(error) {
           console.log(error);
@@ -195,7 +182,8 @@ exports.poll = function(req, res, next) {
         if (req.session.isLinked) {
           req.session.lastPollTs = moment().unix() - settings.minPollInterval;
           req.session.lastStatusTs = moment().unix() - settings.minPollInterval;
-          req.session.fleet = member.fleet;                
+          req.session.fleet = member.toObject(); 
+          req.session.fleet.trusted = 'Yes';               
 
           member.isLinked = true;
         } else {
@@ -206,7 +194,7 @@ exports.poll = function(req, res, next) {
         }
 
         if (!previous.isDocked && !member.isDocked) {
-          if (previous.shipType != 'Capsule' && member.shipType == 'Capsule') {
+          if (previous.shipType !== 'Capsule' && member.shipType === 'Capsule') {
             var event = Event.prepare('shipLost', req.session.fleetKey, {
               characterName: member.characterName,
               characterId: member.characterId,
@@ -362,8 +350,8 @@ exports.create = function(req, res, next) {
   }
 
   var fleet = Fleet.prepare(fleetName, fleetPassword);
-  var member = Member.prepare(fleet.key, req.session.fleet);
-  Event.prepare('fleetCreated', fleet.key, { characterId: member.characterId, characterName: member.characterName })
+
+  Event.prepare('fleetCreated', fleet.key, { characterId: req.session.fleet.characterId, characterName: req.session.fleet.characterName })
     .saveQ();
 
   fleet.saveQ()
