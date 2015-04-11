@@ -172,6 +172,11 @@ html.overview #content-wrapper {
   padding-top: 2.5rem
 }
 
+#dim.overview {
+  display: none;
+  background-image: none;
+}
+
 #dim.client {
   display: none;
   background-image: none;

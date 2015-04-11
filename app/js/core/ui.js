@@ -281,6 +281,7 @@ Handlebars.registerHelper('ui_icon', function(icon) {
   if (icon == 'sourcedClear') return 'check';
   if (icon == 'sourcedClipboard') return 'clipboard';
   if (icon == 'sourcedHostile') return 'crosshairs';
+  if (icon == 'traversal') return 'bus';
   if (icon == 'updateHostile') return 'crosshairs';
   if (icon == 'updateSystemMap') return 'sitemap';
   if (icon == 'wormhole') return 'chevron-circle-right';

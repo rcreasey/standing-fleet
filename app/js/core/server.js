@@ -138,5 +138,9 @@ var Server = {
 
   postWormholeLinkUpdate: function(from, to, linkData, callback) {
     Server.ajaxPost('/map/jumps/' + from + '/' + to + '/', linkData, callback);
+  },
+
+  postWormholeTraversalUpdate: function(from, to, traversalData, callback) {
+    Server.ajaxPost('/map/traversals/' + from + '/' + to + '/', traversalData, callback);
   }
 };

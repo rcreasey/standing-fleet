@@ -66,7 +66,7 @@
     <dd><a href="javascript:CCPEVE.showInfo(1377, {{link_a.wormhole_data.reporterId}});">{{link_a.wormhole_data.reporterName}}</a></dd>
     {{/if}}
   </dl>
-  
+
   {{#unless read_only }}
     <h4>Update Link Actions</h4>
     {{#unless clear_only }}
@@ -74,6 +74,12 @@
       <i class="fa fa-{{ui_icon 'info'}}"></i> Update
     </a>
     {{/unless}}
+    
+    {{#if fc_only }}
+    <a class="btn btn-info" onclick="UIPanels.updateWormholeTraversalPanel(this, '{{ link_a.source.system.id }}', '{{ link_a.target.system.id}}')" title="Traversal">
+      <i class="fa fa-{{ui_icon 'traversal'}}"></i> Log Traversal
+    </a>
+    {{/if}}
 
     <a class="btn btn-danger" onclick="updateWormholeLink(this, '{{ link_a.source.system.id }}', '{{ link_a.target.system.id}}', 'Wormhole collapsed')" title="Close">
       <i class="fa fa-{{ui_icon 'close'}}"></i> Clear

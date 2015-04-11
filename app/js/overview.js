@@ -63,7 +63,31 @@ function updateWormholeLink(button, from, to, data) {
                               '<a href="javascript:CCPEVE.showInfo(5, ' + to + ')">' + Data.systems[to].name + '</a> '}); 
 
     $('#link-'+ to + '-' + from).remove();
-    $('#link-'+ from + '-' + to).remove()
+    $('#link-'+ from + '-' + to).remove();
+  });
+}
+
+function updateWormholeTraversal(button, from, to) {
+  var payload = {};
+  
+  payload.mass = $('#traversal-mass').val().replace(/,/g, '');
+  payload.fleet_name = $('#traversal-fleet').val();
+  payload.fc_characterName = $('#traversal-fc').val();
+  UIPanels.hidePanel();
+
+  Server.postWormholeTraversalUpdate(from, to, payload, function(error, data) {
+    if (error) {
+      handleError(error);
+      return;
+    }
+    
+    EventList.addEvent({type: 'info', 
+                        alert: true, 
+                        text: 'Traversal logged for jump from ' +
+                              '<a href="javascript:CCPEVE.showInfo(5, ' + from + ')">' + Data.systems[from].name + '</a> ' + 
+                              ' to ' +
+                              '<a href="javascript:CCPEVE.showInfo(5, ' + to + ')">' + Data.systems[to].name + '</a> '}); 
+
   });
 }
 
