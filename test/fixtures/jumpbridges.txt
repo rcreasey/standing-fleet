@@ -49,6 +49,10 @@ Branch	5-0WB9 @ 7-5	EQI2-2 @ 6-1	Online	FCON	-	4.62	Chartreuse	Yes
 Branch	52G-NZ @ 6-16	4-BE0M @ 6-1	Online	FCON	-	3.69	Chartreuse	Yes
 Branch	6-O5GY @ 7-1	D4R-H7 @ 7-1	Online	FCON	-	4.03	Chartreuse	Yes
 Branch	A-G1FM @ 8-1	T-Q2DD @ 11-12	Online	FCON	-	3.05	Chartreuse	Yes
+Branch	AH-B84 @ 7-15	O-JPKH @ 8-5	Online	PBLRD	-	2.4	Chartreuse	Yes
+Branch	F-9F6Q @ 12-1	B-GC1T @ 5-1	Online	PBLRD	-	2.21	Chartreuse	Yes
+Branch	C-LBQS @ 8-2	BU-IU4 @ 3-1	Online	PBLRD	-	3.66	Chartreuse	Yes
+Branch	CH9L-K @ 9-1	QYZM-W @ 8-2	Online	PBLRD	-	2.47	Chartreuse	Yes
 Branch	B8O-KJ @ 5-9	QXQ-BA @ 8-1	Online	FCON	-	2.95	Chartreuse	Yes
 Branch	BWI1-9 @ 5-16	SVB-RE @ 8-1	Online	PBLRD	-	3.28	Chartreuse	Yes
 Branch	CS-ZGD @ 8-14	C-LP3N @ 6-7	Online	FCON	-	4.33	Chartreuse	Yes
@@ -70,7 +74,6 @@ Branch/Tenal	X4UV-Z @ 8-5	EOY-BG @ 5-1	Online	Goonwaffe	420	3.54	Violet	Yes
 Cloud Ring	77-KDQ @ 5-2	B-DBYQ @ 4-2	Online	Goonwaffe	420	3.77	Violet	Yes
 Cloud Ring	9-4RP2 @ 4-3	00TY-J @ 6-7	Online	EXE	-	3.17	Violet	Yes
 Cloud Ring	G8AD-C @ 11-2	YI-8ZM @ 7-17	Online	EXE	-	2.82	Violet	Yes
-Cloud Ring	O-BDXB @ 13-1	CX7-70 @ 2-1	Online	EXE	-	2.56	Violet	Yes
 Cloud Ring	O-ZXUV @ 10-1	1-3HWZ @ 6-2	Online	EXE	-	4.71	Violet	Yes
 Cloud Ring	TN-T7T @ 3-1	6-4V20 @ 5-1	Online	Goonwaffe	420	2.4	Violet	Yes
 Cloud Ring	XG-D1L @ 5-2	F7C-H0 @ 4-9	Online	EXE	-	4.79	Violet	Yes
@@ -106,19 +109,18 @@ Fade	FIO1-8 @ 3-15	O1Y-ED @ 8-11	Online	SMA	-	3.14	Orange	Yes
 Fade	K4YZ-Y @ 11-2	I-UUI5 @ 4-1	Online	SMA	-	4.36	Orange	Yes
 Fade	P-33KR @ 2-4	L-C3O7 @ 7-18	Online	SMA	-	3.63	Orange	Yes
 Fade/Pure Blind	DO6H-Q @ 4-1	6GWE-A @ 8-2	Online	Goonwaffe	420	4.73	Violet	Yes
-Fountain	15U-JY @ 6-3	APM-6K @ 8-1	Online	FA	-	4.81	BlueViolet	Yes
-Fountain	6F-H3W @ 10-1	9R4-EJ @ 4-15	Online	FA	-	4.853	BlueViolet	Yes
+Fountain	15U-JY @ 6-3	KCT-0A @ 8-1	Online	FA	-	4.188	BlueViolet	Yes
+Fountain	L-A5XP @ 6-2	APM-6K @ 8-1	Online	FA	-	4.894	BlueViolet	Yes
+Fountain	4-EP12 @ 11-6	C-N4OD @ 6-6	Online	Goonwaffe	420	2.619	BlueViolet	Yes
 Fountain	6VDT-H @ 8-2	Z30S-A @ 11-3	Online	FA	-	4.106	BlueViolet	Yes
 Fountain	EI-O0O @ 7-1	00GD-D @ 2-1	Online	FA	-	1.597	BlueViolet	Yes
-Fountain	J5A-IX @ 9-1	C-N4OD @ 6-6	Online	Goonwaffe	420	4.30	BlueViolet	Yes
-Fountain	KCT-0A @ 8-1	BYXF-Q @ 7-1	Online	FA	-	3.066	BlueViolet	Yes
 Fountain	KVN-36 @ 4-1	Y-2ANO @ 7-2	Online	Goonwaffe	420	2.75	BlueViolet	Yes
 Fountain	14YI-D @ 5-1	R-BGSU @ 2-2	Online	FA	-	3.965	BlueViolet	Yes
 Fountain	L-1SW8 @ 3-1	7BX-6F @ 2-1	Online	FA	-	2.54	BlueViolet	Yes
 Fountain	NDH-NV @ 6-2	I-CUVX @ 7-2	Online	FA	-	4.68	BlueViolet	Yes
 Fountain	NY6-FH @ 7-7	V6-NY1 @ 8-3	Online	FA	-	4.862	BlueViolet	Yes
-Fountain	XJP-Y7 @ 7-1	D4KU-5 @ 6-7	Online	FA	-	3.875	BlueViolet	Yes
 Fountain	J-RQMF @ 5-4	9DQW-W @ 7-2	Online	FA	-	3.772	BlueViolet	Yes
+Fountain	YVBE-E @ 7-1	6F-H3W @ 10-1	Online	FA	-	1.3	BlueViolet	Yes
 Fountain	XUW-3X @ 2-1	HMF-9D @ 5-1	Online	LAWN	-	4.221	Green	Yes
 Fountain	ZUE-NS @ 8-1	OL3-78 @ 6-4	Online	LAWN	-	3.955	Green	Yes
 Pure Blind	3V8-LJ @ 4-2	CR-AQH @ 8-1	Online	GoonWaffe	420	3.34	LawnGreen	Yes
@@ -162,13 +164,15 @@ Vale of the Silent	AZBR-2 @ 9-2	ZA0L-U @ 5-1	Online	BASTN	-	3.93	BlueViolet	Yes
 Vale of the Silent	FS-RFL @ 7-7	YXIB-I @ 6-6	Online	BASTN	-	4.93	BlueViolet	Yes
 Vale of the Silent	FMBR-8 @ 4-1	NCGR-Q @ 1-1	Online	PBLRD	-	4.95	BlueViolet	Yes
 Vale of the Silent	LS-JEP @ 9-22	Y5J-EU @ 4-1	Online	PBLRD	-	4.32	BlueViolet	Yes
-Vale of the Silent	MC6O-F @ 2-1	MA-XAP @ 5-5	Online	PBLRD	-	2.95	BlueViolet	Yes
 Vale of the Silent	MGAM-4 @ 4-2	1W-0KS @ 3-1	Online	PBLRD	-	4.55	BlueViolet	Yes
 Vale of the Silent	MQ-O27 @ 3-1	F-D49D @ 4-1	Online	PBLRD	-	3.78	BlueViolet	Yes
 Vale of the Silent	PM-DWE @ 8-1	H-5GUI @ 6-9	Online	BASTN	-	4.10	BlueViolet	Yes
 Vale of the Silent	T-GCGL @ 8-19	3HX-DL @ 2-1	Online	BASTN	-	3.8	BlueViolet	Yes
 Vale of the Silent	TVN-FM @ 7-1	P3EN-E @ 10-11	Online	BASTN	-	3.63	BlueViolet	Yes
 Vale of the Silent	GEKJ-9 @ 7-3	8TPX-N @ 5-1	Online	Goonwaffe	-	4.6	BlueViolet	Yes
+Vale of the Silent	S6QX-N @ 4-4	B-E3KQ @ 9-2	Online	PBLRD	-	4.16	BlueViolet	Yes
+Vale of the Silent	HE-V4V @ 9-3	IR-DYY @ 6-1	Online	PBLRD	-	3.72	BlueViolet	Yes
+Vale of the Silent	R-P7KL @ 6-7	Q-EHMJ @ 7-7	Online	PBLRD	-	3.88	BlueViolet	Yes
 Vale of the Silent	NFM-0V @ 5-1	Y-ZXIO @ 7-3	Online	Goonwaffe	-	4.7	BlueViolet	Yes
 Vale of the Silent	G5ED-Y @ 6-6	JZV-F4 @ 5-1	Online	PBLRD	-	3.08	BlueViolet	Yes
 Vale of the Silent	IFJ-EL @ 6-3	0R-F2F @ 5-1	Online	PBLRD	-	4.818	BlueViolet	Yes
@@ -260,4 +264,4 @@ in other languages
 Русский
 English
 Powered by MediaWiki
-This page was last modified on 1 March 2015, at 14:00. This page has been accessed 261,464 times. Privacy policy About Goonwiki Disclaimers
+This page was last modified on 8 April 2015, at 00:53. This page has been accessed 264,150 times. Privacy policy About Goonwiki Disclaimers

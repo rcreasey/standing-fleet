@@ -189,6 +189,7 @@ exports.vicinity = function(req, res, next){
   // Find the region
   Region.findOne({name: region_name})
     .lean()
+    .cache(true, 5)
     .execQ()
     .then(function(region) {
       if (!region) throw 'Invalid Region: ' + region_name;

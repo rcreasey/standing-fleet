@@ -1,6 +1,5 @@
 var Q = require('q')
   , moment = require('moment')
-  , morgan = require('morgan')
   , _ = require('lodash')
   , fs = require('fs')
 
@@ -174,13 +173,15 @@ var clean_wormhole_jumps = function() {
 
   Jump.removeQ({"wormhole_data.expires_on": {$lte: moment().unix()}})
     .then(function(jumps) {
-      if (jumps) Event.prepare('refreshSystems', 'all').saveQ();
+      if (jumps.result.n > 0) { 
+        Event.prepare('refreshSystems', 'all').saveQ(); 
+      }
     });  
 };
 
-var clean_loop = function(logger) {
+var clean_loop = function() {
   clean_timer = setTimeout(function() {
-    if (process.env.CONSUELA !== 'disable') {
+    if (process.env.CONSUELA !== 'disabled') {
       clean_advisories();
       clean_fleets();
       clean_members();
@@ -189,11 +190,11 @@ var clean_loop = function(logger) {
       clean_scans();
       clean_reports();
       clean_wormhole_jumps();
+      update_jumpbridges();
+      ensure_fleets();
     }
 
-    ensure_fleets();
     update_standings();
-    update_jumpbridges();
 
     clean_loop();
   }, settings.cleanInterval);

@@ -1119,9 +1119,7 @@ code.error,
 }
 
 .linked {
-  padding: 1rem;
   text-align: left;
-  width: 295px;
 }
 
 .linked img {
@@ -1139,8 +1137,6 @@ code.error,
 .linked dl { margin: 1rem 0 0; }
 .linked dl dt { font-size: 1.15rem; font-weight: bold; }
 .linked dl dd { margin-bottom: 0.5rem; }
-.linked a.button { display: inline-block; margin: 1rem 0 0; width: 45%; }
-
 
   /*/
  / /  SCANS
@@ -1396,7 +1392,6 @@ border-top: 0.16rem solid #333;
 */
 
 .panel .start,
-.linked,
 #download,
 #link,
 #login {
@@ -1539,7 +1534,7 @@ border-top: 0.16rem solid #333;
 #login .error {
   display: block;
   padding: 1rem;
-  margin: 1rem auto 0;
+  margin: 1rem auto;
   background-color: #422;
   border: 1px solid #d66;
   color: #faa;
