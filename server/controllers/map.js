@@ -9,7 +9,9 @@ var Q = require('q')
   , Jump = require(__dirname + '/../models/jump')
   , Report = require(__dirname + '/../models/report')
   , Hostile = require(__dirname + '/../models/hostile')
-
+  , Traversal = require(__dirname + '/../models/traversal')
+  
+  
 exports.show_regions = function(req, res, next) {
   Region.find({})
     .cache(true, 3600)
@@ -189,6 +191,7 @@ exports.vicinity = function(req, res, next){
   // Find the region
   Region.findOne({name: region_name})
     .lean()
+    .cache(true, 5)
     .execQ()
     .then(function(region) {
       if (!region) throw 'Invalid Region: ' + region_name;
@@ -302,6 +305,29 @@ exports.update_jump = function(req, res, next){
       console.log(error);
       return response.error(res, 'map', error);
     });
+};
+
+exports.update_traversal = function(req, res, next) {
+  Report.prepare('wormhole_traversal', req.session.fleetKey, {data: [_.merge({fromSystem: req.params.from_id, toSystem: req.params.to_id}, req.body)]})
+    .saveQ();
+
+  var traversal = new Traversal(req.body);
+  
+  Jump.findQ({ $or: [{toSystem: req.params.to_id, fromSystem: req.params.from_id}, {toSystem: req.params.from_id, fromSystem: req.params.to_id}] })
+    .then(function(jumps) {
+
+      _.each(jumps, function(jump) { 
+        jump.wormhole_data.traversals.push( traversal ); 
+        return jump.saveQ();
+      });
+    })
+    .catch(function(error) {
+      return response.error(res, 'traversal', error);
+    })
+    .done(function() {
+      return response.success(res);
+    });
+
 };
 
 exports.show_wormholes = function(req, res, next) {

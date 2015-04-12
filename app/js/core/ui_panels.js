@@ -53,10 +53,10 @@ var UIPanels = {
     };
     
     Server.listFleets(function (error, data) {
-      if (error) return handleError(error);
+      if (error) { return handleError(error); }
       panel.fleets = data.events;
       UIPanels.showPanel(panel, callback);
-      UI.update_scrollables();      
+      UI.update_scrollables();
     });
     
   },
@@ -178,6 +178,21 @@ var UIPanels = {
     
     $("#sig-a").focus();
   },
+  
+  updateWormholeTraversalPanel: function (button, from_id, to_id) {
+    var from_system = Data.systems[ from_id ];
+    var to_system = Data.systems[ to_id ];
+
+    var panel = {
+      type: 'wormhole-traversal',
+      icon: 'wormhole',
+      from: from_system,
+      to: to_system,
+      closeable: true
+    };
+
+    UIPanels.showPanel(panel);
+  },
 
   showStatusPanel: function (callback) {
     var panel = {
@@ -235,6 +250,7 @@ var UIPanels = {
   showPanel: function (params, callback) {
     var compiledPanel = (params.type === 'start') ? $(Data.templates.start(params)) : $(Data.templates.panel(params));
     if (params.type === 'wormhole-update') compiledPanel = $(Data.templates.wormhole_update_panel(params));
+    if (params.type === 'wormhole-traversal') compiledPanel = $(Data.templates.wormhole_update_traversal(params));
     
     if (Data.ui.dim.children().length) {
 

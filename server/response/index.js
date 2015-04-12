@@ -22,7 +22,7 @@ exports.error = function(res, type, message) {
       message: message
     }
   };
-
+  
   if (_.contains(['session', 'igb-headers', 'trust'], type)) response.error.stopPoll = true;
 
   res.send(response);

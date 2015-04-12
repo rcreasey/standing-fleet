@@ -24,5 +24,9 @@ router.route('/systems/:system_name')
 router.route('/jumps/:from_id/:to_id')
   .post(validate.session)
   .post(map.update_jump);
+
+router.route('/traversals/:from_id/:to_id')
+  .post(validate.session)
+  .post(map.update_traversal);
     
 module.exports = router;

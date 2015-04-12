@@ -95,10 +95,10 @@ var UI = {
   },
 
   update_scrollables: function() {
-    // Data.ui.hostiles.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
-    // Data.ui.members.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
-    // Data.ui.scans_list.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
-    // Data.ui.events_list.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
+    Data.ui.hostiles_table.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
+    Data.ui.members_table.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
+    Data.ui.scans_list.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
+    Data.ui.events_list.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
     // Data.ui.fleet_list.slimScroll({height: 'auto',  color: '#ffcc2a', alwaysVisible: true});
   },
 
@@ -281,6 +281,7 @@ Handlebars.registerHelper('ui_icon', function(icon) {
   if (icon == 'sourcedClear') return 'check';
   if (icon == 'sourcedClipboard') return 'clipboard';
   if (icon == 'sourcedHostile') return 'crosshairs';
+  if (icon == 'traversal') return 'bus';
   if (icon == 'updateHostile') return 'crosshairs';
   if (icon == 'updateSystemMap') return 'sitemap';
   if (icon == 'wormhole') return 'chevron-circle-right';

@@ -9,8 +9,6 @@ block content
           p.strong Hello, #{user.username}
           p In order to view a fleet, you need to link this session to a pilot that's logged in inside of Eve.
           
-          if error != ''
-            span.error=error
 
           h2 Link Session To Pilot
           p.field
@@ -20,6 +18,31 @@ block content
             button(type='submit', name='submit')
               i.fa.fa-arrow-right.fa-large
           
+          if error != ''
+            span.error=error
+              
+          if linked
+            h2 Linked Pilot
+            p.strong #{linked.characterName}
+        
+            .linked
+              img(src='https://image.eveonline.com/Character/#{linked.characterId}_128.jpg' title='#{linked.characterName}')
+              h2 
+              dl
+                dt Pilot Key
+                dd= linked.key
+                dt Fleet Link
+                dd
+                  a(href='/join/#{linked.fleetKey}/')= linked.fleetKey
+                dt Current System
+                dd= linked.systemName
+                dt Ship Type
+                dd= linked.shipType
+
+            a.logout.button(href='/unlink')
+              i.fa.fa-chain-broken
+              |  Unlink
+          
           a.logout.button(href='/overview')
             i.fa.fa-sitemap
             |  Overview  
@@ -27,7 +50,7 @@ block content
           a.logout.button(href='/logout')
             i.fa.fa-sign-out
             |  Logout  
-              
+            
           h2 Client Download
           dl.download
             dt 
@@ -40,24 +63,3 @@ block content
               |  OSX
             dd
               a(href='/clients/client-darwin-1.1.0.zip') client-osx-1.1.0.zip
-              
-
-
-      if linked  
-        .linked.panel
-          img(src='https://image.eveonline.com/Character/#{linked.characterId}_128.jpg' title='#{linked.characterName}')
-          h2 #{linked.name}
-          dl
-            dt Pilot Key
-            dd= linked.key
-            dt Fleet Link
-            dd
-              a(href='/#{linked.fleetKey}/')= linked.fleetKey
-            dt Current System
-            dd= linked.systemName
-            dt Ship Type
-            dd= linked.shipType
-
-          a.button(href='/unlink')
-            i.fa.fa-chain-broken.fa-large
-            |  Unlink

@@ -37,7 +37,11 @@ router.route('/overview')
   .get(validate.is_authorized)
   .get(application.overview);
 
+router.route('/join/:fleetKey/?')
+  .get(application.join)
+  
 router.route('/:fleetKey/?')
+  .get(validate.headers)
   .get(application.index);
 
 router.route('/')

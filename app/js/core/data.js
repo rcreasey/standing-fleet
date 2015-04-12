@@ -93,8 +93,10 @@ var Data = {
     hud: $('#hud'),
     map: $('#system-map'),
     hostiles: $('#hostiles'),
+    hostiles_table: $('#hostiles .table'),
     hostiles_list: $('#hostiles tbody:last'),
     members: $('#members'),
+    members_table: $('#members .table'),
     members_list: $('#members tbody:last'),
     events: $('#events'),
     events_list: $('#events > .list'),
@@ -130,7 +132,8 @@ var Data = {
     start: Templates.start,
     system_info: Templates.system_info,
     wormhole_link_info: Templates.wormhole_link_info,
-    wormhole_update_panel: Templates.wormhole_update_panel
+    wormhole_update_panel: Templates.wormhole_update_panel,
+    wormhole_update_traversal: Templates.wormhole_update_traversal
   },
 
   ships: {},

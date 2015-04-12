@@ -18,7 +18,7 @@ var ReportSchema  = new Schema({
   systemName: String,
   operation: { type: String, default: 'validate' },
   data: [ Schema.Types.Mixed ],
-  hostiles: [ Schema.Types.Mixed ],
+  hostiles: [ Schema.Types.Mixed ]
 });
 
 ReportSchema.index({ ts: 1, fleetKey: 1 }, { expireAfterSeconds: settings.reportTtl });
@@ -63,7 +63,7 @@ ReportSchema.methods.parse_standings = function parse_standings(whitelist) {
       })
       .then(function(results) {
         
-        resolved = _.map(results.characters, function(character) {
+        var resolved = _.map(results.characters, function(character) {
           if (is_whitelisted(whitelist, character)) return false;
           if (character.characterID === 0) return false;
           if (character.characterName === '') return false;

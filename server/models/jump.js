@@ -1,7 +1,7 @@
 var mongoose = require('mongoose-q')()
   , Schema = mongoose.Schema
+  , Traversal = require('./traversal')
   , moment = require('moment')
-
 
 var lifespanEstimates = [
   'Unknown',
@@ -40,6 +40,7 @@ var JumpSchema = new Schema({
     mass_total: String,
     jump_mass: String,
     lifespan_estimate: {type: String, enum: lifespanEstimates},
+    traversals: [ Traversal.Schema ],
     discovered_on: Number,
     expires_on: Number
   },
@@ -73,7 +74,7 @@ JumpSchema.statics.parseWormholeInfo = function(signature_id, code, text) {
     
   var info = {};
   
-  if (/^[A-Za-z]{3}-\d{3}$/.test(signature_id)) info['wormhole_data.signature'] = signature_id.toUpperCase();
+  if (/^[A-Za-z]{3}$/.test(signature_id)) info['wormhole_data.signature'] = signature_id.toUpperCase();
   if (_.include(_.map(static_data.wormhole_types, 'code'), code)) info['wormhole_data.code'] = code;
   var type = _.find(static_data.wormhole_types, function(t) { return t.code == info['wormhole_data.code']; });
   
