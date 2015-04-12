@@ -13,3 +13,4 @@ var TraversalSchema = new Schema({
 TraversalSchema.index({ id: 1 });
 
 module.exports = mongoose.model('Traversal', TraversalSchema);
+module.exports.Schema = TraversalSchema;

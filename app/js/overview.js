@@ -95,10 +95,10 @@ function handleError (error) {
   log(error.message);
   if (error.message) UI.showAlert({
     type: 'error',
-    text: error.message
+    text: JSON.stringify(error.message)
   });
 }
 
 function log(message) {
-  console.log('[' + moment().unix() + '] - ' + message);
+  console.log('[' + moment().unix() + '] - ' + JSON.stringify(message));
 }

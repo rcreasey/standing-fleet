@@ -181,15 +181,16 @@ var clean_wormhole_jumps = function() {
 
 var clean_loop = function() {
   clean_timer = setTimeout(function() {
+    clean_advisories();
+    clean_fleets();
+    clean_members();
+    clean_hostiles();
+    clean_events();
+    clean_scans();
+    clean_reports();
+    clean_wormhole_jumps();
+
     if (process.env.CONSUELA !== 'disabled') {
-      clean_advisories();
-      clean_fleets();
-      clean_members();
-      clean_hostiles();
-      clean_events();
-      clean_scans();
-      clean_reports();
-      clean_wormhole_jumps();
       update_jumpbridges();
       ensure_fleets();
     }

@@ -40,7 +40,7 @@ var JumpSchema = new Schema({
     mass_total: String,
     jump_mass: String,
     lifespan_estimate: {type: String, enum: lifespanEstimates},
-    traversals: [Traversal],
+    traversals: [ Traversal.Schema ],
     discovered_on: Number,
     expires_on: Number
   },

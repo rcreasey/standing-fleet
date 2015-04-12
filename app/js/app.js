@@ -330,16 +330,16 @@ function handleError (error) {
 }
 
 function log(message) {
-  if (!Data.config.log) return;
+  if (!Data.config.log) { return; }
 
   if (Data.config.log === 'events') {
     EventList.addEvent({
       type: 'info',
-      text: message
+      text: JSON.stringify(message)
     });
 
   } else if (Data.config.log === 'console') {
-    console.log('[' + moment().unix() + '] - ' + message)
+    console.log('[' + moment().unix() + '] - ' + JSON.stringify(message));
   }
 }
 
