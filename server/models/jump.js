@@ -1,7 +1,7 @@
 var mongoose = require('mongoose-q')()
   , Schema = mongoose.Schema
+  , Traversal = require('./traversal')
   , moment = require('moment')
-
 
 var lifespanEstimates = [
   'Unknown',
@@ -40,6 +40,7 @@ var JumpSchema = new Schema({
     mass_total: String,
     jump_mass: String,
     lifespan_estimate: {type: String, enum: lifespanEstimates},
+    traversals: [ Traversal.Schema ],
     discovered_on: Number,
     expires_on: Number
   },
