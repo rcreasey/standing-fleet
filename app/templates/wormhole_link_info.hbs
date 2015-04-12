@@ -1,5 +1,5 @@
 <div class="wormhole-link-details">
-  <h4>{{ link_a.source.system.name }}<i class="fa fa-long-arrow-right"></i> {{ link_b.source.system.name }}</h4>
+  <h4>{{ link_a.source.system.name }} <i class="fa fa-long-arrow-right"></i> {{ link_b.source.system.name }}</h4>
   <dl>
     <dt>Signature ID</dt>
     {{#if link_a.wormhole_data.signature}}
@@ -14,7 +14,7 @@
     {{/if}}
   </dl>
   
-  <h4>{{ link_b.source.system.name }}<i class="fa fa-long-arrow-right"></i> {{ link_a.source.system.name }}</h4>
+  <h4>{{ link_b.source.system.name }} <i class="fa fa-long-arrow-right"></i> {{ link_a.source.system.name }}</h4>
   <dl>
     <dt>Signature ID</dt>
     {{#if link_b.wormhole_data.signature}}
@@ -67,6 +67,21 @@
     {{/if}}
   </dl>
 
+  {{#if link_a.wormhole_data.traversals }}
+    <h4>Logged Traversals</h4>
+    <table class="traversals">
+    {{#each link_a.wormhole_data.traversals }}
+    <tr>
+      <td class="fleet">{{ this.fleet_name }} | FC: {{ this.fc_characterName }}</td>
+      <td class="timestamp">{{ format_ts_short this.ts }}</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="mass">{{ add_commas this.mass }} KG</td>
+    </tr>
+    {{/each}}
+    </table>
+  {{/if}}
+
   {{#unless read_only }}
     <h4>Update Link Actions</h4>
     {{#unless clear_only }}
@@ -85,4 +100,6 @@
       <i class="fa fa-{{ui_icon 'close'}}"></i> Clear
     </a>  
   {{/unless}}
+  
+  {{ log this }}
 </div>

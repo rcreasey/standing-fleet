@@ -551,7 +551,6 @@ input.log-path {
 #system-info a.btn:hover {
   border-color: #fff !important;
   box-shadow: inset 0 0 10px #fff;
-
 }
 
 #system-info a.btn.present {
@@ -559,6 +558,24 @@ input.log-path {
   text-shadow: 0 0 0.2em #ffcc2a;
   background-color: #f89406;
   border-color: #faa123;
+}
+
+#system-info table.traversals {
+  display: block;
+}
+
+#system-info table.traversals td.fleet {
+  width: 17rem;
+}
+
+#system-info table.traversals td.timestamp {
+  width: 3rem;
+  text-align: right;
+}
+
+#system-info table.traversals td.mass {
+  border-bottom: dashed 1px #ffcc2a;
+  margin-bottom: 0.5rem;
 }
 
 #system-map #legend {
@@ -931,6 +948,14 @@ marker { stroke: #000; fill: #2a9fd6; stroke-width: 2px; }
   font-weight: 900;
   padding: 0 1rem;
   text-align: left;
+}
+
+.panel h3 {
+  color: #ffcc2a;
+  font-family: 'Lato', sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 0 1rem;
 }
 
 .panel .text.title {

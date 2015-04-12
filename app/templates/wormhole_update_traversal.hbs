@@ -5,23 +5,24 @@
     <div class="text title">Log Wormhole Traversal</div>
   </div>
   <div class="content">
+    <h3>{{ from.name }} <i class="fa fa-arrows-h"></i> {{ to.name }}</h3>
     <div class="form">
       <input id="to" type="hidden" value="{{ to.id }}" />
       <input id="from" type="hidden" value="{{ from.id }}" />
 
       <div class="group inline">
         <label for="traversal-mass" autofocus>Fleet Mass</label>
-        <input id="traversal-mass" type="text" placeholder="XX,XXX,XXX" value="50000000"/>
+        <input id="traversal-mass" type="text" placeholder="XX,XXX,XXX" />
       </div>
       
       <div class="group inline">
         <label for="traversal-fleet">Fleet Name</label>
-        <input id="traversal-fleet" type="text" placeholder="Reavers" value="Reavers"/>
+        <input id="traversal-fleet" type="text" />
       </div>
       
       <div class="group inline">
         <label for="traversal-fc">FC Name</label>
-        <input id="traversal-fc" type="text" placeholder="Asher Elias" value="Asher Elias"/>
+        <input id="traversal-fc" type="text" />
       </div>
 
       <div class="submit">

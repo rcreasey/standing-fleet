@@ -87,7 +87,7 @@ function updateWormholeTraversal(button, from, to) {
                               '<a href="javascript:CCPEVE.showInfo(5, ' + from + ')">' + Data.systems[from].name + '</a> ' + 
                               ' to ' +
                               '<a href="javascript:CCPEVE.showInfo(5, ' + to + ')">' + Data.systems[to].name + '</a> '}); 
-
+    WormholeMap.redraw();
   });
 }
 

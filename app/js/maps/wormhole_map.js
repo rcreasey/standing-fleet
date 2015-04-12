@@ -361,6 +361,20 @@ var WormholeMap = {
     }
   },
   
+  redraw: function() {
+    log('Redrawing System Map...');
+    Data.populate(function() {
+      Server.wormholes(function(error, data) {
+        Data.state.vicinity = data.current;
+        Data.regions = data.regions;
+        Data.systems = data.systems;
+        Data.jumps   = data.jumps;
+
+        WormholeMap.draw();
+      });
+    });
+  },
+  
   init: function() {
     log('Initializing Wormhole Map...');
     
