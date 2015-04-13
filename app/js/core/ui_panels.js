@@ -45,7 +45,7 @@ var UIPanels = {
       logo: true,
       fleets: [],
       formitems: [
-      {button: {class: 'submit-create', text: 'Create Fleet', onClick: 'UIPanels.showCreatePanel()'}},
+        {button: {class: 'submit-create', text: 'Create Fleet', onClick: 'UIPanels.showCreatePanel()'}},
         {button: {class: 'leave-fleet', text: 'Leave Standing Fleet', onClick: 'leaveFleet()'}}
       ],
       error: error,
@@ -65,9 +65,11 @@ var UIPanels = {
     var panel = {
       type: 'create',
       logo: true,
+      text: 'To create a private fleet, set a password',
       formitems: [
         {input:  {label: 'Fleet Name', id: 'create-fleet-name', class: 'submit-key'}},
         {input:  {label: 'Fleet Password', id: 'create-fleet-password', class: 'submit-key'}},
+        {input:  {label: 'Fleet Description', id: 'create-fleet-description', class: 'submit-key'}},
         {button: {class: 'submit-key', text: 'Create Fleet', onClick: 'createFleetButtonClick(this)'}},
         {submit: {class: 'submit-join', text: '<i class="fa fa-arrow-circle-left"></i> Go Back', onClick: 'UIPanels.showStartPanel()'}}
       ],

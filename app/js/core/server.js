@@ -83,8 +83,8 @@ var Server = {
     });
   },
 
-  createFleet: function (fleetName, fleetPassword, callback) {
-    Server.ajaxPost('/fleets/create', { fleetName: fleetName, fleetPassword: fleetPassword }, callback);
+  createFleet: function (name, password, description, callback) {
+    Server.ajaxPost('/fleets/create', { name: name, password: password, description: description }, callback);
   },
 
   leaveFleet: function (callback) {

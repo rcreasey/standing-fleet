@@ -6,9 +6,7 @@
     {{#if logo}}<img id="logo" src="/images/panel-logo.png" alt="Standing Fleet" />{{/if}}
     {{#if title}}<div class="text title">{{{title}}}</div>{{/if}}
   </div>
-  
-  <!-- <a class="button submit-create" onclick="UIPanels.showCreatePanel()">Create Fleet</a> -->
-  
+    
   <h2>Current Fleets</h2>
   <table>
     <thead>
@@ -35,6 +33,7 @@
     </tbody>
   </table>  
   
+  <a class="button submit-create" onclick="UIPanels.showCreatePanel()">Create Fleet</a>
   <a target="_blank" class="button submit-leave" onclick="leaveFleet()">Leave Fleet</a>
 
   {{#if footer}}

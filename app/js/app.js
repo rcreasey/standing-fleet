@@ -71,20 +71,19 @@ function initialize() {
 }
 
 function createFleetButtonClick(button) {
-  var fleetName = $('#create-fleet-name').val();
-  var fleetPassword = $('#create-fleet-password').val();
-  createFleet(fleetName, fleetPassword);
-}
+  var name = $('#create-fleet-name').val();
+  var password = $('#create-fleet-password').val();
+  var description = $('#create-fleet-description').val();
 
-function createFleet(fleetName, fleetPassword) {
   UIPanels.showLoadingPanel('Creating new fleet...', function () {
-    Server.createFleet(fleetName, fleetPassword, function(error, data) {
+    Server.createFleet(name, password, description, function(error, data) {
       if (error) {
         UIPanels.showCreatePanel(error);
         return;
       }
-
-      initialize();
+      console.log(data);
+      
+      Util.redirectToJoinPath(data.events.key, data.events.password);
     });
   });
 }
@@ -104,7 +103,7 @@ function joinFleet(fleetKey) {
         return;
       }
 
-      initialize();
+      Util.redirectToJoinPath(data.events.key);
     });
   });
 }
@@ -126,7 +125,7 @@ function submitPassword(fleetPassword) {
         return;
       }
 
-      initialize();
+      Util.redirectToJoinPath(fleetKey, fleetPassword);
     });
   });
 }

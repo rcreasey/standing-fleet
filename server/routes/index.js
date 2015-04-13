@@ -38,8 +38,11 @@ router.route('/overview')
   .get(application.overview);
 
 router.route('/join/:fleetKey/?')
-  .get(application.join)
-  
+  .get(application.join);
+
+router.route('/join/:fleetKey/:fleetPassword')
+  .get(application.join);
+
 router.route('/:fleetKey/?')
   .get(validate.headers)
   .get(application.index);

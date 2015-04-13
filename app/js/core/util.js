@@ -106,6 +106,14 @@ var Util = {
       + '/';
   },
 
+  redirectToJoinPath: function (fleetKey, password) {
+    window.location = location.protocol
+      + '//' + location.hostname
+      + (location.port ? ':' + location.port : '')
+      + '/join/' + fleetKey 
+      + (password ? '/' + password : '');
+  },
+  
   redirectToLoginPath: function () {
     window.location = location.protocol
       + '//' + location.hostname

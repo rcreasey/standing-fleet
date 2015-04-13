@@ -328,35 +328,28 @@ exports.poll = function(req, res, next) {
 };
 
 exports.create = function(req, res, next) {
-  // enforce premade fleets only
-  return response.error(res, 'create', 'Creating fleets is currently prohibited.');
 
   if (req.session.fleetKey || req.session.memberKey) { 
     return response.error(res, 'state', 'Please leave your current fleet before creating a new one');
   }
 
-  var fleetName = req.body.fleetName || false;
-  if ( !fleetName ) {
-    return response.error(res, 'create', 'Fleets must be created with a name.');
-  }
+  var name = req.body.name || false;
+  if ( !name ) { return response.error(res, 'create', 'Fleets must be created with a name.'); }
+  var password = req.body.password || false;
+  var description = req.body.description || 'Ad-hoc fleet';
 
-  var fleetPassword = req.body.fleetPassword || false;
-
-  if ( fleetPassword &&
-     ( fleetPassword.length > settings.fleetPasswordMaxLength || fleetPassword.length < settings.fleetPasswordMinLength)) {
+  if ( password &&
+     ( password.length > settings.fleetPasswordMaxLength || password.length < settings.fleetPasswordMinLength)) {
 
     return response.error(res, 'create',
       'Invalid password. Must consist of ' + settings.fleetPasswordMinLength + ' to ' + settings.fleetPasswordMaxLength + ' characters.');
   }
 
-  var fleet = Fleet.prepare(fleetName, fleetPassword);
-
-  Event.prepare('fleetCreated', fleet.key, { characterId: req.session.fleet.characterId, characterName: req.session.fleet.characterName })
-    .saveQ();
+  var fleet = new Fleet({name: name, password: password, description: description});
 
   fleet.saveQ()
     .then(function(result) {
-      return res.redirect('/' + fleet.key);
+      return response.success(res, result.toObject());
     })
     .catch(function(error) {
       console.log(error);
