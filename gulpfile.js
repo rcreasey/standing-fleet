@@ -254,6 +254,7 @@ gulp.task('sde:refresh', function(done) {
   // sde.close(function() {
   //   db.disconnect(done);
   // });
+  
 });
 
 gulp.task('sde:refresh:wormhole_classes', function(done) {
@@ -268,14 +269,14 @@ gulp.task('sde:refresh:wormhole_classes', function(done) {
 
   sde.each('SELECT solarsystemname,wormholeclassid FROM mapSolarSystems JOIN mapLocationWormholeClasses ON regionid=locationid WHERE regionID >= 11000001 ORDER by wormholeclassid;', function(err, row) {
     var data = {$set: {wormhole_class: row.wormholeClassID}, $unset: {security_class: 1}};
-    System.update({name: row.solarSystemName}, data, { multi: true }, function (err, numberAffected, raw) {
-      console.log(raw);
+    System.update({name: row.solarSystemName}, data, { multi: true }, function (err, affected, raw) {
+      console.log(affected);
     });
 
   });
 
   // sde.close(function() {
-  //   // db.disconnect(done);
+  //   db.disconnect(done);
   // });
 });
 
@@ -294,29 +295,10 @@ gulp.task('db:repair:0', function(done) {
   db.models.System.remove().execQ();
   db.models.Region.remove().execQ();
 
-    // db.disconnect(done);
+  db.disconnect(done);
 });
 
 gulp.task('db:repair:1', function(done) {
-  var mongoose = require('mongoose')
-    , _ = require('lodash')
-    , System = require('./server/models/system')
-    , Region = require('./server/models/region')
-    , Jump = require('./server/models/jump')
-    , map_data = require('./public/data/map.json')
-
-  var db = mongoose.connect(process.env.MONGODB_URL);
-  mongoose.set('debug', true);
-
-  _.forEach(map_data.Systems, function(data) {
-    var system = new System(data);
-    system.save();
-  });
-
-  // db.disconnect(done);
-});
-
-gulp.task('db:repair:2', function(done) {
   var mongoose = require('mongoose')
     , sqlite3 = require('sqlite3').verbose()
     , _ = require('lodash')
@@ -339,7 +321,7 @@ gulp.task('db:repair:2', function(done) {
   // });
 });
 
-gulp.task('db:repair:3', function(done) {
+gulp.task('db:repair:2', function(done) {
   var mongoose = require('mongoose')
     , _ = require('lodash')
     , System = require('./server/models/system')
@@ -349,10 +331,32 @@ gulp.task('db:repair:3', function(done) {
   mongoose.set('debug', true);
 
   _.forEach(wormholes.wormholes, function(wormhole) {
-    System.updateQ({name: wormhole.name}, {wormhole_data: {class: wormhole.class}}, {upsert: true}, function (err, numberAffected, raw) {
-      console.log(raw);
-    });
+    System.updateQ({name: wormhole.name}, {'wormhole_data.class': wormhole.class}, {upsert: true}, function (err, affected, raw) {
+      console.log(affected);
+    })
   });
 
   // db.disconnect(done);
+});
+
+gulp.task('db:repair:3', function(done) {
+  var mongoose = require('mongoose')
+    , _ = require('lodash')
+    , System = require('./server/models/system')
+    , map_data = require('./public/data/map.json')
+
+  var db = mongoose.connect(process.env.MONGODB_URL);
+  mongoose.set('debug', true);
+
+  _.forEach(map_data.Systems, function(data) {
+    System.updateQ({name: data.name}, {x: data.x, y: data.y}, {upsert: true}, function(err, affected, raw) {
+      console.log(affected)
+    })
+  });
+
+  // db.disconnect(done);
+});
+
+gulp.task('db:reset', function(done) {
+  sequence('db:repair:0', 'sde:refresh', 'sde:refresh:wormhole_classes', 'db:repair:1', 'db:repair:2', 'db:repair:3', done);
 });
