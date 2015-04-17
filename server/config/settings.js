@@ -18,7 +18,7 @@ module.exports = function () {
     sessionTtl: 86400,
 
     fleets: [
-      {name: 'CFC',  description: 'The Clusterfuck Coalition'}
+      {name: 'The Imperium',  description: 'Annuit cœptis Ave Imperium'}
     ],
 
     minPollInterval: 0,
