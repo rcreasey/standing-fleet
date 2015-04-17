@@ -2,7 +2,7 @@ var Util = {
 
   compareRegion: function( pilot ) {
     try {
-      return Data.systems[ pilot.systemId ].regionID === Data.state.vicinity.regionId;      
+      return Data.systems[ pilot.systemId ].regionID === Data.state.vicinity.regionId;
     } catch(e) {
       return false;
     }

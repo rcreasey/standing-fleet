@@ -394,13 +394,18 @@ exports.report = function(req, res, next) {
           hostile.systemId = report.systemId;
           hostile.systemName = report.systemName;
 
-          Hostile.findOneAndUpdateQ({characterId: hostile.characterId}, hostile, {upsert: true})
+          Hostile.findOneAndUpdate({characterId: hostile.characterId}, hostile, {new: true, upsert: true})
+            .lean()
+            .execQ()
             .then(function(result) {
-              if (!result) throw 'Error updating hostile: ' + hostile.characterName;
-
-              report.hostiles.push(result.toObject());
+              if (!result) { throw 'Error updating hostile: ' + hostile.characterName; }
+              
+              delete result._id;
+              delete result.__v;
+              
+              report.hostiles.push(result);
               report.saveQ();
-              batch.resolve(result.toObject());
+              batch.resolve(result);
             })
             .catch(function(error) {
               batch.reject(error);
@@ -411,7 +416,8 @@ exports.report = function(req, res, next) {
           })
         )
         .then(function(hostiles) {
-          Event.prepare('reportHostile', report.fleetKey, hostiles).saveQ();
+          var event = Event.prepare('reportHostile', report.fleetKey, hostiles);
+          event.saveQ();
 
           return response.success(res);
         })
