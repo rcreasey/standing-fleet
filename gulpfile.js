@@ -137,12 +137,12 @@ gulp.task('watch', function () {
 
 // [ build ]--------------------------------------------------------------------
 gulp.task('build:download', function(done) {
-  var downloadatomshell = require('gulp-download-atom-shell');
-
-  return downloadatomshell({
-    version: '0.22.3',
-    outputDir: 'build'
-  }, done);
+  var atomshell = require('gulp-atom-shell');
+  
+  return atomshell({ 
+    platform: require('os').platform(),
+    version: '0.23.0' 
+  });
 });
 
 gulp.task('build:clean', function(done) {
