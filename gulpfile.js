@@ -170,7 +170,7 @@ gulp.task('build:dist', function(done) {
   return gulp.src('client/**')
     .pipe(atomshell({ 
       platform: require('os').platform(),
-      version: '0.22.3' 
+      version: '0.23.0' 
     }))
     .pipe(atomshell.zfsdest('public/clients/client-' + require('os').platform() + '-' + package.version + '.zip'), done);
 });
