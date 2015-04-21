@@ -75,7 +75,7 @@
   },
   "devDependencies": {
     "blanket": "^1.1.6",
-    "gulp-atom-shell": "^0.2.0",
+    "gulp-atom-shell": "^0.6.0",
     "mocha": "^2.2.1",
     "passport-stub": "^1.0.1",
     "should": "^5.2.0",
