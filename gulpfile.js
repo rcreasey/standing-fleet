@@ -136,47 +136,37 @@ gulp.task('watch', function () {
 });
 
 // [ build ]--------------------------------------------------------------------
-gulp.task('build:download', function(done) {
-  var atomshell = require('gulp-atom-shell');
-  
-  return atomshell({ 
-    platform: require('os').platform(),
-    version: '0.23.0' 
-  });
-});
-
-gulp.task('build:clean', function(done) {
-  var path = /^win/.test(require('os').platform()) ? './build/resources/' : './build/Atom.app/Contents/Resources/';
-
-  return gulp.src([path + 'default_app', path + 'app'])
-    .pipe(vinylPaths(del), done);
-});
-
 gulp.task('build:prepare:fonts', function(done) {
+  return done();
   return gulp.src('public/fonts/**')
     .pipe(gulp.dest('client/fonts'), done);
 });
 
-gulp.task('build:prepare', function(done) {
-  var path = /^win/.test(require('os').platform()) ? './build/resources/app' : './build/Atom.app/Contents/Resources/app';
+gulp.task('build:dist', function(done) {
+  var electron = require('gulp-atom-shell');
 
   return gulp.src('client/**')
-    .pipe(gulp.dest(path), done);
+    .pipe(electron({ 
+      platform: require('os').platform(),
+      version: package.engines.electron 
+    }))
+    .pipe(electron.zfsdest('public/clients/client-' + require('os').platform() + '-' + package.version + '.zip'), done);
 });
 
-gulp.task('build:dist', function(done) {
-  var atomshell = require('gulp-atom-shell');
+gulp.task('build:extract', function(done) {
+  var unzip = require('gulp-unzip');
 
-  return gulp.src('client/**')
-    .pipe(atomshell({ 
-      platform: require('os').platform(),
-      version: '0.22.3' 
-    }))
-    .pipe(atomshell.zfsdest('public/clients/client-' + require('os').platform() + '-' + package.version + '.zip'), done);
+  return gulp.src('public/clients/client-' + require('os').platform() + '-' + package.version + '.zip')
+    .pipe(unzip())
+    .pipe(gulp.dest('./build'), done);
+});
+
+gulp.task('build:clean', function(done) {
+  return del(['./build/*'], done);
 });
 
 gulp.task('build', function(done) {
-  return sequence('prepare', 'build:download', 'build:clean', 'build:prepare:fonts', 'build:prepare', done);
+  return sequence('prepare', 'build:prepare:fonts', 'build:dist', 'build:clean', 'build:extract', done);
 });
 
 gulp.task('build:release', function(done) {
