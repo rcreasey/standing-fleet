@@ -193,7 +193,7 @@ exports.vicinity = function(req, res, next){
     .lean()
     .execQ()
     .then(function(region) {
-      if (!region) throw 'Invalid Region: ' + region_name;
+      if (!region) { throw 'Invalid Region: ' + region_name; }
       vicinity.current.regionId = region.id;
       vicinity.regions[region.id] = region;
 
@@ -212,7 +212,7 @@ exports.vicinity = function(req, res, next){
       // Concurrently find the systems and jumps in that region
       Q.all(tasks)
         .then(function(results) {
-          var system = _.find(results[0], function(system) { return system.id == vicinity.current.systemId; });          
+          var system = _.find(results[0], function(system) { return system.id === vicinity.current.systemId; });          
           vicinity.current.constellationID = (system !== undefined) ? system.constellationID : null;
           
           vicinity.jumps = _.map(results[1], function(jump) {
@@ -221,9 +221,9 @@ exports.vicinity = function(req, res, next){
           
           // filter out wormhole jumps that do not match the current constellation
           vicinity.jumps = _.filter(vicinity.jumps, function(j) {
-            if (j.type == 'wormhole') {
-              if (j.toConstellation == vicinity.current.constellationID || 
-                  j.fromConstellation == vicinity.current.constellationID) {
+            if (j.type === 'wormhole') {
+              if (j.toConstellation === vicinity.current.constellationID || 
+                  j.fromConstellation === vicinity.current.constellationID) {
                     return true;
               } else {
                 return false;
@@ -237,7 +237,7 @@ exports.vicinity = function(req, res, next){
           // filter out wormholes that are not connected to anything (other than the current system)
           _.each(results[0], function(system) { 
             if (system.is_wspace()) {
-              if (system.id == vicinity.current.systemId || _.contains(vicinity.jumps, system.id) ) {
+              if (system.id === vicinity.current.systemId || _.contains(vicinity.jumps, system.id) ) {
                 vicinity.systems[system.id] = system;               
               }
             } else {
@@ -247,8 +247,8 @@ exports.vicinity = function(req, res, next){
 
           // Return a list of system ids that are referenced from the jump data
           return _.filter(vicinity.jumps, function(jump) {
-            if (jump.toRegion != region.id) return jump.toSystem;
-            else if (jump.fromRegion != region.id) return jump.fromSystem;
+            if (jump.toRegion !== region.id) { return jump.toSystem; }
+            else if (jump.fromRegion !== region.id) { return jump.fromSystem; }
           });
         })
         .then(function(systems) {
@@ -307,6 +307,9 @@ exports.update_jump = function(req, res, next){
     .catch(function(error) {
       console.log(error);
       return response.error(res, 'map', error);
+    })
+    .done(function() {
+      next();
     });
 };
 
