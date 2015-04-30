@@ -12,10 +12,10 @@ app.on('window-all-closed', function() {
 
 app.on('ready', function() {
   mainWindow = new BrowserWindow({
-    width: 375,
-    height: 445
+    width: 400,
+    height: 450
   });
-  
+
   // mainWindow.openDevTools({detach: true});
   mainWindow.loadUrl(path.join('file://', __dirname, '../index.html'));
   mainWindow.on('closed', function() { mainWindow = null; });
