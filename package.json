@@ -17,6 +17,7 @@
     }
   },
   "engines": {
+    "electron": "0.23.0",
     "node": "0.12.x"
   },
   "dependencies": {

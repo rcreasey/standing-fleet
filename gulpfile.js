@@ -138,10 +138,10 @@ gulp.task('watch', function () {
 // [ build ]--------------------------------------------------------------------
 gulp.task('build:download', function(done) {
   var atomshell = require('gulp-atom-shell');
-  
-  return atomshell({ 
+
+  return atomshell({
     platform: require('os').platform(),
-    version: '0.23.0' 
+    version: package.engines.electron
   });
 });
 
@@ -168,9 +168,9 @@ gulp.task('build:dist', function(done) {
   var atomshell = require('gulp-atom-shell');
 
   return gulp.src('client/**')
-    .pipe(atomshell({ 
+    .pipe(atomshell({
       platform: require('os').platform(),
-      version: '0.23.0' 
+      version: package.engines.electron
     }))
     .pipe(atomshell.zfsdest('public/clients/client-' + require('os').platform() + '-' + package.version + '.zip'), done);
 });
@@ -254,7 +254,7 @@ gulp.task('sde:refresh', function(done) {
   // sde.close(function() {
   //   db.disconnect(done);
   // });
-  
+
 });
 
 gulp.task('sde:refresh:wormhole_classes', function(done) {
