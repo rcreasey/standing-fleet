@@ -171,7 +171,7 @@ gulp.task('build', function(done) {
 });
 
 gulp.task('build:release', function(done) {
-  return sequence('prepare', 'build:prepare:fonts', 'build:dist', done);
+  return sequence('prepare', 'build:prepare:fonts', 'build:prepare', 'build:dist', done);
 });
 
 
