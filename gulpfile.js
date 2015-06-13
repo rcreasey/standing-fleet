@@ -209,6 +209,7 @@ gulp.task('sde:refresh', function(done) {
     , sde = new sqlite3.Database('./sde/sqlite-latest.sqlite')
   mongoose.set('debug', true);
 
+  debugger
   // map data
   sde.each('select * from mapSolarSystemJumps', function(err, row) {
     jump = {toSystem: row.toSolarSystemID, fromSystem: row.fromSolarSystemID,
