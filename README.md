@@ -8,22 +8,10 @@ https://standing-fleet.apps.goonswarm.org/
 
 ## Docker development
 
-Run and link dependency containers:
+Run with [docker compose](https://docs.docker.com/compose/):
 
 ```
-$ docker run -d --name db mongo 
-$ docker run -d --name cache memcached
-```
-
-Build the standing-fleet container:
-
-```
-$ docker build -t standing-fleet .
-```
-
-Run the standing-fleet container with linked dependency containers:
-```
-$ docker run --rm --link db:db --link cache:cache --name standing-fleet -p 80:5000 -it standing-fleet
+$ docker-compose up -d 
 ```
 
 Connect to your docker host on port 80 (below is the default boot2docker ip)

@@ -1,0 +1,11 @@
+app:
+  build: .
+  links:
+   - db
+   - cache
+  ports:
+   - "80:5000"
+db:
+  image: mongo
+cache: 
+  image: memcached
