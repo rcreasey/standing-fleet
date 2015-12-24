@@ -1,5 +1,5 @@
 PORT=5000
-MONGODB_URL=mongodb://127.0.0.1:27017/standing-fleet-test
+MONGO_URL=mongodb://127.0.0.1:27017/standing-fleet-test
 COOKIE_SECRET=dickbowls
 SESSION_SECRET=bowlsofdick
 CROWD_AUTHTOKEN=d0bcca12599a8952c4de1a7d023ae95f0f32f42e6990aa35fa165c9a583a56c7398cd6cf1fb23e0ba07e756d0f240bab21ecf5e8fc6f328ed86f397e2d0a3b74

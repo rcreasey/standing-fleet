@@ -6,7 +6,7 @@ module.exports = function () {
   var pub = {};
 
   pub.init = function() {
-    mongoose.connect(process.env.MONGODB_URL);
+    mongoose.connect(process.env.MONGO_URL);
     if (process.env.NODE_ENV === 'development') mongoose.set('debug', true);
     cache(mongoose, 
       {memServers: process.env.MEMCACHE_SERVERS, cache: false, 

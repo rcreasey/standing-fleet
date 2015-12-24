@@ -1,6 +1,6 @@
 module.exports = function () {
   var settings = {
-    db: process.env.MONGODB_URL,
+    db: process.env.MONGO_URL,
     domain: 'https://standing-fleet.apps.goonswarm.org/',
 
     port: process.env.PORT || 5000,

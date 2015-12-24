@@ -8,7 +8,7 @@ ENV CROWD_USERNAME=standingfleet
 ENV NODE_ENV=development
 ENV PORT=5000
 ENV SESSION_SECRET=bowlsofdick
-ENV MONGODB_URL=mongodb://db/standing-fleet
+ENV MONGO_URL=mongodb://db/standing-fleet
 ENV MEMCACHE_SERVERS=cache:11211
 
 EXPOSE 5000

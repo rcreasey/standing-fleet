@@ -12,5 +12,5 @@ before(function(done) {
     db = mongoose.connection;
     return done();
   }
-  db = mongoose.connect(config.db.mongodb_url), done;
+  db = mongoose.connect(config.db.MONGO_URL), done;
 });

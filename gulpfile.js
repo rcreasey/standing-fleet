@@ -205,7 +205,7 @@ gulp.task('sde:refresh', function(done) {
   , Ship = require('./server/models/ship')
   , map_data = require('./public/data/map.json')
 
-  var db = mongoose.connect(process.env.MONGODB_URL)
+  var db = mongoose.connect(process.env.MONGO_URL)
     , sde = new sqlite3.Database('./sde/sqlite-latest.sqlite')
   mongoose.set('debug', true);
 
@@ -254,7 +254,7 @@ gulp.task('sde:refresh:wormhole_classes', function(done) {
     , mongoose = require('mongoose')
     , System = require('./server/models/system')
 
-  var db = mongoose.connect(process.env.MONGODB_URL)
+  var db = mongoose.connect(process.env.MONGO_URL)
     , sde = new sqlite3.Database('./sde/sqlite-latest.sqlite')
 
   mongoose.set('debug', true);
@@ -280,7 +280,7 @@ gulp.task('db:repair:0', function(done) {
     , Jump = require('./server/models/jump')
     , map_data = require('./public/data/map.json')
 
-  var db = mongoose.connect(process.env.MONGODB_URL);
+  var db = mongoose.connect(process.env.MONGO_URL);
   mongoose.set('debug', true);
 
   db.models.Jump.remove().execQ();
@@ -297,7 +297,7 @@ gulp.task('db:repair:1', function(done) {
     , System = require('./server/models/system')
     , sde = new sqlite3.Database('./sde/sqlite-latest.sqlite')
 
-  var db = mongoose.connect(process.env.MONGODB_URL);
+  var db = mongoose.connect(process.env.MONGO_URL);
   mongoose.set('debug', true);
 
   sde.each('select * from mapSolarSystems', function(err, row) {
@@ -319,7 +319,7 @@ gulp.task('db:repair:2', function(done) {
     , System = require('./server/models/system')
     , wormholes = require('./test/fixtures/wormholes.json')
 
-  var db = mongoose.connect(process.env.MONGODB_URL);
+  var db = mongoose.connect(process.env.MONGO_URL);
   mongoose.set('debug', true);
 
   _.forEach(wormholes.wormholes, function(wormhole) {
@@ -337,7 +337,7 @@ gulp.task('db:repair:3', function(done) {
     , System = require('./server/models/system')
     , map_data = require('./public/data/map.json')
 
-  var db = mongoose.connect(process.env.MONGODB_URL);
+  var db = mongoose.connect(process.env.MONGO_URL);
   mongoose.set('debug', true);
 
   _.forEach(map_data.Systems, function(data) {

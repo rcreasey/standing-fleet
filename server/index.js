@@ -63,7 +63,7 @@ app.use(session({
   saveUninitialized: false,
   resave: true,
   store: new sessionStore({ 
-    url: process.env.MONGODB_URL,
+    url: process.env.MONGO_URL,
     stringify: false,
     ttl: settings.sessionTtl
   })
